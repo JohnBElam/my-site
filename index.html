@@ -1,0 +1,95 @@
+---
+layout: default
+title: Home
+description: Decision systems, Bit Bros, and building systems that ship.
+---
+
+<section class="hero" id="hero">
+  <h1 class="hero-title">{{ site.title }}</h1>
+  <p class="hero-tagline">{{ site.description }}</p>
+  <div class="hero-actions">
+    <a href="#about" class="btn btn-primary">View My Work</a>
+    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+    <a href="#" class="btn btn-ghost">Resume</a>
+  </div>
+</section>
+
+<section class="stats-strip" aria-label="Highlights">
+  <ul class="stats-list">
+    <li><span class="stat-value">13+</span> <span class="stat-label">Years Experience</span></li>
+    <li><span class="stat-value">4</span> <span class="stat-label">Books Published</span></li>
+    <li><span class="stat-value">Bit Bros</span> <span class="stat-label">Co-Founder</span></li>
+    <li><span class="stat-label">Decision Systems</span> <span class="stat-value">Philosophy</span></li>
+  </ul>
+</section>
+
+<section class="section section-about" id="about">
+  <h2 class="section-title">About Me</h2>
+  <div class="section-content prose">
+    <p>Applied decision scientist with a focus on building systems that ship — not dashboards that sit. Co-founder of <strong>Bit Bros LLC</strong>, where we publish handbooks on optimization and career development, and consult on decision intelligence.</p>
+    <p>Multi-faceted: author, practitioner, and advocate for a <a href="{{ '/philosophy.html' | relative_url }}">Decision Systems Philosophy</a> that puts uncertainty and real-world outcomes at the center. Not interested in models that live in notebooks; only systems that run in production and drive decisions.</p>
+  </div>
+</section>
+
+<blockquote class="pullquote">
+  The world doesn't need another dashboard. It needs <strong>decision systems</strong> that embrace uncertainty, run in production, and make money while you sleep.
+</blockquote>
+
+<section class="section section-bitbros" id="bitbros">
+  <h2 class="section-title">Bit Bros</h2>
+  <div class="section-content prose">
+    <p>Co-founded <strong>Bit Bros LLC</strong> to bring practitioner-first resources to optimization and data careers. We publish the MILP Optimization Handbooks, career guides, and consult on decision intelligence for organizations adopting optimization and AI.</p>
+    <p><a href="{{ '/bitbros.html' | relative_url }}" class="link-cta">Learn more about Bit Bros</a></p>
+  </div>
+</section>
+
+<section class="section section-books" id="books">
+  <h2 class="section-title">Books & Publications</h2>
+  <p class="section-intro">Published under Bit Bros LLC and beyond.</p>
+  <div class="books-grid">
+    {% for book in site.data.books %}
+      {% include book_card.html book=book %}
+    {% endfor %}
+  </div>
+  <p class="section-cta"><a href="{{ '/books.html' | relative_url }}" class="link-cta">View all books</a></p>
+</section>
+
+<section class="section section-blog" id="blog">
+  <h2 class="section-title">Blog</h2>
+
+  <h3 class="subsection-title">Latest (on-site)</h3>
+  <ul class="post-list">
+    {% for post in site.posts limit: 5 %}
+    <li class="post-list-item">
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%b %d, %Y" }}</time>
+      {% if post.excerpt %}<p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% if site.posts.size > 0 %}<p><a href="{{ '/blog.html' | relative_url }}" class="link-cta">All posts</a></p>{% endif %}
+
+  <h3 class="subsection-title">Writing elsewhere</h3>
+  {% include external_links_list.html %}
+</section>
+
+<section class="section section-philosophy" id="philosophy-preview">
+  <h2 class="section-title">Decision Systems Philosophy</h2>
+  <div class="section-content prose">
+    <p>A growing set of ideas about decisions under uncertainty: policies over plans, systems that ship, and why the best decision science is practitioner-first. Start with the manifesto and explore the essays as they grow.</p>
+    <p><a href="{{ '/philosophy.html' | relative_url }}" class="link-cta">Read more</a></p>
+  </div>
+</section>
+
+<section class="section section-contact" id="contact">
+  <h2 class="section-title">Get In Touch</h2>
+  <div class="section-content prose">
+    <p>Interested in optimization consulting, speaking, or collaboration? Let's connect.</p>
+    <ul class="contact-links">
+      <li><a href="mailto:you@example.com">Email</a></li>
+      <li><a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="#">Calendly</a></li>
+    </ul>
+  </div>
+</section>

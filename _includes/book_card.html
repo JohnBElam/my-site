@@ -1,0 +1,17 @@
+<article class="book-card">
+  <a href="{{ include.book.url }}" target="_blank" rel="noopener" class="book-card-link">
+    <div class="book-card-cover">
+      {% if include.book.cover %}
+      <img src="{{ include.book.cover | relative_url }}" alt="Cover: {{ include.book.title }}" loading="lazy">
+      {% else %}
+      <div class="book-card-placeholder" aria-hidden="true">{{ include.book.title | slice: 0 }}</div>
+      {% endif %}
+    </div>
+    <div class="book-card-body">
+      <span class="book-card-year">{{ include.book.year }}</span>
+      <h3 class="book-card-title">{{ include.book.title }}</h3>
+      <p class="book-card-one-liner">{{ include.book.one_liner }}</p>
+      <span class="book-card-cta">View on Amazon</span>
+    </div>
+  </a>
+</article>

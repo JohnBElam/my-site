@@ -1,0 +1,26 @@
+---
+layout: default
+title: Blog
+description: Essays and writing — on-site and elsewhere.
+---
+
+<article class="page blog-page">
+  <header class="page-header">
+    <h1 class="page-title">Blog</h1>
+    <p class="page-lead">Latest posts and essays.</p>
+  </header>
+
+  <ul class="post-list post-list-full">
+    {% for post in site.posts %}
+    <li class="post-list-item">
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%b %d, %Y" }}</time>
+      {% if post.philosophy %}<span class="post-tag">Philosophy</span>{% endif %}
+      {% if post.excerpt %}<p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 200 }}</p>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+
+  <h2 class="subsection-title">Writing elsewhere</h2>
+  {% include external_links_list.html %}
+</article>

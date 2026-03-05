@@ -1,0 +1,38 @@
+# Personal website — Jekyll config for GitHub Pages
+title: Your Name
+description: Decision systems, Bit Bros, and building systems that ship.
+baseurl: "/my-site"
+url: "https://johnbelam.github.io"
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# GitHub Pages defaults
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# Collections (optional — for philosophy essays as a collection later)
+# collections:
+#   philosophy:
+#     output: true
+#     permalink: /philosophy/:path/
+
+# Data files
+# _data/books.yml
+# _data/external_links.yml
+
+# Build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
+  - .git
+  - .gitignore
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap

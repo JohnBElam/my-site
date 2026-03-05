@@ -1,0 +1,8 @@
+<ul class="external-links-list">
+  {% for item in site.data.external_links %}
+  <li class="external-link-item">
+    <a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.title }}</a>
+    <span class="external-link-meta">{{ item.platform }} · {{ item.date | date: "%b %Y" }}</span>
+  </li>
+  {% endfor %}
+</ul>

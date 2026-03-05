@@ -1,0 +1,18 @@
+---
+layout: default
+title: Books
+description: Books and publications from Bit Bros and beyond.
+---
+
+<article class="page books-page">
+  <header class="page-header">
+    <h1 class="page-title">Books & Publications</h1>
+    <p class="page-lead">Published under Bit Bros LLC and elsewhere.</p>
+  </header>
+
+  <div class="books-grid">
+    {% for book in site.data.books %}
+      {% include book_card.html book=book %}
+    {% endfor %}
+  </div>
+</article>

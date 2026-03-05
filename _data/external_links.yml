@@ -1,0 +1,9 @@
+# Writing elsewhere — add your Medium, Substack, LinkedIn articles here.
+- title: "Example post on Medium"
+  url: "https://medium.com/example"
+  platform: "Medium"
+  date: "2025-02-01"
+- title: "Example post on Substack"
+  url: "https://yoursubstack.substack.com/example"
+  platform: "Substack"
+  date: "2025-01-15"
