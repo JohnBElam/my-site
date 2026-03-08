@@ -1,8 +1,10 @@
 # Personal website — Jekyll config for GitHub Pages
-title: Your Name
-description: Decision systems, Bit Bros, and building systems that ship.
+title: John Brandon Elam
+description: Made Decisions, Not Dashboards.
 baseurl: "/my-site"
 url: "https://johnbelam.github.io"
+# Formspree form ID — get one at https://formspree.io (form emails you without exposing your address)
+formspree_id: ""
 markdown: kramdown
 highlighter: rouge
 permalink: pretty

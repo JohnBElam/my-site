@@ -1,9 +1,6 @@
-# Writing elsewhere — add your Medium, Substack, LinkedIn articles here.
-- title: "Example post on Medium"
-  url: "https://medium.com/example"
-  platform: "Medium"
-  date: "2025-02-01"
-- title: "Example post on Substack"
-  url: "https://yoursubstack.substack.com/example"
-  platform: "Substack"
-  date: "2025-01-15"
+# Writing elsewhere — your Medium (Decision Systems + Gaming Is Good). Add titles and URLs from https://medium.com/@john-elam
+# Example:
+# - title: "Agile Theater"
+#   url: "https://medium.com/@john-elam/your-article-slug"
+#   platform: "Medium"
+#   date: "2025-01-01"
