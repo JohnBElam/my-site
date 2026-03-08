@@ -10,7 +10,7 @@ description: Make Decisions, Not Dashboards. Decision systems, games, honest thi
   <div class="hero-actions">
     <a href="#about" class="btn btn-primary">About</a>
     <a href="#book" class="btn btn-secondary">The Decision Factory</a>
-    <a href="#writing" class="btn btn-ghost">Writing</a>
+    <a href="#blog" class="btn btn-ghost">Blog</a>
     <a href="#contact" class="btn btn-ghost">Get In Touch</a>
   </div>
 </section>
@@ -82,8 +82,8 @@ description: Make Decisions, Not Dashboards. Decision systems, games, honest thi
   </div>
 </section>
 
-<section class="section section-writing reveal" id="writing">
-  <h2 class="section-title">Writing</h2>
+<section class="section section-writing reveal" id="blog">
+  <h2 class="section-title">Blog</h2>
   <p class="section-intro">Decision systems essays and <em>Gaming Is Good</em> — game reviews that connect play to professional decision-making.</p>
 
   <h3 class="subsection-title">Latest (on-site)</h3>
@@ -97,9 +97,6 @@ description: Make Decisions, Not Dashboards. Decision systems, games, honest thi
     {% endfor %}
   </ul>
   {% if site.posts.size > 0 %}<p><a href="{{ '/blog.html' | relative_url }}" class="link-cta">All posts</a></p>{% endif %}
-
-  <h3 class="subsection-title">Elsewhere (Medium)</h3>
-  {% include external_links_list.html %}
 </section>
 
 <section class="section section-testimonials reveal" id="testimonials">
@@ -131,14 +128,22 @@ description: Make Decisions, Not Dashboards. Decision systems, games, honest thi
 </section>
 
 <section class="section section-contact reveal" id="contact">
-  <h2 class="section-title">Get In Touch</h2>
-  <div class="section-content prose">
-    <p>Interested in decision systems, product leadership, or collaboration? Send a message — it'll reach me without exposing my inbox to the world.</p>
-    {% include contact_form.html %}
-    <p class="contact-socials">
-      <a href="https://linkedin.com/in/johnbleam" target="_blank" rel="noopener">LinkedIn</a> ·
-      <a href="https://medium.com/@john-elam" target="_blank" rel="noopener">Medium</a> ·
-      <a href="https://github.com/johnbelam" target="_blank" rel="noopener">GitHub</a>
-    </p>
+  <div class="contact-layout">
+    <div class="contact-main prose">
+      <h2 class="section-title">Get In Touch</h2>
+      <p>Interested in decision systems, product leadership, or collaboration? Send a message — it'll reach me without exposing my inbox to the world.</p>
+      {% include contact_form.html %}
+      <p class="contact-socials">
+        <a href="https://linkedin.com/in/johnbleam" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon">{% include icon-linkedin.svg %}</a>
+        <a href="https://medium.com/@john-elam" target="_blank" rel="noopener" aria-label="Medium" class="social-icon">{% include icon-medium.svg %}</a>
+        <a href="https://github.com/johnbelam" target="_blank" rel="noopener" aria-label="GitHub" class="social-icon">{% include icon-github.svg %}</a>
+      </p>
+    </div>
+    <div class="contact-map" aria-hidden="true">
+      <div class="map-usa-wrap">
+        <img src="{{ '/assets/images/dallas-texas-map.png' | relative_url }}" alt="" width="280" height="auto" class="map-usa-img" loading="lazy">
+        <span class="map-label">Dallas, TX</span>
+      </div>
+    </div>
   </div>
 </section>

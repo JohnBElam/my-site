@@ -231,12 +231,7 @@ body {
 .marquee {
   display: flex;
   width: max-content;
-  animation: marquee 35s linear infinite;
-}
-
-.marquee-wrap:hover .marquee,
-.marquee-wrap.marquee-paused .marquee {
-  animation-play-state: paused;
+  will-change: transform;
 }
 
 .marquee span {
@@ -251,10 +246,6 @@ body {
   color: var(--color-text);
 }
 
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
 
 /* ----- Scroll reveal (initial state) ----- */
 .reveal {
@@ -731,6 +722,62 @@ body {
 }
 
 /* ----- Contact ----- */
+.section-contact {
+  max-width: 900px;
+}
+
+.contact-layout {
+  display: flex;
+  gap: var(--space-2xl);
+  align-items: flex-start;
+  margin-top: var(--space-lg);
+}
+
+.contact-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.contact-map {
+  flex-shrink: 0;
+  width: 280px;
+}
+
+.map-usa-wrap {
+  overflow: hidden;
+}
+
+.map-usa-svg,
+.map-usa-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.map-label {
+  display: block;
+  text-align: center;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  margin-top: var(--space-sm);
+  font-weight: 500;
+}
+
+.contact-map .map-label:empty {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .contact-layout {
+    flex-direction: column;
+  }
+
+  .contact-map {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
 .contact-form {
   max-width: 28rem;
   margin: var(--space-lg) 0;
@@ -792,17 +839,26 @@ body {
 
 .contact-socials {
   margin-top: var(--space-xl);
-  font-size: 0.9375rem;
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
 }
 
-.contact-socials a {
-  color: var(--color-accent);
+.contact-socials .social-icon {
+  display: inline-flex;
+  color: var(--color-text);
   text-decoration: none;
-  font-weight: 500;
+  transition: color 0.2s, opacity 0.2s;
 }
 
-.contact-socials a:hover {
-  text-decoration: underline;
+.contact-socials .social-icon:hover {
+  color: var(--color-accent);
+}
+
+.contact-socials .social-icon svg {
+  width: 24px;
+  height: 24px;
+  display: block;
 }
 
 .contact-links {

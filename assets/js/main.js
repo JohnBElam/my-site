@@ -20,16 +20,37 @@
     });
   }
 
-  // ----- Marquee: pause on hover -----
-  var marqueeWrap = document.querySelector('.marquee-wrap');
-  if (marqueeWrap) {
-    marqueeWrap.addEventListener('mouseenter', function () {
-      marqueeWrap.classList.add('marquee-paused');
-    });
-    marqueeWrap.addEventListener('mouseleave', function () {
-      marqueeWrap.classList.remove('marquee-paused');
-    });
-  }
+  // ----- Marquee: JS-driven so hover only changes speed (no restart) -----
+  (function () {
+    var wrap = document.querySelector('.marquee-wrap');
+    var track = document.querySelector('.marquee');
+    if (!wrap || !track) return;
+
+    var speed = 0.9;
+    var slowSpeed = 0.15;
+    var offset = 0;
+    var halfWidth = 0;
+    var rafId = null;
+    var isHover = false;
+
+    function measure() {
+      halfWidth = track.offsetWidth / 2;
+    }
+
+    function tick() {
+      offset -= isHover ? slowSpeed : speed;
+      if (offset <= -halfWidth) offset += halfWidth;
+      track.style.transform = 'translateX(' + offset + 'px)';
+      rafId = requestAnimationFrame(tick);
+    }
+
+    wrap.addEventListener('mouseenter', function () { isHover = true; });
+    wrap.addEventListener('mouseleave', function () { isHover = false; });
+
+    window.addEventListener('resize', measure);
+    measure();
+    rafId = requestAnimationFrame(tick);
+  })();
 
   // ----- Scroll reveal: add .is-visible when element enters view -----
   var revealEls = document.querySelectorAll('.reveal');
