@@ -8,7 +8,10 @@
       {% endif %}
     </div>
     <div class="book-card-body">
-      <span class="book-card-year">{{ include.book.year }}</span>
+      <div class="book-card-meta">
+        <span class="book-card-year">{{ include.book.year }}</span>
+        {% if include.book.best_seller %}<span class="book-badge book-badge--bestseller">Best Seller</span>{% endif %}
+      </div>
       <h3 class="book-card-title">{{ include.book.title }}</h3>
       <p class="book-card-one-liner">{{ include.book.one_liner }}</p>
       <span class="book-card-cta">View on Amazon</span>

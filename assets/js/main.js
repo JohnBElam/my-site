@@ -1,6 +1,14 @@
 (function () {
   'use strict';
 
+  // ----- Prevent scroll-to-bottom on load (restoration or form focus) -----
+  if (typeof history !== 'undefined' && history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+  window.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 0); });
+  window.addEventListener('load', function () { window.scrollTo(0, 0); });
+
   // ----- Mobile nav toggle -----
   var toggle = document.querySelector('.nav-toggle');
   var menu = document.querySelector('.nav-menu');
@@ -41,6 +49,35 @@
     revealEls.forEach(function (el) {
       el.classList.add('is-visible');
     });
+  }
+
+  // ----- Testimonials carousel: auto-scroll + dots -----
+  var carousel = document.querySelector('[data-carousel]');
+  if (carousel) {
+    var slides = carousel.querySelectorAll('[data-slide]');
+    var dots = carousel.querySelectorAll('[data-dot]');
+    var current = 0;
+    var total = slides.length;
+
+    function goTo(index) {
+      current = (index + total) % total;
+      slides.forEach(function (slide, i) {
+        slide.classList.toggle('is-active', i === current);
+      });
+      dots.forEach(function (dot, i) {
+        dot.classList.toggle('is-active', i === current);
+      });
+    }
+
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () {
+        goTo(i);
+      });
+    });
+
+    setInterval(function () {
+      goTo(current + 1);
+    }, 5500);
   }
 
   // ----- Typing effect on hero tagline -----

@@ -1,6 +1,6 @@
 # Personal website — Jekyll config for GitHub Pages
 title: John Brandon Elam
-description: Made Decisions, Not Dashboards.
+description: Make Decisions, Not Dashboards.
 baseurl: "/my-site"
 url: "https://johnbelam.github.io"
 # Formspree form ID — get one at https://formspree.io (form emails you without exposing your address)

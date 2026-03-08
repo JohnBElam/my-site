@@ -4,6 +4,7 @@
   cover: "/assets/images/books/decision-factory.png"
   url: "https://www.amazon.com/Decision-Factory-Novel-Decisions-Uncertainty/dp/B0GN94GQXG/"
   year: "2025"
+  best_seller: true
 - title: "You Got the Data Job... Now What?"
   one_liner: "Bit Bros' Blueprint to Data Careers: Strategies for Thriving in Your Data Career."
   cover: "/assets/images/books/data-job-now-what.png"

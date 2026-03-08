@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Home
-description: Made Decisions, Not Dashboards. Decision systems, games, honest thinking.
+description: Make Decisions, Not Dashboards. Decision systems, games, honest thinking.
 ---
 
 <section class="hero" id="hero">
@@ -17,8 +17,8 @@ description: Made Decisions, Not Dashboards. Decision systems, games, honest thi
 
 <section class="marquee-wrap" aria-hidden="true">
   <div class="marquee">
-    <span>Decision Systems</span><span>·</span><span>The Decision Factory</span><span>·</span><span>Gaming Is Good</span><span>·</span><span>Bit Bros</span><span>·</span><span>Made Decisions, Not Dashboards</span><span>·</span>
-    <span>Decision Systems</span><span>·</span><span>The Decision Factory</span><span>·</span><span>Gaming Is Good</span><span>·</span><span>Bit Bros</span><span>·</span><span>Made Decisions, Not Dashboards</span><span>·</span>
+    <span>Decision Systems</span><span>·</span><span>The Decision Factory</span><span>·</span><span>Gaming Is Good</span><span>·</span><span>Bit Bros</span><span>·</span><span>Make Decisions, Not Dashboards</span><span>·</span>
+    <span>Decision Systems</span><span>·</span><span>The Decision Factory</span><span>·</span><span>Gaming Is Good</span><span>·</span><span>Bit Bros</span><span>·</span><span>Make Decisions, Not Dashboards</span><span>·</span>
   </div>
 </section>
 
@@ -29,9 +29,7 @@ description: Made Decisions, Not Dashboards. Decision systems, games, honest thi
       <img src="{{ '/assets/images/author/john-corgi.png' | relative_url }}" alt="John Brandon Elam" width="280" height="280" loading="lazy">
     </div>
     <div class="section-content prose about-text">
-    <p>I'm a multi-faceted technologist with a working knowledge of a dozen or so domains: supply chain, telecommunications, manufacturing, product development, operations research, behavioral economics, learning and development, video games and board games — and I like to fancy myself a philosopher.</p>
-    <p>My career has been a linear progression from engineer to TPM to Product Owner to Product Leader. Colleagues and co-workers describe me as kind, curious, and fierce.</p>
-    <p>I co-authored <strong><a href="#book">The Decision Factory</a></strong> with Adam DeJans (foreword by Warren Powell, Princeton). We co-founded <strong>Bit Bros LLC</strong> to bring practitioner-first resources to decision intelligence and data careers.</p>
+    <p>I'm John Brandon Elam, a Decision Systems leader with $290M+ in documented profit impact at Toyota. I write, consult, and teach one idea: decisions can be engineered. My books (Bit Bros) and <em>Gaming Is Good</em> series are where that idea meets practice.</p>
     </div>
   </div>
 </section>
@@ -40,17 +38,41 @@ description: Made Decisions, Not Dashboards. Decision systems, games, honest thi
   Fuzzy language produces fuzzy thinking. Fuzzy thinking produces fuzzy decisions. I write for people who want to <strong>communicate</strong>, not just sound smart.
 </blockquote>
 
+<section class="section section-up-to reveal" id="up-to">
+  <h2 class="section-title">What I'm Up To</h2>
+  <ul class="up-to-list">
+    <li class="up-to-item">
+      <span class="up-to-lead">Leading Decision Intelligence at Toyota</span>
+      <span class="up-to-detail">Optimization products have driven $290M+ in documented profit impact.</span>
+    </li>
+    <li class="up-to-item">
+      <span class="up-to-lead">Writing the <em>Gaming Is Good</em> series</span>
+      <span class="up-to-detail">Connecting game mechanics to real decision-making skills.</span>
+    </li>
+    <li class="up-to-item">
+      <span class="up-to-lead">Speaking at DecisionCAMP this fall</span>
+      <span class="up-to-detail">On Decision Systems Management.</span>
+    </li>
+    <li class="up-to-item">
+      <span class="up-to-lead">Riding and wrenching</span>
+      <span class="up-to-detail">On one of my three motorcycles.</span>
+    </li>
+  </ul>
+</section>
+
 <section class="section section-book reveal" id="book">
-  <h2 class="section-title">The Decision Factory</h2>
-  <p class="section-intro">A novel about decisions under uncertainty. Amazon #1 Best Seller in Business Operations Research. Foreword by Warren B. Powell, Princeton University.</p>
+  <h2 class="section-title">Published Books</h2>
+  <div class="section-content prose books-intro">
+    <p>Bit Bros publishes books for technical professionals who want to do more than execute—they want to lead, build, and decide.</p>
+    <p><strong>You Got the Data Job... Now What?</strong> is for early to mid-career data professionals who are good at the technical work but struggling to make it matter. The skills that get you hired are not the same ones that get you promoted. This book covers the gap: how to communicate, influence, navigate organizations, and build a career that compounds.</p>
+    <p><strong>The Decision Factory</strong> is for anyone who has ever watched a great model sit unused, a perfect forecast get ignored, or an "optimal" plan collapse on day one. It does not matter if you are a data scientist, an operations leader, a product manager, or an executive. If you are responsible for decisions that happen at scale, under uncertainty, with real consequences, this book was written for you.</p>
+    <p>Together they cover the full arc: how to grow as a professional, and how to build systems that actually work.</p>
+  </div>
   <div class="books-grid">
     {% for book in site.data.books %}
       {% include book_card.html book=book %}
     {% endfor %}
   </div>
-  {% if site.data.books.size > 1 %}
-  <p class="section-cta"><a href="{{ '/books.html' | relative_url }}" class="link-cta">All books</a></p>
-{% endif %}
 </section>
 
 <section class="section section-bitbros reveal" id="bitbros">
@@ -78,6 +100,34 @@ description: Made Decisions, Not Dashboards. Decision systems, games, honest thi
 
   <h3 class="subsection-title">Elsewhere (Medium)</h3>
   {% include external_links_list.html %}
+</section>
+
+<section class="section section-testimonials reveal" id="testimonials">
+  <h2 class="section-title">What People Say</h2>
+  <div class="testimonials-carousel" data-carousel>
+    <div class="testimonials-track">
+      {% for t in site.data.testimonials %}
+      <blockquote class="testimonial {% if forloop.first %}is-active{% endif %}" data-slide>
+        <div class="testimonial-inner">
+          {% if t.photo %}
+          <div class="testimonial-photo">
+            <img src="{{ '/assets/images/testimonials/' | relative_url }}{{ t.photo }}" alt="" width="120" height="120" loading="lazy">
+          </div>
+          {% endif %}
+          <div class="testimonial-content">
+            <p class="testimonial-quote">"{{ t.quote }}"</p>
+            <footer class="testimonial-attribution">{{ t.attribution }}</footer>
+          </div>
+        </div>
+      </blockquote>
+      {% endfor %}
+    </div>
+    <div class="testimonials-dots" aria-label="Testimonial navigation">
+      {% for t in site.data.testimonials %}
+      <button type="button" class="testimonial-dot {% if forloop.first %}is-active{% endif %}" data-dot aria-label="Go to testimonial {{ forloop.index }}"></button>
+      {% endfor %}
+    </div>
+  </div>
 </section>
 
 <section class="section section-contact reveal" id="contact">
