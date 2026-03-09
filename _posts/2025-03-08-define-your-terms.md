@@ -88,7 +88,7 @@ When someone says "we need an agentic AI solution" in a meeting, there's no equi
 
 In games, form without function fails visibly, immediately, and undeniably. You can't talk your way out of a supply chain collapse. In professional settings, form without function can succeed for years because the feedback loop is broken or nonexistent.
 
-This is one of the core ideas behind what I call "Gaming Is Good." Strategic games aren't just recreation. They're training environments for a specific and undervalued skill: building real understanding of systems, not just the vocabulary to describe them. The game forces you out of the 95% because the 95% approach doesn't work when the system talks back.
+This is one of the core ideas behind what I call [Gaming Is Good](https://medium.com/me/following-feed/publications/72b46825141f). Strategic games aren't just recreation. They're training environments for a specific and undervalued skill: building real understanding of systems, not just the vocabulary to describe them. The game forces you out of the 95% because the 95% approach doesn't work when the system talks back.
 
 ## The Real Payoff of Understanding
 

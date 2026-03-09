@@ -360,6 +360,24 @@ body {
   margin: 0 0 var(--space-lg);
 }
 
+.bitbros-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.bitbros-title-row .section-title {
+  margin-bottom: 0;
+}
+
+.bitbros-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
 .section-intro,
 .section-cta {
   margin: 0 0 var(--space-lg);
@@ -399,6 +417,29 @@ body {
 }
 
 /* ----- What I'm Up To ----- */
+.up-to-layout {
+  display: flex;
+  gap: var(--space-2xl);
+  align-items: flex-start;
+}
+
+.up-to-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.up-to-photo {
+  flex-shrink: 0;
+  width: 280px;
+}
+
+.up-to-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
 .up-to-list {
   list-style: none;
   margin: 0;
@@ -406,7 +447,7 @@ body {
 }
 
 .up-to-item {
-  padding: var(--space-lg) 0;
+  padding: var(--space-md) 0;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -431,6 +472,18 @@ body {
   display: block;
   font-size: 0.9375rem;
   color: var(--color-text-muted);
+}
+
+@media (max-width: 768px) {
+  .up-to-layout {
+    flex-direction: column;
+  }
+
+  .up-to-photo {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
 }
 
 /* ----- What People Say (testimonials carousel) ----- */

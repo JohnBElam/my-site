@@ -26,7 +26,7 @@
     var track = document.querySelector('.marquee');
     if (!wrap || !track) return;
 
-    var speed = 0.9;
+    var speed = 0.6;
     var slowSpeed = 0.15;
     var offset = 0;
     var halfWidth = 0;
