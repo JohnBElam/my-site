@@ -1,7 +1,15 @@
 <ul class="external-links-list">
   {% for item in site.data.external_links %}
+  {% assign raw_external_url = item.url | default: "" | strip %}
+  {% assign raw_external_url_downcase = raw_external_url | downcase %}
+  {% assign external_http_prefix = raw_external_url_downcase | slice: 0, 7 %}
+  {% assign external_https_prefix = raw_external_url_downcase | slice: 0, 8 %}
+  {% assign safe_external_url = "#" %}
+  {% if external_http_prefix == "http://" or external_https_prefix == "https://" %}
+    {% assign safe_external_url = raw_external_url %}
+  {% endif %}
   <li class="external-link-item">
-    <a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.title }}</a>
+    <a href="{{ safe_external_url | escape }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
     <span class="external-link-meta">{{ item.platform }} · {{ item.date | date: "%b %Y" }}</span>
   </li>
   {% endfor %}

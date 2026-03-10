@@ -1,5 +1,8 @@
-{% if site.formspree_id != nil and site.formspree_id != "" %}
-<form class="contact-form" action="https://formspree.io/f/{{ site.formspree_id }}" method="post">
+{% assign formspree_id = site.formspree_id | default: "" | strip %}
+{% if formspree_id != "" %}
+<form class="contact-form" action="https://formspree.io/f/{{ formspree_id | url_encode }}" method="post" accept-charset="UTF-8">
+  <label for="contact-company" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;">Leave this field empty</label>
+  <input type="text" id="contact-company" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;">
   <label for="contact-name">Name</label>
   <input type="text" id="contact-name" name="name" required autocomplete="name">
   <label for="contact-email">Your email</label>
@@ -11,5 +14,5 @@
   <button type="submit" class="btn btn-primary">Send message</button>
 </form>
 {% else %}
-<p class="contact-form-placeholder"><strong>Contact form:</strong> Add your <code>formspree_id</code> to <code>_config.yml</code> (get a free form at <a href="https://formspree.io" target="_blank" rel="noopener">formspree.io</a> — messages will be emailed to you without exposing your address).</p>
+<p class="contact-form-placeholder"><strong>Contact form:</strong> Add your <code>formspree_id</code> to <code>_config.yml</code> (get a free form at <a href="https://formspree.io" target="_blank" rel="noopener noreferrer">formspree.io</a> — messages will be emailed to you without exposing your address).</p>
 {% endif %}

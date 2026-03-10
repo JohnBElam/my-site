@@ -79,26 +79,50 @@
     var dots = carousel.querySelectorAll('[data-dot]');
     var current = 0;
     var total = slides.length;
+    var autoAdvanceId = null;
 
-    function goTo(index) {
-      current = (index + total) % total;
-      slides.forEach(function (slide, i) {
-        slide.classList.toggle('is-active', i === current);
-      });
+    if (total) {
+      function goTo(index) {
+        current = (index + total) % total;
+        slides.forEach(function (slide, i) {
+          slide.classList.toggle('is-active', i === current);
+        });
+        dots.forEach(function (dot, i) {
+          dot.classList.toggle('is-active', i === current);
+        });
+      }
+
       dots.forEach(function (dot, i) {
-        dot.classList.toggle('is-active', i === current);
+        dot.addEventListener('click', function () {
+          goTo(i);
+        });
       });
+
+      function startAutoAdvance() {
+        if (total < 2 || autoAdvanceId) return;
+        autoAdvanceId = setInterval(function () {
+          goTo(current + 1);
+        }, 5500);
+      }
+
+      function stopAutoAdvance() {
+        if (!autoAdvanceId) return;
+        clearInterval(autoAdvanceId);
+        autoAdvanceId = null;
+      }
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          stopAutoAdvance();
+        } else {
+          startAutoAdvance();
+        }
+      });
+
+      window.addEventListener('beforeunload', stopAutoAdvance);
+      goTo(0);
+      startAutoAdvance();
     }
-
-    dots.forEach(function (dot, i) {
-      dot.addEventListener('click', function () {
-        goTo(i);
-      });
-    });
-
-    setInterval(function () {
-      goTo(current + 1);
-    }, 5500);
   }
 
   // ----- Typing effect on hero tagline -----
