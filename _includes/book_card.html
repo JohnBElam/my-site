@@ -1,5 +1,13 @@
 <article class="book-card">
-  <a href="{{ include.book.url }}" target="_blank" rel="noopener" class="book-card-link">
+  {% assign raw_book_url = include.book.url | default: "" | strip %}
+  {% assign raw_book_url_downcase = raw_book_url | downcase %}
+  {% assign book_http_prefix = raw_book_url_downcase | slice: 0, 7 %}
+  {% assign book_https_prefix = raw_book_url_downcase | slice: 0, 8 %}
+  {% assign safe_book_url = "#" %}
+  {% if book_http_prefix == "http://" or book_https_prefix == "https://" %}
+    {% assign safe_book_url = raw_book_url %}
+  {% endif %}
+  <a href="{{ safe_book_url | escape }}" target="_blank" rel="noopener noreferrer" class="book-card-link">
     <div class="book-card-cover">
       {% if include.book.cover %}
       <img src="{{ include.book.cover | relative_url }}" alt="Cover: {{ include.book.title }}" loading="lazy">
