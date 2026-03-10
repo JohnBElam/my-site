@@ -670,8 +670,9 @@ body {
 .book-card-meta {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: var(--space-sm);
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin-bottom: var(--space-xs);
 }
 
