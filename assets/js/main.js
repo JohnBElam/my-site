@@ -79,6 +79,7 @@
     var dots = carousel.querySelectorAll('[data-dot]');
     var current = 0;
     var total = slides.length;
+    var section = carousel.closest('section');
 
     function goTo(index) {
       current = (index + total) % total;
@@ -95,6 +96,18 @@
         goTo(i);
       });
     });
+
+    // When the section scrolls into view, show Warren (slide 0) first
+    if (section && 'IntersectionObserver' in window) {
+      var testimonialObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            goTo(0);
+          }
+        });
+      }, { threshold: 0.2 });
+      testimonialObserver.observe(section);
+    }
 
     setInterval(function () {
       goTo(current + 1);
