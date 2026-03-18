@@ -8,6 +8,8 @@
   --color-text-muted: #555;
   --color-accent: #2563eb;
   --color-accent-hover: #1d4ed8;
+  --color-scripture-accent: #b8922a;
+  --color-scripture-accent-hover: #d4a843;
   --color-border: #e5e7eb;
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -68,8 +70,11 @@ body {
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 400;
+  line-height: 1;
   color: var(--color-text);
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
 }
 
 .nav-brand:hover {
@@ -78,20 +83,49 @@ body {
 
 .nav-menu {
   display: flex;
+  align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
   gap: var(--space-lg);
 }
 
+.nav-menu li {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
 .nav-menu a {
   color: var(--color-text-muted);
   text-decoration: none;
   font-size: 0.9375rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
 }
 
 .nav-menu a:hover {
   color: var(--color-accent);
+}
+
+/* Distinct “tab” link for the scripture section */
+.nav-menu a.nav-tab {
+  color: var(--color-text-muted);
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 999px;
+  background: rgba(184, 146, 42, 0.06);
+  border: 1px solid rgba(184, 146, 42, 0.18);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.nav-menu a.nav-tab:hover {
+  color: var(--color-scripture-accent-hover);
+  background: rgba(184, 146, 42, 0.10);
+  border-color: rgba(212, 168, 67, 0.4);
 }
 
 .nav-toggle {

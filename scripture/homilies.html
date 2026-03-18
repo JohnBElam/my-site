@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Three Homilies | Decision Gospel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0e0c09;
+      --parchment: #f5f0e8;
+      --gold: #b8922a;
+      --gold-light: #d4a843;
+      --gold-dim: #7a5f1a;
+      --red: #8b1a1a;
+      --muted: #5a5040;
+      --border: #c9b97a;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--ink);
+      color: var(--parchment);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 19px;
+      line-height: 1.85;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--gold-dim);
+      background: rgba(14,12,9,0.97);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav a {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 14px 16px;
+      transition: color 0.2s, background 0.2s;
+      border-right: 1px solid rgba(184,146,42,0.15);
+    }
+    nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
+    nav a:hover, nav a.active { color: var(--gold-light); background: rgba(184,146,42,0.05); }
+
+    .page-header {
+      text-align: center;
+      padding: 72px 24px 56px;
+      border-bottom: 1px solid rgba(184,146,42,0.2);
+      position: relative;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(184,146,42,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .breadcrumb {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 32px;
+      display: block;
+    }
+    .breadcrumb a { color: var(--gold-dim); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--gold-light); }
+
+    .page-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 400;
+      color: var(--parchment);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .page-intro {
+      font-style: italic;
+      color: var(--gold);
+      font-size: 1rem;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+    }
+
+    /* HOMILY TABS */
+    .tab-nav {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid rgba(184,146,42,0.25);
+      margin: 56px 0 0;
+    }
+    .tab-btn {
+      font-family: 'IM Fell English', serif;
+      font-size: 1rem;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 14px 28px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      margin-bottom: -1px;
+    }
+    .tab-btn:hover { color: var(--gold-light); }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    .tab-panel { display: none; padding: 56px 0 0; }
+    .tab-panel.active { display: block; }
+
+    /* SERMON STYLES */
+    .sermon-title {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 400;
+      color: var(--parchment);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .sermon-subtitle {
+      font-style: italic;
+      color: var(--gold-dim);
+      font-size: 0.95rem;
+      font-family: 'Courier Prime', monospace;
+      letter-spacing: 0.05em;
+      margin-bottom: 40px;
+      display: block;
+    }
+
+    .sermon-rule {
+      border: none;
+      border-top: 1px solid rgba(184,146,42,0.2);
+      margin: 40px 0;
+    }
+
+    p { margin-bottom: 1.4em; }
+
+    em { color: var(--gold-light); font-style: italic; }
+
+    .drop-cap::first-letter {
+      font-family: 'IM Fell English', serif;
+      font-size: 4.5rem;
+      float: left;
+      line-height: 0.75;
+      margin: 6px 10px -4px 0;
+      color: var(--gold);
+    }
+
+    .sermon-close {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      color: var(--gold-dim);
+      text-align: center;
+      margin-top: 48px;
+      font-size: 1.1rem;
+    }
+
+    /* FOOTER */
+    .page-footer {
+      border-top: 1px solid var(--gold-dim);
+      text-align: center;
+      padding: 40px 24px;
+      margin-top: 40px;
+    }
+    .page-footer a {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      text-decoration: none;
+      margin: 0 12px;
+      transition: color 0.2s;
+    }
+    .page-footer a:hover { color: var(--gold-light); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .tab-panel.active { animation: fadeUp 0.4s ease both; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Canon</a>
+  <a href="homilies.html" class="active">Homilies</a>
+  <a href="sins.html">Sins</a>
+  <a href="commandments.html">Commandments</a>
+  <a href="beatitudes.html">Beatitudes</a>
+  <a href="false-prophets.html">False Prophets</a>
+  <a href="congregation.html">Congregation</a>
+  <a href="heresies.html">Heresies</a>
+</nav>
+
+<div class="page-header">
+  <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / The Homilies</span>
+  <span class="page-label">The First Texts</span>
+  <h1>The Three Homilies</h1>
+  <p class="page-intro">Sermons delivered from the mount. Diagnosis, confession, and parable. The founding proclamations of the faith.</p>
+</div>
+
+<main>
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('h1', this)">First Homily</button>
+    <button class="tab-btn" onclick="showTab('h2', this)">Second Homily</button>
+    <button class="tab-btn" onclick="showTab('h3', this)">Third Homily</button>
+  </div>
+
+  <!-- HOMILY I -->
+  <div id="h1" class="tab-panel active">
+    <h2 class="sermon-title">The First Homily of the Church of Sequential Decision Systems</h2>
+    <span class="sermon-subtitle">On diagnosis · The seeing problem</span>
+
+    <p class="drop-cap">Brothers and sisters, we have a problem.</p>
+    <p>Not a data problem. Not a talent problem. Not a tools problem.</p>
+    <p>A seeing problem.</p>
+    <p>The organizations of this world are drowning in dashboards and starving for decisions. They have hired armies of analysts. They have purchased platforms. They have run workshops. They have aligned stakeholders. They have built, Lord help them, centers of excellence.</p>
+    <p>And still they ask the wrong question.</p>
+    <p>They walk into the room and they say: <em>what does the data tell us?</em></p>
+    <p>And I am here to tell you, on this day, that the data tells you nothing. The data sits there. Patient. Indifferent. Waiting for someone to ask it something worth answering.</p>
+    <p>You have to bring the question.</p>
+    <p>That is Step One. That has always been Step One. And for fifteen years, an entire industry looked at Step One and said, we'll come back to that, and went straight to Step Four, and built something, and shipped it, and measured it, and called it transformation.</p>
+    <p>We know what happened next.</p>
+    <p>We have all been in that meeting.</p>
+    <hr class="sermon-rule">
+    <p>The way is not complicated. It was never complicated. It only feels complicated because we were taught to fear the silence before the spreadsheet opens. We were taught that uncertainty is a gap to be filled with data, not a structure to be named and worked.</p>
+    <p>The way is this:</p>
+    <p>Name the decision. Frame the problem. Design the solution. Source the data. Build the thing. Return to the beginning.</p>
+    <p>Six steps. A cycle. Not a project plan. Not a methodology deck. A discipline. Something you do until it becomes the way you see.</p>
+    <p>This is what we preach.</p>
+    <p>Not because it is new. Warren Powell did not discover something new. He named something ancient: that every consequential choice has a structure, and that structure can be revealed, and that revealing it before you act is the entire game.</p>
+    <p>The heretics will tell you speed is the virtue. That you iterate your way to clarity. That done is better than defined.</p>
+    <p>We do not cast them out. We pray for them.</p>
+    <p>We have seen what they build.</p>
+    <hr class="sermon-rule">
+    <p>If you are here, you already felt something was wrong. You sat in the room where they announced the model was ready and the question still had not been asked. You watched the dashboard go live and watched the decisions stay the same.</p>
+    <p>You are not crazy.</p>
+    <p>You are just early.</p>
+    <p>The Decision Factory is our text. Not because it has all the answers. Because it asks, chapter by chapter, the question that keeps getting skipped.</p>
+    <p><em>What are we actually trying to decide?</em></p>
+    <p>Go now. Take it back to your organizations. Ask the uncomfortable question before the data loads. Sit in the silence.</p>
+    <p>That silence is not emptiness.</p>
+    <p>That is where the work begins.</p>
+    <div class="sermon-close">— End of the First Homily —</div>
+  </div>
+
+  <!-- HOMILY II -->
+  <div id="h2" class="tab-panel">
+    <h2 class="sermon-title">The Second Homily of the Church of Sequential Decision Systems</h2>
+    <span class="sermon-subtitle">On confession · What we did before we knew better</span>
+
+    <p class="drop-cap">I want to confess something on behalf of all of us.</p>
+    <p>We loved the data.</p>
+    <p>We did. We were not innocent. When the platforms came, when the warehouses filled, when the dashboards bloomed across every wall of every operations center in every company that could afford the software, we were there. We believed. We thought: this is it. This is the thing that changes everything.</p>
+    <p>We were so sure the answer was in there somewhere.</p>
+    <p>We just had to look harder. Query better. Visualize differently. Hire someone who understood Python. Hire someone who understood the business. Hire someone who understood both. Run the model again. Slice it another way.</p>
+    <p>And somewhere in that decade, quietly, without anyone calling a meeting about it, the question got lost.</p>
+    <p>Not deleted. Not rejected. Just... skipped.</p>
+    <p>Because the data was right there. And the question was hard. And the stakeholders were impatient. And the quarter was ending. And we had a tool that could produce an answer in forty-five seconds, and we had a decision that needed to be made, and it felt close enough.</p>
+    <p>It was not close enough.</p>
+    <hr class="sermon-rule">
+    <p>I am not here to condemn the analysts. They were handed a hammer and told to fix the house and nobody told them what was wrong with it.</p>
+    <p>I am here to name what was lost.</p>
+    <p>The decision. The actual, specific, consequential choice that someone in that organization needed to make, that would change something real, that had a cost if made badly and a payoff if made well. That thing. The thing that should have been written at the top of the page before anything else. The thing that would have told you which data mattered and which data was just noise dressed up in a pivot table.</p>
+    <p>That thing was skipped.</p>
+    <p>It is still being skipped.</p>
+    <p>In your organization, right now, there is a team three weeks into a project that has not yet written down what decision they are supporting. They have a timeline. They have a Jira board. They have stakeholder alignment. They have access to the data warehouse.</p>
+    <p>They do not have a decision frame.</p>
+    <p>They will deliver something. It will be real and it will be expensive and it will be used in a presentation and then it will age quietly in a folder until someone asks why nothing changed.</p>
+    <hr class="sermon-rule">
+    <p>This is not a technology problem.</p>
+    <p>This is a liturgical problem.</p>
+    <p>We forgot the order of the service. We started with the offering before the invocation. We skipped the scripture and went straight to the collection plate.</p>
+    <p>The order matters.</p>
+    <p>Name the decision first. Frame what you are optimizing, what you are trading, what success looks like before the model runs. Do the hard slow work of sitting with the problem before you solve it.</p>
+    <p>Step One is not a formality.</p>
+    <p>Step One is the whole thing.</p>
+    <p>Everything else is just evidence.</p>
+    <p>Go back. Go all the way back. I know the timeline is tight. I know the project is already in flight. I know someone has already promised something to someone.</p>
+    <p>Go back anyway.</p>
+    <p>That is not failure. That is the discipline.</p>
+    <p>That is what we practice here.</p>
+    <div class="sermon-close">— End of the Second Homily —</div>
+  </div>
+
+  <!-- HOMILY III -->
+  <div id="h3" class="tab-panel">
+    <h2 class="sermon-title">The Third Homily of the Church of Sequential Decision Systems</h2>
+    <span class="sermon-subtitle">On parable · The bridge to nowhere</span>
+
+    <p class="drop-cap">Let me tell you about the man who built the perfect bridge.</p>
+    <p>He spent two years on it. The engineering was immaculate. The materials were sourced well. The team was skilled and the project came in under budget, which never happens, and everyone celebrated, and the photos were good, and the case study was written.</p>
+    <p>The bridge connected the north side of the valley to the south side of the valley.</p>
+    <p>No one lived on the north side.</p>
+    <p>No one had ever lived on the north side.</p>
+    <p>There was no road on the south side that led anywhere the north side needed to go.</p>
+    <p>The bridge was perfect. The bridge was correct. The bridge was, by every internal measure of bridge-building, a success.</p>
+    <p>And it connected nothing to nothing, beautifully, on time, under budget, forever.</p>
+    <hr class="sermon-rule">
+    <p>I have seen this bridge. You have seen this bridge. Some of you have built this bridge. Some of you are building it right now, and the ribbon cutting is in Q3, and the slides are already drafted.</p>
+    <p>We do not build bridges here.</p>
+    <p>We ask first: where does someone need to go? What is stopping them? What would change if that barrier were removed? Who decides? What do they need to believe to act differently?</p>
+    <p>Only then do we reach for the steel.</p>
+    <p>This is not caution. This is not slowness for the sake of slowness. The organizations that practice this discipline do not move slower. They move with less waste. They build fewer perfect bridges to nowhere. They spend the same energy and arrive somewhere that matters.</p>
+    <hr class="sermon-rule">
+    <p>The enemy is not complexity.</p>
+    <p>The enemy is not bad data.</p>
+    <p>The enemy is the moment, early in every project, when the room is full of smart people and someone opens a laptop and pulls up the dataset and everyone orients toward the screen and the question, the actual question, the question that should be on the whiteboard in large letters before anything else happens, floats up and away and is never spoken.</p>
+    <p>That moment has a name.</p>
+    <p>We call it the skip.</p>
+    <p>The skip feels like progress. The skip has the energy of action. The skip produces artifacts: queries, models, visualizations, decks. The skip is comfortable because it moves and motion feels like work and work feels like value.</p>
+    <p>The skip is how you build the bridge to nowhere.</p>
+    <hr class="sermon-rule">
+    <p>The antidote is not a framework. Frameworks can be skipped too. We have watched people fill out the problem framing template while skipping the problem framing.</p>
+    <p>The antidote is a posture.</p>
+    <p>It is the willingness to be the person in the room who says, before the laptop opens, before the data pulls, before the model runs: <em>wait. What are we deciding? Who decides it? What would have to be true for them to decide differently?</em></p>
+    <p>That person is uncomfortable to be.</p>
+    <p>That person saves the project.</p>
+    <p>We are training that person. That is the entire ministry. Not the tools. Not the methods. Not the six steps, though the six steps matter. The person who has practiced the posture long enough that it is no longer brave to ask the question. It is just what they do.</p>
+    <p>It is just how they see.</p>
+    <hr class="sermon-rule">
+    <p>Somewhere right now, a team is three weeks from launch on a model that will be technically correct and operationally useless, and one person in that team has a feeling, a quiet nagging sense that something upstream was never resolved, and they are deciding whether to say something.</p>
+    <p>Say something.</p>
+    <p>The bridge is not worth finishing if it goes nowhere.</p>
+    <p>Go back to the beginning.</p>
+    <p>Ask the question that should have been asked first.</p>
+    <p>That is the whole gospel.</p>
+    <p>That is all we have ever preached.</p>
+    <div class="sermon-close">— End of the Third Homily —</div>
+  </div>
+
+</main>
+
+<div class="page-footer">
+  <a href="index.html">← Canon</a>
+  <a href="sins.html">The Sins →</a>
+</div>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>

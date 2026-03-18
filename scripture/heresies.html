@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Heresies | Decision Gospel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --ink: #0e0c09; --parchment: #f5f0e8; --gold: #b8922a; --gold-light: #d4a843; --gold-dim: #7a5f1a; --red: #8b1a1a; --muted: #5a5040; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--ink); color: var(--parchment); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; line-height: 1.85; }
+
+    nav { display: flex; justify-content: center; flex-wrap: wrap; border-bottom: 1px solid var(--gold-dim); background: rgba(14,12,9,0.97); position: sticky; top: 0; z-index: 100; }
+    nav a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 14px 16px; transition: color 0.2s; border-right: 1px solid rgba(184,146,42,0.15); }
+    nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
+    nav a:hover, nav a.active { color: var(--gold-light); }
+
+    .page-header { text-align: center; padding: 72px 24px 56px; border-bottom: 1px solid rgba(184,146,42,0.2); position: relative; }
+    .page-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(139,26,26,0.07) 0%, transparent 70%); pointer-events: none; }
+    .breadcrumb { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 32px; display: block; }
+    .breadcrumb a { color: var(--gold-dim); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold-light); }
+    .page-label { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 16px; display: block; }
+    h1 { font-family: 'IM Fell English', serif; font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 400; color: var(--parchment); line-height: 1.15; margin-bottom: 20px; }
+    .page-intro { font-style: italic; color: var(--gold); font-size: 1rem; max-width: 540px; margin: 0 auto; }
+
+    main { max-width: 720px; margin: 0 auto; padding: 0 24px 100px; }
+
+    .heresy-entry { padding: 56px 0; border-bottom: 1px solid rgba(184,146,42,0.1); }
+    .heresy-entry:last-child { border-bottom: none; }
+
+    .heresy-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .heresy-title {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 400;
+      color: var(--parchment);
+      margin-bottom: 28px;
+      line-height: 1.2;
+    }
+
+    p { margin-bottom: 1.3em; }
+    em { color: var(--gold-light); font-style: italic; }
+
+    .closing-note {
+      font-style: italic;
+      color: var(--gold);
+      text-align: center;
+      padding: 56px 0 0;
+      font-size: 1.05rem;
+      line-height: 1.9;
+    }
+
+    .page-footer { border-top: 1px solid var(--gold-dim); text-align: center; padding: 40px 24px; }
+    .page-footer a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim); text-decoration: none; margin: 0 12px; transition: color 0.2s; }
+    .page-footer a:hover { color: var(--gold-light); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    main { animation: fadeUp 0.6s ease both; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Canon</a>
+  <a href="homilies.html">Homilies</a>
+  <a href="sins.html">Sins</a>
+  <a href="commandments.html">Commandments</a>
+  <a href="beatitudes.html">Beatitudes</a>
+  <a href="false-prophets.html">False Prophets</a>
+  <a href="congregation.html">Congregation</a>
+  <a href="heresies.html" class="active">Heresies</a>
+</nav>
+
+<div class="page-header">
+  <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / The Heresies</span>
+  <span class="page-label">The Named</span>
+  <h1>The Book of Heresies</h1>
+  <p class="page-intro">False gospels, their adherents, and the specific ways they lead the faithful astray. We do not condemn the heretics. We condemn the ideas.</p>
+</div>
+
+<main>
+
+  <div class="heresy-entry">
+    <span class="heresy-label">The First Heresy</span>
+    <h2 class="heresy-title">The Prosperity Gospel of Big Data</h2>
+    <p>In the beginning of the age, a great promise was made.</p>
+    <p>Collect enough data, the preachers said, and the answers will emerge. Build the warehouse. Fill the lake. Instrument everything. And when you have enough, when the data is sufficiently large and sufficiently clean, truth will rise from it like steam, and you will see clearly, and the decisions will make themselves.</p>
+    <p>This is a lie. It is a comfortable lie. It is a lie that has consumed billions of dollars and a generation of analytical talent and produced, in many organizations, extremely well-organized uncertainty.</p>
+    <p>Data does not generate questions. Data does not know what you are trying to decide. Data has no awareness of your constraints, your stakeholders, your tradeoffs, or the specific moment in your organization's history when a particular choice needs to be made.</p>
+    <p>Data waits. It has always waited.</p>
+    <p>The heresy is not in collecting data. The heresy is in believing the collection is the work. It is in building the cathedral and forgetting to hold the service.</p>
+    <p>The data lake is not the gospel. It is the concordance. You still have to know what you are looking for.</p>
+  </div>
+
+  <div class="heresy-entry">
+    <span class="heresy-label">The Second Heresy</span>
+    <h2 class="heresy-title">The Cult of the Dashboard</h2>
+    <p>You will know this heresy by its temples.</p>
+    <p>They are large screens. They are mounted in operations centers and executive briefing rooms and sometimes, inexplicably, in lobbies. They are full of numbers. The numbers are green when things are good and red when things are bad and amber when the system is not sure, which is most of the time.</p>
+    <p>And in the organizations where they have taken deepest root, the dashboard has become the decision. Not the input to the decision. The decision itself. The numbers are green, therefore we are fine. The numbers are red, therefore we must act. No one asks what action. No one asks what the red number actually means in the context of the problem that was framed eighteen months ago by someone who has since left the company.</p>
+    <p>The heresy produces a specific kind of organizational behavior the congregation will recognize: the meeting where everyone stares at the same number and no one can agree on what to do about it, because no one ever agreed on what the number was supposed to tell them.</p>
+    <p>We have been in this meeting. We have run this meeting. God forgive us, some of us have built the dashboard that runs this meeting.</p>
+    <p>The remedy is not fewer dashboards. The remedy is a decision frame that tells you, before the dashboard exists, what you will do when the number is red.</p>
+  </div>
+
+  <div class="heresy-entry">
+    <span class="heresy-label">The Third Heresy</span>
+    <h2 class="heresy-title">The Church of Move Fast</h2>
+    <p>This heresy has a slogan. The slogan is well known. It has been printed on walls and repeated in all-hands meetings and used to justify more harm to more decision systems than any other four words in the history of the industry.</p>
+    <p>We will not repeat the slogan here. The congregation knows it.</p>
+    <p>The heresy holds that speed is a virtue in itself. That iteration is a substitute for framing. That shipping something and learning from it is always preferable to thinking carefully before you ship.</p>
+    <p>This is sometimes true. In the narrow domain of consumer product development, where the feedback loop is short and the cost of a bad decision is recoverable, it has genuine merit. The church acknowledges this. The church is not against speed.</p>
+    <p>The church is against the exportation of this philosophy into domains where it does not belong. A replenishment policy that ships fast and learns from failure has real inventory in real warehouses being misallocated in real time. An optimization system built without a decision frame is not learning faster. It is cementing the wrong structure at the speed of deployment.</p>
+    <p>Move fast with a frame. Move fast knowing what you are optimizing for and why. Move fast having named the decision.</p>
+    <p>That is speed. Everything else is just motion.</p>
+  </div>
+
+  <div class="heresy-entry">
+    <span class="heresy-label">The Fourth Heresy</span>
+    <h2 class="heresy-title">The False Prophecy of AI</h2>
+    <p>A new heresy has risen. It is young and it is loud and it has excellent branding.</p>
+    <p>The heresy holds that the models have changed everything. That sufficiently large neural networks have made the prior work unnecessary. That the frame, the decision, the structure, the steps — all of it is now handled by a system that has read more than any human and can therefore reason better than any human about what matters and what to do.</p>
+    <p>The models are remarkable. The congregation uses them. There is genuine capability in these systems that would be foolish to dismiss.</p>
+    <p>What has not changed is this: the model does not know what you are trying to decide. It does not know your constraints. It does not know your stakeholders. It cannot tell you whether you are working on the right problem. It cannot feel the skip in the room when the question drifts away before anyone names it.</p>
+    <p>A model handed a poorly framed problem will produce a confident answer to the wrong question. It will do so fluently. It will do so with citations. It will do so in a format that makes the wrong answer look more authoritative than the right question ever looked.</p>
+    <p>The false prophet of AI is not the model. The false prophet is the leader who points at the model and says the framing is now handled.</p>
+    <p>Step One cannot be automated. It can barely be delegated.</p>
+  </div>
+
+  <div class="heresy-entry">
+    <span class="heresy-label">The Fifth Heresy</span>
+    <h2 class="heresy-title">The Agile Evangelists</h2>
+    <p>We approach this heresy with care, because its practitioners are often sincere and its origins are legitimate.</p>
+    <p>Agile began as a response to a real problem. The waterfall process was killing software projects. The answer was to break the work into smaller pieces, deliver value incrementally, and adapt based on feedback. This was right. This was good.</p>
+    <p>The heresy emerged when the methodology escaped the domain it was designed for and became a universal religion. The ceremonies were adopted without the purpose. The sprints were run without the product sense. And the backlog — the blessed infinite backlog — became the replacement for strategy.</p>
+    <p>The specific harm this heresy causes to decision systems is this: it provides a framework for doing a great deal of work in the wrong direction very efficiently and with excellent documentation.</p>
+    <p>A team that has not framed the decision running two-week sprints is just failing faster with better retrospectives.</p>
+    <p>The answer is not to abandon the ceremonies. The answer is to run Step One before the first sprint begins. Name the decision. Then sprint toward it.</p>
+    <p>The church has nothing against velocity. The church wants to know where you are going.</p>
+  </div>
+
+  <div class="heresy-entry">
+    <span class="heresy-label">The Sixth Heresy</span>
+    <h2 class="heresy-title">Karaoke Knowledge</h2>
+    <p>This is the heresy the congregation must examine most closely. It is the heresy most likely to have infected us.</p>
+    <p>Karaoke knowledge is the performance of expertise without its substance. It is knowing the words without knowing the music. It is saying <em>decision framing</em> in a meeting without having done the framing. It is citing Warren Powell in a deck without having read the book.</p>
+    <p>The heresy is subtle because it feels like fluency. The practitioner moves through rooms with confidence. They use the right terms. They nod at the right moments. And then they go back to their desk and start at Step Four.</p>
+    <p>Because the vocabulary was never connected to the practice.</p>
+    <p>The congregation is not immune. The congregation may, in fact, be at particular risk, because the congregation has the vocabulary in abundance. We have written it down. We have preached it three times in formal homilies. We have named the sins and carved the commandments.</p>
+    <p>None of that is the work. The work is sitting with the problem before the laptop opens. The work is saying <em>wait</em> in a room that is moving. The work is returning to Step One when every incentive in the organization is pointing toward Step Four.</p>
+    <p>The words describe the work. The words are not the work.</p>
+    <p>The examination is simple. Not what do you say about decision systems. What did you do the last time the skip was about to happen.</p>
+    <p>That is the test. That is the only test.</p>
+  </div>
+
+  <div class="closing-note">
+    <p>The heresies are not exhausted by this list.</p>
+    <p>New ones emerge as the industry evolves and new tools</p>
+    <p>provide new reasons to skip the hard work of framing.</p>
+    <p>The congregation is asked to remain vigilant,</p>
+    <p>to name what they see,</p>
+    <p>and to return always to the question that does not change:</p>
+    <br>
+    <p><em>What are we actually trying to decide?</em></p>
+    <br>
+    <p>Everything else is commentary.</p>
+  </div>
+
+</main>
+
+<div class="page-footer">
+  <a href="congregation.html">← Congregation</a>
+  <a href="index.html">Return to Canon →</a>
+</div>
+
+</body>
+</html>
