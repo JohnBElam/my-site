@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genesis | Decision Scripture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0e0c09;
+      --parchment: #f5f0e8;
+      --gold: #b8922a;
+      --gold-light: #d4a843;
+      --gold-dim: #7a5f1a;
+      --red: #8b1a1a;
+      --muted: #5a5040;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--ink);
+      color: var(--parchment);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 19px;
+      line-height: 1.9;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--gold-dim);
+      background: rgba(14,12,9,0.97);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav a {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 14px 16px;
+      transition: color 0.2s, background 0.2s;
+      border-right: 1px solid rgba(184,146,42,0.15);
+    }
+    nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
+    nav a:hover, nav a.active { color: var(--gold-light); background: rgba(184,146,42,0.04); }
+
+    /* PAGE HEADER */
+    .page-header {
+      text-align: center;
+      padding: 80px 24px 64px;
+      border-bottom: 1px solid rgba(184,146,42,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(184,146,42,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .breadcrumb {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 36px;
+      display: block;
+    }
+    .breadcrumb a { color: var(--gold-dim); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--gold-light); }
+
+    .page-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    h1 {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 400;
+      color: var(--parchment);
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: 0.01em;
+    }
+
+    .page-intro {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      max-width: 520px;
+      margin: 0 auto 0;
+      line-height: 1.6;
+    }
+
+    /* MAIN BODY */
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 72px 24px 120px;
+    }
+
+    /* CHAPTER BREAKS */
+    .chapter-break {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin: 64px 0 56px;
+    }
+    .chapter-break-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(184,146,42,0.3));
+    }
+    .chapter-break-line.right {
+      background: linear-gradient(to left, transparent, rgba(184,146,42,0.3));
+    }
+    .chapter-break-glyph {
+      font-family: 'IM Fell English', serif;
+      font-size: 13px;
+      letter-spacing: 0.3em;
+      color: var(--gold-dim);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* TYPOGRAPHY */
+    p {
+      margin-bottom: 1.5em;
+      font-size: 1.05rem;
+    }
+
+    .opening-line {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+      color: var(--gold);
+      line-height: 1.5;
+      margin-bottom: 1.6em;
+      display: block;
+    }
+
+    .drop-cap::first-letter {
+      font-family: 'IM Fell English', serif;
+      font-size: 5rem;
+      float: left;
+      line-height: 0.72;
+      margin: 8px 10px -4px 0;
+      color: var(--gold);
+    }
+
+    em { color: var(--gold-light); font-style: italic; }
+
+    /* BLOCK QUOTE — for the single-line declarations */
+    .declaration {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+      font-style: italic;
+      color: var(--parchment);
+      border-left: 2px solid var(--gold);
+      padding: 4px 0 4px 24px;
+      margin: 40px 0;
+      line-height: 1.55;
+    }
+
+    /* CLOSING */
+    .closing {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      text-align: center;
+      color: var(--gold);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      line-height: 2;
+      margin-top: 72px;
+      padding-top: 56px;
+      border-top: 1px solid rgba(184,146,42,0.2);
+    }
+
+    .closing .final-line {
+      display: block;
+      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+      color: var(--parchment);
+      margin-top: 24px;
+      font-style: italic;
+    }
+
+    /* FOOTER */
+    .page-footer {
+      border-top: 1px solid var(--gold-dim);
+      text-align: center;
+      padding: 40px 24px;
+    }
+    .page-footer a {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      text-decoration: none;
+      margin: 0 14px;
+      transition: color 0.2s;
+    }
+    .page-footer a:hover { color: var(--gold-light); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .page-header { animation: fadeUp 0.7s ease both; }
+    main { animation: fadeUp 0.7s ease both 0.15s; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Canon</a>
+  <a href="genesis.html" class="active">Genesis</a>
+  <a href="homilies.html">Homilies</a>
+  <a href="sins.html">Sins</a>
+  <a href="commandments.html">Commandments</a>
+  <a href="beatitudes.html">Beatitudes</a>
+  <a href="false-prophets.html">False Prophets</a>
+  <a href="congregation.html">Congregation</a>
+  <a href="heresies.html">Heresies</a>
+</nav>
+
+<div class="page-header">
+  <span class="breadcrumb"><a href="index.html">Decision Scripture</a> / Genesis</span>
+  <span class="page-label">The Book of Origins</span>
+  <h1>Genesis</h1>
+  <p class="page-intro">In the beginning was the objective. This is the story of how we lost it, and why we came back.</p>
+</div>
+
+<main>
+
+  <span class="opening-line">In the beginning was the objective.</span>
+
+  <p class="drop-cap">Not the data. Not the method. Not the platform or the dashboard or the model or the deck. The objective. The thing that needed to be decided, and the reason it needed to be decided, and the cost of deciding it badly.</p>
+
+  <p>And the objective was clear, because the world was at war, and clarity is what war produces when everything else has been stripped away.</p>
+
+  <p>In the years between 1939 and 1945, a group of scientists gathered in rooms that had no official name and no permanent address and worked on a single problem with a focus that the discipline has never fully recovered. They were physicists and mathematicians and biologists and statisticians and they had been handed something that most practitioners of the craft will never receive in their careers: an objective function that required no negotiation.</p>
+
+  <div class="declaration">Keep more Allied soldiers alive than the enemy can kill.</div>
+
+  <p>That was it. That was the whole brief. There was no stakeholder alignment workshop. There was no discovery phase. There was no debate about whether the problem was correctly framed, because the problem was a war and the framing was self-evident and the cost of a wrong answer was measured in bodies and the cost of no answer was the same.</p>
+
+  <p>Patrick Blackett assembled the group that would later be called, with the particular affection the British reserve for things they consider slightly absurd, Blackett's Circus. Physicists doing convoy routing. Mathematicians doing bomb damage assessment. Biologists doing anti-submarine strategy. The methods they used were not new. Mathematics is not invented by wars. But the application was ferocious in its purposefulness, because the purpose was never in question.</p>
+
+  <p>They asked: <em>what are we trying to decide?</em></p>
+
+  <p>And the war answered immediately, and specifically, and without the ambiguity that would later come to define the discipline's peacetime existence.</p>
+
+  <p>How deep should depth charges be set to maximize U-boat kills? What convoy size minimizes total shipping losses? How should radar operators be trained to distinguish signal from noise?</p>
+
+  <p>Each question was a decision. Each decision had an owner. Each owner had authority to act on the answer. The loop was closed before the model ran, which is the condition the church has been trying to reconstruct ever since.</p>
+
+  <p>This was the garden.</p>
+
+  <div class="chapter-break">
+    <div class="chapter-break-line"></div>
+    <span class="chapter-break-glyph">The Fall</span>
+    <div class="chapter-break-line right"></div>
+  </div>
+
+  <p>It did not last.</p>
+
+  <p>When the war ended the practitioners returned, as practitioners do, to the institutions that would sustain them in peacetime. The universities. The government agencies. The corporations that were rebuilding a world and needed, or believed they needed, the kind of structured thinking that had helped win a war.</p>
+
+  <p>And something happened that was subtle enough that no one called a meeting about it.</p>
+
+  <p>The objective became optional.</p>
+
+  <p>In war the objective is given. You do not construct it. You do not facilitate a workshop to surface it. You do not spend the first three weeks of a project building alignment around it. The objective arrives with the uniform of whoever is asking you the question and it is not subject to revision by the person running the model.</p>
+
+  <p>In peacetime, in a corporation, in a consulting engagement, in a university research program, the objective has to be built. And building it is the hardest work in the discipline. It requires sitting in a room with people who have competing interests and incomplete information and saying: before we touch a single dataset, we are going to agree on what we are actually trying to decide.</p>
+
+  <p>Most rooms did not want to do that.</p>
+
+  <p>Most rooms wanted the methods.</p>
+
+  <p>The methods were impressive. The methods had won a war, or at least helped, and that was a story worth telling. The simplex method. Linear programming. Stochastic optimization. Dynamic programming. Each one a genuine achievement. Each one a tool of extraordinary power in the right hands applied to the right problem.</p>
+
+  <p>The problem was that the right problem was no longer being named first.</p>
+
+  <p>The methods arrived before the objective. The methods looked for problems that fit their shape. The discipline began, slowly and without malice, to optimize for its own internal coherence rather than for the decisions that needed to be made in the world.</p>
+
+  <div class="chapter-break">
+    <div class="chapter-break-line"></div>
+    <span class="chapter-break-glyph">The Tower</span>
+    <div class="chapter-break-line right"></div>
+  </div>
+
+  <p>And then came the language.</p>
+
+  <p>The congregation knows the language. The congregation has sat in the room where someone used the language and watched the decision maker's eyes go flat and the meeting end with no decision made and no model used and the question hanging in the air like smoke after a fire that burned nothing worth burning.</p>
+
+  <p>Stochastic dynamic programming. Markov decision processes. Mixed integer linear programming. Each term precise. Each term necessary within its domain. Each term a wall.</p>
+
+  <p>The Tower of Babel was not built in a day. It was built paper by paper, conference by conference, tenure decision by tenure decision, over the better part of six decades. The mathematicians achieved something remarkable: a language of extraordinary precision that almost no one responsible for actual decisions could read.</p>
+
+  <p>The general had the objective. The mathematician had the method. And the gap between them widened until the discipline that had been born to serve decisions was serving mostly itself.</p>
+
+  <p>This is the fall. Not a moment. A drift. A gradual substitution of means for ends that no single person intended and no single institution could stop because the incentives all pointed the same direction and the direction was inward.</p>
+
+  <div class="chapter-break">
+    <div class="chapter-break-line"></div>
+    <span class="chapter-break-glyph">The Prophets</span>
+    <div class="chapter-break-line right"></div>
+  </div>
+
+  <p>In the wilderness, there were prophets.</p>
+
+  <p>There are always prophets in the wilderness. That is what the wilderness is for.</p>
+
+  <p>Warren Powell in Princeton, writing the grammar that connected the methods back to the decisions, insisting that the field had a spine and the spine was sequential and the sequential was the whole point. Joannes Vermorel in Paris, building a company on the premise that supply chain was an economics problem and that the dashboard was not the answer and that uncertainty was a structure to be priced rather than a gap to be filled. Meinolf Sellmann, walking away from the tools he had spent twenty-five years mastering because the tools were architecturally wrong for the world they were being asked to optimize, and building the thing that was right instead.</p>
+
+  <p>These were not celebrated departures. The wilderness is not celebrated while you are in it. The prophet's function is not to be recognized. It is to keep the flame lit until the world is ready to see it.</p>
+
+  <p>The world is beginning to be ready.</p>
+
+  <div class="chapter-break">
+    <div class="chapter-break-line"></div>
+    <span class="chapter-break-glyph">The Return</span>
+    <div class="chapter-break-line right"></div>
+  </div>
+
+  <p>The Decision Factory is not a new idea.</p>
+
+  <p>It is a recovered one.</p>
+
+  <p>The Six Steps do not innovate the discipline. They restore it. They carry it back to the clarity it had in the garden, before the objective became optional, before the language became a wall, before the methods forgot they were servants and began to act like masters.</p>
+
+  <p>The church does not preach novelty.</p>
+
+  <p>The church does not preach that everything before was wrong.</p>
+
+  <p>The church preaches remembrance. It preaches that somewhere in those war rooms in 1940 and 1941 and 1942, when the question was simply <em>what do we need to decide and how do we decide it better and lives depend on the answer</em>, the discipline was practiced at its most pure. And that purity is not lost. It is waiting.</p>
+
+  <p>It is waiting in every room where someone is about to open a laptop before the decision has been named.</p>
+
+  <p>It is waiting in the silence before the data loads.</p>
+
+  <div class="closing">
+    <p>Go back to the garden.</p>
+    <p>The gate is not locked.</p>
+    <p>It was never locked.</p>
+    <p>We just forgot it was there.</p>
+    <span class="final-line">What are we actually trying to decide?</span>
+  </div>
+
+</main>
+
+<div class="page-footer">
+  <a href="index.html">← Canon</a>
+  <a href="homilies.html">The Homilies →</a>
+</div>
+
+</body>
+</html>
