@@ -179,6 +179,56 @@
       font-size: 1.1rem;
     }
 
+    /* Homily prev / next (bottom of each sermon) */
+    .homily-pager {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(184,146,42,0.22);
+    }
+    .homily-pager .pager-btn {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      background: transparent;
+      border: 1px solid rgba(184,146,42,0.35);
+      padding: 12px 22px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .homily-pager .pager-btn:hover:not(:disabled) {
+      color: var(--gold-light);
+      border-color: rgba(212, 168, 67, 0.55);
+      background: rgba(184,146,42,0.06);
+    }
+    .homily-pager .pager-btn:disabled {
+      opacity: 0.28;
+      cursor: not-allowed;
+    }
+    .homily-pager .pager-meta {
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      flex: 1 1 auto;
+      min-width: 8rem;
+    }
+    /* Keeps center label aligned when there is no right control (last homily) */
+    .homily-pager .pager-tail {
+      flex: 0 0 auto;
+      min-width: 6.5rem;
+      pointer-events: none;
+      visibility: hidden;
+    }
+
     /* FOOTER */
     .page-footer {
       border-top: 1px solid var(--gold-dim);
@@ -228,9 +278,9 @@
 
 <main>
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="showTab('h1', this)">First Homily</button>
-    <button class="tab-btn" onclick="showTab('h2', this)">Second Homily</button>
-    <button class="tab-btn" onclick="showTab('h3', this)">Third Homily</button>
+    <button type="button" class="tab-btn active" onclick="showTab('h1')">First Homily</button>
+    <button type="button" class="tab-btn" onclick="showTab('h2')">Second Homily</button>
+    <button type="button" class="tab-btn" onclick="showTab('h3')">Third Homily</button>
   </div>
 
   <!-- HOMILY I -->
@@ -269,6 +319,11 @@
     <p>That silence is not emptiness.</p>
     <p>That is where the work begins.</p>
     <div class="sermon-close">— End of the First Homily —</div>
+    <div class="homily-pager" role="navigation" aria-label="Homily navigation">
+      <button type="button" class="pager-btn" disabled aria-disabled="true">← Previous</button>
+      <span class="pager-meta">First · 1 of 3</span>
+      <button type="button" class="pager-btn" onclick="goHomily('h2')">Next →</button>
+    </div>
   </div>
 
   <!-- HOMILY II -->
@@ -308,6 +363,11 @@
     <p>That is not failure. That is the discipline.</p>
     <p>That is what we practice here.</p>
     <div class="sermon-close">— End of the Second Homily —</div>
+    <div class="homily-pager" role="navigation" aria-label="Homily navigation">
+      <button type="button" class="pager-btn" onclick="goHomily('h1')">← Previous</button>
+      <span class="pager-meta">Second · 2 of 3</span>
+      <button type="button" class="pager-btn" onclick="goHomily('h3')">Next →</button>
+    </div>
   </div>
 
   <!-- HOMILY III -->
@@ -354,6 +414,11 @@
     <p>That is the whole gospel.</p>
     <p>That is all we have ever preached.</p>
     <div class="sermon-close">— End of the Third Homily —</div>
+    <div class="homily-pager" role="navigation" aria-label="Homily navigation">
+      <button type="button" class="pager-btn" onclick="goHomily('h2')">← Previous</button>
+      <span class="pager-meta">Third · 3 of 3</span>
+      <span class="pager-tail" aria-hidden="true"></span>
+    </div>
   </div>
 
 </main>
@@ -364,11 +429,22 @@
 </div>
 
 <script>
-  function showTab(id, btn) {
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
+  var homilyOrder = ['h1', 'h2', 'h3'];
+
+  function showTab(id) {
+    document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+    document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+    var panel = document.getElementById(id);
+    if (panel) panel.classList.add('active');
+    var idx = homilyOrder.indexOf(id);
+    var buttons = document.querySelectorAll('.tab-btn');
+    if (idx >= 0 && buttons[idx]) buttons[idx].classList.add('active');
+  }
+
+  function goHomily(id) {
+    showTab(id);
+    var tabNav = document.querySelector('.tab-nav');
+    if (tabNav) tabNav.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 </script>
 </body>
