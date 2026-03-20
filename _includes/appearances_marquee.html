@@ -1,0 +1,27 @@
+<section class="appearances reveal" id="appearances" aria-labelledby="appearances-heading">
+  <div class="appearances__header">
+    <h2 class="appearances__title" id="appearances-heading">Featured Appearances</h2>
+    <p class="appearances__subtitle">Podcasts, panels, and live sessions</p>
+  </div>
+
+  <div class="marquee-track-wrap" aria-label="Scrolling list of podcast and video appearances">
+    <div class="marquee-track">
+      {% comment %}Two passes duplicate cards for seamless infinite scroll (translate -50%){% endcomment %}
+      {% for pass in (1..2) %}
+        {% for a in site.data.appearances %}
+      <a class="appearance-card" href="{{ a.href }}" target="_blank" rel="noopener">
+        <div class="appearance-card__thumb">
+          <img src="{{ a.image | prepend: '/assets/images/appearances/' | relative_url }}" alt="{{ a.image_alt | escape }}" loading="lazy" width="440" height="260">
+          <span class="appearance-card__badge">{{ a.badge }}</span>
+        </div>
+        <div class="appearance-card__body">
+          <p class="appearance-card__show">{{ a.show }}</p>
+          <p class="appearance-card__title">{{ a.title }}</p>
+          <p class="appearance-card__meta">{{ a.meta }}</p>
+        </div>
+      </a>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</section>

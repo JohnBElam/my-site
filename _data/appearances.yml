@@ -1,0 +1,40 @@
+# Home page “Featured Appearances” marquee — podcasts, panels, video
+- badge: Podcast
+  href: "https://decisionintelligencelab.substack.com/p/22-john-brandon-elam-building-a-decision"
+  image: decision-intelligence-lab.png
+  image_alt: "Decision Intelligence Lab Podcast — The Decision Factory Mindset"
+  show: Decision Intelligence Lab
+  title: "Building a Decision Factory in Large Organizations"
+  meta: "Feb 2026 · Michael Watson & Vijay Malhotra"
+
+- badge: Panel
+  href: "https://www.nextmv.io/videos/building-stakeholder-trust-and-confidence-in-decision-intelligence"
+  image: nextmv-decisionfest.png
+  image_alt: "Nextmv DecisionFest panel"
+  show: Nextmv DecisionFest
+  title: "Building Stakeholder Trust in Decision Intelligence"
+  meta: "Dec 2025 · Carolyn Mooney, Nextmv"
+
+- badge: Video
+  href: "https://www.lokad.com/tv/2025/7/23/explaining-optimization-to-executives/"
+  image: lokad-ep184.png
+  image_alt: "Lokad TV Episode 184 — Explaining Optimization to Executives"
+  show: "Lokad TV · Ep. 184"
+  title: "Explaining Optimization to Executives"
+  meta: "Jul 2025 · Conor Doherty & Joannes Vermorel"
+
+- badge: Live
+  href: "https://www.lokad.com/tv/"
+  image: lokad-decision-factory.png
+  image_alt: "Lokad TV Live — Supply chain and The Decision Factory"
+  show: "Lokad TV · Live"
+  title: "Supply Chain Breakdown: The Decision Factory"
+  meta: "Feb 2026 · Conor Doherty & Joannes Vermorel"
+
+- badge: LinkedIn Live
+  href: "https://www.linkedin.com/in/kruti-lehenbauer/"
+  image: kruti-gethired2025.png
+  image_alt: "GetHired2025 LinkedIn Live with Dr. Kruti"
+  show: "Analytics TX · #GetHired2025"
+  title: "Breaking Into Data Careers"
+  meta: "2025 · Dr. Kruti Lehenbauer"
