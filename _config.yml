@@ -33,6 +33,8 @@ exclude:
   - README.md
   - .git
   - .gitignore
+  - GG.zip
+  - DecisionScripture.zip
 
 plugins:
   - jekyll-feed

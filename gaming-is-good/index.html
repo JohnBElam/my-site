@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaming Is Good — Decision Systems Through Strategic Games</title>
+  <link rel="stylesheet" href="gg-shared.css">
+  <style>
+    /* HERO */
+    .hero { padding: 80px 0 64px; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .hero-eyebrow { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+    .eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+    .eyebrow-text { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); }
+    .hero h1 { font-size: 52px; font-weight: 800; line-height: 1.05; margin-bottom: 20px; }
+    .hero h1 .purple { color: var(--purple); }
+    .hero-sub { font-size: 17px; color: var(--text-muted); line-height: 1.75; margin-bottom: 32px; max-width: 460px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* THESIS CARD */
+    .thesis-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; position: relative; overflow: hidden; }
+    .thesis-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--purple), var(--green)); }
+    .thesis-label { font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+    .thesis-statement { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; line-height: 1.5; color: var(--text); margin-bottom: 14px; }
+    .thesis-pillars { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+    .thesis-pillar { font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 20px; }
+    .pillar-stoic { background: #fff8e8; color: #7a5500; }
+    .pillar-games { background: var(--purple-light); color: var(--purple); }
+    .pillar-ds { background: var(--green-light); color: #007a3d; }
+    .thesis-body { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+    .thesis-link { display: inline-block; margin-top: 14px; font-size: 12px; color: var(--purple); font-weight: 500; text-decoration: none; }
+
+    /* STAT ROW */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 48px 0; }
+    .stat-cell { background: var(--bg); padding: 20px 24px; text-align: center; }
+    .stat-number { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: var(--purple); }
+    .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    /* FEATURED GAMES */
+    .games-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 24px; }
+    .game-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; display: flex; gap: 16px; align-items: flex-start; transition: border-color 0.15s, box-shadow 0.15s; text-decoration: none; color: inherit; }
+    .game-card:hover { border-color: var(--purple); box-shadow: 0 4px 20px rgba(102,51,255,0.1); }
+    .game-icon { width: 48px; height: 48px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+    .game-info { flex: 1; min-width: 0; }
+    .game-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .game-genre { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
+    .game-tagline { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
+    .game-skills { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    /* PERSONA STRIP */
+    .persona-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 24px; }
+    .persona-mini { border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 16px; text-align: center; transition: all 0.15s; text-decoration: none; color: inherit; }
+    .persona-mini:hover { border-color: var(--purple); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(102,51,255,0.1); }
+    .persona-mini-icon { font-size: 28px; margin-bottom: 10px; }
+    .persona-mini-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .persona-mini-desc { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+
+    /* BLOG PREVIEW */
+    .blog-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+    .blog-preview { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.15s; text-decoration: none; color: inherit; display: block; }
+    .blog-preview:hover { box-shadow: 0 4px 20px rgba(102,51,255,0.1); }
+    .blog-thumb { height: 90px; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+    .blog-body { padding: 16px; }
+    .blog-tag-line { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; color: var(--purple); margin-bottom: 6px; }
+    .blog-title-text { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; line-height: 1.35; margin-bottom: 8px; }
+    .blog-excerpt-text { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+
+    /* NEWSLETTER INLINE */
+    .newsletter-inline { background: linear-gradient(135deg, #2d1f6e 0%, #1a3a2e 100%); border-radius: var(--radius); padding: 40px; display: flex; justify-content: space-between; align-items: center; gap: 32px; margin-top: 64px; }
+    .nl-text h3 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: white; margin-bottom: 8px; }
+    .nl-text p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6; max-width: 400px; }
+    .nl-form { display: flex; gap: 10px; flex-shrink: 0; }
+    .nl-input { padding: 11px 16px; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; font-size: 14px; font-family: 'DM Sans', sans-serif; width: 220px; }
+    .nl-input::placeholder { color: rgba(255,255,255,0.4); }
+    .nl-btn { padding: 11px 22px; border-radius: var(--radius-sm); background: var(--green); color: white; border: none; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<main>
+  <div class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-eyebrow">
+            <div class="eyebrow-dot"></div>
+            <span class="eyebrow-text">Decision Systems Research</span>
+          </div>
+          <h1>Games are a <span class="purple">decision lab.</span> Not a guilty pleasure.</h1>
+          <p class="hero-sub">Strategic games build the mental models that power better professional decisions. This is the thesis. These are the receipts.</p>
+          <div class="hero-actions">
+            <a href="start-here.html" class="btn btn-primary">Start Here</a>
+            <a href="games.html" class="btn btn-ghost">Explore the Games</a>
+          </div>
+        </div>
+        <div class="thesis-card">
+          <div class="thesis-label">The Trifecta Thesis</div>
+          <div class="thesis-statement">Stoic disposition + Strategic Gaming + Decision Systems = a repeatable framework for professionals who see clearly and decide well.</div>
+          <div class="thesis-pillars">
+            <span class="thesis-pillar pillar-stoic">Stoicism</span>
+            <span class="thesis-pillar pillar-games">Strategic Gaming</span>
+            <span class="thesis-pillar pillar-ds">Decision Systems</span>
+          </div>
+          <div class="thesis-body">Most practitioners enter at the technical layer and never look up. Gaming trains the eye to start from first principles. Stoic disposition is what makes the feedback honest.</div>
+          <a href="research.html" class="thesis-link">Follow the research validation →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-cell">
+        <div class="stat-number">4</div>
+        <div class="stat-label">Games Reviewed</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">4</div>
+        <div class="stat-label">Persona Types</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">8</div>
+        <div class="stat-label">DS Skills Mapped</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">5</div>
+        <div class="stat-label">Essays Published</div>
+      </div>
+    </div>
+
+    <hr class="fancy">
+
+    <!-- FEATURED GAMES -->
+    <section class="section-sm">
+      <span class="overline">The Game Library</span>
+      <h2 class="section-title">Curated for decision-makers</h2>
+      <p class="section-sub">Every game in this library is here because it trains a skill that transfers. No filler, no nostalgia picks.</p>
+      <div class="games-grid" id="games-grid"></div>
+      <div style="margin-top:20px; text-align:center;">
+        <a href="games.html" class="btn btn-ghost">View full library with filters →</a>
+      </div>
+    </section>
+
+    <hr class="fancy">
+
+    <!-- PERSONAS -->
+    <section class="section-sm">
+      <span class="overline">Persona Types</span>
+      <h2 class="section-title">What kind of decision-maker are you?</h2>
+      <p class="section-sub">Find your archetype. Get the games that train your specific edge.</p>
+      <div class="persona-strip" id="persona-strip"></div>
+    </section>
+
+    <hr class="fancy">
+
+    <!-- BLOG -->
+    <section class="section-sm">
+      <span class="overline">From the Blog</span>
+      <h2 class="section-title">Essays on games and decisions</h2>
+      <p class="section-sub">Prose-driven. No bullet point listicles. Written for professionals who take both games and their work seriously.</p>
+      <div class="blog-row" id="blog-row"></div>
+      <div style="margin-top:20px; text-align:center;">
+        <a href="blog.html" class="btn btn-ghost">View all essays →</a>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <div class="newsletter-inline">
+      <div class="nl-text">
+        <h3>Gaming Is Good — the newsletter</h3>
+        <p>New game essays, DS skill breakdowns, and research updates. No filler. Comes out when it's ready.</p>
+      </div>
+      <div class="nl-form">
+        <input type="email" class="nl-input" placeholder="your@email.com">
+        <button class="nl-btn">Subscribe</button>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="gg-data.js"></script>
+<script>
+  document.getElementById('nav-placeholder').innerHTML = GG.nav('home');
+  document.getElementById('footer-placeholder').innerHTML = GG.footer();
+
+  // Render featured games
+  const gamesGrid = document.getElementById('games-grid');
+  GAMES.forEach(g => {
+    gamesGrid.innerHTML += `
+      <a href="games.html#${g.id}" class="game-card">
+        <div class="game-icon" style="background:${g.color}">${g.thumbnail}</div>
+        <div class="game-info">
+          <div class="game-title">${g.title}</div>
+          <div class="game-genre">${g.genre}</div>
+          <div class="game-tagline">${g.tagline}</div>
+          <div class="game-skills">
+            ${g.skills.slice(0,2).map(s => `<span class="tag tag-purple">${s}</span>`).join('')}
+          </div>
+        </div>
+      </a>`;
+  });
+
+  // Render personas
+  const personaStrip = document.getElementById('persona-strip');
+  PERSONAS.forEach(p => {
+    personaStrip.innerHTML += `
+      <a href="personas.html#${p.id}" class="persona-mini">
+        <div class="persona-mini-icon">${p.icon}</div>
+        <div class="persona-mini-name">${p.name}</div>
+        <div class="persona-mini-desc">${p.tagline}</div>
+      </a>`;
+  });
+
+  // Render blog previews (first 3 published)
+  const blogRow = document.getElementById('blog-row');
+  BLOG_POSTS.filter(b => b.status === 'published').slice(0,3).forEach(b => {
+    blogRow.innerHTML += `
+      <a href="blog.html#${b.id}" class="blog-preview">
+        <div class="blog-thumb" style="background:${b.color}">${b.icon}</div>
+        <div class="blog-body">
+          <div class="blog-tag-line">${b.gameTag}</div>
+          <div class="blog-title-text">${b.title}</div>
+          <div class="blog-excerpt-text">${b.excerpt}</div>
+        </div>
+      </a>`;
+  });
+</script>
+</body>
+</html>

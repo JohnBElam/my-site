@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start Here — Gaming Is Good</title>
+  <link rel="stylesheet" href="gg-shared.css">
+  <style>
+    .page-hero { padding: 56px 0 40px; max-width: 680px; }
+    .page-hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 16px; }
+
+    /* THE ARGUMENT */
+    .argument-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 48px; }
+    .arg-step { background: var(--bg); padding: 24px; }
+    .arg-num { font-family: 'Syne', sans-serif; font-size: 40px; font-weight: 800; color: var(--purple-light); line-height: 1; margin-bottom: 10px; }
+    .arg-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .arg-body { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+    /* PATHS */
+    .paths-section { margin-bottom: 48px; }
+    .path-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 24px; }
+    .path-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: all 0.15s; text-decoration: none; color: inherit; display: block; position: relative; }
+    .path-card:hover { border-color: var(--purple); box-shadow: 0 4px 20px rgba(102,51,255,0.1); transform: translateY(-2px); }
+    .path-card::after { content: '→'; position: absolute; bottom: 20px; right: 20px; color: var(--purple); font-size: 18px; opacity: 0; transition: opacity 0.15s; }
+    .path-card:hover::after { opacity: 1; }
+    .path-icon { font-size: 32px; margin-bottom: 14px; }
+    .path-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+    .path-who { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin-bottom: 10px; }
+    .path-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    .path-cta { display: inline-block; margin-top: 14px; font-size: 13px; font-weight: 500; color: var(--purple); }
+
+    /* TRIFECTA */
+    .trifecta-section { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px; margin-bottom: 48px; }
+    .trifecta-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .trifecta-sub { font-size: 15px; color: var(--text-muted); margin-bottom: 28px; max-width: 560px; line-height: 1.7; }
+    .trifecta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .trifecta-block { padding: 20px; border-radius: var(--radius-sm); }
+    .trifecta-block-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .trifecta-block-body { font-size: 13px; line-height: 1.7; }
+    .trifecta-connector { text-align: center; padding: 16px 0; font-size: 13px; font-weight: 500; color: var(--text-muted); font-style: italic; }
+
+    /* 6 STEPS */
+    .steps-section { margin-bottom: 48px; }
+    .steps-list { counter-reset: steps; margin-top: 20px; }
+    .step-item { display: grid; grid-template-columns: 48px 1fr; gap: 16px; margin-bottom: 12px; }
+    .step-num { width: 40px; height: 40px; border-radius: 50%; background: var(--purple-light); color: var(--purple); font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-content { padding: 10px 0; }
+    .step-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .step-body { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+    .step-alert { font-size: 12px; color: #cc3300; font-weight: 500; margin-top: 4px; }
+    .step-connector { margin-left: 19px; height: 16px; width: 2px; background: var(--border); }
+
+    /* FAQ */
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-q { padding: 16px 0; font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-q:hover { color: var(--purple); }
+    .faq-icon { font-size: 14px; color: var(--text-muted); transition: transform 0.2s; }
+    .faq-item.open .faq-icon { transform: rotate(180deg); }
+    .faq-a { display: none; padding: 0 0 16px; font-size: 14px; color: var(--text-muted); line-height: 1.75; max-width: 640px; }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ABOUT BLOCK */
+    .about-block { display: grid; grid-template-columns: 80px 1fr; gap: 20px; align-items: flex-start; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 48px; }
+    .about-avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--purple-light); display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
+    .about-name { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; margin-bottom: 6px; }
+    .about-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--green); font-weight: 500; margin-bottom: 10px; }
+    .about-bio { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    .about-links { display: flex; gap: 12px; margin-top: 12px; }
+    .about-link { font-size: 13px; color: var(--purple); font-weight: 500; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<main>
+  <div class="container">
+    <section class="page-hero">
+      <span class="overline">New Here? Start Here.</span>
+      <h1>Everything you need in 3 minutes</h1>
+      <p class="section-sub">Gaming Is Good is a thesis with evidence. Here's the argument, the framework, and the fastest path to finding value for you specifically.</p>
+    </section>
+
+    <!-- THE ARGUMENT -->
+    <div class="argument-strip">
+      <div class="arg-step">
+        <div class="arg-num">01</div>
+        <div class="arg-title">Games are a decision lab</div>
+        <div class="arg-body">Strategic games compress the plan-act-feedback cycle into sessions measured in hours, not quarters. That density of repetition is what builds expertise.</div>
+      </div>
+      <div class="arg-step">
+        <div class="arg-num">02</div>
+        <div class="arg-title">The skills transfer</div>
+        <div class="arg-body">Systems optimization. Long-horizon planning. Risk quantification. These are named disciplines in Operations Research. Games train them faster than any classroom.</div>
+      </div>
+      <div class="arg-step">
+        <div class="arg-num">03</div>
+        <div class="arg-title">Stoicism closes the loop</div>
+        <div class="arg-body">The feedback only works if you receive it honestly. Stoic disposition is what prevents rationalization. Without it, the lab teaches you nothing.</div>
+      </div>
+    </div>
+
+    <!-- CHOOSE YOUR PATH -->
+    <div class="paths-section">
+      <span class="overline">Choose Your Path</span>
+      <h2 class="section-title">Where do you want to start?</h2>
+      <div class="path-grid">
+        <a href="personas.html" class="path-card">
+          <div class="path-icon">🎯</div>
+          <div class="path-who">For the professional reader</div>
+          <div class="path-title">Find your decision-maker archetype</div>
+          <div class="path-desc">Four personas. Each maps to a different set of professional cognitive edges. Find yours and get a curated game list built around your actual skill gaps.</div>
+          <div class="path-cta">Find my persona →</div>
+        </a>
+        <a href="games.html" class="path-card">
+          <div class="path-icon">🎮</div>
+          <div class="path-who">For the curious gamer</div>
+          <div class="path-title">Browse the library by skill</div>
+          <div class="path-desc">Already gaming? Find out which of your habits are building transferable skills and which ones are just entertainment. No judgment either way.</div>
+          <div class="path-cta">Explore the games →</div>
+        </a>
+        <a href="skills.html" class="path-card">
+          <div class="path-icon">📐</div>
+          <div class="path-who">For the OR/DS practitioner</div>
+          <div class="path-title">Explore the skill taxonomy</div>
+          <div class="path-desc">Formal definitions of each decision science skill this site covers, with professional analogs and the games that develop them most directly.</div>
+          <div class="path-cta">See the taxonomy →</div>
+        </a>
+        <a href="research.html" class="path-card">
+          <div class="path-icon">🔬</div>
+          <div class="path-who">For the skeptic</div>
+          <div class="path-title">Read the research log</div>
+          <div class="path-desc">This is a thesis, not a settled conclusion. Here's what has been validated, what hasn't, and what I'm actively working to prove. Receipts first, claims second.</div>
+          <div class="path-cta">See the evidence →</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- TRIFECTA -->
+    <div class="trifecta-section">
+      <span class="overline">The Core Framework</span>
+      <div class="trifecta-title">The Trifecta</div>
+      <div class="trifecta-sub">Three elements. Each one necessary. None of them sufficient alone. The argument is that you need all three to build a professional who consistently makes good decisions under uncertainty.</div>
+      <div class="trifecta-grid">
+        <div class="trifecta-block" style="background:#fff8e8;">
+          <div class="trifecta-block-title" style="color:#7a5500;">Stoicism</div>
+          <div class="trifecta-block-body" style="color:#7a5500;">The disposition that makes honest feedback possible. Without it, every loss is someone else's fault and every win confirms your genius. The lab teaches you nothing.</div>
+        </div>
+        <div class="trifecta-block" style="background:var(--purple-light);">
+          <div class="trifecta-block-title" style="color:var(--purple);">Strategic Gaming</div>
+          <div class="trifecta-block-body" style="color:var(--purple);">The fastest feedback environment available for building decision-making cognition. Not casual gaming. Deliberate practice under constraint, with immediate, honest feedback.</div>
+        </div>
+        <div class="trifecta-block" style="background:var(--green-light);">
+          <div class="trifecta-block-title" style="color:#007a3d;">Decision Systems</div>
+          <div class="trifecta-block-body" style="color:#007a3d;">The output. A practitioner who can frame problems correctly, build the right models, and implement decisions that hold up under operational pressure.</div>
+        </div>
+      </div>
+      <div class="trifecta-connector">Stoicism enables honest feedback loops → Games provide the density of repetitions → Decision Systems is the professional result</div>
+      <a href="research.html" class="btn btn-ghost" style="margin-top:8px;">See how this thesis is being validated →</a>
+    </div>
+
+    <!-- THE 6 STEPS -->
+    <div class="steps-section">
+      <span class="overline">The Methodology</span>
+      <h2 class="section-title">The Six Steps</h2>
+      <p class="section-sub">The framework behind the book and the practice. Most teams start at Step 4. That's the dominant failure mode of the last decade.</p>
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Metaproblem Selection</div>
+            <div class="step-body">Choosing which problem is worth solving. The most expensive decision in any project happens before anyone opens a laptop.</div>
+          </div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">Problem Framing</div>
+            <div class="step-body">Translating a business problem into a precise decision model. This is where the Decision Factory methodology lives.</div>
+          </div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">Solutioning</div>
+            <div class="step-body">Selecting the appropriate method: optimization, simulation, heuristic, or hybrid. Method follows problem, not the other way around.</div>
+          </div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">Data Sourcing</div>
+            <div class="step-body">Acquiring the inputs the model requires. Most teams start here. That's the problem.</div>
+            <div class="step-alert">⚠ The dominant failure mode: beginning here and reverse-engineering a justification for the data you have.</div>
+          </div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">Build</div>
+            <div class="step-body">Proof of Concept → Pilot → MVP → Production. Each stage exists to validate the prior stage's assumptions, not to accelerate delivery.</div>
+          </div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-item">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-title">Return to Step 1</div>
+            <div class="step-body">Fully. Not partially. Anchoring bias kills more good systems than bad engineering. The hardest discipline in the practice.</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:20px;">
+        <a href="https://johnbelam.com" target="_blank" class="btn btn-ghost">Read The Decision Factory →</a>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div style="margin-bottom:48px;">
+      <span class="overline">Common Questions</span>
+      <h2 class="section-title">The objections I hear most</h2>
+      <div style="margin-top:20px;" id="faqList"></div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="about-block">
+      <div class="about-avatar">🎓</div>
+      <div>
+        <div class="about-name">John Brandon Elam</div>
+        <div class="about-title">Decision Systems Leader &middot; Bit Bros Publishing</div>
+        <div class="about-bio">I'm a Decision Systems leader with $290M+ in documented profit impact at Toyota. I write, consult, and teach one idea: decisions can be engineered. My books (Bit Bros) and Gaming Is Good series are where that idea meets practice.</div>
+        <div class="about-links">
+          <a href="https://johnbelam.com" class="about-link" target="_blank">johnbelam.com</a>
+          <a href="https://linkedin.com" class="about-link" target="_blank">LinkedIn</a>
+          <a href="newsletter.html" class="about-link">Newsletter</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="gg-data.js"></script>
+<script>
+  document.getElementById('nav-placeholder').innerHTML = GG.nav('start');
+  document.getElementById('footer-placeholder').innerHTML = GG.footer();
+
+  const faqs = [
+    {
+      q: "Isn't this just justifying time spent on a hobby?",
+      a: "It's the other question I'd ask. The honest answer: some gaming time is pure entertainment, and that's fine. This site is about the subset of strategic games that have demonstrable structural overlap with decision science problems. Factorio is not the same category of activity as Candy Crush. The taxonomy page makes the distinction explicit."
+    },
+    {
+      q: "Do you have research backing the skill transfer claim?",
+      a: "Partially. The research log page is the honest accounting. There's strong evidence for the specific cognitive patterns games build. The direct professional transfer claim is the part I'm still working to validate systematically. This is a thesis in progress, not a closed case."
+    },
+    {
+      q: "What if I don't play any of these games?",
+      a: "Start with Factorio. It has the most direct structural connection to operations research concepts and the steepest feedback loop. If you do any kind of process, supply chain, or systems work professionally, the transfer will be obvious within 10 hours."
+    },
+    {
+      q: "Is this about Operations Research specifically?",
+      a: "OR is the formal academic home for most of what this site covers. But the site is framed around Decision Systems Management deliberately. OR has a branding problem: the name suggests it's about military logistics and linear programming. Decision Systems is a better name for the discipline as it's actually practiced."
+    },
+    {
+      q: "What's the connection to The Decision Factory?",
+      a: "The book (co-authored with Adam DeJans Jr., Bit Bros Publishing) is the formal methodology. This site is the practice environment. The Six Steps framework on this page is from the book. The games in the library are curated specifically to build the cognitive patterns the book's methodology requires."
+    }
+  ];
+
+  const faqList = document.getElementById('faqList');
+  faqs.forEach((f, i) => {
+    const item = document.createElement('div');
+    item.className = 'faq-item';
+    item.innerHTML = `
+      <div class="faq-q" onclick="toggleFaq(${i})">
+        ${f.q}
+        <span class="faq-icon">▼</span>
+      </div>
+      <div class="faq-a">${f.a}</div>`;
+    faqList.appendChild(item);
+  });
+
+  function toggleFaq(i) {
+    const items = document.querySelectorAll('.faq-item');
+    items[i].classList.toggle('open');
+  }
+</script>
+</body>
+</html>

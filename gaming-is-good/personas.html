@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personas — Gaming Is Good</title>
+  <link rel="stylesheet" href="gg-shared.css">
+  <style>
+    .page-hero { padding: 56px 0 40px; }
+    .page-hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; }
+
+    /* PERSONA QUIZ */
+    .quiz-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 40px; }
+    .quiz-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+    .quiz-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+    .quiz-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .quiz-option { padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; background: var(--bg); transition: all 0.15s; }
+    .quiz-option:hover { border-color: var(--purple); background: var(--purple-light); }
+    .quiz-option.selected { border-color: var(--purple); background: var(--purple-light); }
+    .quiz-option-text { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+    .quiz-option-sub { font-size: 12px; color: var(--text-muted); }
+    .quiz-result { margin-top: 16px; padding: 14px 16px; border-radius: var(--radius-sm); display: none; }
+    .quiz-result.visible { display: block; }
+
+    /* PERSONA TABS */
+    .persona-tabs { display: flex; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 32px; }
+    .persona-tab { flex: 1; padding: 14px 16px; text-align: center; cursor: pointer; border-right: 1px solid var(--border); background: var(--bg-secondary); transition: all 0.15s; }
+    .persona-tab:last-child { border-right: none; }
+    .persona-tab.active { background: var(--bg); }
+    .persona-tab.active .tab-icon { opacity: 1; }
+    .persona-tab.active .tab-name { color: var(--purple); }
+    .tab-icon { font-size: 20px; margin-bottom: 6px; opacity: 0.6; }
+    .tab-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--text-muted); }
+
+    /* PERSONA DETAIL */
+    .persona-detail { display: none; }
+    .persona-detail.active { display: block; }
+    .pd-header { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 32px; align-items: start; }
+    .pd-icon-block { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+    .pd-icon { width: 64px; height: 64px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 32px; }
+    .pd-name { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; }
+    .pd-tagline { font-size: 16px; color: var(--text-muted); font-style: italic; margin-bottom: 16px; line-height: 1.6; }
+    .pd-body { font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 16px; }
+    .pd-profile-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; color: var(--green); margin-bottom: 8px; }
+    .pd-profile { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    .pd-skills-box { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+    .pd-skills-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; color: var(--green); margin-bottom: 12px; }
+    .pd-skill-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .pd-skill-item:last-child { border-bottom: none; }
+    .pd-skill-icon { font-size: 16px; }
+    .pd-skill-name { font-size: 13px; font-weight: 500; }
+
+    /* PERSONA GAMES */
+    .pd-games-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; color: var(--green); margin-bottom: 16px; }
+    .pd-games-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .pd-game-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; display: flex; gap: 12px; text-decoration: none; color: inherit; transition: all 0.15s; }
+    .pd-game-card:hover { border-color: var(--purple); box-shadow: 0 2px 12px rgba(102,51,255,0.1); }
+    .pd-game-icon { width: 40px; height: 40px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .pd-game-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .pd-game-why { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<main>
+  <div class="container">
+    <section class="page-hero">
+      <span class="overline">Persona Types</span>
+      <h1>What kind of decision-maker are you?</h1>
+      <p class="section-sub">Four archetypes. Each has a different set of cognitive edges to develop. Find yours, then get the games that sharpen them.</p>
+    </section>
+
+    <!-- QUIZ -->
+    <div class="quiz-card">
+      <div class="quiz-title">Find your type in 10 seconds</div>
+      <div class="quiz-sub">When a project goes sideways, what's your first instinct?</div>
+      <div class="quiz-options">
+        <div class="quiz-option" onclick="selectPersona('optimizer', this)">
+          <div class="quiz-option-text">Fix the system that caused it</div>
+          <div class="quiz-option-sub">Something upstream is broken. Find it.</div>
+        </div>
+        <div class="quiz-option" onclick="selectPersona('strategist', this)">
+          <div class="quiz-option-text">Zoom out and reassess the whole plan</div>
+          <div class="quiz-option-sub">The problem is probably older than today.</div>
+        </div>
+        <div class="quiz-option" onclick="selectPersona('adapter', this)">
+          <div class="quiz-option-text">Triage fast and move</div>
+          <div class="quiz-option-sub">Speed matters more than perfect analysis.</div>
+        </div>
+        <div class="quiz-option" onclick="selectPersona('modeler', this)">
+          <div class="quiz-option-text">Build a model to understand what happened</div>
+          <div class="quiz-option-sub">You can't fix what you don't fully understand.</div>
+        </div>
+      </div>
+      <div class="quiz-result" id="quizResult"></div>
+    </div>
+
+    <!-- TABS -->
+    <div class="persona-tabs" id="personaTabs"></div>
+
+    <!-- DETAIL PANELS -->
+    <div id="personaDetails"></div>
+
+  </div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="gg-data.js"></script>
+<script>
+  document.getElementById('nav-placeholder').innerHTML = GG.nav('personas');
+  document.getElementById('footer-placeholder').innerHTML = GG.footer();
+
+  let activePersonaId = PERSONAS[0].id;
+
+  function renderTabs() {
+    const tabs = document.getElementById('personaTabs');
+    tabs.innerHTML = PERSONAS.map(p => `
+      <div class="persona-tab ${p.id === activePersonaId ? 'active' : ''}" onclick="switchPersona('${p.id}')">
+        <div class="tab-icon">${p.icon}</div>
+        <div class="tab-name">${p.name}</div>
+      </div>`).join('');
+  }
+
+  function renderDetails() {
+    const container = document.getElementById('personaDetails');
+    container.innerHTML = PERSONAS.map(p => {
+      const games = p.games.map(gid => GAMES.find(g => g.id === gid)).filter(Boolean);
+      const skillItems = p.keySkills.map(sk => {
+        const found = DS_SKILLS.find(s => s.name === sk);
+        return `<div class="pd-skill-item">
+          <span class="pd-skill-icon">${found ? found.icon : '📌'}</span>
+          <span class="pd-skill-name">${sk}</span>
+        </div>`;
+      }).join('');
+      const gameCards = games.map(g => `
+        <a href="games.html#${g.id}" class="pd-game-card">
+          <div class="pd-game-icon" style="background:${g.color}">${g.thumbnail}</div>
+          <div>
+            <div class="pd-game-title">${g.title}</div>
+            <div class="pd-game-why">${g.tagline}</div>
+          </div>
+        </a>`).join('');
+      return `
+        <div class="persona-detail ${p.id === activePersonaId ? 'active' : ''}" id="detail-${p.id}">
+          <div class="pd-header">
+            <div>
+              <div class="pd-icon-block">
+                <div class="pd-icon" style="background:${p.color}">${p.icon}</div>
+                <div class="pd-name">${p.name}</div>
+              </div>
+              <div class="pd-tagline">${p.tagline}</div>
+              <div class="pd-body">${p.description}</div>
+              <div class="pd-profile-label">Professional Profile</div>
+              <div class="pd-profile">${p.professionalProfile}</div>
+            </div>
+            <div class="pd-skills-box">
+              <div class="pd-skills-label">Key DS Skills to Develop</div>
+              ${skillItems}
+            </div>
+          </div>
+          <div class="pd-games-label">Recommended Games</div>
+          <div class="pd-games-grid">${gameCards}</div>
+          <div style="margin-top:20px;">
+            <a href="games.html?persona=${p.id}" class="btn btn-ghost">View all ${p.name} games →</a>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function switchPersona(id) {
+    activePersonaId = id;
+    renderTabs();
+    document.querySelectorAll('.persona-detail').forEach(d => d.classList.remove('active'));
+    document.getElementById('detail-' + id).classList.add('active');
+  }
+
+  function selectPersona(id, el) {
+    document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    const p = PERSONAS.find(x => x.id === id);
+    const result = document.getElementById('quizResult');
+    result.style.background = p.color;
+    result.style.borderLeft = `3px solid ${p.accentColor}`;
+    result.style.padding = '14px 16px';
+    result.innerHTML = `<strong style="font-family:Syne;font-size:14px;">${p.icon} Looks like you're ${p.name}</strong><br>
+      <span style="font-size:13px; color:var(--text-muted)">${p.tagline}</span>
+      <a href="#" onclick="switchPersona('${id}'); return false;" style="display:block; margin-top:8px; font-size:12px; color:var(--purple); font-weight:500;">See your games →</a>`;
+    result.classList.add('visible');
+    switchPersona(id);
+  }
+
+  renderTabs();
+  renderDetails();
+
+  // Check URL hash for deep link
+  const hash = window.location.hash.replace('#','');
+  if (hash && PERSONAS.find(p => p.id === hash)) switchPersona(hash);
+</script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subscribe — Gaming Is Good Newsletter</title>
+  <link rel="stylesheet" href="gg-shared.css">
+  <style>
+    .nl-page { min-height: 80vh; display: flex; align-items: center; }
+    .nl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; padding: 64px 0; }
+
+    /* LEFT */
+    .nl-left h1 { font-size: 42px; font-weight: 800; line-height: 1.1; margin-bottom: 16px; }
+    .nl-left h1 .accent { color: var(--purple); }
+    .nl-tagline { font-size: 17px; color: var(--text-muted); line-height: 1.75; margin-bottom: 28px; }
+    .nl-promises { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .nl-promise { display: flex; align-items: flex-start; gap: 10px; }
+    .promise-icon { color: var(--green); font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+    .promise-text { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    .nl-social-proof { font-size: 13px; color: var(--text-faint); font-style: italic; }
+
+    /* RIGHT */
+    .nl-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; position: relative; overflow: hidden; }
+    .nl-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--purple), var(--green)); }
+    .nl-card-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+    .nl-card-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
+    .nl-field { margin-bottom: 14px; }
+    .nl-field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 6px; }
+    .nl-field input { width: 100%; padding: 11px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); outline: none; transition: border-color 0.15s; }
+    .nl-field input:focus { border-color: var(--purple); }
+    .nl-submit { width: 100%; padding: 13px; background: var(--purple); color: white; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; margin-top: 6px; transition: background 0.15s; }
+    .nl-submit:hover { background: #5522ee; }
+    .nl-fine-print { font-size: 11px; color: var(--text-faint); text-align: center; margin-top: 12px; line-height: 1.6; }
+    .nl-success { display: none; text-align: center; padding: 20px 0; }
+    .nl-success-icon { font-size: 40px; margin-bottom: 12px; }
+    .nl-success-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+    .nl-success-text { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+    /* PAST ISSUES PREVIEW */
+    .past-issues { padding: 48px 0; border-top: 1px solid var(--border); }
+    .issues-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+    .issue-card { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; }
+    .issue-thumb { font-size: 28px; margin-bottom: 10px; }
+    .issue-num { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+    .issue-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+    .issue-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+    /* WHAT YOU GET */
+    .what-you-get { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0 0; }
+    .wyg-item { text-align: center; padding: 20px; background: var(--bg-secondary); border-radius: var(--radius-sm); }
+    .wyg-icon { font-size: 28px; margin-bottom: 10px; }
+    .wyg-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .wyg-text { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<main>
+  <div class="container">
+    <div class="nl-page">
+      <div class="nl-grid" style="width:100%">
+        <!-- LEFT -->
+        <div class="nl-left">
+          <span class="overline">Gaming Is Good Newsletter</span>
+          <h1>The newsletter for <span class="accent">serious</span> decision-makers who game.</h1>
+          <p class="nl-tagline">New game essays, decision science breakdowns, and research updates. Written when there's something worth saying. Not on a schedule.</p>
+          <div class="nl-promises">
+            <div class="nl-promise">
+              <span class="promise-icon">✓</span>
+              <span class="promise-text">Deep-dive essays on specific games and the decision skills they train</span>
+            </div>
+            <div class="nl-promise">
+              <span class="promise-icon">✓</span>
+              <span class="promise-text">Updates from the research log as the Trifecta thesis gets validated</span>
+            </div>
+            <div class="nl-promise">
+              <span class="promise-icon">✓</span>
+              <span class="promise-text">New games added to the library with full DS skill breakdowns</span>
+            </div>
+            <div class="nl-promise">
+              <span class="promise-icon">✓</span>
+              <span class="promise-text">No filler. No repurposed LinkedIn content. Original writing only.</span>
+            </div>
+            <div class="nl-promise">
+              <span class="promise-icon">✗</span>
+              <span class="promise-text">No ads. No sponsored content. No "top 10" listicles.</span>
+            </div>
+          </div>
+          <div class="nl-social-proof">"Gaming Is Good fills a gap I didn't know existed until it was filled." &mdash; reader feedback</div>
+        </div>
+
+        <!-- RIGHT -->
+        <div>
+          <div class="nl-card">
+            <div class="nl-card-title">Subscribe to Gaming Is Good</div>
+            <div class="nl-card-sub">Join practitioners, researchers, and strategists who take this seriously.</div>
+            <div id="nlForm">
+              <div class="nl-field">
+                <label>First name</label>
+                <input type="text" id="nlName" placeholder="Your name">
+              </div>
+              <div class="nl-field">
+                <label>Email address</label>
+                <input type="email" id="nlEmail" placeholder="you@domain.com">
+              </div>
+              <div class="nl-field">
+                <label>I'm primarily a... (optional)</label>
+                <select style="width:100%; padding:11px 14px; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:14px; font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); outline:none;">
+                  <option value="">Select one</option>
+                  <option>Operations / Supply Chain professional</option>
+                  <option>Strategy / Executive</option>
+                  <option>Data Scientist / OR practitioner</option>
+                  <option>Product / Engineering leader</option>
+                  <option>Consultant</option>
+                  <option>Researcher / Academic</option>
+                  <option>Curious gamer</option>
+                </select>
+              </div>
+              <button class="nl-submit" onclick="handleSubscribe()">Subscribe &rarr;</button>
+              <div class="nl-fine-print">No spam. Unsubscribe anytime. I respect your inbox more than most.</div>
+            </div>
+            <div class="nl-success" id="nlSuccess">
+              <div class="nl-success-icon">🎓</div>
+              <div class="nl-success-title">You're in.</div>
+              <div class="nl-success-text">First issue lands when there's something worth reading. That's the only schedule this newsletter runs on.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHAT YOU GET -->
+    <div style="padding-bottom:48px;">
+      <span class="overline">What's in the newsletter</span>
+      <h2 class="section-title">Three types of content. All original.</h2>
+      <div class="what-you-get">
+        <div class="wyg-item">
+          <div class="wyg-icon">🎮</div>
+          <div class="wyg-title">Game Essays</div>
+          <div class="wyg-text">Deep dives on specific games. What decision skills they train, how the mechanics map to professional contexts, and what the transfer looks like in practice.</div>
+        </div>
+        <div class="wyg-item">
+          <div class="wyg-icon">📐</div>
+          <div class="wyg-title">DS Skill Breakdowns</div>
+          <div class="wyg-text">Plain-language explainers of Decision Science concepts. No jargon walls. Written for practitioners who want the idea, not the academic apparatus.</div>
+        </div>
+        <div class="wyg-item">
+          <div class="wyg-icon">🔬</div>
+          <div class="wyg-title">Research Updates</div>
+          <div class="wyg-text">Progress on validating the Trifecta thesis. What the evidence supports, what's still open, and who I'm talking to. Receipts before claims.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAST ISSUES PREVIEW -->
+    <div class="past-issues">
+      <span class="overline">Recent Issues</span>
+      <h2 class="section-title">What you've missed</h2>
+      <div class="issues-grid">
+        <div class="issue-card">
+          <div class="issue-thumb">⚙️</div>
+          <div class="issue-num">Issue 04</div>
+          <div class="issue-title">Why Factorio is the best OR textbook ever shipped</div>
+          <div class="issue-desc">The formal names for every constraint problem Factorio forces you to solve. And why that matters.</div>
+        </div>
+        <div class="issue-card">
+          <div class="issue-thumb">🚀</div>
+          <div class="issue-num">Issue 03</div>
+          <div class="issue-title">FTL and the anatomy of a good decision under scarcity</div>
+          <div class="issue-desc">Resource allocation in 15-second windows. The game that makes professionals better at saying no.</div>
+        </div>
+        <div class="issue-card">
+          <div class="issue-thumb">🗺️</div>
+          <div class="issue-num">Issue 02</div>
+          <div class="issue-title">The Trifecta: the framework behind this whole project</div>
+          <div class="issue-desc">First full explanation of Stoicism + Gaming + Decision Systems. The foundational issue.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="gg-data.js"></script>
+<script>
+  document.getElementById('nav-placeholder').innerHTML = GG.nav('');
+  document.getElementById('footer-placeholder').innerHTML = GG.footer();
+
+  function handleSubscribe() {
+    const email = document.getElementById('nlEmail').value;
+    if (!email || !email.includes('@')) {
+      document.getElementById('nlEmail').style.borderColor = '#cc3300';
+      return;
+    }
+    // In production, replace this with your Beehiiv/Ghost API call
+    document.getElementById('nlForm').style.display = 'none';
+    document.getElementById('nlSuccess').style.display = 'block';
+  }
+</script>
+</body>
+</html>

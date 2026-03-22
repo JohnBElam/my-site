@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Gaming Is Good</title>
+  <link rel="stylesheet" href="gg-shared.css">
+  <style>
+    .page-hero { padding: 56px 0 40px; }
+    .page-hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; }
+
+    /* FILTER ROW */
+    .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; align-items: center; }
+    .filter-row-label { font-size: 12px; color: var(--text-muted); font-weight: 500; margin-right: 4px; }
+    .pill { font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border); color: var(--text-muted); cursor: pointer; background: var(--bg); transition: all 0.15s; }
+    .pill.active { background: var(--purple); color: white; border-color: var(--purple); }
+    .pill:hover:not(.active) { border-color: var(--purple); color: var(--purple); }
+
+    /* FEATURED POST */
+    .featured-post { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; display: grid; grid-template-columns: 240px 1fr; margin-bottom: 32px; transition: box-shadow 0.15s; text-decoration: none; color: inherit; }
+    .featured-post:hover { box-shadow: 0 4px 24px rgba(102,51,255,0.12); }
+    .featured-thumb { display: flex; align-items: center; justify-content: center; font-size: 64px; }
+    .featured-body { padding: 28px; }
+    .featured-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .featured-badge { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; background: var(--purple); color: white; padding: 3px 9px; border-radius: 20px; }
+    .featured-game-tag { font-size: 11px; color: var(--text-muted); }
+    .featured-date { font-size: 11px; color: var(--text-muted); margin-left: auto; }
+    .featured-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; line-height: 1.3; margin-bottom: 12px; }
+    .featured-excerpt { font-size: 14px; color: var(--text-muted); line-height: 1.75; margin-bottom: 16px; }
+    .featured-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    /* BLOG GRID */
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .blog-card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.15s, border-color 0.15s; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+    .blog-card:hover { box-shadow: 0 4px 20px rgba(102,51,255,0.1); border-color: rgba(102,51,255,0.3); }
+    .blog-card-thumb { height: 100px; display: flex; align-items: center; justify-content: center; font-size: 40px; }
+    .blog-card-body { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+    .blog-card-meta { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+    .blog-card-game { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; color: var(--purple); }
+    .blog-card-date { font-size: 10px; color: var(--text-faint); margin-left: auto; }
+    .blog-card-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; line-height: 1.4; margin-bottom: 8px; }
+    .blog-card-excerpt { font-size: 12px; color: var(--text-muted); line-height: 1.6; flex: 1; }
+    .blog-card-footer { padding: 12px 18px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .blog-card-read-time { font-size: 11px; color: var(--text-muted); }
+    .blog-card-tags { display: flex; gap: 5px; }
+    .draft-badge { font-size: 10px; background: #faeeda; color: #7a4000; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
+
+    .no-results { text-align: center; padding: 64px; color: var(--text-muted); }
+    .no-results-icon { font-size: 40px; margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<main>
+  <div class="container">
+    <section class="page-hero">
+      <span class="overline">The Blog</span>
+      <h1>Essays on games and decisions</h1>
+      <p class="section-sub">No bullet point listicles. Prose-driven writing for professionals who take both games and their work seriously. Gaming Is Good newsletter lives here too.</p>
+    </section>
+
+    <!-- FILTERS -->
+    <div class="filter-row">
+      <span class="filter-row-label">Filter by tag:</span>
+      <span class="pill active" data-tag="all">All</span>
+      <span class="pill" data-tag="Optimization">Optimization</span>
+      <span class="pill" data-tag="Systems Thinking">Systems Thinking</span>
+      <span class="pill" data-tag="Deep Dive">Deep Dive</span>
+      <span class="pill" data-tag="Uncertainty">Uncertainty</span>
+      <span class="pill" data-tag="Strategy">Strategy</span>
+    </div>
+
+    <!-- FEATURED -->
+    <div id="featuredSlot"></div>
+
+    <!-- GRID -->
+    <div class="blog-grid" id="blogGrid"></div>
+    <div id="noResults" class="no-results" style="display:none">
+      <div class="no-results-icon">🎮</div>
+      <p>No posts match that filter yet. More coming.</p>
+    </div>
+
+  </div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="gg-data.js"></script>
+<script>
+  document.getElementById('nav-placeholder').innerHTML = GG.nav('blog');
+  document.getElementById('footer-placeholder').innerHTML = GG.footer();
+
+  let activeTag = 'all';
+
+  function formatDate(d) {
+    return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  function renderBlog() {
+    const filtered = BLOG_POSTS.filter(p =>
+      activeTag === 'all' || p.tags.includes(activeTag)
+    );
+
+    const featured = document.getElementById('featuredSlot');
+    const grid = document.getElementById('blogGrid');
+    const noRes = document.getElementById('noResults');
+
+    if (filtered.length === 0) {
+      featured.innerHTML = '';
+      grid.innerHTML = '';
+      noRes.style.display = 'block';
+      return;
+    }
+    noRes.style.display = 'none';
+
+    // First post = featured
+    const fp = filtered[0];
+    featured.innerHTML = `
+      <a href="#${fp.id}" class="featured-post">
+        <div class="featured-thumb" style="background:${fp.color}">${fp.icon}</div>
+        <div class="featured-body">
+          <div class="featured-meta">
+            <span class="featured-badge">Featured</span>
+            <span class="featured-game-tag">${fp.gameTag}</span>
+            <span class="featured-date">${formatDate(fp.date)} &middot; ${fp.readTime} read</span>
+          </div>
+          <div class="featured-title">${fp.title}</div>
+          <div class="featured-excerpt">${fp.excerpt}</div>
+          <div class="featured-tags">
+            ${fp.tags.map(t => `<span class="tag tag-purple">${t}</span>`).join('')}
+            ${fp.status === 'draft' ? '<span class="draft-badge">Draft</span>' : ''}
+          </div>
+        </div>
+      </a>`;
+
+    // Rest = grid
+    grid.innerHTML = filtered.slice(1).map(p => `
+      <a href="#${p.id}" class="blog-card">
+        <div class="blog-card-thumb" style="background:${p.color}">${p.icon}</div>
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <span class="blog-card-game">${p.gameTag}</span>
+            <span class="blog-card-date">${formatDate(p.date)}</span>
+          </div>
+          <div class="blog-card-title">${p.title}</div>
+          <div class="blog-card-excerpt">${p.excerpt}</div>
+        </div>
+        <div class="blog-card-footer">
+          <span class="blog-card-read-time">${p.readTime} read</span>
+          <div class="blog-card-tags">
+            ${p.status === 'draft' ? '<span class="draft-badge">Draft</span>' : ''}
+            ${p.tags.slice(0,1).map(t => `<span class="tag tag-gray" style="font-size:10px">${t}</span>`).join('')}
+          </div>
+        </div>
+      </a>`).join('');
+  }
+
+  document.querySelectorAll('.pill[data-tag]').forEach(p => {
+    p.addEventListener('click', () => {
+      document.querySelectorAll('.pill[data-tag]').forEach(x => x.classList.remove('active'));
+      p.classList.add('active');
+      activeTag = p.dataset.tag;
+      renderBlog();
+    });
+  });
+
+  renderBlog();
+</script>
+</body>
+</html>

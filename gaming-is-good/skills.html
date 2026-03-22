@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decision Systems Skills Taxonomy — Gaming Is Good</title>
+  <link rel="stylesheet" href="gg-shared.css">
+  <style>
+    .page-hero { padding: 56px 0 40px; }
+    .page-hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; }
+
+    /* TAXONOMY INTRO */
+    .taxonomy-intro { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 40px; display: grid; grid-template-columns: 1fr 2fr; gap: 28px; }
+    .ti-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; color: var(--green); margin-bottom: 10px; }
+    .ti-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+    .ti-body { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    .ti-key { display: flex; flex-direction: column; gap: 10px; }
+    .ti-key-item { display: flex; align-items: flex-start; gap: 10px; }
+    .ti-key-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+    .ti-key-text { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    /* SKILL GRID */
+    .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .skill-card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.15s, border-color 0.15s; cursor: pointer; }
+    .skill-card:hover { border-color: var(--purple); box-shadow: 0 4px 20px rgba(102,51,255,0.1); }
+    .skill-card.expanded { border-color: var(--purple); }
+    .skill-card-header { padding: 20px; display: flex; align-items: flex-start; gap: 14px; }
+    .skill-icon-block { width: 44px; height: 44px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .skill-name { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .skill-definition-short { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+    .skill-expand-icon { margin-left: auto; font-size: 14px; color: var(--text-faint); transition: transform 0.2s; flex-shrink: 0; }
+    .skill-card.expanded .skill-expand-icon { transform: rotate(180deg); }
+
+    .skill-detail { display: none; border-top: 1px solid var(--border); }
+    .skill-card.expanded .skill-detail { display: block; }
+    .skill-detail-inner { padding: 20px; }
+    .sd-section { margin-bottom: 16px; }
+    .sd-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; color: var(--green); margin-bottom: 8px; }
+    .sd-text { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+    .sd-games { display: flex; gap: 8px; flex-wrap: wrap; }
+    .sd-game-pill { display: flex; align-items: center; gap: 6px; padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; text-decoration: none; color: var(--text); font-size: 12px; transition: all 0.15s; }
+    .sd-game-pill:hover { border-color: var(--purple); color: var(--purple); }
+    .sd-prof { font-size: 12px; color: var(--text-muted); font-style: italic; }
+
+    /* MATRIX */
+    .matrix-section { margin-top: 56px; }
+    .matrix-wrap { overflow-x: auto; }
+    .matrix-table { width: 100%; border-collapse: collapse; }
+    .matrix-table th, .matrix-table td { padding: 10px 14px; font-size: 12px; text-align: center; border: 1px solid var(--border); }
+    .matrix-table th { background: var(--bg-secondary); font-weight: 500; color: var(--text-muted); white-space: nowrap; }
+    .matrix-table th:first-child { text-align: left; }
+    .matrix-table td:first-child { text-align: left; font-weight: 500; font-size: 13px; background: var(--bg-secondary); white-space: nowrap; }
+    .matrix-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--purple); margin: 0 auto; opacity: 0; }
+    .matrix-dot.has { opacity: 1; }
+    .matrix-dot.primary { background: var(--purple); }
+    .matrix-dot.secondary { background: var(--purple-mid); opacity: 0.6; }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<main>
+  <div class="container">
+    <section class="page-hero">
+      <span class="overline">The Taxonomy</span>
+      <h1>Decision Systems Skills</h1>
+      <p class="section-sub">A field guide to the cognitive skills that strategic games train and professional work demands. Click any skill to expand the full definition, context, and game recommendations.</p>
+    </section>
+
+    <!-- INTRO -->
+    <div class="taxonomy-intro">
+      <div>
+        <div class="ti-label">Why This Exists</div>
+        <div class="ti-title">Games don't teach skills by accident</div>
+        <div class="ti-body">Every skill in this taxonomy is a named concept in Operations Research, Decision Science, or Behavioral Economics. The argument isn't that games are fun substitutes for formal training. It's that games are the fastest feedback environment available for building the underlying cognitive patterns these fields rely on.</div>
+      </div>
+      <div class="ti-key">
+        <div class="ti-key-item">
+          <div class="ti-key-dot" style="background:var(--purple)"></div>
+          <div class="ti-key-text"><strong>Definition</strong>: What the skill actually is, in plain language, without academic jargon.</div>
+        </div>
+        <div class="ti-key-item">
+          <div class="ti-key-dot" style="background:var(--green)"></div>
+          <div class="ti-key-text"><strong>Why it matters</strong>: The professional failure mode this skill prevents.</div>
+        </div>
+        <div class="ti-key-item">
+          <div class="ti-key-dot" style="background:#7a5500"></div>
+          <div class="ti-key-text"><strong>Professional analog</strong>: Where this shows up in real organizational work.</div>
+        </div>
+        <div class="ti-key-item">
+          <div class="ti-key-dot" style="background:var(--purple-mid)"></div>
+          <div class="ti-key-text"><strong>Training games</strong>: Which games in the library develop this skill most directly.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKILL GRID -->
+    <div class="skills-grid" id="skillsGrid"></div>
+
+    <!-- MATRIX -->
+    <div class="matrix-section">
+      <span class="overline">Cross-Reference</span>
+      <h2 class="section-title">Games × Skills Matrix</h2>
+      <p class="section-sub">Which games develop which skills. Use this to find the highest-leverage game for the skill you want to build.</p>
+      <div class="matrix-wrap">
+        <table class="matrix-table" id="matrixTable"></table>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="gg-data.js"></script>
+<script>
+  document.getElementById('nav-placeholder').innerHTML = GG.nav('skills');
+  document.getElementById('footer-placeholder').innerHTML = GG.footer();
+
+  // Render skill cards
+  const grid = document.getElementById('skillsGrid');
+  DS_SKILLS.forEach(skill => {
+    const games = skill.games.map(gid => GAMES.find(g => g.id === gid)).filter(Boolean);
+    const gamePills = games.map(g =>
+      `<a href="games.html#${g.id}" class="sd-game-pill">${g.thumbnail} ${g.title}</a>`
+    ).join('');
+    const card = document.createElement('div');
+    card.className = 'skill-card';
+    card.id = 'skill-' + skill.id;
+    card.innerHTML = `
+      <div class="skill-card-header" onclick="toggleSkill('${skill.id}')">
+        <div class="skill-icon-block" style="background:${skill.color}">${skill.icon}</div>
+        <div style="flex:1; min-width:0">
+          <div class="skill-name">${skill.name}</div>
+          <div class="skill-definition-short">${skill.definition.split('.')[0]}.</div>
+        </div>
+        <div class="skill-expand-icon">▼</div>
+      </div>
+      <div class="skill-detail">
+        <div class="skill-detail-inner">
+          <div class="sd-section">
+            <div class="sd-label">Full Definition</div>
+            <div class="sd-text">${skill.definition}</div>
+          </div>
+          <div class="sd-section">
+            <div class="sd-label">Why It Matters</div>
+            <div class="sd-text">${skill.whyItMatters}</div>
+          </div>
+          <div class="sd-section">
+            <div class="sd-label">Professional Analog</div>
+            <div class="sd-prof">${skill.professionalAnalog}</div>
+          </div>
+          <div class="sd-section">
+            <div class="sd-label">Training Games</div>
+            <div class="sd-games">${gamePills}</div>
+          </div>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  function toggleSkill(id) {
+    const card = document.getElementById('skill-' + id);
+    card.classList.toggle('expanded');
+  }
+
+  // Render matrix
+  const table = document.getElementById('matrixTable');
+  const skillNames = DS_SKILLS.map(s => s.name);
+  let thead = '<thead><tr><th>Game</th>' + skillNames.map(s =>
+    `<th style="writing-mode:vertical-rl; text-orientation:mixed; padding:8px 6px; height:100px">${s}</th>`
+  ).join('') + '</tr></thead>';
+  let tbody = '<tbody>' + GAMES.map(g => {
+    const cells = DS_SKILLS.map(skill => {
+      const has = g.skills.includes(skill.name);
+      return `<td><div class="matrix-dot ${has ? 'has primary' : ''}"></div></td>`;
+    }).join('');
+    return `<tr><td>${g.thumbnail} ${g.title}</td>${cells}</tr>`;
+  }).join('') + '</tbody>';
+  table.innerHTML = thead + tbody;
+
+  // Auto-expand from hash
+  const hash = window.location.hash.replace('#','');
+  if (hash) {
+    const card = document.getElementById('skill-' + hash);
+    if (card) { card.classList.add('expanded'); card.scrollIntoView({behavior:'smooth', block:'center'}); }
+  }
+</script>
+</body>
+</html>
