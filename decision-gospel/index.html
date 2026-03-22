@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decision Gospel | John Brandon Elam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0e0c09;
+      --parchment: #f5f0e8;
+      --gold: #b8922a;
+      --gold-light: #d4a843;
+      --gold-dim: #7a5f1a;
+      --red: #8b1a1a;
+      --muted: #5a5040;
+      --border: #c9b97a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--ink);
+      color: var(--parchment);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      padding: 80px 24px 60px;
+      border-bottom: 1px solid var(--gold-dim);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(184,146,42,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .back-link {
+      font-family: 'Courier Prime', monospace;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 48px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--gold-light); }
+    .back-link::before { content: '← '; }
+
+    .ornament {
+      font-size: 28px;
+      color: var(--gold);
+      letter-spacing: 0.3em;
+      display: block;
+      margin-bottom: 24px;
+      opacity: 0.7;
+    }
+
+    h1 {
+      font-family: 'IM Fell English', Georgia, serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 400;
+      color: var(--parchment);
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      margin-bottom: 40px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      justify-content: center;
+      margin: 0 auto 40px;
+      max-width: 400px;
+    }
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim));
+    }
+    .divider-line.right {
+      background: linear-gradient(to left, transparent, var(--gold-dim));
+    }
+    .divider-diamond {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    .intro {
+      max-width: 620px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      color: #c9b97a;
+      font-style: italic;
+      line-height: 1.8;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+      border-bottom: 1px solid var(--gold-dim);
+      background: rgba(14,12,9,0.95);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav a {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 14px 18px;
+      transition: color 0.2s, background 0.2s;
+      border-right: 1px solid rgba(184,146,42,0.15);
+    }
+    nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
+    nav a:hover { color: var(--gold-light); background: rgba(184,146,42,0.05); }
+
+    /* MAIN */
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* SECTION CARDS */
+    .canon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2px;
+      margin: 80px 0;
+    }
+
+    .canon-card {
+      display: block;
+      text-decoration: none;
+      padding: 40px 36px;
+      border: 1px solid rgba(184,146,42,0.2);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, background 0.3s;
+      background: rgba(255,255,255,0.01);
+    }
+
+    .canon-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 0% 0%, rgba(184,146,42,0.06) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .canon-card:hover {
+      border-color: rgba(184,146,42,0.5);
+      background: rgba(184,146,42,0.03);
+    }
+    .canon-card:hover::before { opacity: 1; }
+
+    .card-roman {
+      font-family: 'IM Fell English', serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--gold-dim);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .card-title {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.5rem;
+      color: var(--parchment);
+      line-height: 1.2;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .card-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .card-arrow {
+      position: absolute;
+      bottom: 20px;
+      right: 24px;
+      color: var(--gold-dim);
+      font-size: 18px;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .canon-card:hover .card-arrow {
+      color: var(--gold);
+      transform: translateX(4px);
+    }
+
+    /* COLOPHON */
+    footer {
+      border-top: 1px solid var(--gold-dim);
+      text-align: center;
+      padding: 48px 24px;
+      margin-top: 80px;
+    }
+
+    footer p {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      line-height: 2;
+    }
+
+    footer a {
+      color: var(--gold-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: var(--gold-light); }
+
+    /* FADE IN */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    header, .canon-grid { animation: fadeUp 0.8s ease both; }
+    .canon-grid { animation-delay: 0.2s; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="https://johnbelam.com" class="back-link">Return to johnbelam.com</a>
+  <span class="ornament">✦ ✦ ✦</span>
+  <h1>Decision Gospel</h1>
+  <p class="subtitle">The Canon of the Church of Sequential Decision Systems</p>
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line right"></div>
+  </div>
+  <p class="intro">
+    These texts were not planned. They emerged from the accumulated frustration of watching organizations spend
+    millions solving the wrong problem with the right tools. Read them as doctrine, as satire, or as both.
+    The distinction matters less than you think.
+  </p>
+</header>
+
+<nav>
+  <a href="index.html">Canon</a>
+  <a href="genesis.html">Genesis</a>
+  <a href="homilies.html">The Homilies</a>
+  <a href="sins.html">The Sins</a>
+  <a href="commandments.html">Commandments</a>
+  <a href="beatitudes.html">Beatitudes</a>
+  <a href="false-prophets.html">False Prophets</a>
+  <a href="congregation.html">Congregation</a>
+  <a href="heresies.html">Heresies</a>
+</nav>
+
+<main>
+  <div class="canon-grid">
+    <a class="canon-card" href="genesis.html">
+      <span class="card-roman">The Book of Origins</span>
+      <span class="card-title">Genesis</span>
+      <p class="card-desc">In the beginning was the objective. The story of how we lost it, and why we came back.</p>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="canon-card" href="homilies.html">
+      <span class="card-roman">The First Texts</span>
+      <span class="card-title">The Three Homilies</span>
+      <p class="card-desc">Sermons delivered from the mount. Diagnosis, confession, and parable. The founding proclamations of the faith.</p>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="canon-card" href="sins.html">
+      <span class="card-roman">The Seven</span>
+      <span class="card-title">The Sins</span>
+      <p class="card-desc">The ways we fail. Named, anatomized, and offered without apology to those who need to hear them.</p>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="canon-card" href="commandments.html">
+      <span class="card-roman">The Ten</span>
+      <span class="card-title">The Commandments</span>
+      <p class="card-desc">Carved in stone. Not carved in a Notion doc. The moral architecture of the discipline.</p>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="canon-card" href="beatitudes.html">
+      <span class="card-roman">The Blessings</span>
+      <span class="card-title">The Beatitudes</span>
+      <p class="card-desc">Blessed are those who name the decision before the laptop opens. And other truths the room did not want to hear.</p>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="canon-card" href="false-prophets.html">
+      <span class="card-roman">The Warned Against</span>
+      <span class="card-title">The False Prophets</span>
+      <p class="card-desc">They are in your organization. Some of them are beloved. A record of the archetypes and their specific harms.</p>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="canon-card" href="congregation.html">
+      <span class="card-roman">The Faithful</span>
+      <span class="card-title">The Congregation</span>
+      <p class="card-desc">Saints, Cardinals, and Monks. The people who built the doctrine, carry it forward, and refuse to put it down.</p>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="canon-card" href="heresies.html">
+      <span class="card-roman">The Named</span>
+      <span class="card-title">The Heresies</span>
+      <p class="card-desc">False gospels, their adherents, and the specific ways they lead the faithful astray. We do not condemn the heretics.</p>
+      <span class="card-arrow">→</span>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  <p>Decision Gospel · Church of Sequential Decision Systems</p>
+  <p>Founded in frustration · Carried forward in faith</p>
+  <p style="margin-top:16px"><a href="https://johnbelam.com">← johnbelam.com</a> &nbsp;·&nbsp; <a href="https://bitbrosdata.com">Bit Bros</a></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Ten Commandments | Decision Gospel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --ink: #0e0c09; --parchment: #f5f0e8; --gold: #b8922a; --gold-light: #d4a843; --gold-dim: #7a5f1a; --muted: #5a5040; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--ink); color: var(--parchment); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; line-height: 1.85; }
+
+    nav { display: flex; justify-content: center; flex-wrap: wrap; border-bottom: 1px solid var(--gold-dim); background: rgba(14,12,9,0.97); position: sticky; top: 0; z-index: 100; }
+    nav a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 14px 16px; transition: color 0.2s; border-right: 1px solid rgba(184,146,42,0.15); }
+    nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
+    nav a:hover, nav a.active { color: var(--gold-light); }
+
+    .page-header { text-align: center; padding: 72px 24px 56px; border-bottom: 1px solid rgba(184,146,42,0.2); position: relative; }
+    .page-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(184,146,42,0.06) 0%, transparent 70%); pointer-events: none; }
+    .breadcrumb { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 32px; display: block; }
+    .breadcrumb a { color: var(--gold-dim); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold-light); }
+    .page-label { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 16px; display: block; }
+    h1 { font-family: 'IM Fell English', serif; font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 400; color: var(--parchment); line-height: 1.15; margin-bottom: 20px; }
+    .page-intro { font-style: italic; color: var(--gold); font-size: 1rem; max-width: 540px; margin: 0 auto; }
+
+    main { max-width: 720px; margin: 0 auto; padding: 0 24px 100px; }
+
+    .commandment {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 0 28px;
+      padding: 48px 0;
+      border-bottom: 1px solid rgba(184,146,42,0.1);
+      align-items: start;
+    }
+    .commandment:last-child { border-bottom: none; }
+
+    .cmd-numeral {
+      font-family: 'IM Fell English', serif;
+      font-size: 2.2rem;
+      color: var(--gold-dim);
+      line-height: 1;
+      padding-top: 4px;
+      text-align: right;
+    }
+
+    .cmd-body {}
+
+    .cmd-heading {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-weight: 400;
+      color: var(--parchment);
+      margin-bottom: 16px;
+      line-height: 1.25;
+    }
+
+    p { margin-bottom: 1.1em; }
+    em { color: var(--gold-light); font-style: italic; }
+
+    .page-footer { border-top: 1px solid var(--gold-dim); text-align: center; padding: 40px 24px; margin-top: 40px; }
+    .page-footer a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim); text-decoration: none; margin: 0 12px; transition: color 0.2s; }
+    .page-footer a:hover { color: var(--gold-light); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    main { animation: fadeUp 0.6s ease both; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Canon</a>
+  <a href="genesis.html">Genesis</a>
+  <a href="homilies.html">Homilies</a>
+  <a href="sins.html">Sins</a>
+  <a href="commandments.html" class="active">Commandments</a>
+  <a href="beatitudes.html">Beatitudes</a>
+  <a href="false-prophets.html">False Prophets</a>
+  <a href="congregation.html">Congregation</a>
+  <a href="heresies.html">Heresies</a>
+</nav>
+
+<div class="page-header">
+  <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / The Commandments</span>
+  <span class="page-label">The Ten</span>
+  <h1>The Commandments of Decision Systems</h1>
+  <p class="page-intro">Carved in stone. Not carved in a Notion doc. The moral architecture of the discipline.</p>
+</div>
+
+<main>
+
+  <div class="commandment">
+    <span class="cmd-numeral">I</span>
+    <div class="cmd-body">
+      <h2 class="cmd-heading">Thou shalt name the decision before thou openest the laptop.</h2>
+      <p>Not the problem. Not the opportunity. The decision. The specific, consequential, attributable choice that a real person will make that will change something real. Write it at the top of the page. If you cannot write it, you are not ready to proceed.</p>
+    </div>
+  </div>
+
+  <div class="commandment">
+    <span class="cmd-numeral">II</span>
+    <div class="cmd-body">
+      <h2 class="cmd-heading">Thou shalt not take the name of the framework in vain.</h2>
+      <p>The Six Steps are not a checklist. The methodology is not a shield. Do not invoke the language of decision systems while skipping the substance of decision systems. The congregation will know. The outcomes will know sooner.</p>
+    </div>
+  </div>
+
+  <div class="commandment">
+    <span class="cmd-numeral">III</span>
+    <div class="cmd-body">
+      <h2 class="cmd-heading">Honor the metaproblem.</h2>
+      <p>Before the problem, there is a harder question: is this the right problem to be working on? The metaproblem does not announce itself. It waits quietly while teams spend months solving something adjacent to what matters. Sit with it. Ask it out loud. The answer will be uncomfortable. Ask it anyway.</p>
+    </div>
+  </div>
+
+  <div class="commandment">
+    <span class="cmd-numeral">IV</span>
+    <div class="cmd-body">
+      <h2 class="cmd-heading">Remember Step One and keep it holy.</h2>
+      <p>Thou shalt return to it. Not as failure. Not as retreat. As discipline. The cycle is the point. The project that never loops back is the project that eventually serves no one.</p>
+    </div>
+  </div>
+
+  <div class="commandment">
+    <span class="cmd-numeral">V</span>
+    <div class="cmd-body">
+      <h2 class="cmd-heading">Thou shalt not covet thy neighbor's model.</h2>
+      <p>Their data is not your data. Their problem is not your problem. Their solution, however elegant, was built for a decision frame you do not share. Borrowed solutions answer borrowed questions. Do the work from the beginning.</p>
+    </div>
+  </div>
+
+  <div class="commandment">
+    <span class="cmd-numeral">VI</span>
+    <div class="cmd-body">
+      <h2 class="cmd-heading">Thou shalt not kill the uncertainty.</h2>
+      <p>Name it. Quantify it where you can. Acknowledge it where you cannot. The analyst who presents a recommendation without its confidence interval is not being decisive. They are being dishonest. Uncertainty is not weakness. Pretending it does not exist is.</p>
+    </div>
+  </div>
+
+  <div class="commandment">
+    <span class="cmd-numeral">VII</span>
+    <div class="cmd-body">
+      <h2 class="cmd-heading">Thou shalt not bear false precision.</h2>
+      <p>The model said 94.7%. The model did not say 94.7%. The model produced a number that looks like 94.7% and carries assumptions you have not fully examined riding inside it like stowaways. Present the number. Present what it cost to get there. Present what would have to be wrong for it to be wrong.</p>
+    </div>
+  </div>
+
+  <div class="commandment">
+    <span class="cmd-numeral">VIII</span>
+    <div class="cmd-body">
+      <h2 class="cmd-heading">Thou shalt not build what cannot be adopted.</h2>
+      <p>Elegance is not a virtue if it lives on a server no one accesses. Complexity is not sophistication. The solution that gets used imperfectly is worth more than the solution that gets admired occasionally. Build for the decision maker in front of you, not the one you wish you had.</p>
+    </div>
+  </div>
+
+  <div class="commandment">
+    <span class="cmd-numeral">IX</span>
+    <div class="cmd-body">
+      <h2 class="cmd-heading">Thou shalt not skip the stakeholder.</h2>
+      <p>The person who must act on the output is not a nuisance to be briefed at the end. They are the entire point. Their mental model, their constraints, their political reality, their tolerance for uncertainty — all of it shapes what a useful answer looks like. Ignore them early and you will meet them late, and the meeting will be expensive.</p>
+    </div>
+  </div>
+
+  <div class="commandment">
+    <span class="cmd-numeral">X</span>
+    <div class="cmd-body">
+      <h2 class="cmd-heading">Thou shalt go back.</h2>
+      <p>Always. Even when it hurts. Especially when it hurts. The sunk cost is not a reason to continue in the wrong direction. The project in flight can be redirected. The model in production can be questioned. The answer that made sense in Q1 can be wrong by Q3. Go back. Ask again. The discipline does not end at delivery.</p>
+      <p>It ends when the problem does.</p>
+      <p><em>Problems do not end.</em></p>
+    </div>
+  </div>
+
+</main>
+
+<div class="page-footer">
+  <a href="sins.html">← Sins</a>
+  <a href="beatitudes.html">Beatitudes →</a>
+</div>
+
+</body>
+</html>

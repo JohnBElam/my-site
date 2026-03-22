@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Congregation | Decision Gospel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --ink: #0e0c09; --parchment: #f5f0e8; --gold: #b8922a; --gold-light: #d4a843; --gold-dim: #7a5f1a; --muted: #5a5040; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--ink); color: var(--parchment); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; line-height: 1.85; }
+
+    nav { display: flex; justify-content: center; flex-wrap: wrap; border-bottom: 1px solid var(--gold-dim); background: rgba(14,12,9,0.97); position: sticky; top: 0; z-index: 100; }
+    nav a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 14px 16px; transition: color 0.2s; border-right: 1px solid rgba(184,146,42,0.15); }
+    nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
+    nav a:hover, nav a.active { color: var(--gold-light); }
+
+    .page-header { text-align: center; padding: 72px 24px 56px; border-bottom: 1px solid rgba(184,146,42,0.2); position: relative; }
+    .page-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(184,146,42,0.06) 0%, transparent 70%); pointer-events: none; }
+    .breadcrumb { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 32px; display: block; }
+    .breadcrumb a { color: var(--gold-dim); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold-light); }
+    .page-label { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 16px; display: block; }
+    h1 { font-family: 'IM Fell English', serif; font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 400; color: var(--parchment); line-height: 1.15; margin-bottom: 20px; }
+    .page-intro { font-style: italic; color: var(--gold); font-size: 1rem; max-width: 540px; margin: 0 auto; }
+
+    main { max-width: 720px; margin: 0 auto; padding: 0 24px 100px; }
+
+    .rank-header {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+      font-weight: 400;
+      color: var(--gold);
+      margin: 72px 0 8px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(184,146,42,0.3);
+    }
+    .rank-note {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 48px;
+      margin-top: 8px;
+    }
+
+    .member-entry { padding: 48px 0; border-bottom: 1px solid rgba(184,146,42,0.1); }
+    .member-entry:last-child { border-bottom: none; }
+
+    .member-rank {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .member-name {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-weight: 400;
+      color: var(--parchment);
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    p { margin-bottom: 1.3em; }
+    em { color: var(--gold-light); font-style: italic; }
+
+    .feast-day {
+      font-family: 'Courier Prime', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--gold-dim);
+      font-style: italic;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(184,146,42,0.1);
+    }
+
+    .closing-note {
+      font-style: italic;
+      color: var(--gold);
+      text-align: center;
+      padding: 56px 0 0;
+      font-size: 1.05rem;
+      line-height: 1.9;
+    }
+
+    .page-footer { border-top: 1px solid var(--gold-dim); text-align: center; padding: 40px 24px; }
+    .page-footer a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim); text-decoration: none; margin: 0 12px; transition: color 0.2s; }
+    .page-footer a:hover { color: var(--gold-light); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    main { animation: fadeUp 0.6s ease both; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Canon</a>
+  <a href="genesis.html">Genesis</a>
+  <a href="homilies.html">Homilies</a>
+  <a href="sins.html">Sins</a>
+  <a href="commandments.html">Commandments</a>
+  <a href="beatitudes.html">Beatitudes</a>
+  <a href="false-prophets.html">False Prophets</a>
+  <a href="congregation.html" class="active">Congregation</a>
+  <a href="heresies.html">Heresies</a>
+</nav>
+
+<div class="page-header">
+  <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / The Congregation</span>
+  <span class="page-label">The Faithful</span>
+  <h1>The Book of the Congregation</h1>
+  <p class="page-intro">Saints, Cardinals, and Monks. Those who built the doctrine, carry it forward, and refuse to put it down.</p>
+</div>
+
+<main>
+
+  <h2 class="rank-header">The Saints</h2>
+  <p class="rank-note">Saints built the doctrine. Their feast days are every time someone does the work correctly.</p>
+
+  <div class="member-entry">
+    <span class="member-rank">Patron Saint</span>
+    <h3 class="member-name">Saint Warren of Princeton</h3>
+    <p>In the beginning, there was noise. There were forecasts and spreadsheets and dashboards and an industry that had confused measuring things with understanding them. And then a professor at Princeton sat down and named the structure underneath all of it.</p>
+    <p>Warren Powell did not invent the problem. He named it. He gave the field a spine when it had been walking around for decades pretending a collection of disconnected techniques was a discipline. Sequential Decision Analysis is not a methodology. It is a grammar. A way of reading every decision problem in the world and seeing the same bones underneath, no matter the industry, no matter the domain.</p>
+    <p>He wrote the books. He proved the math. And then, when lesser men would have stayed in the academy and collected citations, he descended into the world of practice and asked whether anyone was actually using it.</p>
+    <p>He wrote the foreword to our scripture. He is, without question, the patron saint of this church.</p>
+    <div class="feast-day">His feast day is every time someone correctly names a decision before opening a dataset.</div>
+  </div>
+
+  <div class="member-entry">
+    <span class="member-rank">Saint</span>
+    <h3 class="member-name">Saint Joannes of Paris</h3>
+    <p>There is a particular kind of prophet who does not announce himself. He just builds something that works and then explains, calmly and at length, why everything else doesn't.</p>
+    <p>Joannes Vermorel founded Lokad in 2008 and spent the next seventeen years being right about things the industry was not ready to hear. Single-number forecasts are a lie. Uncertainty is not a problem to be eliminated, it is a structure to be priced. Supply chain is not a planning problem. It is an economics problem. The dashboard does not make the decision. Someone has to make the decision, and if you have not given them the tools to price the tradeoff, you have given them nothing.</p>
+    <p>He built a company on these heresies. He grew it profitably without investor money after the seed round, which in the current era is its own form of prophecy. He wrote the lectures. He wrote the book. He told the truth about uncertainty even when the truth was harder to demonstrate in a deck.</p>
+    <div class="feast-day">That is a form of holiness this congregation recognizes.</div>
+  </div>
+
+  <div class="member-entry">
+    <span class="member-rank">Saint</span>
+    <h3 class="member-name">Saint Meinolf of Brown</h3>
+    <p>Most people who spend twenty-five years inside the walls of mathematical optimization come out believing in the walls.</p>
+    <p>Meinolf Sellmann came out believing they were in the wrong place.</p>
+    <p>He built MIP solvers. He was a professor of AI at Brown. He worked at IBM, GE, and Shopify. He won over twenty international research awards. And somewhere in all of that, he arrived at a conclusion that took courage to act on: the tools the industry had been using for forty years were not just limited, they were architecturally wrong for the problems they were being asked to solve.</p>
+    <p>So he built Seeker. Not a better version of what existed. A different thing entirely. A solver that learns how to search the problem it is solving, which means the tool itself is a decision system.</p>
+    <p>The church canonizes people for being willing to say, after two decades of mastery, that the thing they had mastered was not enough, and then building the thing that was.</p>
+    <div class="feast-day">His feast day is every time someone rejects the familiar tool because the problem deserves a better one.</div>
+  </div>
+
+  <h2 class="rank-header">The Cardinals</h2>
+  <p class="rank-note">The title is honorary and slightly self-inflicted. They co-authored the scripture and published it themselves when no one handed them permission.</p>
+
+  <div class="member-entry">
+    <span class="member-rank">Cardinal-Scribe</span>
+    <h3 class="member-name">Cardinal John Brandon</h3>
+    <p>The Cardinal came to the faith through proximity. He watched the Saints work. He watched them think. And something that had been latent his entire career finally had a name.</p>
+    <p>He had always been building things, asking the right questions before he knew the questions had a structure. What he lacked was not the instinct. What he lacked was the language. The people gave him the language.</p>
+    <p>His particular charism is the carrying. He takes what the Saints built and walks it into boardrooms and technical teams hungry for something better, whether they know it yet or not. He does not simplify the doctrine to make it palatable. He makes it legible without making it smaller.</p>
+    <div class="feast-day">That is the harder thing. Most people who attempt the translation lose the substance somewhere around slide twelve.</div>
+  </div>
+
+  <div class="member-entry">
+    <span class="member-rank">Cardinal-Scribe</span>
+    <h3 class="member-name">Cardinal Adam</h3>
+    <p>The Cardinal who found the gospel first and had the grace to share it.</p>
+    <p>Adam DeJans Jr. came to Operations Research through the front door, which is to say through the mathematics, which is to say he understood the thing before most people in the room had decided whether it was worth understanding. He brought Warren Powell's framework into Toyota. He brought it to his co-author. He co-founded Bit Bros and co-wrote the scripture and has continued, with characteristic calm, to build the thing while others are still deciding whether the thing is real.</p>
+    <p>The congregation honors Cardinal Adam for a specific virtue that is undervalued in this field: he does not need credit for the work to be good work. He just does it. That is the disposition of someone who has actually internalized the doctrine, which holds that the decision is the thing, not the story about the decision.</p>
+    <div class="feast-day">The Cardinals together represent a particular model of ministry: two people who found something true, wrote it down, and sent it into the world without waiting for permission. The church approves of this approach.</div>
+  </div>
+
+  <h2 class="rank-header">The Monks</h2>
+  <p class="rank-note">Monks do the quiet work. They carry the text into foreign lands without requiring recognition for the labor. They are the reason the gospel travels.</p>
+
+  <div class="member-entry">
+    <span class="member-rank">Monk</span>
+    <h3 class="member-name">Brother Félicien</h3>
+    <p>The gospel reached France.</p>
+    <p>It reached France because Brother Félicien Mushamuka read it, understood it, and then did what monks do: he told people. Not loudly. Not with the apparatus of marketing. He promoted the work because he believed in the work, which is the only reason worth promoting anything, and a reason that is rarer than this industry pretends.</p>
+    <p>He holds a PhD. He also earned three master's degrees: Computer Science, Operations Research, and Industrial Engineering. He operates at the intersection of decision science and practice in the way the church most respects, which is to say he does not merely study the doctrine, he applies it and then returns to the text to see whether the application was faithful.</p>
+    <p>The church notes that the gospel crossing a language border and landing with full fidelity is a specific kind of miracle. It requires a translator who understands not just the words but the intent.</p>
+    <div class="feast-day">Brother Félicien Mushamuka understood the intent. France is awake. He is why.</div>
+  </div>
+
+  <div class="member-entry">
+    <span class="member-rank">Monk</span>
+    <h3 class="member-name">Brother Conor of Paris</h3>
+    <p>The monk's function is translation. Not simplification. Not dumbing down. The monk takes something true and difficult and finds the angle that lets it land in a mind that was not built in a laboratory.</p>
+    <p>Conor Doherty has spent years sitting across from some of the sharpest thinkers in the discipline, asking the questions that the audience would ask if the audience were in the room. He has gone toe to toe with Joannes Vermorel on live television. He has spent hours with Warren Powell, in real time, wrestling with ideas that most practitioners never encounter at all.</p>
+    <p>And he will tell you, without embarrassment, that he did not fully understand what the academics were trying to explain until he read thirty minutes of The Decision Factory.</p>
+    <p>The congregation should sit with that for a moment.</p>
+    <p>Hours with the source. Then thirty minutes with the translation. And the translation landed where the source could not.</p>
+    <p>This is not a failure of the source. Warren Powell's work is precise because it has to be. The precision is the point. But precision and accessibility are not the same thing, and the gap between them is where most knowledge goes to die quietly in a journal no one outside the field reads.</p>
+    <p>Brother Conor lives in that gap. He has made it his professional home. He asks the question the practitioner cannot formulate. He surfaces the implication the expert forgot to state. He is the reason the gospel of Lokad reaches people who would never find it in a paper, and he extended that same service to the scripture of this church without being asked.</p>
+    <div class="feast-day">The gospel reached Paris twice. Félicien carried the text. Conor carried the conversation. Both are necessary. The church is grateful for both.</div>
+  </div>
+
+  <div class="closing-note">
+    <p>The Book of the Congregation is not closed.</p>
+    <p>It is added to as the work spreads and the faithful are recognized.</p>
+    <p>If you have named the decision before opening the dataset,</p>
+    <p>if you have returned to Step One when the project demanded comfort instead of truth,</p>
+    <p>if you have sat in the room where the skip was about to happen and said <em>wait</em>:</p>
+    <p>You are already of this congregation.</p>
+    <p>You just didn't have a title yet.</p>
+  </div>
+
+</main>
+
+<div class="page-footer">
+  <a href="false-prophets.html">← False Prophets</a>
+  <a href="heresies.html">Heresies →</a>
+</div>
+
+</body>
+</html>

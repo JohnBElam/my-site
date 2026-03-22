@@ -8,8 +8,8 @@
   --color-text-muted: #555;
   --color-accent: #2563eb;
   --color-accent-hover: #1d4ed8;
-  --color-scripture-accent: #b8922a;
-  --color-scripture-accent-hover: #d4a843;
+  --color-decision-gospel-accent: #b8922a;
+  --color-decision-gospel-accent-hover: #d4a843;
   --color-border: #e5e7eb;
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -109,7 +109,7 @@ body {
   color: var(--color-accent);
 }
 
-/* Distinct “tab” link for the scripture section */
+/* Distinct “tab” link for Decision Gospel */
 .nav-menu a.nav-tab {
   color: var(--color-text-muted);
   display: inline-flex;
@@ -123,7 +123,7 @@ body {
 }
 
 .nav-menu a.nav-tab:hover {
-  color: var(--color-scripture-accent-hover);
+  color: var(--color-decision-gospel-accent-hover);
   background: rgba(184, 146, 42, 0.10);
   border-color: rgba(212, 168, 67, 0.4);
 }
