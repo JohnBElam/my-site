@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog — Gaming Is Good</title>
-  <link rel="stylesheet" href="gg-shared.css">
+  <link rel="icon" href="assets/images/logo-mark.png?v=5" type="image/png">
+  <link rel="stylesheet" href="assets/css/gg-shared.css?v=5">
   <style>
     .page-hero { padding: 56px 0 40px; }
     .page-hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; }
@@ -25,7 +26,7 @@
     .featured-badge { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; background: var(--purple); color: white; padding: 3px 9px; border-radius: 20px; }
     .featured-game-tag { font-size: 11px; color: var(--text-muted); }
     .featured-date { font-size: 11px; color: var(--text-muted); margin-left: auto; }
-    .featured-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; line-height: 1.3; margin-bottom: 12px; }
+    .featured-title { font-family: var(--font-display), sans-serif; font-size: 22px; font-weight: 800; line-height: 1.3; margin-bottom: 12px; }
     .featured-excerpt { font-size: 14px; color: var(--text-muted); line-height: 1.75; margin-bottom: 16px; }
     .featured-tags { display: flex; gap: 6px; flex-wrap: wrap; }
 
@@ -38,7 +39,7 @@
     .blog-card-meta { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
     .blog-card-game { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; color: var(--purple); }
     .blog-card-date { font-size: 10px; color: var(--text-faint); margin-left: auto; }
-    .blog-card-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; line-height: 1.4; margin-bottom: 8px; }
+    .blog-card-title { font-family: var(--font-display), sans-serif; font-size: 15px; font-weight: 700; line-height: 1.4; margin-bottom: 8px; }
     .blog-card-excerpt { font-size: 12px; color: var(--text-muted); line-height: 1.6; flex: 1; }
     .blog-card-footer { padding: 12px 18px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
     .blog-card-read-time { font-size: 11px; color: var(--text-muted); }
@@ -87,7 +88,7 @@
 
 <div id="footer-placeholder"></div>
 
-<script src="gg-data.js"></script>
+<script src="assets/js/gg-data.js"></script>
 <script>
   document.getElementById('nav-placeholder').innerHTML = GG.nav('blog');
   document.getElementById('footer-placeholder').innerHTML = GG.footer();

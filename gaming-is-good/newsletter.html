@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Subscribe — Gaming Is Good Newsletter</title>
-  <link rel="stylesheet" href="gg-shared.css">
+  <link rel="icon" href="assets/images/logo-mark.png?v=5" type="image/png">
+  <link rel="stylesheet" href="assets/css/gg-shared.css?v=5">
   <style>
     .nl-page { min-height: 80vh; display: flex; align-items: center; }
     .nl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; padding: 64px 0; }
@@ -22,7 +23,7 @@
     /* RIGHT */
     .nl-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; position: relative; overflow: hidden; }
     .nl-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--purple), var(--green)); }
-    .nl-card-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+    .nl-card-title { font-family: var(--font-display), sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 6px; }
     .nl-card-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
     .nl-field { margin-bottom: 14px; }
     .nl-field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 6px; }
@@ -33,7 +34,7 @@
     .nl-fine-print { font-size: 11px; color: var(--text-faint); text-align: center; margin-top: 12px; line-height: 1.6; }
     .nl-success { display: none; text-align: center; padding: 20px 0; }
     .nl-success-icon { font-size: 40px; margin-bottom: 12px; }
-    .nl-success-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+    .nl-success-title { font-family: var(--font-display), sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 8px; }
     .nl-success-text { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
 
     /* PAST ISSUES PREVIEW */
@@ -42,14 +43,14 @@
     .issue-card { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; }
     .issue-thumb { font-size: 28px; margin-bottom: 10px; }
     .issue-num { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
-    .issue-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+    .issue-title { font-family: var(--font-display), sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
     .issue-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
 
     /* WHAT YOU GET */
     .what-you-get { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0 0; }
     .wyg-item { text-align: center; padding: 20px; background: var(--bg-secondary); border-radius: var(--radius-sm); }
     .wyg-icon { font-size: 28px; margin-bottom: 10px; }
-    .wyg-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .wyg-title { font-family: var(--font-display), sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
     .wyg-text { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
   </style>
 </head>
@@ -185,7 +186,7 @@
 
 <div id="footer-placeholder"></div>
 
-<script src="gg-data.js"></script>
+<script src="assets/js/gg-data.js"></script>
 <script>
   document.getElementById('nav-placeholder').innerHTML = GG.nav('');
   document.getElementById('footer-placeholder').innerHTML = GG.footer();

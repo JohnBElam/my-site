@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Decision Systems Skills Taxonomy — Gaming Is Good</title>
-  <link rel="stylesheet" href="gg-shared.css">
+  <link rel="icon" href="assets/images/logo-mark.png?v=5" type="image/png">
+  <link rel="stylesheet" href="assets/css/gg-shared.css?v=5">
   <style>
     .page-hero { padding: 56px 0 40px; }
     .page-hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; }
@@ -12,7 +13,7 @@
     /* TAXONOMY INTRO */
     .taxonomy-intro { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 40px; display: grid; grid-template-columns: 1fr 2fr; gap: 28px; }
     .ti-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; color: var(--green); margin-bottom: 10px; }
-    .ti-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+    .ti-title { font-family: var(--font-display), sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 10px; }
     .ti-body { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
     .ti-key { display: flex; flex-direction: column; gap: 10px; }
     .ti-key-item { display: flex; align-items: flex-start; gap: 10px; }
@@ -26,7 +27,7 @@
     .skill-card.expanded { border-color: var(--purple); }
     .skill-card-header { padding: 20px; display: flex; align-items: flex-start; gap: 14px; }
     .skill-icon-block { width: 44px; height: 44px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
-    .skill-name { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .skill-name { font-family: var(--font-display), sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
     .skill-definition-short { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
     .skill-expand-icon { margin-left: auto; font-size: 14px; color: var(--text-faint); transition: transform 0.2s; flex-shrink: 0; }
     .skill-card.expanded .skill-expand-icon { transform: rotate(180deg); }
@@ -113,7 +114,7 @@
 
 <div id="footer-placeholder"></div>
 
-<script src="gg-data.js"></script>
+<script src="assets/js/gg-data.js"></script>
 <script>
   document.getElementById('nav-placeholder').innerHTML = GG.nav('skills');
   document.getElementById('footer-placeholder').innerHTML = GG.footer();

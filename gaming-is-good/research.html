@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Research Log — Gaming Is Good</title>
-  <link rel="stylesheet" href="gg-shared.css">
+  <link rel="icon" href="assets/images/logo-mark.png?v=5" type="image/png">
+  <link rel="stylesheet" href="assets/css/gg-shared.css?v=5">
   <style>
     .page-hero { padding: 56px 0 40px; max-width: 720px; }
     .page-hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; }
@@ -12,7 +13,7 @@
     /* THESIS STATEMENT */
     .thesis-box { background: #2d1f6e; border-radius: var(--radius); padding: 32px; margin-bottom: 40px; }
     .thesis-box-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 500; color: rgba(255,255,255,0.5); margin-bottom: 14px; }
-    .thesis-box-statement { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: white; line-height: 1.4; margin-bottom: 16px; }
+    .thesis-box-statement { font-family: var(--font-display), sans-serif; font-size: 20px; font-weight: 800; color: white; line-height: 1.4; margin-bottom: 16px; }
     .thesis-box-sub { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; }
     .thesis-status-row { display: flex; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
     .ts-item { display: flex; align-items: center; gap: 8px; }
@@ -26,7 +27,7 @@
     .validation-section { margin-bottom: 48px; }
     .val-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
     .val-cell { background: var(--bg); padding: 20px; text-align: center; }
-    .val-number { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800; }
+    .val-number { font-family: var(--font-display), sans-serif; font-size: 36px; font-weight: 800; }
     .val-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
     .val-green { color: var(--green); }
     .val-yellow { color: #cc9900; }
@@ -40,7 +41,7 @@
     .status-validated { background: var(--green-light); }
     .status-partial { background: #fff8e8; }
     .status-open { background: var(--bg-secondary); border: 1px solid var(--border); }
-    .log-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; flex: 1; }
+    .log-title { font-family: var(--font-display), sans-serif; font-size: 15px; font-weight: 700; flex: 1; }
     .log-date { font-size: 11px; color: var(--text-muted); }
     .log-expand { font-size: 12px; color: var(--text-faint); transition: transform 0.2s; }
     .log-entry.open .log-expand { transform: rotate(180deg); }
@@ -62,7 +63,7 @@
     .contacts-section { margin-bottom: 48px; }
     .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 20px; }
     .contact-card { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; }
-    .contact-name { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .contact-name { font-family: var(--font-display), sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
     .contact-org { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
     .contact-status { font-size: 11px; font-weight: 500; }
     .contact-note { font-size: 12px; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
@@ -70,7 +71,7 @@
     /* HYPOTHESIS TRACKER */
     .hyp-row { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); }
     .hyp-row:last-child { border-bottom: none; }
-    .hyp-num { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--purple-light); min-width: 32px; line-height: 1.2; }
+    .hyp-num { font-family: var(--font-display), sans-serif; font-size: 20px; font-weight: 800; color: var(--purple-light); min-width: 32px; line-height: 1.2; }
     .hyp-content { flex: 1; }
     .hyp-statement { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
     .hyp-evidence { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
@@ -148,9 +149,9 @@
 
     <!-- CONTRIBUTE -->
     <div style="background:var(--bg-secondary); border:1px solid var(--border); border-radius:var(--radius); padding:32px; margin-bottom:48px; text-align:center;">
-      <h3 style="font-family:Syne; font-size:20px; font-weight:800; margin-bottom:8px;">Know someone who should be in this conversation?</h3>
+      <h3 style="font-family:var(--font-display),sans-serif; font-size:20px; font-weight:800; margin-bottom:8px;">Know someone who should be in this conversation?</h3>
       <p style="font-size:14px; color:var(--text-muted); max-width:480px; margin:0 auto 20px; line-height:1.7;">Researchers in cognitive science, behavioral economics, or OR who study decision-making and expertise development. I'm looking for collaborators, not cheerleaders.</p>
-      <a href="https://linkedin.com" target="_blank" class="btn btn-primary">Connect on LinkedIn</a>
+      <a href="https://linkedin.com/in/johnbleam" target="_blank" rel="noopener" class="btn btn-primary">Connect on LinkedIn</a>
     </div>
 
   </div>
@@ -158,7 +159,7 @@
 
 <div id="footer-placeholder"></div>
 
-<script src="gg-data.js"></script>
+<script src="assets/js/gg-data.js"></script>
 <script>
   document.getElementById('nav-placeholder').innerHTML = GG.nav('research');
   document.getElementById('footer-placeholder').innerHTML = GG.footer();

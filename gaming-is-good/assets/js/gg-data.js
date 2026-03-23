@@ -23,8 +23,7 @@ const GG = {
         </div>
         <nav class="gg-nav">
           <a href="index.html" class="nav-logo">
-            <span style="font-size:20px">🎓</span>
-            <span class="nav-logo-text">Gaming Is Good</span>
+            <img class="nav-logo-img" src="assets/images/logo-mark.png?v=5" alt="Gaming Is Good" width="140" height="48" />
           </a>
           <ul class="nav-links">${navLinks}</ul>
           <a href="newsletter.html" class="nav-cta">Subscribe</a>
@@ -35,7 +34,9 @@ const GG = {
   footer() {
     return `
       <footer class="gg-footer">
-        <div class="footer-logo">🎓 Gaming Is Good</div>
+        <div class="footer-brand">
+          <img class="footer-logo-img" src="assets/images/logo-mark.png?v=5" alt="Gaming Is Good" width="120" height="41" />
+        </div>
         <div class="footer-sub">Strategic games build better decision-makers. This is the proof.</div>
         <div class="footer-links">
           <a href="index.html">Home</a>

@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game Library — Gaming Is Good</title>
-  <link rel="stylesheet" href="gg-shared.css">
+  <link rel="icon" href="assets/images/logo-mark.png?v=5" type="image/png">
+  <link rel="stylesheet" href="assets/css/gg-shared.css?v=5">
   <style>
     .page-hero { padding: 56px 0 40px; }
     .page-hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; }
@@ -38,7 +39,7 @@
 
     .game-title-cell { display: flex; align-items: center; gap: 12px; }
     .game-icon-sm { width: 40px; height: 40px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-    .game-name-block .name { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; }
+    .game-name-block .name { font-family: var(--font-display), sans-serif; font-size: 14px; font-weight: 700; }
     .game-name-block .genre { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 
     .skills-cell { display: flex; gap: 5px; flex-wrap: wrap; }
@@ -66,7 +67,7 @@
     .detail-close { position: absolute; top: 16px; right: 16px; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border); background: transparent; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
     .detail-header { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 20px; }
     .detail-icon { width: 56px; height: 56px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
-    .detail-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+    .detail-title { font-family: var(--font-display), sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 4px; }
     .detail-genre { font-size: 13px; color: var(--text-muted); }
     .detail-tagline { font-size: 15px; font-style: italic; color: var(--text-muted); border-left: 3px solid var(--purple); padding-left: 14px; margin: 16px 0; line-height: 1.6; }
     .detail-section { margin-bottom: 18px; }
@@ -92,7 +93,7 @@
     .scatter-dot { position: absolute; transform: translate(-50%, -50%); cursor: pointer; transition: transform 0.15s; }
     .scatter-dot:hover { transform: translate(-50%, -50%) scale(1.15); z-index: 10; }
     .scatter-dot-inner { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; border: 2px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-    .scatter-dot-label { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; text-align: center; margin-top: 4px; color: var(--text); white-space: nowrap; }
+    .scatter-dot-label { font-family: var(--font-display), sans-serif; font-size: 11px; font-weight: 700; text-align: center; margin-top: 4px; color: var(--text); white-space: nowrap; }
     .scatter-quadrant { position: absolute; font-size: 10px; font-weight: 500; color: var(--text-faint); letter-spacing: 0.06em; text-transform: uppercase; }
   </style>
 </head>
@@ -201,7 +202,7 @@
 
 <div id="footer-placeholder"></div>
 
-<script src="gg-data.js"></script>
+<script src="assets/js/gg-data.js"></script>
 <script>
   document.getElementById('nav-placeholder').innerHTML = GG.nav('games');
   document.getElementById('footer-placeholder').innerHTML = GG.footer();

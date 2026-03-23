@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gaming Is Good — Decision Systems Through Strategic Games</title>
-  <link rel="stylesheet" href="gg-shared.css">
+  <link rel="icon" href="assets/images/logo-mark.png?v=5" type="image/png">
+  <link rel="stylesheet" href="assets/css/gg-shared.css?v=5">
   <style>
     /* HERO */
     .hero { padding: 80px 0 64px; }
@@ -12,8 +13,39 @@
     .hero-eyebrow { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
     .eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
     .eyebrow-text { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); }
-    .hero h1 { font-size: 52px; font-weight: 800; line-height: 1.05; margin-bottom: 20px; }
-    .hero h1 .purple { color: var(--purple); }
+    /* Hero — Montserrat (matches logo wordmark), not poster weight */
+    section.hero h1.hero-title {
+      font-family: var(--font-hero);
+      font-weight: 500;
+      font-synthesis: none;
+      margin: 0 0 1.25rem;
+      max-width: 36rem;
+      line-height: 1.35;
+    }
+    .hero-title .hero-line-1 {
+      display: block;
+      font-family: var(--font-hero);
+      font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+      line-height: 1.4;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-wrap: balance;
+    }
+    .hero-title .hero-line-1 em {
+      font-style: normal;
+      font-weight: 600;
+      color: var(--purple);
+    }
+    .hero-title .hero-line-2 {
+      display: block;
+      margin-top: 0.65rem;
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 2vw, 1.125rem);
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: 0;
+      color: var(--text-muted);
+    }
     .hero-sub { font-size: 17px; color: var(--text-muted); line-height: 1.75; margin-bottom: 32px; max-width: 460px; }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
@@ -21,7 +53,7 @@
     .thesis-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; position: relative; overflow: hidden; }
     .thesis-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--purple), var(--green)); }
     .thesis-label { font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
-    .thesis-statement { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; line-height: 1.5; color: var(--text); margin-bottom: 14px; }
+    .thesis-statement { font-family: var(--font-hero); font-size: 17px; font-weight: 400; line-height: 1.55; color: var(--text); margin-bottom: 14px; }
     .thesis-pillars { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
     .thesis-pillar { font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 20px; }
     .pillar-stoic { background: #fff8e8; color: #7a5500; }
@@ -33,7 +65,7 @@
     /* STAT ROW */
     .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 48px 0; }
     .stat-cell { background: var(--bg); padding: 20px 24px; text-align: center; }
-    .stat-number { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: var(--purple); }
+    .stat-number { font-family: var(--font-display), sans-serif; font-size: 32px; font-weight: 800; color: var(--purple); }
     .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
 
     /* FEATURED GAMES */
@@ -42,7 +74,7 @@
     .game-card:hover { border-color: var(--purple); box-shadow: 0 4px 20px rgba(102,51,255,0.1); }
     .game-icon { width: 48px; height: 48px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
     .game-info { flex: 1; min-width: 0; }
-    .game-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .game-title { font-family: var(--font-display), sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
     .game-genre { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
     .game-tagline { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
     .game-skills { display: flex; gap: 6px; flex-wrap: wrap; }
@@ -52,7 +84,7 @@
     .persona-mini { border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 16px; text-align: center; transition: all 0.15s; text-decoration: none; color: inherit; }
     .persona-mini:hover { border-color: var(--purple); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(102,51,255,0.1); }
     .persona-mini-icon { font-size: 28px; margin-bottom: 10px; }
-    .persona-mini-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .persona-mini-name { font-family: var(--font-display), sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
     .persona-mini-desc { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
 
     /* BLOG PREVIEW */
@@ -62,12 +94,12 @@
     .blog-thumb { height: 90px; display: flex; align-items: center; justify-content: center; font-size: 32px; }
     .blog-body { padding: 16px; }
     .blog-tag-line { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; color: var(--purple); margin-bottom: 6px; }
-    .blog-title-text { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; line-height: 1.35; margin-bottom: 8px; }
+    .blog-title-text { font-family: var(--font-display), sans-serif; font-size: 14px; font-weight: 700; line-height: 1.35; margin-bottom: 8px; }
     .blog-excerpt-text { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
 
     /* NEWSLETTER INLINE */
     .newsletter-inline { background: linear-gradient(135deg, #2d1f6e 0%, #1a3a2e 100%); border-radius: var(--radius); padding: 40px; display: flex; justify-content: space-between; align-items: center; gap: 32px; margin-top: 64px; }
-    .nl-text h3 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: white; margin-bottom: 8px; }
+    .nl-text h3 { font-family: var(--font-display), sans-serif; font-size: 22px; font-weight: 800; color: white; margin-bottom: 8px; }
     .nl-text p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6; max-width: 400px; }
     .nl-form { display: flex; gap: 10px; flex-shrink: 0; }
     .nl-input { padding: 11px 16px; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; font-size: 14px; font-family: 'DM Sans', sans-serif; width: 220px; }
@@ -90,7 +122,10 @@
             <div class="eyebrow-dot"></div>
             <span class="eyebrow-text">Decision Systems Research</span>
           </div>
-          <h1>Games are a <span class="purple">decision lab.</span> Not a guilty pleasure.</h1>
+          <h1 class="hero-title">
+            <span class="hero-line-1">Games are a <em>decision lab.</em></span>
+            <span class="hero-line-2">Not a guilty pleasure.</span>
+          </h1>
           <p class="hero-sub">Strategic games build the mental models that power better professional decisions. This is the thesis. These are the receipts.</p>
           <div class="hero-actions">
             <a href="start-here.html" class="btn btn-primary">Start Here</a>
@@ -184,7 +219,7 @@
 
 <div id="footer-placeholder"></div>
 
-<script src="gg-data.js"></script>
+<script src="assets/js/gg-data.js"></script>
 <script>
   document.getElementById('nav-placeholder').innerHTML = GG.nav('home');
   document.getElementById('footer-placeholder').innerHTML = GG.footer();
