@@ -19,4 +19,4 @@ jobs:
           bundler-cache: true
 
       - name: Build site
-        run: bundle exec jekyll build --safe
+        run: bundle exec jekyll build
