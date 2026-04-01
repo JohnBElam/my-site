@@ -5,6 +5,8 @@ baseurl: ""
 url: "https://johnbelam.com"
 # Formspree form ID — get one at https://formspree.io (form emails you without exposing your address)
 formspree_id: "xqeyekrr"
+# Google Analytics 4 (gtag) — measurement ID from GA admin
+google_analytics_id: "G-T5LQEGRZHE"
 markdown: kramdown
 highlighter: rouge
 permalink: pretty
