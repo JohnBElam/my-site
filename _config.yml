@@ -11,6 +11,17 @@ markdown: kramdown
 highlighter: rouge
 permalink: pretty
 
+# Standalone mini-sites use *.html links; "pretty" would emit */index/ only and break those links.
+defaults:
+  - scope:
+      path: "decision-gospel"
+    values:
+      permalink: /decision-gospel/:basename:output_ext
+  - scope:
+      path: "gaming-is-good"
+    values:
+      permalink: /gaming-is-good/:basename:output_ext
+
 # GitHub Pages defaults
 kramdown:
   input: GFM
