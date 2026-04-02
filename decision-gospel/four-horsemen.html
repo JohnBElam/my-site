@@ -1,0 +1,487 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include google-analytics.html %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Four Horsemen | Decision Gospel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0e0c09;
+      --parchment: #f5f0e8;
+      --gold: #b8922a;
+      --gold-light: #d4a843;
+      --gold-dim: #7a5f1a;
+      --red: #8b1a1a;
+      --red-dim: #5a1010;
+      --muted: #5a5040;
+
+      --horse-white: #c9b97a;
+      --horse-red: #8b1a1a;
+      --horse-black: #2a2520;
+      --horse-pale: #7a8070;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--ink);
+      color: var(--parchment);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 19px;
+      line-height: 1.9;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--gold-dim);
+      background: rgba(14,12,9,0.97);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav a {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 14px 15px;
+      transition: color 0.2s, background 0.2s;
+      border-right: 1px solid rgba(184,146,42,0.15);
+    }
+    nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
+    nav a:hover, nav a.active { color: var(--gold-light); background: rgba(184,146,42,0.04); }
+
+    /* PAGE HEADER */
+    .page-header {
+      text-align: center;
+      padding: 80px 24px 64px;
+      border-bottom: 1px solid rgba(184,146,42,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(139,26,26,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .breadcrumb {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 36px;
+      display: block;
+    }
+    .breadcrumb a { color: var(--gold-dim); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--gold-light); }
+
+    .page-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    h1 {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(2.4rem, 6vw, 4.4rem);
+      font-weight: 400;
+      color: var(--parchment);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .page-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px 120px;
+    }
+
+    /* PREAMBLE */
+    .preamble {
+      font-style: italic;
+      color: var(--gold);
+      font-size: 1rem;
+      text-align: center;
+      padding: 56px 24px 0;
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* HORSEMAN ENTRIES */
+    .horseman {
+      margin-top: 80px;
+      padding-top: 64px;
+      border-top: 1px solid rgba(184,146,42,0.15);
+      position: relative;
+    }
+
+    .horseman-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+
+    .horse-sigil {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 6px;
+    }
+
+    .horse-sigil svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .horse-white .horse-sigil { background: rgba(201,185,122,0.12); border: 1px solid rgba(201,185,122,0.4); }
+    .horse-red .horse-sigil   { background: rgba(139,26,26,0.2);  border: 1px solid rgba(139,26,26,0.5); }
+    .horse-black .horse-sigil { background: rgba(42,37,32,0.6);   border: 1px solid rgba(120,110,90,0.3); }
+    .horse-pale .horse-sigil  { background: rgba(122,128,112,0.15); border: 1px solid rgba(122,128,112,0.4); }
+
+    .horseman-label-group {}
+
+    .horseman-ordinal {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .horse-white .horseman-ordinal { color: var(--horse-white); }
+    .horse-red   .horseman-ordinal { color: #c44; }
+    .horse-black .horseman-ordinal { color: #8a8070; }
+    .horse-pale  .horseman-ordinal { color: var(--horse-pale); }
+
+    .horseman-name {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 400;
+      color: var(--parchment);
+      line-height: 1.15;
+    }
+
+    .horseman-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      margin-top: 6px;
+      display: block;
+    }
+
+    .horse-white .horseman-subtitle { color: rgba(201,185,122,0.6); }
+    .horse-red   .horseman-subtitle { color: rgba(180,80,80,0.7); }
+    .horse-black .horseman-subtitle { color: rgba(138,128,112,0.7); }
+    .horse-pale  .horseman-subtitle { color: rgba(122,128,112,0.7); }
+
+    /* OPENING LINE */
+    .horseman-opening {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      line-height: 1.55;
+      margin-bottom: 32px;
+      padding-left: 20px;
+      border-left: 2px solid;
+    }
+
+    .horse-white .horseman-opening { border-color: rgba(201,185,122,0.5); color: #e8d8a0; }
+    .horse-red   .horseman-opening { border-color: rgba(139,26,26,0.7);   color: #d4907a; }
+    .horse-black .horseman-opening { border-color: rgba(120,110,90,0.4);  color: #a09880; }
+    .horse-pale  .horseman-opening { border-color: rgba(122,128,112,0.5); color: #a0a890; }
+
+    p { margin-bottom: 1.4em; font-size: 1.02rem; }
+    em { color: var(--gold-light); font-style: italic; }
+
+    .horseman-close {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      margin-top: 32px;
+      line-height: 1.6;
+    }
+
+    .horse-white .horseman-close { color: rgba(201,185,122,0.8); }
+    .horse-red   .horseman-close { color: rgba(180,80,80,0.8); }
+    .horse-black .horseman-close { color: rgba(138,128,112,0.8); }
+    .horse-pale  .horseman-close { color: rgba(122,128,112,0.8); }
+
+    /* CLOSING SCROLL */
+    .closing-scroll {
+      margin-top: 96px;
+      padding-top: 64px;
+      border-top: 1px solid rgba(184,146,42,0.2);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      text-align: center;
+      color: var(--gold);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      line-height: 2;
+    }
+
+    .closing-scroll p { margin-bottom: 0; font-size: inherit; }
+
+    .closing-final {
+      display: block;
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+      color: var(--parchment);
+      margin-top: 32px;
+      line-height: 1.6;
+    }
+
+    /* FOOTER */
+    .page-footer {
+      border-top: 1px solid var(--gold-dim);
+      text-align: center;
+      padding: 40px 24px;
+    }
+    .page-footer a {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      text-decoration: none;
+      margin: 0 14px;
+      transition: color 0.2s;
+    }
+    .page-footer a:hover { color: var(--gold-light); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .page-header { animation: fadeUp 0.7s ease both; }
+    main { animation: fadeUp 0.7s ease both 0.15s; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Canon</a>
+  <a href="genesis.html">Genesis</a>
+  <a href="homilies.html">Homilies</a>
+  <a href="sins.html">Sins</a>
+  <a href="four-horsemen.html" class="active">Four Horsemen</a>
+  <a href="commandments.html">Commandments</a>
+  <a href="beatitudes.html">Beatitudes</a>
+  <a href="false-prophets.html">False Prophets</a>
+  <a href="congregation.html">Congregation</a>
+  <a href="heresies.html">Heresies</a>
+</nav>
+
+<div class="page-header">
+  <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / The Apocalypse</span>
+  <span class="page-label">The Book of Revelation</span>
+  <h1>The Four Horsemen of the Decision Apocalypse</h1>
+  <p class="page-intro">They are not coming. They are already here. They ride through organizations every quarter, wearing the face of something the organization already trusts.</p>
+</div>
+
+<main>
+
+  <p class="preamble">Each one arrives bearing gifts. Each one is welcomed. Each one is already in your building.</p>
+
+  <!-- HORSEMAN I: WHITE -->
+  <div class="horseman horse-white">
+    <div class="horseman-header">
+      <div class="horse-sigil">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="14" r="10" stroke="#c9b97a" stroke-width="1" opacity="0.6"/>
+          <path d="M14 6 L14 22 M6 14 L22 14" stroke="#c9b97a" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="horseman-label-group">
+        <span class="horseman-ordinal">The First Horseman</span>
+        <h2 class="horseman-name">The Scaled Dysfunction</h2>
+        <span class="horseman-subtitle">He rides a white horse, and everyone mistakes him for progress.</span>
+      </div>
+    </div>
+
+    <p class="horseman-opening">This is the most dangerous deception in the canon. The white horse is speed. The white horse is capability. The white horse is the thing the organization has been promised by every platform vendor and AI evangelist for the last decade: the ability to do more, faster, at scale.</p>
+
+    <p>What they did not tell you is that scale is neutral. It amplifies what you give it. And if what you give it is a broken decision frame, a wrong objective, a question that was never properly named, scale does not correct the error. It accelerates it. It deploys it across every node of the organization simultaneously, at machine speed, before any human in the loop has time to notice that something is wrong.</p>
+
+    <p>The First Horseman is not a bad model. He is a correct model answering the wrong question, running at full speed.</p>
+
+    <p>You have seen his work. The replenishment system that optimized for the metric instead of the outcome and emptied the wrong shelves at the wrong time across six hundred locations before anyone caught it. The pricing algorithm that was technically rational and commercially catastrophic because the decision it was built to support had been superseded by a market shift no one fed back into the frame. The demand forecast that was accurate to three decimal places for a product line the organization had quietly decided to exit.</p>
+
+    <p>The human version of these failures is recoverable. A person making a bad decision at human speed can be stopped, redirected, corrected. A system making the same bad decision at machine speed cannot be stopped before the damage is done. The scale is the weapon. The speed is the weapon. And the organization handed both to a decision frame it never properly examined.</p>
+
+    <p>He rides first because he arrives with gifts. The implementation looked like a win. The launch metrics were strong. The quarterly review showed the numbers moving. The Horseman was in the building before anyone thought to ask what the system was actually optimizing for and whether that was still the right thing to optimize for.</p>
+
+    <div class="horseman-close">It was not.<br>It is never checked.</div>
+  </div>
+
+  <!-- HORSEMAN II: RED -->
+  <div class="horseman horse-red">
+    <div class="horseman-header">
+      <div class="horse-sigil">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 4 L24 22 L4 22 Z" stroke="#c44" stroke-width="1" opacity="0.7" fill="rgba(139,26,26,0.1)"/>
+        </svg>
+      </div>
+      <div class="horseman-label-group">
+        <span class="horseman-ordinal">The Second Horseman</span>
+        <h2 class="horseman-name">The Sunk Cost</h2>
+        <span class="horseman-subtitle">He rides a red horse, and the budget is always bleeding by the time he arrives.</span>
+      </div>
+    </div>
+
+    <p class="horseman-opening">He does not come with a sword. He comes with a slide deck. He comes with a timeline and a commitment and a room full of people who have already told their stakeholders this is going to work, and he sits down at the table and makes the case, quietly and persistently, for continuing in the direction the organization is already moving.</p>
+
+    <p>Because stopping is expensive. Stopping means admitting. Stopping means the meeting where someone asks why we did not see this sooner, and no one in the room wants to be the person who answers that question.</p>
+
+    <p>The Second Horseman is the horseman of the anchor. Every organization he visits builds one more bridge to nowhere and calls it a sunk cost they cannot afford to walk away from. Every project he touches continues past the point where a clear-eyed reading of Step One would demand it stop. Every team he visits develops an increasingly sophisticated vocabulary for why the original frame was correct and the evidence against it is noise.</p>
+
+    <p>He is most powerful in the third quarter of a large initiative. That is when the investment is real and the doubt is growing and the path of least resistance is to reframe the doubt as a communication problem rather than a decision problem. The model is right. The frame is right. The stakeholders just need to understand it better.</p>
+
+    <p>They understand it fine.</p>
+
+    <p>The frame is wrong.</p>
+
+    <p>The congregation knows this Horseman because the congregation has ridden with him. Has sat in the room where the evidence was accumulating and said nothing because the project was too far along to question. Has written the update that softened the finding because the finding was inconvenient. Has returned to Step One privately and then returned to Step Three publicly because the organization was not ready to hear what Step One said.</p>
+
+    <p>That moment, the moment of choosing the project over the truth, is where the Second Horseman climbs into the saddle.</p>
+
+    <div class="horseman-close">He does not force anyone onto the horse.<br>He just makes standing on the ground very uncomfortable.</div>
+  </div>
+
+  <!-- HORSEMAN III: BLACK -->
+  <div class="horseman horse-black">
+    <div class="horseman-header">
+      <div class="horse-sigil">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="6" width="16" height="16" stroke="#8a8070" stroke-width="1" opacity="0.6" fill="rgba(42,37,32,0.4)"/>
+          <path d="M10 14 L18 14" stroke="#8a8070" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="horseman-label-group">
+        <span class="horseman-ordinal">The Third Horseman</span>
+        <h2 class="horseman-name">The Consensus</h2>
+        <span class="horseman-subtitle">He rides a black horse, and the light goes out of the work the moment he enters the room.</span>
+      </div>
+    </div>
+
+    <p class="horseman-opening">He arrives before the meeting. He arrives in the pre-meeting, the conversation in the hallway before the real conversation begins, where someone with authority signals what kind of answer they are looking for and the room silently adjusts.</p>
+
+    <p>He arrives in the stakeholder review where the recommendation that was sharp and specific and honest on Tuesday becomes rounded and hedged and politically safe by Thursday. He arrives in the executive presentation where the uncertainty range that was real and necessary gets collapsed into a point estimate because ranges make leadership uncomfortable and discomfort makes decisions harder and harder decisions make quarters longer.</p>
+
+    <p>Under the Third Horseman, the model still runs. The analysis is still performed. The slide deck is still professional and the methodology is still sound and the output is still technically defensible.</p>
+
+    <p>But the answer was decided before the model ran.</p>
+
+    <p>The Third Horseman does not corrupt the math. He corrupts the question. He enters upstream, before the frame is set, and gently, invisibly, without anyone acknowledging what is happening, he adjusts the objective function to produce the answer the room already wants. The analysis then confirms it. The confirmation is presented as rigor. The rigor is cited as evidence. The evidence is acted on.</p>
+
+    <p>And the actual decision, the one that needed to be made honestly with the uncertainty intact and the tradeoffs named and the discomfort present in the room, was never made at all.</p>
+
+    <p>What was made was a performance of the decision.</p>
+
+    <p>The congregation knows this performance. The congregation has been in the room where the number was changed because the stakeholder did not like the range. Where the recommendation was softened because someone senior had already committed to the opposite. Where the uncertainty was removed from the final deck because it would raise questions that no one wanted to answer in the meeting.</p>
+
+    <div class="horseman-close">That is not a decision.<br>That is theater with better production values.</div>
+  </div>
+
+  <!-- HORSEMAN IV: PALE -->
+  <div class="horseman horse-pale">
+    <div class="horseman-header">
+      <div class="horse-sigil">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="14" r="10" stroke="#7a8070" stroke-width="1" opacity="0.5" stroke-dasharray="3 3"/>
+          <circle cx="14" cy="14" r="3" fill="rgba(122,128,112,0.3)" stroke="#7a8070" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="horseman-label-group">
+        <span class="horseman-ordinal">The Fourth Horseman</span>
+        <h2 class="horseman-name">The Orphan</h2>
+        <span class="horseman-subtitle">He rides last and he is the most patient.</span>
+      </div>
+    </div>
+
+    <p class="horseman-opening">He does not arrive at the launch. He does not arrive at the retrospective or the quarterly review or the all-hands where the team celebrates the delivery and takes the photo and writes the case study. He arrives later, quietly, when everyone has moved on to the next thing and no one is looking at the old thing anymore.</p>
+
+    <p>He rides when a decision becomes an orphan.</p>
+
+    <p>Every organization has them. Systems built to support a choice that someone once considered carefully, deployed at cost, handed to the business, and then left. Not broken. Not failing by any visible measure. Still running. Still producing outputs. Still being acted on by people who inherited the outputs without inheriting the question that generated them.</p>
+
+    <p>The orphan runs on inertia. It does what it was designed to do, which is the problem, because what it was designed to do was answer a question that may no longer be the right question, in a context that may no longer exist, for a decision maker who may no longer be in the building.</p>
+
+    <p>No one asks whether it still makes sense.</p>
+
+    <p>No one is paid to ask. No one is rewarded for asking. The system is in production, which means it is someone's job to keep it running and no one's job to question whether it should. The incentives all point toward maintenance and away from examination. To question the orphan is to imply that the original project was wrong, which means questioning the people who approved it, which means a conversation no one wants to have about a system that is, by all visible measures, fine.</p>
+
+    <p>It is not fine.</p>
+
+    <p>It is answering yesterday's question with yesterday's data for yesterday's decision maker, and the organization is acting on the output as though all three of those things are still true.</p>
+
+    <p>This is how the Fourth Horseman operates. Not through failure. Through the slow invisible irrelevance of a system that kept working after the reason for its work had passed. And unlike the First Horseman, who moves fast and breaks things loudly, the Fourth Horseman moves slowly and breaks nothing. He just lets things quietly stop mattering while the organization keeps paying the cost of systems that no longer serve the decisions that need to be made.</p>
+
+    <p>The antidote is stewardship. Not maintenance. Stewardship. Someone whose job includes the question: <em>does this still make sense?</em> Someone with the authority to say the answer is no and the organizational protection to say it without consequence.</p>
+
+    <p>That role does not exist in most organizations.</p>
+
+    <p>That is why he rides last. The other three Horsemen create the conditions. The First scales the dysfunction. The Second anchors the organization to it. The Third ensures no one names it honestly. And then the Fourth arrives and settles in, patient and permanent, and the system runs and runs and runs, and the decision it was built to serve has been dead for two years, and no one has thought to hold a funeral.</p>
+
+    <div class="horseman-close">He rides a pale horse because the systems he haunts do not fail loudly.<br><br>They just slowly stop mattering.<br><br>And the cost of that silence is paid every day, in every decision made on the output of a question no one is asking anymore.</div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing-scroll">
+    <p>The Four Horsemen ride together.</p>
+    <p>They are not sequential. They are concurrent.</p>
+    <p>The First is scaling your dysfunction right now.</p>
+    <p>The Second is anchoring your team to a frame that should have been questioned in Q2.</p>
+    <p>The Third is in your next stakeholder review, adjusting the answer before the question is fully asked.</p>
+    <p>And the Fourth is in your production environment, running quietly, serving no one, waiting for someone to notice.</p>
+    <span class="closing-final">
+      The congregation is asked to look up from the work and name what it sees.<br>
+      That is the entire practice.<br>
+      That is all we have ever asked.
+    </span>
+  </div>
+
+</main>
+
+<div class="page-footer">
+  <a href="sins.html">← Sins</a>
+  <a href="commandments.html">Commandments →</a>
+</div>
+
+</body>
+</html>
