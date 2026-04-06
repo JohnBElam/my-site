@@ -1,4 +1,6 @@
 .DS_Store
+.idea/
+*.zip
 _site/
 .jekyll-cache/
 .jekyll-metadata
