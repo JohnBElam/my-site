@@ -1,0 +1,146 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include google-analytics.html %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lamentations | Decision Gospel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --ink: #0e0c09; --parchment: #f5f0e8; --gold: #b8922a; --gold-light: #d4a843; --gold-dim: #7a5f1a; --muted: #5a5040; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--ink); color: var(--parchment); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; line-height: 1.95; }
+
+    nav { display: flex; justify-content: center; flex-wrap: wrap; border-bottom: 1px solid var(--gold-dim); background: rgba(14,12,9,0.97); position: sticky; top: 0; z-index: 100; }
+    nav a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 14px 13px; transition: color 0.2s; border-right: 1px solid rgba(184,146,42,0.15); }
+    nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
+    nav a:hover, nav a.active { color: var(--gold-light); }
+
+    .page-header { text-align: center; padding: 72px 24px 56px; border-bottom: 1px solid rgba(184,146,42,0.2); position: relative; }
+    .page-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(90,70,40,0.08) 0%, transparent 70%); pointer-events: none; }
+    .breadcrumb { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 32px; display: block; }
+    .breadcrumb a { color: var(--gold-dim); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold-light); }
+    .page-label { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 16px; display: block; }
+    h1 { font-family: 'IM Fell English', serif; font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 400; color: var(--parchment); line-height: 1.15; margin-bottom: 20px; }
+    .page-intro { font-style: italic; color: var(--gold); font-size: 1rem; max-width: 560px; margin: 0 auto; line-height: 1.75; }
+
+    main { max-width: 680px; margin: 0 auto; padding: 0 24px 100px; }
+
+    .lament { padding: 72px 0; border-bottom: 1px solid rgba(184,146,42,0.1); }
+    .lament:last-child { border-bottom: none; }
+
+    .lament-number { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 16px; display: block; text-align: center; }
+
+    .lament-title { font-family: 'IM Fell English', serif; font-size: clamp(1.3rem, 2.5vw, 1.7rem); font-weight: 400; font-style: italic; color: var(--gold); margin-bottom: 40px; line-height: 1.3; text-align: center; }
+
+    p { margin-bottom: 1.5em; }
+    em { color: var(--gold-light); font-style: italic; }
+
+    .lament-close { font-family: 'IM Fell English', serif; font-style: italic; color: var(--gold-dim); margin-top: 40px; font-size: 1.05rem; line-height: 1.7; text-align: center; }
+
+    .reading-note { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim); text-align: center; padding: 48px 0 0; opacity: 0.6; }
+
+    .page-footer { border-top: 1px solid var(--gold-dim); text-align: center; padding: 40px 24px; }
+    .page-footer a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim); text-decoration: none; margin: 0 12px; transition: color 0.2s; }
+    .page-footer a:hover { color: var(--gold-light); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .page-header { animation: fadeUp 0.7s ease both; }
+    main { animation: fadeUp 0.7s ease both 0.15s; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Canon</a>
+  <a href="genesis.html">Genesis</a>
+  <a href="homilies.html">Homilies</a>
+  <a href="sins.html">Sins</a>
+  <a href="virtues.html">Virtues</a>
+  <a href="commandments.html">Commandments</a>
+  <a href="beatitudes.html">Beatitudes</a>
+  <a href="false-prophets.html">False Prophets</a>
+  <a href="congregation.html">Congregation</a>
+  <a href="origins.html">Origins</a>
+  <a href="heresies.html">Heresies</a>
+  <a href="parables.html">Parables</a>
+  <a href="lamentations.html" class="active">Lamentations</a>
+  <a href="four-horsemen.html">Four Horsemen</a>
+</nav>
+
+<div class="page-header">
+  <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / Lamentations</span>
+  <span class="page-label">Three Poems</span>
+  <h1>Lamentations</h1>
+  <p class="page-intro">Three poems for what the discipline costs. The congregation reads them aloud, slowly, and does not hurry to the next chapter.</p>
+</div>
+
+<main>
+
+  <div class="lament">
+    <span class="lament-number">I</span>
+    <h2 class="lament-title">For the Analyst Who Left</h2>
+
+    <p>She was good at the work.</p>
+    <p>She had read the books. She had done the framing. She had asked the question before opening the laptop, in rooms that did not want her to ask the question, and she had asked it anyway, and the asking had cost her something every time, and she had paid the cost.</p>
+    <p>For three years, she paid it.</p>
+    <p>In the fourth year, she stopped.</p>
+    <p>She did not announce it. She did not write a manifesto. She updated her resume on a Tuesday evening in May, after a meeting in which her recommendation had been softened by a manager who was good at his job in the way the building rewarded, and four months later she was working in a different field, doing different work, for people who did not know what she had been or what she had given up trying to be.</p>
+    <p>The discipline lost her.</p>
+    <p>The discipline does not have a way to count what it lost. There is no metric for the analyst who stopped. There is no postmortem for the careful practitioner who decided that being right at her own expense was no longer a trade she was willing to make. She is not in the data. She is not in the org chart. She is not in the alumni newsletter, because the building she left does not send newsletters to people who did not leave loudly enough to be remembered.</p>
+    <p>We grieve her without knowing her name.</p>
+    <p>We grieve the others like her, who are leaving right now, in buildings we will never enter, for reasons we will never hear, after one meeting too many in which the truth was softened by someone who was good at his job in the way the building rewarded.</p>
+    <div class="lament-close">The discipline does not know what it is losing.<br>We know.<br>That is part of what we grieve.</div>
+  </div>
+
+  <div class="lament">
+    <span class="lament-number">II</span>
+    <h2 class="lament-title">For the Self We Used to Be</h2>
+
+    <p>There is a meeting we attend in our forties that we would not have attended in our twenties.</p>
+    <p>In the meeting, someone proposes a thing we know is wrong. We can see the framing problem in real time. We can see the assumption underneath the proposal that has not been examined. We can see, with the kind of clarity that takes years to develop, the exact two-minute correction that would set the project on a better path.</p>
+    <p>We do not say it.</p>
+    <p>We do not say it for reasons that would have sounded unforgivable to us when we were younger. We do not say it because the senior person presenting has already committed to the direction in a previous meeting. We do not say it because the team has been working on this for three months and the correction would mean redoing work, and the people who would have to redo the work are tired, and we like them. We do not say it because we have learned, over the years, which fights produce change and which fights produce only the cost of the fight, and this looks like the second kind. We do not say it because we are very tired ourselves, and the meeting ends in twenty minutes, and we have another meeting after this one.</p>
+    <p>The meeting ends. We walk back to our desks. And somewhere on the walk, the recognition arrives.</p>
+    <p>The recognition is not loud. It is not a moment of crisis. It is the quiet arrival of an old voice we have not heard in a while, the voice of the analyst we were at twenty-six, who would have spoken in that meeting without measuring the cost, who would have been willing to be the person in the room everyone found difficult, who believed the work mattered more than the comfort of the people doing it. That voice is in our heads now. It is asking us a question. The question is <em>what happened to you,</em> and the question is not accusatory, which is what makes it so hard to answer.</p>
+    <p>We have answers. We have many answers. We have learned things the twenty-six-year-old did not know. We have understood things about how organizations actually move. We have grown, in ways the twenty-six-year-old would have called wisdom and that we ourselves still call wisdom on most days.</p>
+    <p>But the twenty-six-year-old, if he could see us now, would not entirely recognize us, and we know this, and we cannot honestly say which of the two of us is closer to the discipline.</p>
+    <p>We grieve the twenty-six-year-old because he is gone.</p>
+    <p>We grieve him because he was right about more things than we were willing to remember he was right about.</p>
+    <div class="lament-close">We grieve him quietly, at our desks, between meetings.<br>He waits to be heard again.<br>We owe him that hearing.<br>We do not always give it.</div>
+  </div>
+
+  <div class="lament">
+    <span class="lament-number">III</span>
+    <h2 class="lament-title">For the Practitioners Who Never Arrived</h2>
+
+    <p>This is the hardest grief because the people we are grieving do not know we are grieving them.</p>
+    <p>There is a student in an engineering program right now who would have been a great practitioner. He has the instincts. He notices, in his group projects, that the team always solves the wrong problem because the team never asks what they are solving for. He asks the question himself sometimes, in a way that annoys his teammates, and he has not yet learned that the asking has a name. He thinks the asking is just something he does. He thinks it is a personality quirk. He is going to graduate in two years and take a job in a field that does not need the quirk, and the quirk will atrophy from disuse, and by the time he is thirty he will have forgotten he ever had it.</p>
+    <p>There is an operations manager in a warehouse in a city we have never been to who already does, intuitively, every step of the framework. She does not know there is a framework. She does not know there are books. She has never heard the word <em>objective function</em> and would find the word intimidating if she heard it, even though she has been managing objective functions in her head for fifteen years and is better at it than most of the people who use the term in their LinkedIn bios. She is going to retire in eleven years and the things she knows will retire with her, and no one will write them down, because no one has ever told her that what she knows is the kind of thing worth writing down.</p>
+    <p>There is a teenager somewhere who likes strategy games for exactly the right reasons. She likes the games because she likes the structure of decisions under uncertainty. She likes thinking about which moves close off futures and which moves keep them open. She does not yet know that there is a discipline that does this for a living. She is going to find out about the discipline only if someone tells her, and no one is going to tell her, because the discipline has not yet figured out how to speak in the language of teenagers who like strategy games, and the discipline does not even know it should be trying.</p>
+    <p>We grieve all three of them.</p>
+    <p>We grieve them because they are exactly the people the field needs, and the field is not finding them, and the field is not finding them because the field has built its front door out of vocabulary that closes before they can reach the handle.</p>
+    <p>The vocabulary was not built to keep them out. The vocabulary was built to be precise, by people who needed precision, in journals that other precise people would read. The exclusion was not malicious. The exclusion is just the cost of a language that was optimized for one room and not the rooms beyond it.</p>
+    <p>The cost is enormous.</p>
+    <p>The cost is the entire shape of the field as it could have been. The rooms that would have been smarter. The decisions that would have been framed better. The practitioners who would have come from places the current practitioners do not come from.</p>
+    <p>We do not know what we lost. That is part of what we grieve. We are grieving an absence that has no shape, because the people who would have given it shape never arrived to give it shape, and we cannot picture clearly what we never had.</p>
+    <p>But we know it is enormous. We know it because we ourselves almost did not arrive. Each of us who is reading this can name the moment we stumbled into the field by accident, the colleague who handed us a book, the conversation that put a name to the thing we had been doing without knowing it had a name. Each of us was lucky. The people we are grieving were not lucky. They are still out there, doing the thing without the name, and the name is the door, and we have not yet built a door wide enough for them to walk through.</p>
+    <div class="lament-close">We grieve them.<br>And we grieve, also, what they would have made us, if they had been here.</div>
+  </div>
+
+  <p class="reading-note">The congregation reads slowly and does not hurry to the next chapter.</p>
+
+</main>
+
+<div class="page-footer">
+  <a href="parables.html">← Parables</a>
+  <a href="four-horsemen.html">Four Horsemen →</a>
+</div>
+
+</body>
+</html>

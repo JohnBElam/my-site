@@ -11,20 +11,12 @@
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --ink: #0e0c09;
-      --parchment: #f5f0e8;
-      --gold: #b8922a;
-      --gold-light: #d4a843;
-      --gold-dim: #7a5f1a;
-      --red: #8b1a1a;
-      --muted: #5a5040;
-    }
+    :root { --ink: #0e0c09; --parchment: #f5f0e8; --gold: #b8922a; --gold-light: #d4a843; --gold-dim: #7a5f1a; --red: #8b1a1a; --muted: #5a5040; }
     html { scroll-behavior: smooth; }
     body { background-color: var(--ink); color: var(--parchment); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; line-height: 1.85; }
 
     nav { display: flex; justify-content: center; flex-wrap: wrap; border-bottom: 1px solid var(--gold-dim); background: rgba(14,12,9,0.97); position: sticky; top: 0; z-index: 100; }
-    nav a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 14px 16px; transition: color 0.2s; border-right: 1px solid rgba(184,146,42,0.15); }
+    nav a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 14px 13px; transition: color 0.2s; border-right: 1px solid rgba(184,146,42,0.15); }
     nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
     nav a:hover, nav a.active { color: var(--gold-light); }
 
@@ -42,24 +34,9 @@
     .sin-entry { padding: 56px 0; border-bottom: 1px solid rgba(184,146,42,0.12); }
     .sin-entry:last-child { border-bottom: none; }
 
-    .sin-number {
-      font-family: 'IM Fell English', serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-      color: var(--red);
-      text-transform: uppercase;
-      margin-bottom: 12px;
-      display: block;
-    }
+    .sin-number { font-family: 'IM Fell English', serif; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--red); text-transform: uppercase; margin-bottom: 12px; display: block; }
 
-    .sin-title {
-      font-family: 'IM Fell English', serif;
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 400;
-      color: var(--parchment);
-      margin-bottom: 28px;
-      line-height: 1.2;
-    }
+    .sin-title { font-family: 'IM Fell English', serif; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400; color: var(--parchment); margin-bottom: 28px; line-height: 1.2; }
 
     p { margin-bottom: 1.3em; }
     em { color: var(--gold-light); font-style: italic; }
@@ -79,12 +56,16 @@
   <a href="genesis.html">Genesis</a>
   <a href="homilies.html">Homilies</a>
   <a href="sins.html" class="active">Sins</a>
-  <a href="four-horsemen.html">Four Horsemen</a>
+  <a href="virtues.html">Virtues</a>
   <a href="commandments.html">Commandments</a>
   <a href="beatitudes.html">Beatitudes</a>
   <a href="false-prophets.html">False Prophets</a>
   <a href="congregation.html">Congregation</a>
+  <a href="origins.html">Origins</a>
   <a href="heresies.html">Heresies</a>
+  <a href="parables.html">Parables</a>
+  <a href="lamentations.html">Lamentations</a>
+  <a href="four-horsemen.html">Four Horsemen</a>
 </nav>
 
 <div class="page-header">
@@ -98,32 +79,36 @@
 
   <div class="sin-entry">
     <span class="sin-number">The First Sin</span>
-    <h2 class="sin-title">Worshipping at the Altar of Data</h2>
-    <p>You did not have a data problem. You had a question problem. But the data was there and the question was hard, so you opened the warehouse and called it work. The data did not save you. It never does. It just makes the wrong answer look precise.</p>
-  </div>
-
-  <div class="sin-entry">
-    <span class="sin-number">The Second Sin</span>
     <h2 class="sin-title">The Skip</h2>
     <p>You knew the decision had not been named. You felt it in the room. You opened the laptop anyway. Whatever was built after that moment was built on sand, and you knew it, and you shipped it, and you wrote it up as a win, and somewhere a bridge stands empty connecting nothing to nothing and your name is on the plaque.</p>
   </div>
 
   <div class="sin-entry">
-    <span class="sin-number">The Third Sin</span>
+    <span class="sin-number">The Second Sin</span>
     <h2 class="sin-title">Mistaking Motion for Progress</h2>
     <p>The Jira board moved. The sprints completed. The standups were attended. The project was, by every visible measure, happening. And yet the problem upstream was never touched and the delivery downstream changed nothing. You confused the ritual of work for the work itself. This is the sin of the busy. It is the most common sin. It is the sin this congregation is most likely to commit before lunch.</p>
   </div>
 
   <div class="sin-entry">
+    <span class="sin-number">The Third Sin</span>
+    <h2 class="sin-title">The Comfortable Question</h2>
+    <p>There were two questions you could have asked. One of them, if answered honestly, would have forced a hard conversation, possibly with someone you needed to keep on your side, possibly about a direction the team had already committed to. The other question would not. The second question was adjacent to the first. It was in the same neighborhood. It used the same vocabulary and it would produce findings and the findings would be real and the deck would be defensible and no one in the room would be embarrassed.</p>
+    <p>You asked the second question. You called it scoping. You called it pragmatism. You called it knowing your audience.</p>
+    <p>It was none of those things. It was the thing those things are called when you do not want to admit you flinched.</p>
+  </div>
+
+  <div class="sin-entry">
     <span class="sin-number">The Fourth Sin</span>
-    <h2 class="sin-title">Anchoring</h2>
-    <p>You finished the thing. It cost something. People are used to it now. And so when Step Six came, when the cycle demanded you return to the beginning with clear eyes and ask again whether this is still the right problem, you did not. You defended the thing instead. You optimized around it. You called it mature. The system calcified and the problem evolved and you were left maintaining an answer to a question no one was asking anymore.</p>
+    <h2 class="sin-title">The Silent Nod</h2>
+    <p>You were in the room when someone senior said the thing that was wrong. Not slightly wrong. Wrong in a way you could have named, with evidence, in under thirty seconds. You felt the words form in your throat. You felt the room's attention and you measured it and you measured your standing in the room and you measured the cost of the correction against the cost of the silence and you chose the silence.</p>
+    <p>You nodded. The meeting moved on. The wrong thing became a decision. The decision became a budget. The budget became a system. And the system is running now and you remember the exact moment you could have stopped it and you remember that you nodded instead.</p>
   </div>
 
   <div class="sin-entry">
     <span class="sin-number">The Fifth Sin</span>
-    <h2 class="sin-title">Karaoke Knowledge</h2>
-    <p>You learned the words. You said the words. In the meeting you said <em>decision framing</em> and <em>uncertainty quantification</em> and <em>sequential</em> and people nodded and you felt the warmth of credibility and you moved on without doing the thing the words described. The vocabulary became the substitute for the practice. You performed the discipline without acquiring it. The congregation will recognize this sin because the congregation has committed it. We have all sung the song without knowing the music.</p>
+    <h2 class="sin-title">Borrowed Conviction</h2>
+    <p>You heard it at a conference. Or in a podcast. Or in a thread from someone whose name carries weight in the corner of the internet you trust. It was a sharp claim, confidently delivered, and you felt the small pleasure of acquiring something useful, and you filed it. A week later you said it in a meeting. You did not say <em>I heard someone say.</em> You said it the way you say things you have thought about. The room received it as yours and you let the room receive it as yours, and it influenced a decision, and the decision had consequences, and at no point between hearing the claim and watching it shape the consequences did you stop to ask whether the claim was actually true.</p>
+    <p>You were not lying. You were laundering. You took someone else's certainty, removed the tags, and resold it as your own judgment. The decision deserved your judgment. It got someone else's, badly remembered.</p>
   </div>
 
   <div class="sin-entry">
@@ -142,7 +127,7 @@
 
 <div class="page-footer">
   <a href="homilies.html">← Homilies</a>
-  <a href="four-horsemen.html">Four Horsemen →</a>
+  <a href="virtues.html">Virtues →</a>
 </div>
 
 </body>

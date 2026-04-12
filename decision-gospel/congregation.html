@@ -16,7 +16,7 @@
     body { background-color: var(--ink); color: var(--parchment); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; line-height: 1.85; }
 
     nav { display: flex; justify-content: center; flex-wrap: wrap; border-bottom: 1px solid var(--gold-dim); background: rgba(14,12,9,0.97); position: sticky; top: 0; z-index: 100; }
-    nav a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 14px 16px; transition: color 0.2s; border-right: 1px solid rgba(184,146,42,0.15); }
+    nav a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 14px 13px; transition: color 0.2s; border-right: 1px solid rgba(184,146,42,0.15); }
     nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
     nav a:hover, nav a.active { color: var(--gold-light); }
 
@@ -31,67 +31,22 @@
 
     main { max-width: 720px; margin: 0 auto; padding: 0 24px 100px; }
 
-    .rank-header {
-      font-family: 'IM Fell English', serif;
-      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
-      font-weight: 400;
-      color: var(--gold);
-      margin: 72px 0 8px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid rgba(184,146,42,0.3);
-    }
-    .rank-note {
-      font-style: italic;
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-bottom: 48px;
-      margin-top: 8px;
-    }
+    .rank-header { font-family: 'IM Fell English', serif; font-size: clamp(1.3rem, 2.5vw, 1.7rem); font-weight: 400; color: var(--gold); margin: 72px 0 8px; padding-bottom: 16px; border-bottom: 1px solid rgba(184,146,42,0.3); }
+    .rank-note { font-style: italic; color: var(--muted); font-size: 0.95rem; margin-bottom: 48px; margin-top: 8px; }
 
     .member-entry { padding: 48px 0; border-bottom: 1px solid rgba(184,146,42,0.1); }
     .member-entry:last-child { border-bottom: none; }
 
-    .member-rank {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      margin-bottom: 12px;
-      display: block;
-    }
+    .member-rank { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 12px; display: block; }
 
-    .member-name {
-      font-family: 'IM Fell English', serif;
-      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
-      font-weight: 400;
-      color: var(--parchment);
-      margin-bottom: 24px;
-      line-height: 1.2;
-    }
+    .member-name { font-family: 'IM Fell English', serif; font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 400; color: var(--parchment); margin-bottom: 24px; line-height: 1.2; }
 
     p { margin-bottom: 1.3em; }
     em { color: var(--gold-light); font-style: italic; }
 
-    .feast-day {
-      font-family: 'Courier Prime', monospace;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      color: var(--gold-dim);
-      font-style: italic;
-      margin-top: 24px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(184,146,42,0.1);
-    }
+    .feast-day { font-family: 'Courier Prime', monospace; font-size: 12px; letter-spacing: 0.08em; color: var(--gold-dim); font-style: italic; margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(184,146,42,0.1); }
 
-    .closing-note {
-      font-style: italic;
-      color: var(--gold);
-      text-align: center;
-      padding: 56px 0 0;
-      font-size: 1.05rem;
-      line-height: 1.9;
-    }
+    .closing-note { font-style: italic; color: var(--gold); text-align: center; padding: 56px 0 0; font-size: 1.05rem; line-height: 1.9; }
 
     .page-footer { border-top: 1px solid var(--gold-dim); text-align: center; padding: 40px 24px; }
     .page-footer a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim); text-decoration: none; margin: 0 12px; transition: color 0.2s; }
@@ -108,25 +63,59 @@
   <a href="genesis.html">Genesis</a>
   <a href="homilies.html">Homilies</a>
   <a href="sins.html">Sins</a>
-  <a href="four-horsemen.html">Four Horsemen</a>
+  <a href="virtues.html">Virtues</a>
   <a href="commandments.html">Commandments</a>
   <a href="beatitudes.html">Beatitudes</a>
   <a href="false-prophets.html">False Prophets</a>
   <a href="congregation.html" class="active">Congregation</a>
+  <a href="origins.html">Origins</a>
   <a href="heresies.html">Heresies</a>
+  <a href="parables.html">Parables</a>
+  <a href="lamentations.html">Lamentations</a>
+  <a href="four-horsemen.html">Four Horsemen</a>
 </nav>
 
 <div class="page-header">
   <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / The Congregation</span>
   <span class="page-label">The Faithful</span>
   <h1>The Book of the Congregation</h1>
-  <p class="page-intro">Saints, Cardinals, and Monks. Those who built the doctrine, carry it forward, and refuse to put it down.</p>
+  <p class="page-intro">Forebears, Saints, Cardinals, and Monks. Those who practiced the discipline before it had a name, built the doctrine, carry it forward, and refuse to put it down.</p>
 </div>
 
 <main>
 
+  <!-- FOREBEARS -->
+  <h2 class="rank-header">The Forebears</h2>
+  <p class="rank-note">Forebears practiced the discipline before the discipline had a name. The church inherits from them without apology.</p>
+
+  <div class="member-entry">
+    <span class="member-rank">Forebear</span>
+    <h3 class="member-name">Marcus of Rome</h3>
+    <p>The church does not pretend its virtues are original.</p>
+    <p>Stillness was practiced in monasteries before there were laptops to close. Courage was named in battlefields before there were stakeholder reviews to survive. And the discipline of the unmoved mind, the practice the church calls Stoicism, was carried for two thousand years by a tradition the church inherits without apology.</p>
+    <p>Marcus Aurelius was the emperor of Rome and he was, by every available measure, the most powerful man in the world. He could have had any answer he wanted. The room would have given it to him. The room always gives the powerful the answer they want, which is why the powerful so rarely receive the truth.</p>
+    <p>He wrote the Meditations in the field, between battles, in a private notebook he never intended for publication. The notebook is a manual for not being moved. Not by flattery, not by anger, not by the desire to be agreed with, not by the thousand small pressures that bend the judgment of people who have to decide things while other people are watching.</p>
+    <p>The congregation reads the Meditations not as scripture but as a letter from a colleague. He was solving the same problem the practitioner solves in every stakeholder review: how do you stay clear in a room that wants you to be something other than clear?</p>
+    <p>He did not always succeed. He says so himself. That is part of why the church honors him.</p>
+    <div class="feast-day">His feast day is every time someone in a meeting holds the recommendation steady while the room pushes against it.</div>
+  </div>
+
+  <!-- SAINTS -->
   <h2 class="rank-header">The Saints</h2>
   <p class="rank-note">Saints built the doctrine. Their feast days are every time someone does the work correctly.</p>
+
+  <div class="member-entry">
+    <span class="member-rank">Founder · Proto-Saint</span>
+    <h3 class="member-name">Saint Patrick of the Admiralty</h3>
+    <p>Before there was a discipline, there was a war.</p>
+    <p>Patrick Blackett was a physicist by training. He had won the Nobel Prize for work on cosmic rays and he could have spent the rest of his career indoors, doing the kind of careful physics that wins more prizes. The war did not allow it. The war handed him a problem the universities had no department for: the Allies were losing ships, and the question was what to do about it, and the question had to be answered by Tuesday.</p>
+    <p>He gathered the people he needed. Physicists, mathematicians, biologists, statisticians. None of them had been trained for the work they were about to do, because the work did not yet exist. They invented it as they went. They called themselves nothing in particular and the Royal Navy, with the affection the British reserve for things they consider slightly absurd, called them Blackett's Circus.</p>
+    <p>The Circus did not build models for their own sake. The Circus answered questions. How deep should depth charges be set? What size should convoys be? How should radar operators be trained? Each question was a decision. Each decision had an owner. Each answer was acted on within days, sometimes hours, and the cost of being wrong was measured in ships and the cost of being right was measured the same way.</p>
+    <p>He did not write a textbook. He did not start a movement. He did not name what he had built, because there was no time to name it and no audience that needed the name. He just did the work, and the work was correct, and the work saved lives, and when the war ended he went back to physics and let other people figure out what to call the thing he had invented.</p>
+    <p>The discipline has been trying to remember him ever since.</p>
+    <p>The church canonizes Saint Patrick as the founder. Not because he wrote the doctrine, but because he lived it before the doctrine existed, in conditions so demanding that the doctrine was the only thing that would have worked. Every Saint who came after has been, in some sense, trying to recover what he had naturally: an objective that could not be negotiated, a question that could not be skipped, and a room full of people who understood that the answer mattered more than the method.</p>
+    <div class="feast-day">His feast day is the day a practitioner answers a real question for a real decision-maker who will act on the answer before the week is out.</div>
+  </div>
 
   <div class="member-entry">
     <span class="member-rank">Patron Saint</span>
@@ -158,16 +147,20 @@
     <div class="feast-day">His feast day is every time someone rejects the familiar tool because the problem deserves a better one.</div>
   </div>
 
+  <!-- CARDINALS -->
   <h2 class="rank-header">The Cardinals</h2>
   <p class="rank-note">The title is honorary and slightly self-inflicted. They co-authored the scripture and published it themselves when no one handed them permission.</p>
 
   <div class="member-entry">
     <span class="member-rank">Cardinal-Scribe</span>
     <h3 class="member-name">Cardinal John Brandon</h3>
-    <p>The Cardinal came to the faith through proximity. He watched the Saints work. He watched them think. And something that had been latent his entire career finally had a name.</p>
-    <p>He had always been building things, asking the right questions before he knew the questions had a structure. What he lacked was not the instinct. What he lacked was the language. The people gave him the language.</p>
-    <p>His particular charism is the carrying. He takes what the Saints built and walks it into boardrooms and technical teams hungry for something better, whether they know it yet or not. He does not simplify the doctrine to make it palatable. He makes it legible without making it smaller.</p>
-    <div class="feast-day">That is the harder thing. Most people who attempt the translation lose the substance somewhere around slide twelve.</div>
+    <p>The church recognizes the awkwardness of the next entry.</p>
+    <p>There is no graceful way for the man writing the scripture to canonize himself inside it. The congregation will note that the move has been made and form whatever opinion the congregation forms.</p>
+    <p>He wrote the novel. The novel worked. It reached people the papers never would, and it carried the doctrine into rooms that had been closed to the doctrine, and by every measure a carrying vehicle can be judged, it was enough.</p>
+    <p>And still he kept walking into rooms where it was not enough. Where the person across the table needed something that could not be handed to them as a business book. Something that arrived differently. Something that carried the same doctrine in a form the doctrine had never tried before.</p>
+    <p>The gospel was not the plan. It was what came next when the previous vehicle hit its limit. That restlessness, the refusal to accept that the current carrying vehicle is sufficient when the rooms still need the doctrine, is his specific quality and his specific gift.</p>
+    <p>The full account of how the scripture came to be written is in the <a href="origins.html" style="color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,146,42,0.3);">Book of Origins</a>.</p>
+    <div class="feast-day">His feast day is every time someone reads this and walks back into the room differently.</div>
   </div>
 
   <div class="member-entry">
@@ -179,17 +172,18 @@
     <div class="feast-day">The Cardinals together represent a particular model of ministry: two people who found something true, wrote it down, and sent it into the world without waiting for permission. The church approves of this approach.</div>
   </div>
 
+  <!-- MONKS -->
   <h2 class="rank-header">The Monks</h2>
   <p class="rank-note">Monks do the quiet work. They carry the text into foreign lands without requiring recognition for the labor. They are the reason the gospel travels.</p>
 
   <div class="member-entry">
     <span class="member-rank">Monk</span>
-    <h3 class="member-name">Brother Félicien</h3>
+    <h3 class="member-name">Brother Felicien</h3>
     <p>The gospel reached France.</p>
-    <p>It reached France because Brother Félicien Mushamuka read it, understood it, and then did what monks do: he told people. Not loudly. Not with the apparatus of marketing. He promoted the work because he believed in the work, which is the only reason worth promoting anything, and a reason that is rarer than this industry pretends.</p>
-    <p>He holds a PhD. He also earned three master's degrees: Computer Science, Operations Research, and Industrial Engineering. He operates at the intersection of decision science and practice in the way the church most respects, which is to say he does not merely study the doctrine, he applies it and then returns to the text to see whether the application was faithful.</p>
+    <p>It reached France because Brother Felicien read it, understood it, and then did what monks do: he told people. Not loudly. Not with the apparatus of marketing. He promoted the work because he believed in the work, which is the only reason worth promoting anything, and a reason that is rarer than this industry pretends.</p>
+    <p>He holds a PhD. He operates at the intersection of decision science and practice in the way the church most respects, which is to say he does not merely study the doctrine, he applies it and then returns to the text to see whether the application was faithful.</p>
     <p>The church notes that the gospel crossing a language border and landing with full fidelity is a specific kind of miracle. It requires a translator who understands not just the words but the intent.</p>
-    <div class="feast-day">Brother Félicien Mushamuka understood the intent. France is awake. He is why.</div>
+    <div class="feast-day">Brother Felicien understood the intent. France is awake. He is why.</div>
   </div>
 
   <div class="member-entry">
@@ -219,7 +213,7 @@
 
 <div class="page-footer">
   <a href="false-prophets.html">← False Prophets</a>
-  <a href="heresies.html">Heresies →</a>
+  <a href="origins.html">Origins →</a>
 </div>
 
 </body>

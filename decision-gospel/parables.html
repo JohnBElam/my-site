@@ -1,0 +1,160 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include google-analytics.html %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Parables | Decision Gospel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --ink: #0e0c09; --parchment: #f5f0e8; --gold: #b8922a; --gold-light: #d4a843; --gold-dim: #7a5f1a; --muted: #5a5040; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--ink); color: var(--parchment); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; line-height: 1.9; }
+
+    nav { display: flex; justify-content: center; flex-wrap: wrap; border-bottom: 1px solid var(--gold-dim); background: rgba(14,12,9,0.97); position: sticky; top: 0; z-index: 100; }
+    nav a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 14px 13px; transition: color 0.2s; border-right: 1px solid rgba(184,146,42,0.15); }
+    nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
+    nav a:hover, nav a.active { color: var(--gold-light); }
+
+    .page-header { text-align: center; padding: 72px 24px 56px; border-bottom: 1px solid rgba(184,146,42,0.2); position: relative; }
+    .page-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(184,146,42,0.06) 0%, transparent 70%); pointer-events: none; }
+    .breadcrumb { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 32px; display: block; }
+    .breadcrumb a { color: var(--gold-dim); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold-light); }
+    .page-label { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 16px; display: block; }
+    h1 { font-family: 'IM Fell English', serif; font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 400; color: var(--parchment); line-height: 1.15; margin-bottom: 20px; }
+    .page-intro { font-style: italic; color: var(--gold); font-size: 1rem; max-width: 560px; margin: 0 auto; line-height: 1.75; }
+
+    main { max-width: 720px; margin: 0 auto; padding: 0 24px 100px; }
+
+    .parable { padding: 64px 0; border-bottom: 1px solid rgba(184,146,42,0.1); }
+    .parable:last-child { border-bottom: none; }
+
+    .parable-title { font-family: 'IM Fell English', serif; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400; color: var(--parchment); margin-bottom: 32px; line-height: 1.2; }
+
+    p { margin-bottom: 1.4em; }
+    em { color: var(--gold-light); font-style: italic; }
+
+    .parable-close { font-family: 'IM Fell English', serif; font-style: italic; color: var(--gold-dim); margin-top: 32px; font-size: 1.05rem; line-height: 1.6; }
+
+    .section-rule { border: none; border-top: 1px solid rgba(184,146,42,0.2); margin: 40px 0; }
+
+    .page-footer { border-top: 1px solid var(--gold-dim); text-align: center; padding: 40px 24px; }
+    .page-footer a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim); text-decoration: none; margin: 0 12px; transition: color 0.2s; }
+    .page-footer a:hover { color: var(--gold-light); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    main { animation: fadeUp 0.6s ease both; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Canon</a>
+  <a href="genesis.html">Genesis</a>
+  <a href="homilies.html">Homilies</a>
+  <a href="sins.html">Sins</a>
+  <a href="virtues.html">Virtues</a>
+  <a href="commandments.html">Commandments</a>
+  <a href="beatitudes.html">Beatitudes</a>
+  <a href="false-prophets.html">False Prophets</a>
+  <a href="congregation.html">Congregation</a>
+  <a href="origins.html">Origins</a>
+  <a href="heresies.html">Heresies</a>
+  <a href="parables.html" class="active">Parables</a>
+  <a href="lamentations.html">Lamentations</a>
+  <a href="four-horsemen.html">Four Horsemen</a>
+</nav>
+
+<div class="page-header">
+  <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / The Parables</span>
+  <span class="page-label">Stories Told from the Pulpit</span>
+  <h1>The Book of Parables</h1>
+  <p class="page-intro">Each one is true. Each one is happening right now in a building you have been inside.</p>
+</div>
+
+<main>
+
+  <div class="parable">
+    <h2 class="parable-title">The Dashboard in the Empty Room</h2>
+    <p>Let me tell you about the team that built the perfect dashboard.</p>
+    <p>It had forty-seven metrics. Each one was tracked in real time. The colors updated every fifteen seconds. The load time was under two hundred milliseconds, which the engineering team was very proud of, and which they mentioned in the launch announcement, and which appeared in the case study.</p>
+    <p>The dashboard was mounted on a screen in the operations center. The screen was eighty-four inches. The mount cost more than the software.</p>
+    <p>For the first week, people gathered around it. They pointed at things. They said interesting. They took photos for LinkedIn.</p>
+    <p>In the second week, the gathering thinned.</p>
+    <p>By the second month, the dashboard was running in an empty room. The screen was on. The metrics were updating. The colors were changing from green to amber to red and back to green and no one was watching, because the dashboard had been built without anyone asking what a person standing in front of it would do differently based on what they saw.</p>
+    <p>The dashboard is still running. It is running right now. The screen is on. The metrics are updating. The room is empty.</p>
+    <p>It will run until someone unplugs it.</p>
+    <div class="parable-close">No one will unplug it.</div>
+  </div>
+
+  <div class="parable">
+    <h2 class="parable-title">The Consultant Who Delivered a Framework</h2>
+    <p>A company hired a consultant to answer a question.</p>
+    <p>The question was specific. It had a dollar value attached to it. It had a deadline. It had a person whose job depended on the answer and another person whose bonus depended on the answer being a particular shape, and these two people were not the same person, which was part of why the consultant had been hired.</p>
+    <p>The consultant was expensive. The statement of work was forty-three pages. The kickoff meeting had snacks.</p>
+    <p>Twelve weeks later the consultant returned with a deliverable.</p>
+    <p>The deliverable was a framework.</p>
+    <p>The framework had four quadrants. The quadrants had names. The names began with the same letter, which had taken the consultant's team an entire afternoon to work out, and which everyone in the room agreed was very memorable. There was a diagram. The diagram was in the brand colors of the consulting firm, not the client.</p>
+    <p>The framework did not answer the question. The framework explained how to think about the question. It explained the dimensions along which the question could be considered. It explained the tradeoffs the client would need to weigh, the stakeholders the client would need to consult, and the criteria the client could use to evaluate possible answers.</p>
+    <p>The client thanked the consultant. The client paid the invoice. The client put the framework in a deck and showed it to the board, and the board nodded, because the framework was very memorable.</p>
+    <p>The question was never answered.</p>
+    <p>The person whose job depended on it left the company eight months later. The person whose bonus depended on the answer being a particular shape received the bonus anyway, because in the absence of an answer, the default was the shape they preferred.</p>
+    <div class="parable-close">The framework is still in the deck. It is shown at onboarding.<br>New hires are told it is how the company thinks.</div>
+  </div>
+
+  <div class="parable">
+    <h2 class="parable-title">The Model the New VP Replaced</h2>
+    <p>There was a model. It was good.</p>
+    <p>It had been built carefully, by a team that had asked the right questions before they opened the laptop, and it had been deployed for eighteen months, and it was producing decisions that were measurably better than the decisions the company had been making before. The lift was documented. The methodology was sound. The stakeholders who actually used the output trusted it.</p>
+    <p>Then there was a reorganization.</p>
+    <p>The reorganizations are not part of this parable. The reorganizations are simply the weather. They happen. The team that had built the model now reported to a new VP, who had come from a different company, where they had built a different model, and who had ideas.</p>
+    <p>The new VP did not say the model was bad. The new VP said the model was <em>legacy.</em> This is the word that is used when a thing is working and someone with authority needs a reason to replace it.</p>
+    <p>A new project was funded. A new team was assembled. A new model was built. It took fourteen months and it cost more than the original model had cost, and when it was finally deployed it produced decisions that were, by the most generous measurement anyone could construct, approximately as good as the decisions the original model had been producing.</p>
+    <p>The original model was decommissioned. There was a small ceremony. Someone made a slide.</p>
+    <p>The new VP was promoted. In the promotion announcement, the new model was cited as a key accomplishment. The original model was not mentioned, because by then no one in the room remembered it had existed, except for one engineer who had worked on it and who said nothing, because she had learned by then what saying something would cost.</p>
+    <div class="parable-close">The new VP was promoted.<br>The engineer updated her resume.</div>
+  </div>
+
+  <div class="parable">
+    <h2 class="parable-title">The Slack Channel That Became the Project</h2>
+    <p>In the beginning, there was a project.</p>
+    <p>The project had a charter. The charter named a decision the project was meant to support. The charter was written by someone who had read the gospel, or something like it, and who knew that naming the decision came first.</p>
+    <p>A Slack channel was created to coordinate the project. This was reasonable. Projects need coordination. The channel was named after the project and the project was named after the decision, so the channel, by the transitive property the congregation will recognize, was also named after the decision.</p>
+    <p>In the first week, the channel was used to share documents. In the second week, the channel was used to schedule meetings about the documents. In the third week, the channel was used to discuss the meetings about the documents, and a thread was started to track action items from the discussions about the meetings about the documents, and the thread became long enough that a second channel was created to manage the thread.</p>
+    <p>By month four there were nine channels. There was a channel for stakeholder updates and a channel for engineering and a channel for the steering committee and a channel called random where people posted gifs, and the gifs were the only thing in any of the channels that anyone read all the way through.</p>
+    <p>By month nine the project had a Notion site, a Confluence page, a SharePoint folder that no one could find, a recurring biweekly sync, a recurring monthly steering review, a quarterly stakeholder readout, and a dedicated program manager whose entire job was maintaining the channels and the syncs and the reviews and the readouts.</p>
+    <p>The decision in the charter was never made.</p>
+    <p>It was not forgotten, exactly. It was referenced occasionally, in the steering reviews, as the north star. Everyone agreed it was important. Everyone agreed they were working toward it. Everyone returned to their channels.</p>
+    <div class="parable-close">The project is still running. The program manager is very good at her job.<br>If you asked someone in the channels what decision the project was supporting, they would tell you, with some confidence, that it was complicated.<br>And they would be right. By now, it is.</div>
+  </div>
+
+  <div class="parable">
+    <h2 class="parable-title">The Analysis That Was Commissioned After the Decision</h2>
+    <p>This is the last parable and it is the shortest.</p>
+    <p>A decision was made.</p>
+    <p>It was made in a room the analyst was not in, by people who had not read the brief, on the basis of a conversation that had happened at a dinner the week before, and the decision was announced on a Tuesday morning in an all-hands meeting with slides that had been prepared the night before by someone who had been told what the decision was and asked to make it look like it had been arrived at carefully.</p>
+    <p>On Wednesday, the analyst was asked to do the analysis.</p>
+    <p>The analyst did the analysis. The analyst was good at her job. She framed the question. She gathered the data. She built the model. She produced a recommendation, with a confidence interval, and the recommendation was different from the decision that had been announced on Tuesday.</p>
+    <p>She presented the recommendation to her manager.</p>
+    <p>Her manager said: this is excellent work.</p>
+    <p>Her manager said: let's talk about how to position this.</p>
+    <p>The recommendation was repositioned. The confidence interval was removed. The framing was adjusted. The final deliverable, which was presented two weeks later in a meeting the analyst was not invited to, supported the decision that had already been made.</p>
+    <p>The analyst was praised for her contribution. The analyst was given a small bonus. The analyst updated her resume that night, not because she was angry, but because she had understood something about the building she worked in that she had not understood the morning before, and the understanding could not be unlearned, and she did not want to spend the rest of her career inside it.</p>
+    <p>She left four months later.</p>
+    <div class="parable-close">The decision is still in effect. It is producing the outcomes the analysis predicted it would produce.<br>Nobody has connected these two things, because the analysis that would have connected them was repositioned, two weeks after Tuesday, by a manager who was good at his job in the way the building rewarded.</div>
+  </div>
+
+</main>
+
+<div class="page-footer">
+  <a href="heresies.html">← Heresies</a>
+  <a href="lamentations.html">Lamentations →</a>
+</div>
+
+</body>
+</html>

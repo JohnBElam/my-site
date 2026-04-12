@@ -1,0 +1,211 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include google-analytics.html %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Virtues | Decision Gospel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0e0c09;
+      --parchment: #f5f0e8;
+      --gold: #b8922a;
+      --gold-light: #d4a843;
+      --gold-dim: #7a5f1a;
+      --muted: #5a5040;
+    }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--ink); color: var(--parchment); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; line-height: 1.9; }
+
+    nav { display: flex; justify-content: center; flex-wrap: wrap; border-bottom: 1px solid var(--gold-dim); background: rgba(14,12,9,0.97); position: sticky; top: 0; z-index: 100; }
+    nav a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 14px 13px; transition: color 0.2s; border-right: 1px solid rgba(184,146,42,0.15); }
+    nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
+    nav a:hover, nav a.active { color: var(--gold-light); background: rgba(184,146,42,0.04); }
+
+    .page-header { text-align: center; padding: 72px 24px 56px; border-bottom: 1px solid rgba(184,146,42,0.2); position: relative; }
+    .page-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(184,146,42,0.07) 0%, transparent 65%); pointer-events: none; }
+    .breadcrumb { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 32px; display: block; }
+    .breadcrumb a { color: var(--gold-dim); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold-light); }
+    .page-label { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 16px; display: block; }
+    h1 { font-family: 'IM Fell English', serif; font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 400; color: var(--parchment); line-height: 1.15; margin-bottom: 20px; }
+    .page-intro { font-style: italic; color: var(--gold); font-size: 1rem; max-width: 560px; margin: 0 auto; line-height: 1.75; }
+
+    main { max-width: 720px; margin: 0 auto; padding: 0 24px 100px; }
+
+    .virtue-entry { padding: 64px 0; border-bottom: 1px solid rgba(184,146,42,0.1); }
+    .virtue-entry:last-child { border-bottom: none; }
+
+    .virtue-number { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 12px; display: block; }
+
+    .virtue-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 400; color: var(--parchment); margin-bottom: 32px; line-height: 1.2; }
+
+    p { margin-bottom: 1.4em; }
+    em { color: var(--gold-light); font-style: italic; }
+
+    .scene-opener { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); font-size: 1rem; margin-bottom: 32px; line-height: 1.8; padding-left: 20px; border-left: 2px solid rgba(184,146,42,0.35); }
+
+    .virtue-close { font-family: 'IM Fell English', serif; font-style: italic; color: var(--gold-dim); margin-top: 32px; font-size: 1.05rem; line-height: 1.6; }
+
+    .page-footer { border-top: 1px solid var(--gold-dim); text-align: center; padding: 40px 24px; }
+    .page-footer a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim); text-decoration: none; margin: 0 14px; transition: color 0.2s; }
+    .page-footer a:hover { color: var(--gold-light); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .page-header { animation: fadeUp 0.7s ease both; }
+    main { animation: fadeUp 0.7s ease both 0.15s; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Canon</a>
+  <a href="genesis.html">Genesis</a>
+  <a href="homilies.html">Homilies</a>
+  <a href="sins.html">Sins</a>
+  <a href="virtues.html" class="active">Virtues</a>
+  <a href="commandments.html">Commandments</a>
+  <a href="beatitudes.html">Beatitudes</a>
+  <a href="false-prophets.html">False Prophets</a>
+  <a href="congregation.html">Congregation</a>
+  <a href="origins.html">Origins</a>
+  <a href="heresies.html">Heresies</a>
+  <a href="parables.html">Parables</a>
+  <a href="lamentations.html">Lamentations</a>
+  <a href="four-horsemen.html">Four Horsemen</a>
+</nav>
+
+<div class="page-header">
+  <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / The Virtues</span>
+  <span class="page-label">The Seven</span>
+  <h1>The Virtues</h1>
+  <p class="page-intro">The qualities of the practitioner who has internalized the discipline. Spoken from the same mount. Recorded after the rest, because they were the hardest to name.</p>
+</div>
+
+<main>
+
+  <div class="virtue-entry">
+    <span class="virtue-number">The First Virtue</span>
+    <h2 class="virtue-title">Stillness</h2>
+
+    <p class="scene-opener">The room is full. There are nine people around the table and one on the screen and the person on the screen has a hard stop in twenty-two minutes, which everyone knows because she said so at the top, and the air in the room has the particular density of a meeting that needs to make progress.</p>
+
+    <p>Someone says: let's just look at the data.</p>
+    <p>The laptop is already open. The cursor is hovering over the dashboard. The dashboard will load in about two seconds and the room will turn toward the screen and the next forty minutes will be spent reacting to whatever the dashboard happens to show, and a decision will be made, or something that resembles a decision, and everyone will leave the meeting feeling that work has occurred.</p>
+    <p>The practitioner with the first virtue does something small. He does not stop the meeting. He does not give a speech. He says, before we open that, can we take sixty seconds and write down what we're trying to decide?</p>
+    <p>The room is annoyed. The room is annoyed in a particular way that has no name but that everyone in operational work has felt: the irritation of being asked to slow down when slowing down feels expensive. Someone checks a phone. Someone sighs in a way that is meant to be heard.</p>
+    <p>He waits.</p>
+    <p>The sixty seconds pass. Two of the nine people in the room realize, in the silence, that they have come to the meeting with different ideas about what the meeting is for. One of them says so. The other agrees. The dashboard is not opened. The meeting goes a different direction than it would have gone, and the direction is the right one, and three weeks later no one remembers the sixty seconds because the sixty seconds did not feel like a contribution. They felt like a delay.</p>
+    <p>This is the first virtue. Not patience. Patience is waiting for something. Stillness is waiting with something. Sitting with the problem in the room, refusing to outrun it, holding the silence open long enough for the shape of the actual question to come into view.</p>
+    <p>It is the hardest of the virtues because it looks like nothing. It produces no artifact. It cannot be put on a slide. It is invisible to every system the organization uses to measure who is contributing.</p>
+    <div class="virtue-close">The practitioner with stillness is contributing more than anyone else in the room.<br>The room will not know.<br>The room does not need to.</div>
+  </div>
+
+  <div class="virtue-entry">
+    <span class="virtue-number">The Second Virtue</span>
+    <h2 class="virtue-title">Sobriety</h2>
+
+    <p>There is a particular kind of pleasure that comes from finishing a model.</p>
+    <p>The practitioner knows the pleasure. The model has produced a number. The number has decimals. The decimals look like mastery. The deck is being assembled and the slide has space for one number, large, in the middle, and the temptation, which is real and which is human and which the discipline must be honest about, is to put the number on the slide without the cloud around it.</p>
+    <p>The cloud is the uncertainty. The cloud is the range of values the number could plausibly be, given everything the model does not know. The cloud is messy and the cloud is hard to explain in twelve minutes to an executive who needs to make a decision and the cloud, if shown, will produce questions the practitioner does not entirely know how to answer.</p>
+    <p>The temptation is to round.</p>
+    <p>Not to lie. Not to fabricate. Just to round, gently, in the direction of the answer the room is going to find easier. To present the point estimate without the interval. To say the model predicts in a tone that suggests the model knows more than it does.</p>
+    <p>The second virtue is the refusal of that warmth.</p>
+    <p>It is the discipline of staying clear-eyed about what the practitioner actually knows, which is almost always less than the deck implies. It is the practice of looking at the model's output and seeing it the way a stranger would see it, with all its assumptions visible, and presenting it in that condition rather than in the dressed-up version produced for private use.</p>
+    <p>The church borrows the word from older traditions. To be sober is to be unintoxicated. Not by wine, but by certainty, which is the more common intoxication in this work and the one the discipline treats most carefully. The drunk practitioner believes the model. The sober practitioner knows what the model is and is not.</p>
+    <p>A recommendation without its confidence interval is not more decisive. It is less honest, and the room can usually tell, and the room will trust it less even when it cannot say why.</p>
+    <div class="virtue-close">The sober practitioner has stopped enjoying being sure.<br>That is a strange sentence. Read it again.<br>Be sober. The room will, eventually, be grateful, even if it cannot say so out loud.</div>
+  </div>
+
+  <div class="virtue-entry">
+    <span class="virtue-number">The Third Virtue</span>
+    <h2 class="virtue-title">Plain Speech</h2>
+
+    <p>The third virtue is the willingness to be understood.</p>
+    <p>This sounds easy. It is not easy. The technical disciplines reward a particular kind of language: precise, dense, full of terms that have been earned through years of training and that mean exactly what they mean to other people who have done the same training. The language is not wrong. Within the seminar room, the language is correct, and any attempt to soften it is a kind of disrespect to the precision the field has worked so hard to achieve.</p>
+    <p>The problem is that the seminar room is not where the decisions get made.</p>
+    <p>The decisions get made in a different room. The other room contains a vice president who has twelve minutes, a finance partner who is checking email, a head of operations who came in late, and a chief of staff who is responsible for the agenda. None of them have done the training. All of them are, within their own domains, very smart. And the practitioner is about to talk to them.</p>
+    <p>There is a choice. The practitioner can speak the language of the training, and the room will nod politely, and the slides will be approved, and nothing in the room will change because nothing in the room understood what was actually being recommended. Or the practitioner can speak plainly, in the language the room actually uses, and the room will understand, and the recommendation will land, and a decision will get made.</p>
+    <p>The plain version is harder to write. This is the part the discipline does not say out loud. Plain speech is not simpler than technical speech. Plain speech is more compressed. It is the result of having understood the technical version so completely that its meaning can be carried across into a different vocabulary without losing the substance.</p>
+    <p>Practitioners with this virtue are sometimes accused of being unrigorous. They are accused by people who have not noticed that the room is now making better decisions.</p>
+    <div class="virtue-close">Plain speech is not the dumbing down of the discipline.<br>Plain speech is the discipline arriving in the room that needs it.</div>
+  </div>
+
+  <div class="virtue-entry">
+    <span class="virtue-number">The Fourth Virtue</span>
+    <h2 class="virtue-title">Humility</h2>
+
+    <p>There is a solution that is correct and there is a solution that gets used. They are not always the same solution. The fourth virtue is preferring the second one.</p>
+    <p>This is harder than it sounds, because the technical mind is built to prefer the first one. The training rewards correctness. The peer reviews reward correctness. The deep satisfaction the practitioner felt when first discovering the field, the click of a well-formed problem meeting a well-formed method, was the satisfaction of correctness. To be told that correctness is not the highest value is to be told that the foundation of an entire career is, at best, a means to a different end.</p>
+    <p>It is. The discipline is not in the business of correctness for its own sake. The discipline is in the business of decisions that get made and acted on and improved upon. The most elegant model in the world, deployed onto a workflow no one will change to accommodate it, is not a contribution. It is a private satisfaction.</p>
+    <p>The practitioner with the fourth virtue builds for the person who is actually going to use the thing. This means asking, before the architecture is chosen: who is going to look at this output? What can they see today? What systems do they actually have in front of them? What change would they accept and what change would they refuse?</p>
+    <p>Sometimes this means choosing the boring solution. Sometimes it means choosing the solution the practitioner would not write a paper about. The fourth virtue is making those choices anyway, because the goal was never to be admired by other practitioners. The goal was to help a real person make a real decision better than they would have made it without you.</p>
+    <p>Humility in this discipline is not modesty about skill. The most skilled person in the room can still practice this virtue. Humility is about what the skill is for. The practitioner who has internalized this stops taking it personally when the elegant solution gets rejected. The unloved solution gets rebuilt to fit the constraints, and it ships, and the day ends, and the decision gets made better the next morning, and that is allowed to be enough.</p>
+    <div class="virtue-close">It is enough. The discipline insists it is enough.</div>
+  </div>
+
+  <div class="virtue-entry">
+    <span class="virtue-number">The Fifth Virtue</span>
+    <h2 class="virtue-title">Stewardship</h2>
+
+    <p class="scene-opener">The model has been in production for fourteen months. It is performing within expected bounds. The dashboards are green most days. No one has complained. The team that built it has moved on to other things, which is normal, because the team that builds a thing is rarely the team that lives with it. The model is now somebody else's problem, technically, except that the somebody else is also busy and the model is mostly running itself and there is no specific reason on any specific Tuesday to look at it carefully.</p>
+
+    <p>The fifth virtue is the practitioner who looks at it carefully anyway.</p>
+    <p>Not because anything is broken. Not because a metric has tipped. Not because a postmortem has been requested. She looks at it because fourteen months is long enough for the world to have changed, and she is the kind of person who remembers that the world changes, and she has carved out an hour on a Thursday afternoon to ask the only question that matters: does this still make sense?</p>
+    <p>She pulls up the original brief. She rereads the objective the model was built to optimize. She compares it to what the business actually cares about now, in this quarter, with the new VP and the new product line and the new market conditions, and she notices that the gap between the two has grown. Not catastrophically. Just enough that the model is now optimizing for something that was the right thing in the previous world and is the slightly-wrong thing in this one.</p>
+    <p>She writes a one-page memo. The memo says: here is what this model was built to do, here is what the business now needs, here is the gap, here is what I recommend. The memo is uncomfortable to send because the model is fine and no one has asked for the memo and sending it will create work for people who would rather not have more work. She sends it anyway.</p>
+    <p>This is the fifth virtue. It is the discipline of returning to systems and asking whether they still serve the question they were built to answer. It is what the Fourth Horseman cannot abide, because the Fourth Horseman lives on the silence around old systems, and stewardship is the breaking of that silence.</p>
+    <p>The word is chosen carefully. Maintenance is keeping a system running. Stewardship is keeping a system honest. They are different jobs. The first is about the system. The second is about the relationship between the system and the world the system is supposed to be helping. The first can be automated. The second cannot.</p>
+    <p>Most organizations do not have a role for the steward. The role does not produce metrics that look good in performance reviews. The role produces, occasionally, memos that suggest expensive things should be reconsidered, which is not the kind of contribution that gets celebrated in the all-hands.</p>
+    <div class="virtue-close">She writes the memo. The memo is sometimes ignored. She writes the next one anyway.<br>That is stewardship. The discipline does not survive without it.</div>
+  </div>
+
+  <div class="virtue-entry">
+    <span class="virtue-number">The Sixth Virtue</span>
+    <h2 class="virtue-title">Stoicism</h2>
+
+    <p>The church borrows freely from older traditions when the older traditions had it right. The sixth virtue is borrowed openly, with credit, from a school of philosophy that has been practicing it for two thousand years.</p>
+    <p>The Stoics taught that the practitioner of any difficult work has to be able to do one specific thing: hold the work steady while the world pushes against it. Not because the world is wrong. Sometimes the world is right and the work needs to change. But the push is not the same as the rightness. The push is the social pressure of the room, the impatience of the deadline, the displeasure of the senior person, the soft suggestion that the answer should be slightly different than it is. The Stoic discipline is the capacity to feel all of that and not let it move you, except when you have decided, on the merits, that moving is correct.</p>
+    <p>The practitioner is in the stakeholder review. The recommendation is on the slide. The senior person frowns. The frown is small, just a contraction of the eyebrows, but the frown is doing work. The frown is an invitation to soften.</p>
+    <p>The practitioner without the sixth virtue softens. He adds a hedge. He moves the recommendation in the direction of the frown. He tells himself this is responsiveness, or reading the room, or being collaborative. It is none of those things. It is the room corrupting the answer, and he is the channel through which the corruption travels, and by the time the meeting is over the answer is no longer the answer the analysis produced.</p>
+    <p>The practitioner with the sixth virtue does not soften. He notices the frown. He registers it. He does not pretend it is not there. And then he presents the recommendation in the form the analysis produced, including the parts the senior person will not like, and he does so without aggression and without apology. He just says the thing. And then he answers the questions, and then he sits with whatever discomfort follows, and the discomfort is real and the discomfort is the cost and the cost is what the virtue is for.</p>
+    <p>This is not bravery in the moment. Bravery in the moment is the seventh virtue, and it is different. Stoicism is the temperament underneath the bravery. The trained calm that lets the bravery survive contact with the second meeting, and the third, and the fortieth. Bravery is a single act. Stoicism is the disposition that makes the next act possible after the first one cost something.</p>
+    <div class="virtue-close">You will be in the stakeholder review tomorrow. You will see the frown. You will feel the pull.<br>The sixth virtue is the practice of staying where the analysis put you, until and unless the analysis moves.<br>That is the whole of it.</div>
+  </div>
+
+  <div class="virtue-entry">
+    <span class="virtue-number">The Seventh Virtue</span>
+    <h2 class="virtue-title">Courage</h2>
+
+    <p>There is a moment, in every consequential project, when one person in the room knows the project is going in the wrong direction and has not yet said so.</p>
+    <p>The moment is small. It does not announce itself. The room is in motion, the slides are advancing, the timeline is being walked through, and somewhere around the third or fourth slide she notices that the assumption underneath the whole thing is wrong. Not slightly wrong. Wrong in a way that, if named, would force the project to go back to a stage everyone thought was finished.</p>
+    <p>She knows. She knows in the way you know weather. She has seen the pattern before. She could explain it, with evidence, in under two minutes.</p>
+    <p>She measures the cost.</p>
+    <p>The cost is real. Saying something now means stopping the meeting. It means contradicting the senior person who is presenting. It means being the one who introduced the inconvenient truth into a room that was about to approve a budget. It means, possibly, being remembered as the person who caused the delay, even though the delay was already there, hidden in the assumption, waiting to surface later at a cost ten times larger than the cost of surfacing it now.</p>
+    <p>The cost of not saying something is also real, but it is distributed. It will be paid by the team in eight months. It will be paid by the customers in a year. It will be paid by the next person who inherits the system. It will be paid by the analyst who will eventually be asked to explain why the project failed and who will not have been in this room and who will not know that the failure was visible, on a Tuesday in May, to one person who decided the cost of speaking was higher than the cost of silence.</p>
+    <p>The seventh virtue is the practice of paying the first cost so that the second cost does not get paid by everyone else.</p>
+    <p>It is called courage because every other word for it is too small. It is not assertiveness. It is not honesty. It is not bravery, because bravery suggests a single dramatic act and this is not dramatic. There is no music. There is no audience. There is just a person in a meeting room saying <em>can I push back on something on slide three</em> in a tone that is meant to be casual and is not casual at all, because the person speaking can feel her own pulse and is choosing to speak anyway.</p>
+    <p>The room will react in one of three ways. It will engage, and the project will get better, and no one will remember in six months that the meeting almost went a different way. It will resist, and there will be a hard conversation, and the conversation will be uncomfortable, and the project may or may not change. It will close, and the senior person will note who said the thing, and the noting will have consequences that surface later.</p>
+    <p>The seventh virtue is speaking anyway, knowing that any of the three is possible, and not waiting to find out which one before deciding whether to speak.</p>
+    <p>This is the virtue the rest of the chapter exists to support. Stillness gives you the silence in which to notice the wrongness. Sobriety gives you the calibration to know how wrong it is. Plain speech gives you the language to say it without hiding behind jargon. Humility reminds you that you are speaking on behalf of the decision, not on behalf of yourself. Stewardship reminds you that the decision will outlast the meeting. Stoicism gives you the temperament to do this again next week, after this week's version cost something.</p>
+    <p>And courage is the moment all six virtues converge into a single act of speech, in a single room, on a single Tuesday, when one person decides that the project is more important than her own comfort and says the thing the room did not want to hear.</p>
+    <p>The church holds this virtue most sacred. Not because it is the rarest. Because it is the one that, if absent, makes all the other six pointless. A practitioner who has stillness and sobriety and plain speech and humility and stewardship and stoicism and will not speak when speaking matters has produced a beautiful interior life and changed nothing in the world.</p>
+    <p>The discipline is not about your interior life.</p>
+    <p>The discipline is about the decisions that get made in rooms full of people who do not always want to hear the truth.</p>
+    <div class="virtue-close">Speak.<br>That is the seventh virtue and the whole purpose of the other six.</div>
+  </div>
+
+</main>
+
+<div class="page-footer">
+  <a href="sins.html">← Sins</a>
+  <a href="commandments.html">Commandments →</a>
+</div>
+
+</body>
+</html>
