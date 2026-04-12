@@ -1,0 +1,790 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include google-analytics.html %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Book of the Practitioner | Decision Gospel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0e0c09;
+      --parchment: #f5f0e8;
+      --gold: #b8922a;
+      --gold-light: #d4a843;
+      --gold-dim: #7a5f1a;
+      --muted: #5a5040;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--ink);
+      color: var(--parchment);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 19px;
+      line-height: 1.9;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--gold-dim);
+      background: rgba(14,12,9,0.97);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav a {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 14px 13px;
+      transition: color 0.2s, background 0.2s;
+      border-right: 1px solid rgba(184,146,42,0.15);
+    }
+    nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
+    nav a:hover, nav a.active { color: var(--gold-light); background: rgba(184,146,42,0.04); }
+
+    /* PAGE HEADER */
+    .page-header {
+      text-align: center;
+      padding: 80px 24px 64px;
+      border-bottom: 1px solid rgba(184,146,42,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(184,146,42,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .breadcrumb {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 36px;
+      display: block;
+    }
+    .breadcrumb a { color: var(--gold-dim); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--gold-light); }
+
+    .page-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    h1 {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(2.2rem, 5.5vw, 4rem);
+      font-weight: 400;
+      color: var(--parchment);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .page-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px 120px;
+    }
+
+    /* OPENING NOTE */
+    .opening-note {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
+      padding: 56px 0 0;
+      line-height: 1.8;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* PART HEADERS */
+    .part-header {
+      text-align: center;
+      margin: 80px 0 16px;
+      position: relative;
+    }
+    .part-header::before {
+      content: '';
+      display: block;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(184,146,42,0.3), transparent);
+      margin-bottom: 40px;
+    }
+    .part-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      display: block;
+      margin-bottom: 12px;
+    }
+    .part-title {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 400;
+      color: var(--parchment);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .part-note {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* STACK ENTRIES */
+    .stack-entry {
+      padding: 64px 0;
+      border-bottom: 1px solid rgba(184,146,42,0.1);
+      position: relative;
+    }
+    .stack-entry:last-of-type { border-bottom: none; }
+
+    .entry-marker {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .layer-badge {
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    /* Stack layer colors */
+    .badge-self       { background: rgba(184,146,42,0.14); color: var(--gold-light); border: 1px solid rgba(184,146,42,0.35); }
+    .badge-stake      { background: rgba(204,197,185,0.1); color: #ccc5b9; border: 1px solid rgba(204,197,185,0.25); }
+    .badge-frame      { background: rgba(64,61,57,0.6); color: #a09880; border: 1px solid rgba(100,95,85,0.4); }
+    .badge-systems    { background: rgba(37,36,34,0.8); color: #7a7268; border: 1px solid rgba(80,75,65,0.4); }
+    .badge-technical  { background: rgba(255,252,242,0.05); color: #c8c0b0; border: 1px solid rgba(200,192,176,0.2); }
+
+    /* Step colors */
+    .badge-step { background: rgba(184,146,42,0.08); color: var(--gold); border: 1px solid rgba(184,146,42,0.25); }
+
+    .entry-title {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 400;
+      color: var(--parchment);
+      line-height: 1.2;
+    }
+
+    p { margin-bottom: 1.4em; font-size: 1.02rem; }
+    em { color: var(--gold-light); font-style: italic; }
+
+    .entry-close {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      color: var(--gold-dim);
+      margin-top: 32px;
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    /* STEP ENTRIES -- slightly different visual weight */
+    .step-entry {
+      padding: 64px 0;
+      border-bottom: 1px solid rgba(184,146,42,0.1);
+    }
+    .step-entry:last-of-type { border-bottom: none; }
+
+    /* THE STACK DIAGRAM — pyramid (centered with main column; inner row scrolls) */
+    .stack-diagram {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 100%;
+      margin: 56px auto;
+      padding: 40px 24px;
+      border: 1px solid rgba(184,146,42,0.15);
+      background: rgba(255,255,255,0.01);
+      font-family: 'JetBrains Mono', 'Courier Prime', monospace;
+      box-sizing: border-box;
+    }
+
+    .diagram-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      text-align: center;
+      margin-bottom: 32px;
+      display: block;
+      width: 100%;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .diagram-scroll {
+      width: 100%;
+      display: flex;
+      justify-content: safe center;
+      align-items: stretch;
+      overflow-x: auto;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+    }
+
+    .visual-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: nowrap;
+      flex: 0 0 auto;
+      min-width: 820px;
+      margin: 0 auto;
+      scroll-snap-align: center;
+    }
+
+    .triangle-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .triangle-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .pyramid {
+      position: relative;
+      width: 280px;
+      height: 360px;
+    }
+
+    .pyramid-layer {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .left-pyramid .layer-1 { bottom: 0;   width: 280px; height: 72px; background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%); clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%); }
+    .left-pyramid .layer-2 { bottom: 72px;  width: 224px; height: 72px; background: #252422; clip-path: polygon(12.5% 0%, 87.5% 0%, 100% 100%, 0% 100%); }
+    .left-pyramid .layer-3 { bottom: 144px; width: 168px; height: 72px; background: #403d39; clip-path: polygon(16.7% 0%, 83.3% 0%, 100% 100%, 0% 100%); }
+    .left-pyramid .layer-4 { bottom: 216px; width: 112px; height: 72px; background: #ccc5b9; clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%); }
+    .left-pyramid .layer-5 { bottom: 288px; width: 56px;  height: 72px; background: #fffcf2; clip-path: polygon(50% 0%, 100% 100%, 0% 100%); }
+
+    .right-pyramid .layer-1 { top: 0;   width: 280px; height: 72px; background: #fffcf2; clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%); }
+    .right-pyramid .layer-2 { top: 72px;  width: 224px; height: 72px; background: #ccc5b9; clip-path: polygon(0% 0%, 100% 0%, 87.5% 100%, 12.5% 100%); }
+    .right-pyramid .layer-3 { top: 144px; width: 168px; height: 72px; background: #403d39; clip-path: polygon(0% 0%, 100% 0%, 83.3% 100%, 16.7% 100%); }
+    .right-pyramid .layer-4 { top: 216px; width: 112px; height: 72px; background: #252422; clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 25% 100%); }
+    .right-pyramid .layer-5 { top: 288px; width: 56px;  height: 72px; background: linear-gradient(180deg, var(--gold) 0%, var(--gold-light) 100%); clip-path: polygon(0% 0%, 100% 0%, 50% 100%); }
+
+    .center-stack {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 360px;
+      padding: 0 30px;
+      min-width: 240px;
+      flex-shrink: 0;
+    }
+
+    .stack-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 72px;
+      text-align: center;
+    }
+
+    .stack-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--parchment);
+      margin-bottom: 4px;
+    }
+
+    .stack-descriptor {
+      font-size: 0.6rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* CHAPTER BREAKS */
+    .chapter-break {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin: 0 0 0;
+    }
+    .chapter-break-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(184,146,42,0.25));
+    }
+    .chapter-break-line.right {
+      background: linear-gradient(to left, transparent, rgba(184,146,42,0.25));
+    }
+    .chapter-break-glyph {
+      font-family: 'IM Fell English', serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--gold-dim);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* CLOSING */
+    .book-closing {
+      margin-top: 80px;
+      padding-top: 64px;
+      border-top: 1px solid rgba(184,146,42,0.2);
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .closing-title {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 400;
+      color: var(--parchment);
+      margin-bottom: 32px;
+      line-height: 1.2;
+    }
+
+    .closing-final {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      text-align: center;
+      color: var(--gold);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 2;
+      margin-top: 56px;
+      padding-top: 48px;
+      border-top: 1px solid rgba(184,146,42,0.15);
+    }
+    .closing-final span {
+      display: block;
+      font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+      color: var(--parchment);
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    /* FOOTER */
+    .page-footer {
+      border-top: 1px solid var(--gold-dim);
+      text-align: center;
+      padding: 40px 24px;
+    }
+    .page-footer a {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      text-decoration: none;
+      margin: 0 14px;
+      transition: color 0.2s;
+    }
+    .page-footer a:hover { color: var(--gold-light); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .page-header { animation: fadeUp 0.7s ease both; }
+    main { animation: fadeUp 0.7s ease both 0.15s; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Canon</a>
+  <a href="genesis.html">Genesis</a>
+  <a href="homilies.html">Homilies</a>
+  <a href="sins.html">Sins</a>
+  <a href="virtues.html">Virtues</a>
+  <a href="commandments.html">Commandments</a>
+  <a href="beatitudes.html">Beatitudes</a>
+  <a href="false-prophets.html">False Prophets</a>
+  <a href="congregation.html">Congregation</a>
+  <a href="origins.html">Origins</a>
+  <a href="heresies.html">Heresies</a>
+  <a href="parables.html">Parables</a>
+  <a href="lamentations.html">Lamentations</a>
+  <a href="four-horsemen.html">Four Horsemen</a>
+  <a href="practitioner.html" class="active">Practitioner</a>
+</nav>
+
+<div class="page-header">
+  <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / The Book of the Practitioner</span>
+  <span class="page-label">The Constructive Text</span>
+  <h1>The Book of the Practitioner</h1>
+  <p class="page-intro">What you must be before what you must know. What you must do once you are both.</p>
+</div>
+
+<main>
+
+  <p class="opening-note">This book is different from the rest of the gospel. The rest of the gospel names what is broken. This book names what is whole. Read the rest first. Come here when you are ready to build.</p>
+
+  <!-- PART ONE -->
+  <div class="part-header">
+    <span class="part-label">Part One</span>
+    <h2 class="part-title">The Stack</h2>
+    <p class="part-note">Five layers. Each one earns the next. Most practitioners start at the bottom and assume the rest will follow. It does not follow. It has to be built, in order, from the inside out.</p>
+  </div>
+
+  <!-- STACK DIAGRAM -->
+  <div class="stack-diagram">
+    <span class="diagram-label">The Decision Stack</span>
+    <div class="diagram-scroll">
+    <div class="visual-container">
+
+      <div class="triangle-section">
+        <div class="triangle-label">Foundation</div>
+        <div class="pyramid left-pyramid">
+          <div class="pyramid-layer layer-5"></div>
+          <div class="pyramid-layer layer-4"></div>
+          <div class="pyramid-layer layer-3"></div>
+          <div class="pyramid-layer layer-2"></div>
+          <div class="pyramid-layer layer-1"></div>
+        </div>
+      </div>
+
+      <div class="center-stack">
+        <div class="stack-item">
+          <div class="stack-label">Technical Foundation</div>
+          <div class="stack-descriptor">DS / ML / AI / OR / Cloud / DevOps</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-label">Systems Thinking</div>
+          <div class="stack-descriptor">Constraints / Infrastructure / Budgets</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-label">Problem Framing</div>
+          <div class="stack-descriptor">Empathy / Curiosity / Completeness</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-label">Stakeholders</div>
+          <div class="stack-descriptor">Trust / Expectations / Alignment</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-label">The Self</div>
+          <div class="stack-descriptor">Stoic Foundation</div>
+        </div>
+      </div>
+
+      <div class="triangle-section">
+        <div class="triangle-label">Breadth</div>
+        <div class="pyramid right-pyramid">
+          <div class="pyramid-layer layer-1"></div>
+          <div class="pyramid-layer layer-2"></div>
+          <div class="pyramid-layer layer-3"></div>
+          <div class="pyramid-layer layer-4"></div>
+          <div class="pyramid-layer layer-5"></div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+  <!-- LAYER 1: THE SELF -->
+  <div class="stack-entry">
+    <div class="entry-marker">
+      <span class="layer-badge badge-self">The First Layer</span>
+    </div>
+    <h2 class="entry-title">The Self</h2>
+
+    <p>Everything in this book rests here.</p>
+    <p>Not technically. Not organizationally. Not in terms of credentials or years of experience or the particular flavor of advanced degree the industry currently rewards. Here. The Self. The layer nobody talks about at the conference. The layer that cannot be certified, cannot be put on a resume, cannot be demonstrated in a take-home assessment or a technical screen or a panel interview with three engineers and a product manager.</p>
+    <p>The layer that the work reveals anyway.</p>
+    <p>You are going to sit in rooms where the pressure to be wrong is enormous. Not wrong in the obvious way, not the way that gets corrected in a code review or a peer assessment. Wrong in the quiet way. The way where the senior person in the room has a preference and the preference is visible and the room is adjusting to it in real time and the adjustment feels like reading the room and the reading of the room feels like maturity and the maturity feels like professionalism and somewhere in all of that the honest answer got lost and nobody is going to name what happened because everyone is too comfortable with the result.</p>
+    <p>The practitioner without the first layer will adjust.</p>
+    <p>Not because they are dishonest. Because they have not done the work of knowing what they actually think, separate from what the room wants them to think. Because the two feel the same until you have practiced telling them apart. Because the practice is uncomfortable and the conference does not offer a session on it and the LinkedIn algorithm does not reward posts about it.</p>
+    <p>The Self is not a personality trait. It is not introversion or extroversion or confidence or any of the other things the industry uses as proxies for it. It is a practice. The specific practice of knowing your own biases before you encounter the problem, so that the problem can be seen clearly rather than through the particular distortion your history and your incentives and your desire to be liked and your fear of being wrong produce without your permission.</p>
+    <p>The Stoics called this the discipline of judgment. They meant: before you decide what the thing is, notice what you want the thing to be, and separate those two observations. The gap between them is where the honest work lives.</p>
+    <p>Marcus Aurelius practiced this in a notebook between battles. The congregation can practice it before the meeting. The specific practice is not complicated. It is simply the habit of asking, before the laptop opens, before the data pulls, before the recommendation is written: what do I want to be true here, and how is that different from what I can demonstrate to be true?</p>
+    <p>Most practitioners never ask.</p>
+    <p>Most practitioners produce answers their biases already knew, dressed in methodologies they learned afterward.</p>
+    <p>The first layer is the practice of being the kind of person who can be trusted to see the problem before constructing the solution. It is the hardest layer because it never finishes. There is no certificate. There is no milestone. There is only the meeting, and the frown, and the moment of choosing between the honest answer and the comfortable one, and whether the choice comes from somewhere solid or somewhere that shifts with the room.</p>
+    <div class="entry-close">Build this first. Build it always.<br>The layers above depend on it and they know when it is not there.</div>
+  </div>
+
+  <!-- LAYER 2: STAKEHOLDERS -->
+  <div class="stack-entry">
+    <div class="entry-marker">
+      <span class="layer-badge badge-stake">The Second Layer</span>
+    </div>
+    <h2 class="entry-title">Stakeholders</h2>
+
+    <p>You cannot manage what you cannot see.</p>
+    <p>The second layer is the practice of seeing people clearly, which sounds obvious until you try to do it in a room where you need something from them, or where they have authority over your work, or where they have already decided what the answer should be and are waiting for you to confirm it.</p>
+    <p>The reason The Self comes first is not philosophical. It is practical. Your own need for approval is the primary obstacle to seeing stakeholders accurately. Your own fear of conflict is the primary reason you will hear what they want rather than what they need. Your own investment in a particular outcome is the primary reason you will manage them toward your answer rather than toward the truth.</p>
+    <p>The practitioner who has not done the first layer will walk into the stakeholder conversation already compromised. They will hear the preferences and call them requirements. They will sense the resistance and route around it rather than surfacing it. They will present the work to the person they wish the stakeholder was rather than the person the stakeholder is, which means the work will land wrong and they will call it a communication problem.</p>
+    <p>It is not a communication problem. It is a seeing problem.</p>
+    <p>The stakeholder layer is not about being liked. The congregation should write this somewhere visible. The goal is not a warm relationship. The goal is an accurate model of what the stakeholder actually needs, what they will actually do with the output, what constraints they are operating under that they have not named, what fears they have about the work that they have expressed as objections, and what they need to believe in order to act on the recommendation when it arrives.</p>
+    <p>All of that is invisible if you walk in wanting to be approved of.</p>
+    <p>The practitioner with the second layer asks different questions. Not <em>what do you want the answer to be</em>, but <em>what decision are you trying to make and what would change for you if you made it differently.</em> Not <em>how can I make this easier to accept</em>, but <em>what would make this impossible to ignore.</em> Not <em>what do you already believe</em>, but <em>what would you need to see to believe something different.</em></p>
+    <div class="entry-close">The second layer is built on the first.<br>It cannot be built without it.</div>
+  </div>
+
+  <!-- LAYER 3: PROBLEM FRAMING -->
+  <div class="stack-entry">
+    <div class="entry-marker">
+      <span class="layer-badge badge-frame">The Third Layer</span>
+    </div>
+    <h2 class="entry-title">Problem Framing</h2>
+
+    <p>The layer where most projects are decided before anyone knows it.</p>
+    <p>By the time you reach this layer, the work the first two layers did is either present or it is not, and the framing will show which. The practitioner with a solid foundation will frame the problem as it actually is. The practitioner without one will frame the problem as it is convenient to frame, or as the stakeholder wants it framed, or as the previous project framed it because the previous project is the only template available and starting from scratch is uncomfortable.</p>
+    <p>Problem framing is not a technique. The congregation has been told it is a technique. The congregation has been given templates and canvases and workshops designed to produce a frame at the end of a structured process. These tools are not wrong. They are just insufficient when the person using them has not done the first two layers, because a template cannot compensate for a practitioner who does not know their own biases and cannot see their stakeholders clearly.</p>
+    <p>The honest frame has four elements. Not as a template. As a discipline.</p>
+    <p>The decision. The specific, attributable, consequential choice that a real person will make differently because this work was done. If you cannot name it in one sentence, the frame is not finished.</p>
+    <p>The measure. What does better look like, specifically. Not a metric that will make leadership comfortable. The actual thing that changes in the world when the decision is made correctly.</p>
+    <p>The uncertainty. What do we not know, and how much does not knowing it cost. This is the element most likely to be removed before the deck is presented. It should be the element most carefully preserved. The uncertainty is not a failure of the analysis. The uncertainty is part of the answer.</p>
+    <p>The tradeoffs. What does this decision cost, and who bears the cost, and have those people been consulted. The frame that has no tradeoffs is the frame that has not been finished.</p>
+    <div class="entry-close">The third layer is where the Six Steps begin.<br>Everything below it was preparation. This is the work.</div>
+  </div>
+
+  <!-- LAYER 4: SYSTEMS THINKING -->
+  <div class="stack-entry">
+    <div class="entry-marker">
+      <span class="layer-badge badge-systems">The Fourth Layer</span>
+    </div>
+    <h2 class="entry-title">Systems Thinking</h2>
+
+    <p>The layer where the solution meets the world it has to live in.</p>
+    <p>By now the decision is named. The stakeholders are understood. The frame is honest. And the practitioner turns to face the actual environment where the work will be deployed, which is never the clean environment the frame implied and is always messier, more constrained, more politically complicated, more technically fragile, and more resistant to change than any model of it will capture.</p>
+    <p>Systems thinking is not a soft skill. The congregation should push back on anyone who calls it that. Systems thinking is the disciplined practice of understanding how the parts of a complex environment interact, where the leverage points are, where the constraints bind, what happens downstream when you push something upstream, and why the obvious intervention almost always produces unintended consequences that the obvious intervention was not designed to handle.</p>
+    <p>The fourth layer is where constraints become inputs rather than obstacles. Budget is not a reason to abandon the work. Budget is a dimension of the problem. Timeline is not a limitation on quality. Timeline is a constraint that reshapes what quality looks like in this specific context. Organizational resistance is not a failure of communication. Organizational resistance is data about the system that the solution has to survive inside.</p>
+    <p>The practitioner with the fourth layer does not build in the abstract. They build for the specific, complicated, politically real environment the solution will be deployed into, and they factor that environment into every design decision from the beginning rather than discovering it at the end when it is too late to do anything except apologize for the mismatch.</p>
+    <div class="entry-close">Every model of a system is a simplification.<br>The question is not whether the simplification is perfect. It never is.<br>The question is whether it preserves the features that matter for the decision at hand.</div>
+  </div>
+
+  <!-- LAYER 5: TECHNICAL FOUNDATION -->
+  <div class="stack-entry">
+    <div class="entry-marker">
+      <span class="layer-badge badge-technical">The Fifth Layer</span>
+    </div>
+    <h2 class="entry-title">Technical Foundation</h2>
+
+    <p>The layer the industry mistakes for the whole stack.</p>
+    <p>Technical foundation is real and necessary and enormously complex. Data science, machine learning, artificial intelligence, operations research, cloud infrastructure, software engineering. Each domain is vast. Each has subcategories that are themselves vast. The interactions between them are genuinely complicated in ways that take years to understand and years more to apply well.</p>
+    <p>And it is the least important layer on this list.</p>
+    <p>Not because it is easy. It is not easy. Not because it does not matter. It matters enormously. Because it is the most learnable layer, and because learning it in the absence of the layers above it produces exactly the problem the rest of this gospel has been diagnosing: technically correct work that answers the wrong question, at scale, with confidence, deployed into an organization that does not understand it and cannot use it correctly.</p>
+    <p>The tragedy of the current era is not that practitioners lack technical skills. The practitioners are technically skilled. The tragedy is that the industry selects for, trains for, recruits for, promotes for, and celebrates technical skill while treating the four layers above it as soft, optional, unteachable, or already handled.</p>
+    <p>They are not already handled.</p>
+    <p>They are never handled by default. They are built, deliberately, by practitioners who understood that the technical layer is the floor and not the ceiling, and who did the harder work of building everything above it.</p>
+    <p>The practitioner who has built all five layers arrives at a technical problem differently than the practitioner who has only built one. They arrive knowing what the work is for. Knowing who it serves. Knowing how the solution will live in the world. Knowing what they want to be true and what the evidence actually says. The technical foundation, in those hands, produces something the foundation alone never could.</p>
+    <div class="entry-close">Build the foundation. It is necessary.<br>Do not stop there.</div>
+  </div>
+
+  <!-- PART TWO -->
+  <div class="part-header">
+    <span class="part-label">Part Two</span>
+    <h2 class="part-title">The Six Steps</h2>
+    <p class="part-note">The cycle the prepared practitioner runs. Not a checklist. A discipline. The steps exist to be returned to, not completed.</p>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step-entry">
+    <div class="entry-marker">
+      <span class="layer-badge badge-step">Step One</span>
+    </div>
+    <h2 class="entry-title">The Metaproblem</h2>
+
+    <p>Before the problem, there is a harder problem.</p>
+    <p>The metaproblem is the question of whether this is the right thing to be working on. Not whether the project is well-defined. Not whether the team has the capability. Whether this, among everything the organization could be doing, among everything this practitioner could be working on, is the problem that most deserves the work.</p>
+    <p>Most practitioners never ask this question. It is not asked at the kickoff. It is not on the project charter template. It is not what the stakeholder wants to spend the first meeting on. The stakeholder wants to spend the first meeting on timeline and scope and deliverables and team composition, because those things feel like progress and the metaproblem feels like delay.</p>
+    <p>The metaproblem is not delay. The metaproblem is the only question that makes the rest of the work honest.</p>
+    <p>The practitioner who skips it will build the right solution to the wrong problem, beautifully, on time, under budget, and will stand at the ribbon cutting watching the bridge connect nothing to nothing and will not understand why.</p>
+    <p>The metaproblem requires the full stack. It requires self-knowledge because the practitioner's own interests and biases shape which problems look important. It requires stakeholder understanding because the problem as presented is never the problem as it actually exists. It requires framing discipline because a poorly framed metaproblem produces a well-executed project aimed at the wrong target. It requires systems thinking because the right problem to work on is always the one whose solution propagates most usefully through the system.</p>
+    <div class="entry-close">Ask it. Even when the room is impatient. Even when the timeline is already set.<br>Even when the project has a name and a budget and a sponsor and a Slack channel.<br>Especially then.</div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step-entry">
+    <div class="entry-marker">
+      <span class="layer-badge badge-step">Step Two</span>
+    </div>
+    <h2 class="entry-title">Frame the Problem</h2>
+
+    <p>The step most likely to be skipped.</p>
+    <p>The skip has been named elsewhere in this gospel. It lives here. This is its home. The specific moment when the room has the data open and the stakeholders are assembled and the timeline is visible and the pressure to produce is at its highest and the frame has not been agreed on and someone opens the laptop and the frame drifts away unspoken and the project begins.</p>
+    <p>The frame is the decision. The measures. The uncertainty. The tradeoffs. All four, written down, agreed upon, connected to a specific person who will act on the output, before a single query is written.</p>
+    <p>The frame is not a document. Documents can be produced without doing the framing. Forms can be filled out while skipping the substance. The frame is an agreement, between the practitioner and the decision maker, about what the work is for and what success looks like and what happens when the work is done.</p>
+    <p>That agreement requires two things the template cannot provide. A decision maker who is present, engaged, and willing to be specific about what they actually need. And a practitioner who is prepared, by everything in Part One of this book, to hear the honest answer without filtering it through what they want to hear.</p>
+    <div class="entry-close">Frame anyway. With whatever you have.<br>Imperfect framing is better than no framing.<br>A frame that gets revised is better than a frame that was never built.</div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step-entry">
+    <div class="entry-marker">
+      <span class="layer-badge badge-step">Step Three</span>
+    </div>
+    <h2 class="entry-title">Solutioning</h2>
+
+    <p>Design constrained by feasibility.</p>
+    <p>Not design constrained by what is technically interesting. Not design constrained by what was done on the last project. Not design constrained by the tools that are already licensed or the methods that are already familiar or the solution that the practitioner knew they were going to build before the frame was finished.</p>
+    <p>Design constrained by feasibility. By what will actually work in the actual environment for the actual decision maker with the actual data and the actual timeline and the actual organizational will to change.</p>
+    <p>This is the step where technical foundation earns its seat at the table. The practitioner who has built all five layers arrives here with a clear frame, an accurate picture of the stakeholder, an honest understanding of their own biases, and a working model of the system the solution has to survive in. Technical depth in those hands is not decoration. It is the toolkit applied to a well-defined problem.</p>
+    <p>The congregation should note what changes at this step when the stack is incomplete. The practitioner without self-knowledge will design toward the solution they prefer rather than the solution the problem requires. The practitioner without stakeholder understanding will design for the wrong user. The practitioner without framing discipline will design something technically correct that addresses the adjacent problem. The practitioner without systems thinking will design something that works in isolation and fails in context.</p>
+    <div class="entry-close">The elegance of the design is not the measure.<br>The measure is whether the design serves the frame.<br>If it requires the frame to change, go back to Step Two. That is not failure. That is solutioning working correctly.</div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step-entry">
+    <div class="entry-marker">
+      <span class="layer-badge badge-step">Step Four</span>
+    </div>
+    <h2 class="entry-title">Data</h2>
+
+    <p>Source it or re-solution.</p>
+    <p>The step the industry starts at is the fourth step. This is worth stating plainly one more time, not because the congregation does not know it but because the congregation works in organizations that do not know it and the repetition is useful armor for the rooms the congregation has to survive.</p>
+    <p>Data is not the beginning. Data is the fourth step. It arrives after the decision has been named, after the frame has been built, after the solution has been designed. It arrives knowing what it is for, which is the condition under which data is actually useful rather than merely present.</p>
+    <p>The data audit has two outcomes and only two. Either the data needed to support the solution exists and is accessible and is sufficiently clean, in which case the project proceeds. Or it does not, in which case the project does not proceed in the direction it was heading and the practitioner returns to Step Three to design a solution that works with the data that actually exists.</p>
+    <p>This is not a setback. This is the discipline working correctly. A solution designed around available data is not a compromise. It is an honest solution. A solution designed around ideal data that does not exist is a fantasy dressed in methodology.</p>
+    <div class="entry-close">Treat absence as a constraint. Re-solution around it.<br>The frame survives. The solution changes. The work continues.</div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step-entry">
+    <div class="entry-marker">
+      <span class="layer-badge badge-step">Step Five</span>
+    </div>
+    <h2 class="entry-title">Build</h2>
+
+    <p>From proof of concept to pilot to minimum viable product to production.</p>
+    <p>Each stage is a question, not a milestone. The proof of concept asks: does this approach work at all? The pilot asks: does it work in the real environment with real users and real data and real constraints? The MVP asks: does it work well enough to be acted on? Production asks: is it working, and is the thing it is working on still the right thing?</p>
+    <p>The build step is where adoptable beats optimal. The congregation has heard this before. It bears repeating here because the build step is where the temptation to optimize for correctness rather than adoption is strongest. The model is in front of the practitioner. The model is good. The model is better than the version that will actually get used. The temptation is to keep building the better version rather than shipping the good enough one.</p>
+    <p>Ship the good enough one.</p>
+    <p>The better version that sits on a laptop serves no decision. The good enough version that gets used, that practitioners trust, that decision makers act on, that produces outcomes that can be measured and improved, is the whole point. The better version is a private satisfaction. The used version is the discipline.</p>
+    <div class="entry-close">Build for the person who will use it. Not the person you wish would use it.<br>Not the organization you wish this was. The actual person, with the actual constraints, in the actual system.<br>That constraint is not a limitation on the work. It is the most important specification the work has.</div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step-entry">
+    <div class="entry-marker">
+      <span class="layer-badge badge-step">Step Six</span>
+    </div>
+    <h2 class="entry-title">Return</h2>
+
+    <p>All the way back to Step One.</p>
+    <p>Not as failure. Not as retreat. As the discipline completing its cycle and beginning again with everything the previous cycle taught.</p>
+    <p>The return is the step that separates the practitioner from the project manager. The project manager delivers and moves on. The practitioner delivers and asks whether the delivery served the decision, whether the decision is still the right decision, whether the system around the decision has changed enough that the whole frame needs to be revisited.</p>
+    <p>The return is also the step the Fourth Horseman depends on never happening. The orphaned decision system is the system whose practitioners never returned to Step One. They built it, shipped it, declared it complete, and moved to the next project, and the system ran and ran and ran until the decision it was built to support had changed and nobody had noticed because nobody's job was to notice.</p>
+    <p>Make it someone's job to notice.</p>
+    <p>The return is not scheduled on the project timeline. The return does not appear in the statement of work. The return is the practitioner's own commitment to the work, sustained past the delivery, past the celebration, past the moment when everyone has moved on to something new and the system is running quietly in production serving a decision that may or may not still be the right decision to serve.</p>
+    <p>Return.</p>
+    <p>Ask the question.</p>
+    <p><em>Does this still make sense?</em></p>
+    <p>The answer is sometimes yes and the work continues. The answer is sometimes no and the cycle begins again. The answer is never obvious without asking, which is why so few practitioners ask, which is why so many systems run past their usefulness quietly costing the organization something it cannot see.</p>
+    <div class="entry-close">Return is not the last step.<br>Return is how the discipline stays alive.</div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="book-closing">
+    <h2 class="closing-title">The Closing of the Book of the Practitioner</h2>
+
+    <p>The stack and the cycle are one thing.</p>
+    <p>They look like two things because they are described in sequence, the stack first and then the steps, but the sequence is pedagogical, not operational. In practice they are simultaneous. The step you are on reveals which layer of the stack is under stress. The layer of the stack that is weak shapes which step will fail.</p>
+    <p>The practitioner who has the Self but not the systems thinking will frame brilliantly and solution naively. The practitioner who has the technical foundation but not the stakeholder layer will build precisely and deliver uselessly. The practitioner who has all five layers but will not return to Step One has built something that will become a monument when it should have remained a tool.</p>
+    <p>The discipline is not a destination. The congregation should have understood this from Genesis. The discipline is a practice, which means it is the thing you do every day in every room with every problem, and the doing of it is the whole of it, and the day you stop doing it is the day the work starts serving your preferences rather than the decision.</p>
+
+    <div class="closing-final">
+      <p>The stack is what you must be.</p>
+      <p>The steps are what you must do.</p>
+      <p>Neither is sufficient alone.</p>
+      <span>Together they are the whole practice.</span>
+    </div>
+  </div>
+
+</main>
+
+<div class="page-footer">
+  <a href="four-horsemen.html">← Four Horsemen</a>
+  <a href="index.html">Return to Canon →</a>
+</div>
+
+<script>
+(function () {
+  function centerDiagramScroll() {
+    var el = document.querySelector('.diagram-scroll');
+    if (!el) return;
+    if (el.scrollWidth <= el.clientWidth) {
+      el.scrollLeft = 0;
+      return;
+    }
+    el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2;
+  }
+  function scheduleCenter() {
+    requestAnimationFrame(function () {
+      requestAnimationFrame(centerDiagramScroll);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scheduleCenter);
+  } else {
+    scheduleCenter();
+  }
+  window.addEventListener('resize', scheduleCenter);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(scheduleCenter);
+  }
+})();
+</script>
+
+</body>
+</html>
