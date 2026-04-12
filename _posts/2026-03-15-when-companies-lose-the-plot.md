@@ -50,4 +50,4 @@ The question is whether anyone bothered to ask where they're going.
 
 ---
 
-*If this resonated, follow me on [LinkedIn](https://linkedin.com/in/johnbleam) where I write about Decision Systems Management, why most transformation announcements are just acceleration plans in disguise, and what it actually looks like to build systems that work. Give it some claps if it was worth your time -- and if you want more, subscribe to the Bit Bros newsletter.*
+*If this resonated, follow me on [LinkedIn](https://www.linkedin.com/in/johnbelam/) where I write about Decision Systems Management, why most transformation announcements are just acceleration plans in disguise, and what it actually looks like to build systems that work. Give it some claps if it was worth your time -- and if you want more, subscribe to the Bit Bros newsletter.*

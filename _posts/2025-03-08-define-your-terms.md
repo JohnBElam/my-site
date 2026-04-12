@@ -140,4 +140,4 @@ The smartest-sounding people in the room are often contributing the least. The o
 
 **Stop trying to sound clever. Start trying to communicate.**
 
-If this resonated, find me on [LinkedIn](https://linkedin.com/in/johnbleam), where I write about Decision Systems Management, gaming as a decision-making tool, and why most of what passes for strategy is just vibes in a slide deck.
+If this resonated, find me on [LinkedIn](https://www.linkedin.com/in/johnbelam/), where I write about Decision Systems Management, gaming as a decision-making tool, and why most of what passes for strategy is just vibes in a slide deck.
