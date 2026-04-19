@@ -130,23 +130,59 @@ body {
 
 .nav-toggle {
   display: none;
-  flex-direction: column;
-  gap: 5px;
+  position: relative;
+  width: 22px;
+  height: 16px;
+  padding: var(--space-sm);
   background: none;
   border: none;
   cursor: pointer;
-  padding: var(--space-sm);
+  box-sizing: content-box;
 }
 
 .nav-toggle-bar {
+  position: absolute;
+  left: 0;
   width: 22px;
   height: 2px;
   background: var(--color-text);
+  transform-origin: center;
+  transition: transform 0.22s ease, opacity 0.18s ease;
+}
+
+.nav-toggle-bar:nth-child(1) {
+  top: 0;
+}
+
+.nav-toggle-bar:nth-child(2) {
+  top: 7px;
+}
+
+.nav-toggle-bar:nth-child(3) {
+  top: 14px;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-toggle-bar {
+    transition: transform 0.01ms, opacity 0.01ms;
+  }
 }
 
 @media (max-width: 768px) {
   .nav-toggle {
-    display: flex;
+    display: block;
   }
 
   .nav-menu {

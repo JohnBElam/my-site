@@ -15,8 +15,10 @@
   if (toggle && menu) {
     toggle.addEventListener('click', function () {
       var expanded = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', !expanded);
-      menu.classList.toggle('is-open', !expanded);
+      var nextOpen = !expanded;
+      toggle.setAttribute('aria-expanded', nextOpen);
+      toggle.setAttribute('aria-label', nextOpen ? 'Close menu' : 'Open menu');
+      menu.classList.toggle('is-open', nextOpen);
     });
   }
 
