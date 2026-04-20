@@ -1,282 +1,132 @@
 ---
+layout: decision-gospel
+title: The Three Homilies
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  {% include google-analytics.html %}
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Three Homilies | Decision Gospel</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --ink: #0e0c09;
-      --parchment: #f5f0e8;
-      --gold: #b8922a;
-      --gold-light: #d4a843;
-      --gold-dim: #7a5f1a;
-      --red: #8b1a1a;
-      --muted: #5a5040;
-      --border: #c9b97a;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      background-color: var(--ink);
-      color: var(--parchment);
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 19px;
-      line-height: 1.85;
-    }
+<style>
+  /* Homilies-specific overrides (tab UI + sermon typography). Shared rules live in decision-gospel.css. */
+  nav a:hover, nav a.active { background: rgba(184,146,42,0.05); }
+  .page-header::before { background: radial-gradient(ellipse at 50% 0%, rgba(184,146,42,0.06) 0%, transparent 70%); }
+  .page-intro { color: var(--gold); font-size: 1rem; max-width: 540px; }
 
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      border-bottom: 1px solid var(--gold-dim);
-      background: rgba(14,12,9,0.97);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    nav a {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      padding: 14px 16px;
-      transition: color 0.2s, background 0.2s;
-      border-right: 1px solid rgba(184,146,42,0.15);
-    }
-    nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
-    nav a:hover, nav a.active { color: var(--gold-light); background: rgba(184,146,42,0.05); }
+  main { max-width: 720px; padding: 0 24px 100px; }
 
-    .page-header {
-      text-align: center;
-      padding: 72px 24px 56px;
-      border-bottom: 1px solid rgba(184,146,42,0.2);
-      position: relative;
-    }
-    .page-header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(184,146,42,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .breadcrumb {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      margin-bottom: 32px;
-      display: block;
-    }
-    .breadcrumb a { color: var(--gold-dim); text-decoration: none; transition: color 0.2s; }
-    .breadcrumb a:hover { color: var(--gold-light); }
+  /* HOMILY TABS */
+  .tab-nav {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid rgba(184,146,42,0.25);
+    margin: 56px 0 0;
+  }
+  .tab-btn {
+    font-family: 'IM Fell English', serif;
+    font-size: 1rem;
+    color: var(--muted);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 14px 28px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    margin-bottom: -1px;
+  }
+  .tab-btn:hover { color: var(--gold-light); }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
 
-    .page-label {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      margin-bottom: 16px;
-      display: block;
-    }
-    h1 {
-      font-family: 'IM Fell English', serif;
-      font-size: clamp(2rem, 5vw, 3.4rem);
-      font-weight: 400;
-      color: var(--parchment);
-      line-height: 1.15;
-      margin-bottom: 20px;
-    }
-    .page-intro {
-      font-style: italic;
-      color: var(--gold);
-      font-size: 1rem;
-      max-width: 540px;
-      margin: 0 auto;
-    }
+  .tab-panel { display: none; padding: 56px 0 0; }
+  .tab-panel.active { display: block; animation: fadeUp 0.4s ease both; }
 
-    main {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 0 24px 100px;
-    }
+  /* SERMON STYLES */
+  .sermon-title {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    font-weight: 400;
+    color: var(--parchment);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .sermon-subtitle {
+    font-style: italic;
+    color: var(--gold-dim);
+    font-size: 0.95rem;
+    font-family: 'Courier Prime', monospace;
+    letter-spacing: 0.05em;
+    margin-bottom: 40px;
+    display: block;
+  }
+  .sermon-rule {
+    border: none;
+    border-top: 1px solid rgba(184,146,42,0.2);
+    margin: 40px 0;
+  }
 
-    /* HOMILY TABS */
-    .tab-nav {
-      display: flex;
-      gap: 0;
-      border-bottom: 1px solid rgba(184,146,42,0.25);
-      margin: 56px 0 0;
-    }
-    .tab-btn {
-      font-family: 'IM Fell English', serif;
-      font-size: 1rem;
-      color: var(--muted);
-      background: none;
-      border: none;
-      border-bottom: 2px solid transparent;
-      padding: 14px 28px;
-      cursor: pointer;
-      transition: color 0.2s, border-color 0.2s;
-      margin-bottom: -1px;
-    }
-    .tab-btn:hover { color: var(--gold-light); }
-    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .drop-cap::first-letter {
+    font-family: 'IM Fell English', serif;
+    font-size: 4.5rem;
+    float: left;
+    line-height: 0.75;
+    margin: 6px 10px -4px 0;
+    color: var(--gold);
+  }
 
-    .tab-panel { display: none; padding: 56px 0 0; }
-    .tab-panel.active { display: block; }
+  .sermon-close {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    color: var(--gold-dim);
+    text-align: center;
+    margin-top: 48px;
+    font-size: 1.1rem;
+  }
 
-    /* SERMON STYLES */
-    .sermon-title {
-      font-family: 'IM Fell English', serif;
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
-      font-weight: 400;
-      color: var(--parchment);
-      margin-bottom: 8px;
-      line-height: 1.2;
-    }
-    .sermon-subtitle {
-      font-style: italic;
-      color: var(--gold-dim);
-      font-size: 0.95rem;
-      font-family: 'Courier Prime', monospace;
-      letter-spacing: 0.05em;
-      margin-bottom: 40px;
-      display: block;
-    }
-
-    .sermon-rule {
-      border: none;
-      border-top: 1px solid rgba(184,146,42,0.2);
-      margin: 40px 0;
-    }
-
-    p { margin-bottom: 1.4em; }
-
-    em { color: var(--gold-light); font-style: italic; }
-
-    .drop-cap::first-letter {
-      font-family: 'IM Fell English', serif;
-      font-size: 4.5rem;
-      float: left;
-      line-height: 0.75;
-      margin: 6px 10px -4px 0;
-      color: var(--gold);
-    }
-
-    .sermon-close {
-      font-family: 'IM Fell English', serif;
-      font-style: italic;
-      color: var(--gold-dim);
-      text-align: center;
-      margin-top: 48px;
-      font-size: 1.1rem;
-    }
-
-    /* Homily prev / next (bottom of each sermon) */
-    .homily-pager {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(184,146,42,0.22);
-    }
-    .homily-pager .pager-btn {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      background: transparent;
-      border: 1px solid rgba(184,146,42,0.35);
-      padding: 12px 22px;
-      cursor: pointer;
-      transition: color 0.2s, border-color 0.2s, background 0.2s;
-    }
-    .homily-pager .pager-btn:hover:not(:disabled) {
-      color: var(--gold-light);
-      border-color: rgba(212, 168, 67, 0.55);
-      background: rgba(184,146,42,0.06);
-    }
-    .homily-pager .pager-btn:disabled {
-      opacity: 0.28;
-      cursor: not-allowed;
-    }
-    .homily-pager .pager-meta {
-      font-family: 'Courier Prime', monospace;
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-align: center;
-      flex: 1 1 auto;
-      min-width: 8rem;
-    }
-    /* Keeps center label aligned when there is no right control (last homily) */
-    .homily-pager .pager-tail {
-      flex: 0 0 auto;
-      min-width: 6.5rem;
-      pointer-events: none;
-      visibility: hidden;
-    }
-
-    /* FOOTER */
-    .page-footer {
-      border-top: 1px solid var(--gold-dim);
-      text-align: center;
-      padding: 40px 24px;
-      margin-top: 40px;
-    }
-    .page-footer a {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      text-decoration: none;
-      margin: 0 12px;
-      transition: color 0.2s;
-    }
-    .page-footer a:hover { color: var(--gold-light); }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .tab-panel.active { animation: fadeUp 0.4s ease both; }
-  </style>
-</head>
-<body>
-
-<nav>
-  <a href="index.html">Canon</a>
-  <a href="genesis.html">Genesis</a>
-  <a href="homilies.html" class="active">Homilies</a>
-  <a href="sins.html">Sins</a>
-  <a href="virtues.html">Virtues</a>
-  <a href="commandments.html">Commandments</a>
-  <a href="beatitudes.html">Beatitudes</a>
-  <a href="false-prophets.html">False Prophets</a>
-  <a href="congregation.html">Congregation</a>
-  <a href="origins.html">Origins</a>
-  <a href="heresies.html">Heresies</a>
-  <a href="parables.html">Parables</a>
-  <a href="lamentations.html">Lamentations</a>
-  <a href="four-horsemen.html">Four Horsemen</a>
-  <a href="practitioner.html">Practitioner</a>
-</nav>
+  /* Homily prev / next (bottom of each sermon) */
+  .homily-pager {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(184,146,42,0.22);
+  }
+  .homily-pager .pager-btn {
+    font-family: 'Courier Prime', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    background: transparent;
+    border: 1px solid rgba(184,146,42,0.35);
+    padding: 12px 22px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .homily-pager .pager-btn:hover:not(:disabled) {
+    color: var(--gold-light);
+    border-color: rgba(212, 168, 67, 0.55);
+    background: rgba(184,146,42,0.06);
+  }
+  .homily-pager .pager-btn:disabled {
+    opacity: 0.28;
+    cursor: not-allowed;
+  }
+  .homily-pager .pager-meta {
+    font-family: 'Courier Prime', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    flex: 1 1 auto;
+    min-width: 8rem;
+  }
+  /* Keeps center label aligned when there is no right control (last homily) */
+  .homily-pager .pager-tail {
+    flex: 0 0 auto;
+    min-width: 6.5rem;
+    pointer-events: none;
+    visibility: hidden;
+  }
+</style>
 
 <div class="page-header">
   <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / The Homilies</span>
@@ -456,5 +306,3 @@
     if (tabNav) tabNav.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 </script>
-</body>
-</html>

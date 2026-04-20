@@ -47,3 +47,50 @@ Until you set `formspree_id`, the site shows a short note telling you to add it.
 ## Optional pages
 
 `philosophy.html` and `bitbros.html` are still in the repo but not linked in the nav. Keep, edit, or remove as you like.
+
+`gaming_is_good_site_mockup.html` at the repo root is a **legacy redirect stub** that points old bookmarks to `/gaming-is-good/`. Nothing in the repo links to it; it exists as a safety net for previously shared URLs.
+
+## Project structure
+
+Most of the site is Jekyll-managed and uses shared layouts/includes. The two mini-sites are standalone HTML subtrees that only share Google Analytics.
+
+```
+_config.yml                 # Jekyll config + per-mini-site permalinks + excludes
+_layouts/
+  default.html              # Header + footer shell used by main-site pages
+  post.html                 # Wraps posts, extends default.html
+  decision-gospel.html      # Shell for decision-gospel/*.html (shared head + nav)
+_includes/
+  header.html               # Main-site top nav (hamburger → X on mobile)
+  footer.html               # Main-site footer
+  google-analytics.html     # gtag snippet (included from every page's <head>)
+  decision-gospel/
+    nav.html                # Sticky 15-link Decision Gospel nav
+  ...                       # book_card, contact_form, appearances_marquee, etc.
+_data/                      # YAML content (books, testimonials, appearances, external_links)
+_posts/                     # Blog posts (layout: post → default)
+assets/
+  css/style.css             # Main-site stylesheet (used via default.html)
+  css/decision-gospel.css   # Shared styles for all decision-gospel/*.html pages
+  js/main.js                # Site-wide JS (mobile nav, marquee, carousel, typing, reveal)
+decision-gospel/            # Mini-site: uses layout: decision-gospel
+gaming-is-good/             # Mini-site: standalone HTML + gg-shared.css + gg-data.js
+index.html, bitbros.html,   # Main-site pages (layout: default)
+  blog.html, books.html,
+  philosophy.html
+```
+
+**Layout chain:** `_posts/*.md` → `_layouts/post.html` → `_layouts/default.html`; main-site HTML pages use `layout: default` directly; `decision-gospel/*.html` uses `layout: decision-gospel`.
+
+**Mini-site conventions:** `decision-gospel/` shares a Jekyll layout and stylesheet; per-page `<style>` blocks only hold rules unique to that page (e.g. the pyramid diagram in `practitioner.html`, the horsemen palette in `four-horsemen.html`). `gaming-is-good/` has not been migrated to a shared layout and still uses per-page inline styles plus `gg-shared.css` and `gg-data.js`.
+
+## Serving locally
+
+| Command | When to use it |
+| --- | --- |
+| `bundle exec jekyll serve --livereload` | Canonical. Works anywhere Ruby + Bundler are installed. |
+| `./serve.sh` | macOS convenience wrapper that puts Homebrew Ruby on `PATH` before calling `jekyll serve --baseurl ''`. |
+| `./run-local.ps1` | Windows/Docker path; runs `jekyll/jekyll:4.2.2` in a container with live reload. |
+
+Both wrapper scripts are excluded from the built site via `_config.yml`.
+

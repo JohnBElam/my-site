@@ -1,97 +1,47 @@
 ---
+layout: decision-gospel
+title: The Heresies
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  {% include google-analytics.html %}
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Heresies | Decision Gospel</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --ink: #0e0c09; --parchment: #f5f0e8; --gold: #b8922a; --gold-light: #d4a843; --gold-dim: #7a5f1a; --red: #8b1a1a; --muted: #5a5040; }
-    html { scroll-behavior: smooth; }
-    body { background-color: var(--ink); color: var(--parchment); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; line-height: 1.85; }
+<style>
+  body { line-height: 1.85; }
+  nav a { padding: 14px 16px; }
+  nav a:hover, nav a.active { background: none; }
+  .page-header::before { background: radial-gradient(ellipse at 50% 0%, rgba(139, 26, 26, 0.07) 0%, transparent 70%); }
+  main { animation: fadeUp 0.6s ease both; }
+  .page-header { animation: none; }
+  p { margin-bottom: 1.3em; }
 
-    nav { display: flex; justify-content: center; flex-wrap: wrap; border-bottom: 1px solid var(--gold-dim); background: rgba(14,12,9,0.97); position: sticky; top: 0; z-index: 100; }
-    nav a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 14px 16px; transition: color 0.2s; border-right: 1px solid rgba(184,146,42,0.15); }
-    nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
-    nav a:hover, nav a.active { color: var(--gold-light); }
+  .heresy-entry { padding: 56px 0; border-bottom: 1px solid rgba(184, 146, 42, 0.1); }
+  .heresy-entry:last-child { border-bottom: none; }
 
-    .page-header { text-align: center; padding: 72px 24px 56px; border-bottom: 1px solid rgba(184,146,42,0.2); position: relative; }
-    .page-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(139,26,26,0.07) 0%, transparent 70%); pointer-events: none; }
-    .breadcrumb { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 32px; display: block; }
-    .breadcrumb a { color: var(--gold-dim); text-decoration: none; }
-    .breadcrumb a:hover { color: var(--gold-light); }
-    .page-label { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 16px; display: block; }
-    h1 { font-family: 'IM Fell English', serif; font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 400; color: var(--parchment); line-height: 1.15; margin-bottom: 20px; }
-    .page-intro { font-style: italic; color: var(--gold); font-size: 1rem; max-width: 540px; margin: 0 auto; }
+  .heresy-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+    display: block;
+  }
 
-    main { max-width: 720px; margin: 0 auto; padding: 0 24px 100px; }
+  .heresy-title {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 400;
+    color: var(--parchment);
+    margin-bottom: 28px;
+    line-height: 1.2;
+  }
 
-    .heresy-entry { padding: 56px 0; border-bottom: 1px solid rgba(184,146,42,0.1); }
-    .heresy-entry:last-child { border-bottom: none; }
-
-    .heresy-label {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .heresy-title {
-      font-family: 'IM Fell English', serif;
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 400;
-      color: var(--parchment);
-      margin-bottom: 28px;
-      line-height: 1.2;
-    }
-
-    p { margin-bottom: 1.3em; }
-    em { color: var(--gold-light); font-style: italic; }
-
-    .closing-note {
-      font-style: italic;
-      color: var(--gold);
-      text-align: center;
-      padding: 56px 0 0;
-      font-size: 1.05rem;
-      line-height: 1.9;
-    }
-
-    .page-footer { border-top: 1px solid var(--gold-dim); text-align: center; padding: 40px 24px; }
-    .page-footer a { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim); text-decoration: none; margin: 0 12px; transition: color 0.2s; }
-    .page-footer a:hover { color: var(--gold-light); }
-
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-    main { animation: fadeUp 0.6s ease both; }
-  </style>
-</head>
-<body>
-
-<nav>
-  <a href="index.html">Canon</a>
-  <a href="genesis.html">Genesis</a>
-  <a href="homilies.html">Homilies</a>
-  <a href="sins.html">Sins</a>
-  <a href="virtues.html">Virtues</a>
-  <a href="commandments.html">Commandments</a>
-  <a href="beatitudes.html">Beatitudes</a>
-  <a href="false-prophets.html">False Prophets</a>
-  <a href="congregation.html">Congregation</a>
-  <a href="origins.html">Origins</a>
-  <a href="heresies.html" class="active">Heresies</a>
-  <a href="parables.html">Parables</a>
-  <a href="lamentations.html">Lamentations</a>
-  <a href="four-horsemen.html">Four Horsemen</a>
-  <a href="practitioner.html">Practitioner</a>
-</nav>
+  .closing-note {
+    font-style: italic;
+    color: var(--gold);
+    text-align: center;
+    padding: 56px 0 0;
+    font-size: 1.05rem;
+    line-height: 1.9;
+  }
+</style>
 
 <div class="page-header">
   <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / The Heresies</span>
@@ -194,6 +144,3 @@
   <a href="origins.html">← Origins</a>
   <a href="parables.html">Parables →</a>
 </div>
-
-</body>
-</html>

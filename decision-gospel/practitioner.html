@@ -1,510 +1,342 @@
 ---
+layout: decision-gospel
+title: The Book of the Practitioner
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  {% include google-analytics.html %}
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Book of the Practitioner | Decision Gospel</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --ink: #0e0c09;
-      --parchment: #f5f0e8;
-      --gold: #b8922a;
-      --gold-light: #d4a843;
-      --gold-dim: #7a5f1a;
-      --muted: #5a5040;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      background-color: var(--ink);
-      color: var(--parchment);
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 19px;
-      line-height: 1.9;
-    }
+<style>
+  /* Practitioner overrides + the Stack pyramid diagram + step/layer badges.
+     Shared rules live in decision-gospel.css. */
+  body { line-height: 1.9; }
+  nav a { padding: 14px 13px; }
+  .page-header { padding: 80px 24px 64px; overflow: hidden; }
+  .page-header::before { background: radial-gradient(ellipse at 50% 0%, rgba(184,146,42,0.08) 0%, transparent 65%); }
+  .breadcrumb { margin-bottom: 36px; }
+  .page-label { letter-spacing: 0.25em; margin-bottom: 20px; }
+  h1 { font-size: clamp(2.2rem, 5.5vw, 4rem); margin-bottom: 20px; line-height: 1.1; }
+  .page-intro { font-size: clamp(1rem, 2vw, 1.15rem); max-width: 560px; line-height: 1.7; }
 
-    /* NAV */
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      border-bottom: 1px solid var(--gold-dim);
-      background: rgba(14,12,9,0.97);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    nav a {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      padding: 14px 13px;
-      transition: color 0.2s, background 0.2s;
-      border-right: 1px solid rgba(184,146,42,0.15);
-    }
-    nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
-    nav a:hover, nav a.active { color: var(--gold-light); background: rgba(184,146,42,0.04); }
+  main { max-width: 960px; padding: 0 24px 120px; }
 
-    /* PAGE HEADER */
-    .page-header {
-      text-align: center;
-      padding: 80px 24px 64px;
-      border-bottom: 1px solid rgba(184,146,42,0.2);
-      position: relative;
-      overflow: hidden;
-    }
-    .page-header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(184,146,42,0.08) 0%, transparent 65%);
-      pointer-events: none;
-    }
+  /* OPENING NOTE */
+  .opening-note {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.95rem;
+    text-align: center;
+    padding: 56px 0 0;
+    line-height: 1.8;
+    max-width: 560px;
+    margin: 0 auto;
+  }
 
-    .breadcrumb {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      margin-bottom: 36px;
-      display: block;
-    }
-    .breadcrumb a { color: var(--gold-dim); text-decoration: none; transition: color 0.2s; }
-    .breadcrumb a:hover { color: var(--gold-light); }
+  /* PART HEADERS */
+  .part-header {
+    text-align: center;
+    margin: 80px 0 16px;
+    position: relative;
+  }
+  .part-header::before {
+    content: '';
+    display: block;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(184,146,42,0.3), transparent);
+    margin-bottom: 40px;
+  }
+  .part-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .part-title {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 400;
+    color: var(--parchment);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .part-note {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto;
+  }
 
-    .page-label {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      margin-bottom: 20px;
-      display: block;
-    }
+  /* STACK / STEP ENTRIES */
+  .stack-entry, .step-entry {
+    padding: 64px 0;
+    border-bottom: 1px solid rgba(184,146,42,0.1);
+    position: relative;
+  }
+  .stack-entry:last-of-type, .step-entry:last-of-type { border-bottom: none; }
 
-    h1 {
-      font-family: 'IM Fell English', serif;
-      font-size: clamp(2.2rem, 5.5vw, 4rem);
-      font-weight: 400;
-      color: var(--parchment);
-      line-height: 1.1;
-      margin-bottom: 20px;
-    }
+  .entry-marker {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
 
-    .page-intro {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      color: var(--gold);
-      font-size: clamp(1rem, 2vw, 1.15rem);
-      max-width: 560px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
+  .layer-badge {
+    font-family: 'Courier Prime', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
 
-    /* MAIN */
-    main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 24px 120px;
-    }
+  .badge-self       { background: rgba(184,146,42,0.14); color: var(--gold-light); border: 1px solid rgba(184,146,42,0.35); }
+  .badge-stake      { background: rgba(204,197,185,0.1); color: #ccc5b9; border: 1px solid rgba(204,197,185,0.25); }
+  .badge-frame      { background: rgba(64,61,57,0.6); color: #a09880; border: 1px solid rgba(100,95,85,0.4); }
+  .badge-systems    { background: rgba(37,36,34,0.8); color: #7a7268; border: 1px solid rgba(80,75,65,0.4); }
+  .badge-technical  { background: rgba(255,252,242,0.05); color: #c8c0b0; border: 1px solid rgba(200,192,176,0.2); }
+  .badge-step       { background: rgba(184,146,42,0.08); color: var(--gold); border: 1px solid rgba(184,146,42,0.25); }
 
-    /* OPENING NOTE */
-    .opening-note {
-      font-style: italic;
-      color: var(--muted);
-      font-size: 0.95rem;
-      text-align: center;
-      padding: 56px 0 0;
-      line-height: 1.8;
-      max-width: 560px;
-      margin: 0 auto;
-    }
+  .entry-title {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    font-weight: 400;
+    color: var(--parchment);
+    line-height: 1.2;
+  }
 
-    /* PART HEADERS */
-    .part-header {
-      text-align: center;
-      margin: 80px 0 16px;
-      position: relative;
-    }
-    .part-header::before {
-      content: '';
-      display: block;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(184,146,42,0.3), transparent);
-      margin-bottom: 40px;
-    }
-    .part-label {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      display: block;
-      margin-bottom: 12px;
-    }
-    .part-title {
-      font-family: 'IM Fell English', serif;
-      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-      font-weight: 400;
-      color: var(--parchment);
-      line-height: 1.2;
-      margin-bottom: 12px;
-    }
-    .part-note {
-      font-style: italic;
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.7;
-      max-width: 500px;
-      margin: 0 auto;
-    }
+  p { margin-bottom: 1.4em; font-size: 1.02rem; }
 
-    /* STACK ENTRIES */
-    .stack-entry {
-      padding: 64px 0;
-      border-bottom: 1px solid rgba(184,146,42,0.1);
-      position: relative;
-    }
-    .stack-entry:last-of-type { border-bottom: none; }
+  .entry-close {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    color: var(--gold-dim);
+    margin-top: 32px;
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
 
-    .entry-marker {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
+  /* THE STACK DIAGRAM — pyramid (centered with main column; inner row scrolls) */
+  .stack-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    margin: 56px auto;
+    padding: 40px 24px;
+    border: 1px solid rgba(184,146,42,0.15);
+    background: rgba(255,255,255,0.01);
+    font-family: 'JetBrains Mono', 'Courier Prime', monospace;
+    box-sizing: border-box;
+  }
 
-    .layer-badge {
-      font-family: 'Courier Prime', monospace;
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 2px;
-      white-space: nowrap;
-    }
+  .diagram-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    text-align: center;
+    margin-bottom: 32px;
+    display: block;
+    width: 100%;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-    /* Stack layer colors */
-    .badge-self       { background: rgba(184,146,42,0.14); color: var(--gold-light); border: 1px solid rgba(184,146,42,0.35); }
-    .badge-stake      { background: rgba(204,197,185,0.1); color: #ccc5b9; border: 1px solid rgba(204,197,185,0.25); }
-    .badge-frame      { background: rgba(64,61,57,0.6); color: #a09880; border: 1px solid rgba(100,95,85,0.4); }
-    .badge-systems    { background: rgba(37,36,34,0.8); color: #7a7268; border: 1px solid rgba(80,75,65,0.4); }
-    .badge-technical  { background: rgba(255,252,242,0.05); color: #c8c0b0; border: 1px solid rgba(200,192,176,0.2); }
+  .diagram-scroll-stage {
+    position: relative;
+    width: 100%;
+  }
 
-    /* Step colors */
-    .badge-step { background: rgba(184,146,42,0.08); color: var(--gold); border: 1px solid rgba(184,146,42,0.25); }
+  .diagram-scroll {
+    width: 100%;
+    display: flex;
+    justify-content: safe center;
+    align-items: stretch;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
 
-    .entry-title {
-      font-family: 'IM Fell English', serif;
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
-      font-weight: 400;
-      color: var(--parchment);
-      line-height: 1.2;
-    }
+  .diagram-scroll-hint {
+    display: none;
+    text-align: center;
+    font-family: 'Courier Prime', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-top: 16px;
+    line-height: 1.5;
+  }
 
-    p { margin-bottom: 1.4em; font-size: 1.02rem; }
-    em { color: var(--gold-light); font-style: italic; }
+  .visual-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: nowrap;
+    flex: 0 0 auto;
+    min-width: 820px;
+    margin: 0 auto;
+    scroll-snap-align: center;
+  }
 
-    .entry-close {
-      font-family: 'IM Fell English', serif;
-      font-style: italic;
-      color: var(--gold-dim);
-      margin-top: 32px;
-      font-size: 1.05rem;
-      line-height: 1.65;
-    }
+  .triangle-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
 
-    /* STEP ENTRIES -- slightly different visual weight */
-    .step-entry {
-      padding: 64px 0;
-      border-bottom: 1px solid rgba(184,146,42,0.1);
-    }
-    .step-entry:last-of-type { border-bottom: none; }
+  .triangle-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
 
-    /* THE STACK DIAGRAM — pyramid (centered with main column; inner row scrolls) */
-    .stack-diagram {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 100%;
-      margin: 56px auto;
-      padding: 40px 24px;
-      border: 1px solid rgba(184,146,42,0.15);
-      background: rgba(255,255,255,0.01);
-      font-family: 'JetBrains Mono', 'Courier Prime', monospace;
-      box-sizing: border-box;
-    }
+  .pyramid {
+    position: relative;
+    width: 280px;
+    height: 360px;
+  }
 
-    .diagram-label {
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      text-align: center;
-      margin-bottom: 32px;
-      display: block;
-      width: 100%;
-      max-width: 720px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+  .pyramid-layer {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
 
-    .diagram-scroll-stage {
-      position: relative;
-      width: 100%;
-    }
+  .left-pyramid .layer-1 { bottom: 0;   width: 280px; height: 72px; background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%); clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%); }
+  .left-pyramid .layer-2 { bottom: 72px;  width: 224px; height: 72px; background: #252422; clip-path: polygon(12.5% 0%, 87.5% 0%, 100% 100%, 0% 100%); }
+  .left-pyramid .layer-3 { bottom: 144px; width: 168px; height: 72px; background: #403d39; clip-path: polygon(16.7% 0%, 83.3% 0%, 100% 100%, 0% 100%); }
+  .left-pyramid .layer-4 { bottom: 216px; width: 112px; height: 72px; background: #ccc5b9; clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%); }
+  .left-pyramid .layer-5 { bottom: 288px; width: 56px;  height: 72px; background: #fffcf2; clip-path: polygon(50% 0%, 100% 100%, 0% 100%); }
 
-    .diagram-scroll {
-      width: 100%;
-      display: flex;
-      justify-content: safe center;
-      align-items: stretch;
-      overflow-x: auto;
-      overflow-y: visible;
-      -webkit-overflow-scrolling: touch;
-      scroll-snap-type: x proximity;
-    }
+  .right-pyramid .layer-1 { top: 0;   width: 280px; height: 72px; background: #fffcf2; clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%); }
+  .right-pyramid .layer-2 { top: 72px;  width: 224px; height: 72px; background: #ccc5b9; clip-path: polygon(0% 0%, 100% 0%, 87.5% 100%, 12.5% 100%); }
+  .right-pyramid .layer-3 { top: 144px; width: 168px; height: 72px; background: #403d39; clip-path: polygon(0% 0%, 100% 0%, 83.3% 100%, 16.7% 100%); }
+  .right-pyramid .layer-4 { top: 216px; width: 112px; height: 72px; background: #252422; clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 25% 100%); }
+  .right-pyramid .layer-5 { top: 288px; width: 56px;  height: 72px; background: linear-gradient(180deg, var(--gold) 0%, var(--gold-light) 100%); clip-path: polygon(0% 0%, 100% 0%, 50% 100%); }
 
-    .diagram-scroll-hint {
-      display: none;
-      text-align: center;
-      font-family: 'Courier Prime', monospace;
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      margin-top: 16px;
-      line-height: 1.5;
-    }
+  .center-stack {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 360px;
+    padding: 0 30px;
+    min-width: 240px;
+    flex-shrink: 0;
+  }
 
-    .visual-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      flex-wrap: nowrap;
-      flex: 0 0 auto;
-      min-width: 820px;
-      margin: 0 auto;
-      scroll-snap-align: center;
-    }
+  .stack-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 72px;
+    text-align: center;
+  }
 
-    .triangle-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex-shrink: 0;
-    }
+  .stack-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--parchment);
+    margin-bottom: 4px;
+  }
 
-    .triangle-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
+  .stack-descriptor {
+    font-size: 0.6rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
 
-    .pyramid {
-      position: relative;
-      width: 280px;
-      height: 360px;
-    }
+  /* Edge gradient + scroll hint (only shown when the pyramid row overflows horizontally,
+     which JS toggles by adding .has-overflow on .diagram-scroll-stage). */
+  .diagram-scroll-stage.has-overflow::before,
+  .diagram-scroll-stage.has-overflow::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 36px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .diagram-scroll-stage.has-overflow::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(14, 12, 9, 0.97), transparent);
+  }
+  .diagram-scroll-stage.has-overflow::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(14, 12, 9, 0.97), transparent);
+  }
+  .diagram-scroll-stage.has-overflow .diagram-scroll-hint { display: block; }
 
-    .pyramid-layer {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
+  /* CHAPTER BREAKS (override shared) */
+  .chapter-break { margin: 0; }
+  .chapter-break-line { background: linear-gradient(to right, transparent, rgba(184,146,42,0.25)); }
+  .chapter-break-line.right { background: linear-gradient(to left, transparent, rgba(184,146,42,0.25)); }
+  .chapter-break-glyph { font-size: 11px; letter-spacing: 0.2em; }
 
-    .left-pyramid .layer-1 { bottom: 0;   width: 280px; height: 72px; background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%); clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%); }
-    .left-pyramid .layer-2 { bottom: 72px;  width: 224px; height: 72px; background: #252422; clip-path: polygon(12.5% 0%, 87.5% 0%, 100% 100%, 0% 100%); }
-    .left-pyramid .layer-3 { bottom: 144px; width: 168px; height: 72px; background: #403d39; clip-path: polygon(16.7% 0%, 83.3% 0%, 100% 100%, 0% 100%); }
-    .left-pyramid .layer-4 { bottom: 216px; width: 112px; height: 72px; background: #ccc5b9; clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%); }
-    .left-pyramid .layer-5 { bottom: 288px; width: 56px;  height: 72px; background: #fffcf2; clip-path: polygon(50% 0%, 100% 100%, 0% 100%); }
+  /* CLOSING */
+  .book-closing {
+    margin-top: 80px;
+    padding-top: 64px;
+    border-top: 1px solid rgba(184,146,42,0.2);
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .closing-title {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 400;
+    color: var(--parchment);
+    margin-bottom: 32px;
+    line-height: 1.2;
+  }
+  .closing-final {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    text-align: center;
+    color: var(--gold);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    line-height: 2;
+    margin-top: 56px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(184,146,42,0.15);
+  }
+  .closing-final span {
+    display: block;
+    font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+    color: var(--parchment);
+    margin-top: 20px;
+    font-style: italic;
+  }
 
-    .right-pyramid .layer-1 { top: 0;   width: 280px; height: 72px; background: #fffcf2; clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%); }
-    .right-pyramid .layer-2 { top: 72px;  width: 224px; height: 72px; background: #ccc5b9; clip-path: polygon(0% 0%, 100% 0%, 87.5% 100%, 12.5% 100%); }
-    .right-pyramid .layer-3 { top: 144px; width: 168px; height: 72px; background: #403d39; clip-path: polygon(0% 0%, 100% 0%, 83.3% 100%, 16.7% 100%); }
-    .right-pyramid .layer-4 { top: 216px; width: 112px; height: 72px; background: #252422; clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 25% 100%); }
-    .right-pyramid .layer-5 { top: 288px; width: 56px;  height: 72px; background: linear-gradient(180deg, var(--gold) 0%, var(--gold-light) 100%); clip-path: polygon(0% 0%, 100% 0%, 50% 100%); }
+  .page-footer a { margin: 0 14px; }
 
-    .center-stack {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 360px;
-      padding: 0 30px;
-      min-width: 240px;
-      flex-shrink: 0;
-    }
-
-    .stack-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 72px;
-      text-align: center;
-    }
-
-    .stack-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--parchment);
-      margin-bottom: 4px;
-    }
-
-    .stack-descriptor {
-      font-size: 0.6rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    /* CHAPTER BREAKS */
-    .chapter-break {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin: 0 0 0;
-    }
-    .chapter-break-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(184,146,42,0.25));
-    }
-    .chapter-break-line.right {
-      background: linear-gradient(to left, transparent, rgba(184,146,42,0.25));
-    }
-    .chapter-break-glyph {
-      font-family: 'IM Fell English', serif;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      color: var(--gold-dim);
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    /* CLOSING */
-    .book-closing {
-      margin-top: 80px;
-      padding-top: 64px;
-      border-top: 1px solid rgba(184,146,42,0.2);
-      font-family: 'Cormorant Garamond', serif;
-    }
-
-    .closing-title {
-      font-family: 'IM Fell English', serif;
-      font-size: clamp(1.4rem, 3vw, 1.9rem);
-      font-weight: 400;
-      color: var(--parchment);
-      margin-bottom: 32px;
-      line-height: 1.2;
-    }
-
-    .closing-final {
-      font-family: 'IM Fell English', serif;
-      font-style: italic;
-      text-align: center;
-      color: var(--gold);
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      line-height: 2;
-      margin-top: 56px;
-      padding-top: 48px;
-      border-top: 1px solid rgba(184,146,42,0.15);
-    }
-    .closing-final span {
-      display: block;
-      font-size: clamp(1.1rem, 2.2vw, 1.35rem);
-      color: var(--parchment);
-      margin-top: 20px;
-      font-style: italic;
-    }
-
-    /* FOOTER */
-    .page-footer {
-      border-top: 1px solid var(--gold-dim);
-      text-align: center;
-      padding: 40px 24px;
-    }
-    .page-footer a {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      text-decoration: none;
-      margin: 0 14px;
-      transition: color 0.2s;
-    }
-    .page-footer a:hover { color: var(--gold-light); }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .page-header { animation: fadeUp 0.7s ease both; }
-    main { animation: fadeUp 0.7s ease both 0.15s; }
-
-    .diagram-scroll-stage.has-overflow::before,
-    .diagram-scroll-stage.has-overflow::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 36px;
-      z-index: 2;
-      pointer-events: none;
-    }
-    .diagram-scroll-stage.has-overflow::before {
-      left: 0;
-      background: linear-gradient(to right, rgba(14, 12, 9, 0.97), transparent);
-    }
-    .diagram-scroll-stage.has-overflow::after {
-      right: 0;
-      background: linear-gradient(to left, rgba(14, 12, 9, 0.97), transparent);
-    }
-    .diagram-scroll-stage.has-overflow .diagram-scroll-hint {
-      display: block;
-    }
-  </style>
-</head>
-<body>
-
-<nav>
-  <a href="index.html">Canon</a>
-  <a href="genesis.html">Genesis</a>
-  <a href="homilies.html">Homilies</a>
-  <a href="sins.html">Sins</a>
-  <a href="virtues.html">Virtues</a>
-  <a href="commandments.html">Commandments</a>
-  <a href="beatitudes.html">Beatitudes</a>
-  <a href="false-prophets.html">False Prophets</a>
-  <a href="congregation.html">Congregation</a>
-  <a href="origins.html">Origins</a>
-  <a href="heresies.html">Heresies</a>
-  <a href="parables.html">Parables</a>
-  <a href="lamentations.html">Lamentations</a>
-  <a href="four-horsemen.html">Four Horsemen</a>
-  <a href="practitioner.html" class="active">Practitioner</a>
-</nav>
+  @keyframes fadeUpPractitioner {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .page-header { animation: fadeUpPractitioner 0.7s ease both; }
+  main { animation: fadeUpPractitioner 0.7s ease both 0.15s; }
+</style>
 
 <div class="page-header">
   <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / The Book of the Practitioner</span>
@@ -801,6 +633,15 @@
 </div>
 
 <script>
+/**
+ * Stack diagram horizontal scroll UX.
+ *
+ * The pyramid row has a min-width wider than the viewport on small screens.
+ * On page load (and resize) we:
+ *   1. Center the scroll position so both pyramids are visible symmetrically.
+ *   2. Toggle .has-overflow on .diagram-scroll-stage when scrollWidth > clientWidth.
+ *      The overflow class switches on edge-fade gradients + the "swipe/scroll" hint.
+ */
 (function () {
   var scrollEl = document.querySelector('.diagram-scroll');
   var stageEl = document.querySelector('.diagram-scroll-stage');
@@ -840,6 +681,3 @@
   }
 })();
 </script>
-
-</body>
-</html>

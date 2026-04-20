@@ -1,0 +1,18 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include google-analytics.html %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.full_title %}{{ page.full_title }}{% else %}{{ page.title }} | Decision Gospel{% endif %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/decision-gospel.css' | relative_url }}">
+</head>
+<body>
+{% include decision-gospel/nav.html %}
+{{ content }}
+</body>
+</html>

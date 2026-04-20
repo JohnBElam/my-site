@@ -1,316 +1,161 @@
 ---
+layout: decision-gospel
+title: The Four Horsemen
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  {% include google-analytics.html %}
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Four Horsemen | Decision Gospel</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --ink: #0e0c09;
-      --parchment: #f5f0e8;
-      --gold: #b8922a;
-      --gold-light: #d4a843;
-      --gold-dim: #7a5f1a;
-      --red: #8b1a1a;
-      --red-dim: #5a1010;
-      --muted: #5a5040;
+<style>
+  /* Four Horsemen overrides + horseman color palette (white/red/black/pale). Shared rules live in decision-gospel.css. */
+  :root {
+    --red-dim: #5a1010;
+    --horse-white: #c9b97a;
+    --horse-red: #8b1a1a;
+    --horse-black: #2a2520;
+    --horse-pale: #7a8070;
+  }
+  body { line-height: 1.9; }
+  nav a { padding: 14px 15px; }
+  .page-header { padding: 80px 24px 64px; overflow: hidden; }
+  .page-header::before { background: radial-gradient(ellipse at 50% 0%, rgba(139,26,26,0.1) 0%, transparent 65%); }
+  .breadcrumb { margin-bottom: 36px; }
+  .page-label { letter-spacing: 0.25em; margin-bottom: 20px; }
+  h1 { font-size: clamp(2.4rem, 6vw, 4.4rem); margin-bottom: 24px; line-height: 1.1; }
+  .page-intro { font-size: clamp(1rem, 2vw, 1.15rem); max-width: 580px; line-height: 1.7; }
 
-      --horse-white: #c9b97a;
-      --horse-red: #8b1a1a;
-      --horse-black: #2a2520;
-      --horse-pale: #7a8070;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      background-color: var(--ink);
-      color: var(--parchment);
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 19px;
-      line-height: 1.9;
-    }
+  main { max-width: 720px; padding: 0 24px 120px; }
 
-    /* NAV */
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      border-bottom: 1px solid var(--gold-dim);
-      background: rgba(14,12,9,0.97);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    nav a {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      padding: 14px 15px;
-      transition: color 0.2s, background 0.2s;
-      border-right: 1px solid rgba(184,146,42,0.15);
-    }
-    nav a:first-child { border-left: 1px solid rgba(184,146,42,0.15); }
-    nav a:hover, nav a.active { color: var(--gold-light); background: rgba(184,146,42,0.04); }
+  /* PREAMBLE */
+  .preamble {
+    font-style: italic;
+    color: var(--gold);
+    font-size: 1rem;
+    text-align: center;
+    padding: 56px 24px 0;
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0 auto;
+  }
 
-    /* PAGE HEADER */
-    .page-header {
-      text-align: center;
-      padding: 80px 24px 64px;
-      border-bottom: 1px solid rgba(184,146,42,0.2);
-      position: relative;
-      overflow: hidden;
-    }
-    .page-header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(139,26,26,0.1) 0%, transparent 65%);
-      pointer-events: none;
-    }
+  /* HORSEMAN ENTRIES */
+  .horseman {
+    margin-top: 80px;
+    padding-top: 64px;
+    border-top: 1px solid rgba(184,146,42,0.15);
+    position: relative;
+  }
+  .horseman-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    margin-bottom: 40px;
+  }
+  .horse-sigil {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+  }
+  .horse-sigil svg { width: 28px; height: 28px; }
 
-    .breadcrumb {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      margin-bottom: 36px;
-      display: block;
-    }
-    .breadcrumb a { color: var(--gold-dim); text-decoration: none; transition: color 0.2s; }
-    .breadcrumb a:hover { color: var(--gold-light); }
+  .horse-white .horse-sigil { background: rgba(201,185,122,0.12); border: 1px solid rgba(201,185,122,0.4); }
+  .horse-red .horse-sigil   { background: rgba(139,26,26,0.2);  border: 1px solid rgba(139,26,26,0.5); }
+  .horse-black .horse-sigil { background: rgba(42,37,32,0.6);   border: 1px solid rgba(120,110,90,0.3); }
+  .horse-pale .horse-sigil  { background: rgba(122,128,112,0.15); border: 1px solid rgba(122,128,112,0.4); }
 
-    .page-label {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      margin-bottom: 20px;
-      display: block;
-    }
+  .horseman-ordinal {
+    font-family: 'Courier Prime', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .horse-white .horseman-ordinal { color: var(--horse-white); }
+  .horse-red   .horseman-ordinal { color: #c44; }
+  .horse-black .horseman-ordinal { color: #8a8070; }
+  .horse-pale  .horseman-ordinal { color: var(--horse-pale); }
 
-    h1 {
-      font-family: 'IM Fell English', serif;
-      font-size: clamp(2.4rem, 6vw, 4.4rem);
-      font-weight: 400;
-      color: var(--parchment);
-      line-height: 1.1;
-      margin-bottom: 24px;
-    }
+  .horseman-name {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    font-weight: 400;
+    color: var(--parchment);
+    line-height: 1.15;
+  }
+  .horseman-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    margin-top: 6px;
+    display: block;
+  }
+  .horse-white .horseman-subtitle { color: rgba(201,185,122,0.6); }
+  .horse-red   .horseman-subtitle { color: rgba(180,80,80,0.7); }
+  .horse-black .horseman-subtitle { color: rgba(138,128,112,0.7); }
+  .horse-pale  .horseman-subtitle { color: rgba(122,128,112,0.7); }
 
-    .page-intro {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      color: var(--gold);
-      font-size: clamp(1rem, 2vw, 1.15rem);
-      max-width: 580px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
+  .horseman-opening {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    line-height: 1.55;
+    margin-bottom: 32px;
+    padding-left: 20px;
+    border-left: 2px solid;
+  }
+  .horse-white .horseman-opening { border-color: rgba(201,185,122,0.5); color: #e8d8a0; }
+  .horse-red   .horseman-opening { border-color: rgba(139,26,26,0.7);   color: #d4907a; }
+  .horse-black .horseman-opening { border-color: rgba(120,110,90,0.4);  color: #a09880; }
+  .horse-pale  .horseman-opening { border-color: rgba(122,128,112,0.5); color: #a0a890; }
 
-    /* MAIN */
-    main {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 0 24px 120px;
-    }
+  p { margin-bottom: 1.4em; font-size: 1.02rem; }
 
-    /* PREAMBLE */
-    .preamble {
-      font-style: italic;
-      color: var(--gold);
-      font-size: 1rem;
-      text-align: center;
-      padding: 56px 24px 0;
-      line-height: 1.8;
-      max-width: 600px;
-      margin: 0 auto;
-    }
+  .horseman-close {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    margin-top: 32px;
+    line-height: 1.6;
+  }
+  .horse-white .horseman-close { color: rgba(201,185,122,0.8); }
+  .horse-red   .horseman-close { color: rgba(180,80,80,0.8); }
+  .horse-black .horseman-close { color: rgba(138,128,112,0.8); }
+  .horse-pale  .horseman-close { color: rgba(122,128,112,0.8); }
 
-    /* HORSEMAN ENTRIES */
-    .horseman {
-      margin-top: 80px;
-      padding-top: 64px;
-      border-top: 1px solid rgba(184,146,42,0.15);
-      position: relative;
-    }
+  /* CLOSING SCROLL */
+  .closing-scroll {
+    margin-top: 96px;
+    padding-top: 64px;
+    border-top: 1px solid rgba(184,146,42,0.2);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    text-align: center;
+    color: var(--gold);
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    line-height: 2;
+  }
+  .closing-scroll p { margin-bottom: 0; font-size: inherit; }
+  .closing-final {
+    display: block;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+    color: var(--parchment);
+    margin-top: 32px;
+    line-height: 1.6;
+  }
 
-    .horseman-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 28px;
-      margin-bottom: 40px;
-    }
+  .page-footer a { margin: 0 14px; }
 
-    .horse-sigil {
-      flex-shrink: 0;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 6px;
-    }
-
-    .horse-sigil svg {
-      width: 28px;
-      height: 28px;
-    }
-
-    .horse-white .horse-sigil { background: rgba(201,185,122,0.12); border: 1px solid rgba(201,185,122,0.4); }
-    .horse-red .horse-sigil   { background: rgba(139,26,26,0.2);  border: 1px solid rgba(139,26,26,0.5); }
-    .horse-black .horse-sigil { background: rgba(42,37,32,0.6);   border: 1px solid rgba(120,110,90,0.3); }
-    .horse-pale .horse-sigil  { background: rgba(122,128,112,0.15); border: 1px solid rgba(122,128,112,0.4); }
-
-    .horseman-label-group {}
-
-    .horseman-ordinal {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .horse-white .horseman-ordinal { color: var(--horse-white); }
-    .horse-red   .horseman-ordinal { color: #c44; }
-    .horse-black .horseman-ordinal { color: #8a8070; }
-    .horse-pale  .horseman-ordinal { color: var(--horse-pale); }
-
-    .horseman-name {
-      font-family: 'IM Fell English', serif;
-      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
-      font-weight: 400;
-      color: var(--parchment);
-      line-height: 1.15;
-    }
-
-    .horseman-subtitle {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 0.95rem;
-      margin-top: 6px;
-      display: block;
-    }
-
-    .horse-white .horseman-subtitle { color: rgba(201,185,122,0.6); }
-    .horse-red   .horseman-subtitle { color: rgba(180,80,80,0.7); }
-    .horse-black .horseman-subtitle { color: rgba(138,128,112,0.7); }
-    .horse-pale  .horseman-subtitle { color: rgba(122,128,112,0.7); }
-
-    /* OPENING LINE */
-    .horseman-opening {
-      font-family: 'IM Fell English', serif;
-      font-style: italic;
-      font-size: clamp(1.05rem, 2vw, 1.25rem);
-      line-height: 1.55;
-      margin-bottom: 32px;
-      padding-left: 20px;
-      border-left: 2px solid;
-    }
-
-    .horse-white .horseman-opening { border-color: rgba(201,185,122,0.5); color: #e8d8a0; }
-    .horse-red   .horseman-opening { border-color: rgba(139,26,26,0.7);   color: #d4907a; }
-    .horse-black .horseman-opening { border-color: rgba(120,110,90,0.4);  color: #a09880; }
-    .horse-pale  .horseman-opening { border-color: rgba(122,128,112,0.5); color: #a0a890; }
-
-    p { margin-bottom: 1.4em; font-size: 1.02rem; }
-    em { color: var(--gold-light); font-style: italic; }
-
-    .horseman-close {
-      font-family: 'IM Fell English', serif;
-      font-style: italic;
-      font-size: 1.05rem;
-      margin-top: 32px;
-      line-height: 1.6;
-    }
-
-    .horse-white .horseman-close { color: rgba(201,185,122,0.8); }
-    .horse-red   .horseman-close { color: rgba(180,80,80,0.8); }
-    .horse-black .horseman-close { color: rgba(138,128,112,0.8); }
-    .horse-pale  .horseman-close { color: rgba(122,128,112,0.8); }
-
-    /* CLOSING SCROLL */
-    .closing-scroll {
-      margin-top: 96px;
-      padding-top: 64px;
-      border-top: 1px solid rgba(184,146,42,0.2);
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      text-align: center;
-      color: var(--gold);
-      font-size: clamp(1rem, 2vw, 1.15rem);
-      line-height: 2;
-    }
-
-    .closing-scroll p { margin-bottom: 0; font-size: inherit; }
-
-    .closing-final {
-      display: block;
-      font-family: 'IM Fell English', serif;
-      font-style: italic;
-      font-size: clamp(1.1rem, 2.2vw, 1.3rem);
-      color: var(--parchment);
-      margin-top: 32px;
-      line-height: 1.6;
-    }
-
-    /* FOOTER */
-    .page-footer {
-      border-top: 1px solid var(--gold-dim);
-      text-align: center;
-      padding: 40px 24px;
-    }
-    .page-footer a {
-      font-family: 'Courier Prime', monospace;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      text-decoration: none;
-      margin: 0 14px;
-      transition: color 0.2s;
-    }
-    .page-footer a:hover { color: var(--gold-light); }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .page-header { animation: fadeUp 0.7s ease both; }
-    main { animation: fadeUp 0.7s ease both 0.15s; }
-  </style>
-</head>
-<body>
-
-<nav>
-  <a href="index.html">Canon</a>
-  <a href="genesis.html">Genesis</a>
-  <a href="homilies.html">Homilies</a>
-  <a href="sins.html">Sins</a>
-  <a href="virtues.html">Virtues</a>
-  <a href="commandments.html">Commandments</a>
-  <a href="beatitudes.html">Beatitudes</a>
-  <a href="false-prophets.html">False Prophets</a>
-  <a href="congregation.html">Congregation</a>
-  <a href="origins.html">Origins</a>
-  <a href="heresies.html">Heresies</a>
-  <a href="parables.html">Parables</a>
-  <a href="lamentations.html">Lamentations</a>
-  <a href="four-horsemen.html" class="active">Four Horsemen</a>
-  <a href="practitioner.html">Practitioner</a>
-</nav>
+  @keyframes fadeUpHorsemen {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .page-header { animation: fadeUpHorsemen 0.7s ease both; }
+  main { animation: fadeUpHorsemen 0.7s ease both 0.15s; }
+</style>
 
 <div class="page-header">
   <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / The Apocalypse</span>
@@ -487,6 +332,3 @@
   <a href="lamentations.html">← Lamentations</a>
   <a href="practitioner.html">Practitioner →</a>
 </div>
-
-</body>
-</html>

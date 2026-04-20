@@ -1,0 +1,23 @@
+{%- comment -%}
+Sticky 15-link Decision Gospel nav. Included from _layouts/decision-gospel.html,
+so every chapter page gets the same nav without re-declaring it. The active
+page is detected from the filename segment of page.url.
+{%- endcomment -%}
+{%- assign here = page.url | split: "/" | last -%}
+<nav>
+  <a href="index.html"{% if here == "index.html" or here == "" %} class="active"{% endif %}>Canon</a>
+  <a href="genesis.html"{% if here == "genesis.html" %} class="active"{% endif %}>Genesis</a>
+  <a href="homilies.html"{% if here == "homilies.html" %} class="active"{% endif %}>Homilies</a>
+  <a href="sins.html"{% if here == "sins.html" %} class="active"{% endif %}>Sins</a>
+  <a href="virtues.html"{% if here == "virtues.html" %} class="active"{% endif %}>Virtues</a>
+  <a href="commandments.html"{% if here == "commandments.html" %} class="active"{% endif %}>Commandments</a>
+  <a href="beatitudes.html"{% if here == "beatitudes.html" %} class="active"{% endif %}>Beatitudes</a>
+  <a href="false-prophets.html"{% if here == "false-prophets.html" %} class="active"{% endif %}>False Prophets</a>
+  <a href="congregation.html"{% if here == "congregation.html" %} class="active"{% endif %}>Congregation</a>
+  <a href="origins.html"{% if here == "origins.html" %} class="active"{% endif %}>Origins</a>
+  <a href="heresies.html"{% if here == "heresies.html" %} class="active"{% endif %}>Heresies</a>
+  <a href="parables.html"{% if here == "parables.html" %} class="active"{% endif %}>Parables</a>
+  <a href="lamentations.html"{% if here == "lamentations.html" %} class="active"{% endif %}>Lamentations</a>
+  <a href="four-horsemen.html"{% if here == "four-horsemen.html" %} class="active"{% endif %}>Four Horsemen</a>
+  <a href="practitioner.html"{% if here == "practitioner.html" %} class="active"{% endif %}>Practitioner</a>
+</nav>
