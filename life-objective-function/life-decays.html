@@ -192,6 +192,7 @@
   }
 
   .chart-full canvas { width: 100% !important; }
+  .chart-card canvas { width: 100% !important; display: block; }
 
   .chart-annotations {
     display: flex;
@@ -236,10 +237,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-  }
-
-  @media (max-width: 600px) {
-    .chart-grid { grid-template-columns: 1fr; }
   }
 
   .chart-card {
@@ -356,10 +353,6 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px 32px;
     margin-bottom: 28px;
-  }
-
-  @media (max-width: 500px) {
-    .sliders-grid { grid-template-columns: 1fr; }
   }
 
   .slider-item {}
@@ -535,6 +528,39 @@
   .fade-section.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    body { padding: 28px 12px 56px; }
+    .site-nav { padding: 0 14px; height: 42px; }
+    .page { padding: 0; }
+
+    h1 { font-size: clamp(24px, 7vw, 34px); }
+    .subtitle { font-size: 14px; }
+
+    .section h2 { font-size: 20px; }
+    .section-intro { font-size: 14px; }
+
+    .chart-grid { grid-template-columns: 1fr; gap: 14px; }
+    .chart-card { padding: 16px 14px; }
+
+    .insight-divider { padding: 20px 18px; }
+    .insight-text { font-size: 15px; }
+
+    .interactive-header { padding: 14px 16px; }
+    .interactive-body { padding: 20px 14px; }
+    .sliders-grid { grid-template-columns: 1fr; gap: 14px; }
+    .stat-row { grid-template-columns: 1fr; gap: 10px; }
+    .stat-main { font-size: 22px; }
+
+    /* Let KaTeX display math wrap at natural break points (+, =, ,, \cdot); keep centered */
+    .katex-display,
+    .katex-display > .katex,
+    .katex-display > .katex > .katex-html { white-space: normal; }
+    .katex-display > .katex > .katex-html { display: block; }
+    .katex-display > .katex > .katex-html > .base { display: inline-block; white-space: nowrap; margin: 0.15em 0; }
+    .katex-display { overflow-x: auto; overflow-y: hidden; max-width: 100%; padding: 2px 0; -webkit-overflow-scrolling: touch; }
   }
 </style>
 </head>

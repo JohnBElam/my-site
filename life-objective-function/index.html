@@ -176,6 +176,19 @@
     margin: 0;
   }
 
+  /* Side-by-side equations that wrap to stacked on narrow screens */
+  .split-math {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5em 2em;
+  }
+  .split-math .katex-display {
+    margin: 0;
+    display: inline-block;
+  }
+
   /* Color chips for variables */
   .legend {
     display: grid;
@@ -321,6 +334,41 @@
     background: var(--rule);
     margin: 32px 0;
   }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    body { padding: 32px 14px 48px; }
+    .site-nav { padding: 0 14px; height: 42px; }
+    .page { padding: 0; }
+
+    h1 { font-size: clamp(24px, 7vw, 32px); }
+    .subtitle { font-size: 14px; }
+
+    .master { padding: 36px 16px 22px; }
+    .master::before { font-size: 8px; left: 14px; }
+    .master .katex { font-size: 1.1em; }
+
+    .formula-box { padding: 14px 12px; }
+    .section-label { font-size: 8px; }
+
+    .legend { grid-template-columns: 1fr; }
+    .legend-item { padding: 9px 11px; }
+
+    .insight-row { grid-template-columns: 26px 1fr; gap: 10px; }
+    .insight-text { font-size: 15px; }
+    .insights h2 { font-size: 20px; }
+
+    .footer { flex-direction: column; align-items: flex-start; }
+
+    /* Let KaTeX display math wrap at natural break points (+, =, ,, \cdot); keep centered */
+    .katex-display,
+    .katex-display > .katex,
+    .katex-display > .katex > .katex-html { white-space: normal; }
+    .katex-display > .katex > .katex-html { display: block; }
+    .katex-display > .katex > .katex-html > .base { display: inline-block; white-space: nowrap; margin: 0.15em 0; }
+    .katex-display { overflow-x: auto; overflow-y: hidden; max-width: 100%; padding: 2px 0; -webkit-overflow-scrolling: touch; }
+    .master .katex { font-size: 1.0em; }
+  }
 </style>
 </head>
 <body>
@@ -401,7 +449,10 @@
   <div class="section">
     <div class="section-label">Component 2 &mdash; The Mortality Discount</div>
     <div class="formula-box">
-      $$\pi(t) \;=\; \prod_{s=0}^{t-1}\!\bigl(1 - \mu(s)\bigr), \qquad \mu(t) \;\approx\; \alpha\, e^{\,\beta t}$$
+      <div class="split-math">
+        $$\pi(t) \;=\; \prod_{s=0}^{t-1}\!\bigl(1 - \mu(s)\bigr),$$
+        $$\mu(t) \;\approx\; \alpha\, e^{\,\beta t}$$
+      </div>
     </div>
     <div class="annotation">
       $\pi(t)$ is your survival probability at age $t$. It starts near 1 and decays.
