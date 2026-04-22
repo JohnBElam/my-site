@@ -21,6 +21,10 @@ defaults:
       path: "gaming-is-good"
     values:
       permalink: /gaming-is-good/:basename:output_ext
+  - scope:
+      path: "life-objective-function"
+    values:
+      permalink: /life-objective-function/:basename:output_ext
 
 # GitHub Pages defaults
 kramdown:

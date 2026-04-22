@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Life Objective Function</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  })"></script>
+<style>
+  .site-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--ink);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px; height: 44px;
+  }
+  .nav-brand {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.15em; color: var(--gold-light); text-decoration: none; opacity: 0.8;
+  }
+  .nav-links { display: flex; gap: 24px; align-items: center; }
+  .nav-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.1em; color: rgba(245,240,232,0.6); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--gold-light); }
+  .nav-link.active { color: var(--paper); }
+  .nav-sep { width: 1px; height: 16px; background: rgba(255,255,255,0.15); }
+
+  :root {
+    --ink: #0e0e10;
+    --paper: #f5f0e8;
+    --gold: #c8960c;
+    --gold-light: #f0c040;
+    --blue: #38B6FF;
+    --red: #c0392b;
+    --green: #27ae60;
+    --purple: #8e44ad;
+    --muted: #7a7060;
+    --rule: #c8b89a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    min-height: 100vh;
+    padding: 48px 24px 72px;
+  }
+
+  /* Subtle grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    font-style: italic;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  /* Master formula block */
+  .master {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 4px;
+    padding: 40px 36px;
+    margin: 40px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .master::before {
+    content: 'MASTER OBJECTIVE';
+    position: absolute;
+    top: 14px;
+    left: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--gold-light);
+    opacity: 0.7;
+  }
+
+  .master .katex-display {
+    margin: 0;
+  }
+
+  .master .katex {
+    color: var(--paper);
+    font-size: 1.5em;
+  }
+
+  /* Section */
+  .section {
+    margin: 36px 0;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .formula-box {
+    border: 1.5px solid var(--rule);
+    border-radius: 3px;
+    padding: 20px 28px;
+    margin: 12px 0;
+    background: rgba(255,255,255,0.5);
+  }
+
+  .formula-box .katex-display {
+    margin: 0;
+  }
+
+  /* Color chips for variables */
+  .legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.6);
+    border: 1px solid var(--rule);
+  }
+
+  .chip {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .legend-item .var-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .legend-item .var-desc {
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 1px;
+    line-height: 1.3;
+  }
+
+  /* Insights */
+  .insights {
+    margin-top: 44px;
+    padding-top: 24px;
+    border-top: 2px solid var(--ink);
+  }
+
+  .insights h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .insight-row {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    margin-bottom: 18px;
+    align-items: start;
+  }
+
+  .insight-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gold);
+    padding-top: 3px;
+  }
+
+  .insight-text {
+    font-size: 16px;
+    line-height: 1.55;
+    color: #2a2a2a;
+  }
+
+  .insight-text strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin: 0 2px;
+  }
+  .tag.health { background: #fde8e8; color: var(--red); border: 1px solid #f5c6c6; }
+  .tag.wealth { background: #e8f5e9; color: var(--green); border: 1px solid #c6e9c8; }
+  .tag.rels   { background: #e8f0fe; color: #1a5fb4; border: 1px solid #b4d0f7; }
+  .tag.purp   { background: #f3e8fe; color: var(--purple); border: 1px solid #d9b4f7; }
+
+  /* Cross-page anchor links to the matching chart on life-decays.html */
+  a.legend-item { text-decoration: none; color: inherit; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+  a.legend-item:hover { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  a.legend-item:hover .var-name { color: var(--gold); }
+  a.tag { text-decoration: none; cursor: pointer; transition: filter 0.15s; }
+  a.tag:hover { filter: brightness(0.94); }
+
+  /* Footer */
+  .footer {
+    margin-top: 52px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-left {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-right {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  /* KaTeX color overrides inside colored sections */
+  .c-gold .katex { color: var(--gold); }
+  .c-red  .katex { color: var(--red); }
+  .c-blue .katex { color: #1a73e8; }
+
+  /* Annotations */
+  .annotation {
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 10px;
+    padding-left: 4px;
+    line-height: 1.5;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--rule);
+    margin: 32px 0;
+  }
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a href="#" class="nav-brand">Life Objective Function</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link active">The Formula</a>
+    <div class="nav-sep"></div>
+    <a href="life-decays.html" class="nav-link">Decay Curves &rarr;</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="header">
+    <div class="kicker">Sequential Decision Analytics &mdash; Applied to Life</div>
+    <h1>The Life Objective Function</h1>
+    <div class="subtitle">What are you actually maximizing?</div>
+  </div>
+
+  <!-- MASTER FORMULA -->
+  <div class="master">
+    $$\max_{\{x_t\}_{t=0}^{T}} \; \mathbb{E}\!\left[\,\sum_{t=0}^{T} \pi(t) \cdot J(S_t,\, x_t)\,\right]$$
+  </div>
+
+  <div class="annotation">
+    At every age $t$, choose decisions $x_t$ that maximize the probability-weighted sum of joy over your expected life.
+    The earlier you act, the more of the sum you still have ahead of you.
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- JOY FUNCTION -->
+  <div class="section">
+    <div class="section-label">Component 1 &mdash; The Joy Function</div>
+    <div class="formula-box">
+      $$J(S_t, x_t) \;=\; \lambda_h h_t \;+\; \lambda_w w_t \;+\; \lambda_r r_t \;+\; \lambda_p p_t$$
+    </div>
+    <div class="annotation">
+      Subject to $\,\lambda_h + \lambda_w + \lambda_r + \lambda_p = 1\;$ and $\;\lambda_i > 0$.
+      Only you know your $\lambda$s -- and they change as you age.
+    </div>
+    <div class="legend" style="margin-top:18px;">
+      <a class="legend-item" href="life-decays.html#health">
+        <div class="chip" style="background:var(--red)"></div>
+        <div>
+          <div class="var-name">$h_t$ &nbsp; health</div>
+          <div class="var-desc">tends to drift downward; enjoy its high value now</div>
+        </div>
+      </a>
+      <a class="legend-item" href="life-decays.html#wealth">
+        <div class="chip" style="background:var(--green)"></div>
+        <div>
+          <div class="var-name">$w_t$ &nbsp; wealth</div>
+          <div class="var-desc">tends to accumulate; but can't offset everything</div>
+        </div>
+      </a>
+      <a class="legend-item" href="life-decays.html#relationships">
+        <div class="chip" style="background:#1a73e8"></div>
+        <div>
+          <div class="var-name">$r_t$ &nbsp; relationships</div>
+          <div class="var-desc">compounding returns; neglect decays it fast</div>
+        </div>
+      </a>
+      <a class="legend-item" href="life-decays.html#purpose">
+        <div class="chip" style="background:var(--purple)"></div>
+        <div>
+          <div class="var-name">$p_t$ &nbsp; purpose</div>
+          <div class="var-desc">the multiplier everything else runs through</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SURVIVAL PROBABILITY -->
+  <div class="section">
+    <div class="section-label">Component 2 &mdash; The Mortality Discount</div>
+    <div class="formula-box">
+      $$\pi(t) \;=\; \prod_{s=0}^{t-1}\!\bigl(1 - \mu(s)\bigr), \qquad \mu(t) \;\approx\; \alpha\, e^{\,\beta t}$$
+    </div>
+    <div class="annotation">
+      $\pi(t)$ is your survival probability at age $t$. It starts near 1 and decays.
+      $\mu(t)$ is the Gompertz mortality rate -- it compounds exponentially with age.
+      This is the decay term. It is not negotiable, but it <em>is</em> foreseeable.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- STATE TRANSITION -->
+  <div class="section">
+    <div class="section-label">Component 3 &mdash; State Transition (The SDA Part)</div>
+    <div class="formula-box">
+      $$S_{t+1} \;=\; S^M\!\bigl(S_t,\; x_t,\; W_{t+1}\bigr)$$
+    </div>
+    <div class="annotation">
+      $S_t = (h_t,\, w_t,\, r_t,\, p_t)$ is your state vector today.
+      $x_t$ is the decision you make. $W_{t+1}$ is exogenous information -- 
+      the world's move, not yours. Your job is to optimize over what you control.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- INSIGHTS -->
+  <div class="insights">
+    <h2>What This Actually Tells You</h2>
+
+    <div class="insight-row">
+      <div class="insight-num">01</div>
+      <div class="insight-text">
+        <strong>Timing is not neutral.</strong> Because $\pi(t)$ decays, a unit of joy at 35 is worth more to the sum than a unit of joy at 75. This is not pessimism. It is the math of a finite horizon -- and it argues for front-loading the things money can't buy, like <a class="tag rels" href="life-decays.html#relationships">relationships</a> and <a class="tag purp" href="life-decays.html#purpose">purpose</a>, not deferring them.
+      </div>
+    </div>
+
+    <div class="insight-row">
+      <div class="insight-num">02</div>
+      <div class="insight-text">
+        <strong>Wealth cannot substitute for health past a threshold.</strong> <a class="tag wealth" href="life-decays.html#wealth">$w_t$</a> tends to rise while <a class="tag health" href="life-decays.html#health">$h_t$</a> tends to fall. But $\lambda_h$ and $\lambda_w$ are your weights -- if you underinvest in health today, no future $w_t$ accumulation fully compensates inside $J$.
+      </div>
+    </div>
+
+    <div class="insight-row">
+      <div class="insight-num">03</div>
+      <div class="insight-text">
+        <strong>$x_t$ is the only lever you hold.</strong> You cannot change $S_t$ right now -- it is already realized. You cannot control $W_{t+1}$. You can only choose $x_t$, which shapes the transition to $S_{t+1}$. The Stoic point exactly: control what you can, accept the rest as $W$.
+      </div>
+    </div>
+
+    <div class="insight-row">
+      <div class="insight-num">04</div>
+      <div class="insight-text">
+        <strong>Your $\lambda$s are the real problem to solve.</strong> Most people never explicitly define what they are actually maximizing. Without knowing your weights, the objective function is just decoration. The Six Steps start with the metaproblem -- and this is the metaproblem of your life.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">SDA Framework &mdash; W. Powell &nbsp;|&nbsp; Applied to Life Decisions</div>
+    <div class="footer-right">maximize $\sum \pi(t) \cdot J$ &mdash; not just $J$ today</div>
+  </div>
+
+</div>
+</body>
+</html>
