@@ -429,12 +429,14 @@
 
   <!-- MASTER FORMULA -->
   <div class="master">
-    $$\max_{\{x_t\}_{t=0}^{T}} \; \mathbb{E}\!\left[\,\sum_{t=0}^{T} \pi(t) \cdot J(S_t,\, x_t)\,\right]$$
+    $$\max_{\pi = (f \in \mathcal{F},\, \theta \in \Theta)}\; F^\pi(S_0) \;=\; \mathbb{E}\!\left[\,\sum_{t=0}^{T} \pi(t) \cdot J\!\left(S_t,\, X_t^\pi(S_t \mid \theta)\right)\right]$$
   </div>
 
   <div class="annotation">
-    At every age $t$, choose decisions $x_t$ that maximize the probability-weighted sum of joy over your expected life.
-    The earlier you act, the more of the sum you still have ahead of you.
+    You are not choosing decisions $x_t$ directly &mdash; those are random variables that fall out of whatever policy you are running.
+    What you are actually searching over is <em>the policy itself</em>: the type of decision function $f \in \mathcal{F}$
+    and its tunable parameters $\theta \in \Theta$. That search is deterministic. That is what you control.
+    The decisions $X_t^\pi(S_t \mid \theta)$ are the output, not the input.
   </div>
 
   <div class="divider"></div>
@@ -503,14 +505,28 @@
 
   <!-- STATE TRANSITION -->
   <div class="section">
-    <div class="section-label">Component 3 &mdash; State Transition (The SDA Part)</div>
+    <div class="section-label">Component 3 &mdash; State Transition</div>
     <div class="formula-box">
-      $$S_{t+1} \;=\; S^M\!\bigl(S_t,\; x_t,\; W_{t+1}\bigr)$$
+      $$S_{t+1} \;=\; S^M\!\bigl(S_t,\; X_t^\pi(S_t \mid \theta),\; W_{t+1}\bigr)$$
     </div>
     <div class="annotation">
-      $S_t = (h_t,\, w_t,\, r_t,\, p_t)$ is your state vector today.
-      $x_t$ is the decision you make. $W_{t+1}$ is exogenous information -- 
-      the world's move, not yours. Your job is to optimize over what you control.
+      $S_t = (h_t,\, w_t,\, r_t,\, p_t)$ is your state vector today &mdash; already realized.
+      $X_t^\pi(S_t \mid \theta)$ is the decision your policy produces given that state.
+      $W_{t+1}$ is exogenous information: the world's move, not yours.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- POLICY SEARCH -->
+  <div class="section">
+    <div class="section-label">Component 4 &mdash; The Policy Search</div>
+    <div class="formula-box">
+      $$\pi^* \;=\; \underset{f \in \mathcal{F},\; \theta \in \Theta}{\arg\max}\; \mathbb{E}\!\left[\sum_{t=0}^{T} \pi(t) \cdot J\!\left(S_t,\, X_t^{f,\theta}(S_t)\right)\right]$$
+    </div>
+    <div class="annotation">
+      The search has two levels: (1) choose the <em>class</em> of policy $f \in \mathcal{F}$ &mdash; the structure of how you make decisions &mdash;
+      then (2) tune its parameters $\theta$ within that class. Most people do neither deliberately.
     </div>
   </div>
 
@@ -537,14 +553,21 @@
     <div class="insight-row">
       <div class="insight-num">03</div>
       <div class="insight-text">
-        <strong>$x_t$ is the only lever you hold.</strong> You cannot change $S_t$ right now -- it is already realized. You cannot control $W_{t+1}$. You can only choose $x_t$, which shapes the transition to $S_{t+1}$. The Stoic point exactly: control what you can, accept the rest as $W$.
+        <strong>The policy is the lever, not the decision.</strong> $x_t$ is a random variable &mdash; it is what your policy produces given the current state. You cannot optimize over random variables directly. What you <em>can</em> search over deterministically is $(f \in \mathcal{F},\, \theta \in \Theta)$: the class of decision function and its tunable parameters. This is the Stoic point rendered precisely &mdash; you do not control outcomes, you design the policy that produces them.
       </div>
     </div>
 
     <div class="insight-row">
       <div class="insight-num">04</div>
       <div class="insight-text">
-        <strong>Your $\lambda$s are the real problem to solve.</strong> Most people never explicitly define what they are actually maximizing. Without knowing your weights, the objective function is just decoration. The Six Steps start with the metaproblem -- and this is the metaproblem of your life.
+        <strong>Most people never choose their policy.</strong> They inherit one &mdash; from upbringing, habit, culture &mdash; and run it without inspection. The search over $\mathcal{F}$ is what humans do ad-hoc. The framework makes it explicit: what <em>class</em> of decision-maker are you going to be? A rule-follower (PFA)? A planner (LAP)? A value-function approximator (VFA)? That choice is upstream of every $x_t$ you will ever make.
+      </div>
+    </div>
+
+    <div class="insight-row">
+      <div class="insight-num">05</div>
+      <div class="insight-text">
+        <strong>Your $\lambda$s are the metaproblem.</strong> Most people never explicitly define what they are actually maximizing. Without knowing your weights, the objective function is just decoration. The Six Steps start with the metaproblem &mdash; and this is the metaproblem of your life.
       </div>
     </div>
 
@@ -559,7 +582,7 @@
 
   <div class="footer">
     <div class="footer-left">SDA Framework &mdash; W. Powell &nbsp;|&nbsp; Applied to Life Decisions</div>
-    <div class="footer-right">maximize $\sum \pi(t) \cdot J$ &mdash; not just $J$ today</div>
+    <div class="footer-right">search over $\pi = (f \in \mathcal{F},\, \theta \in \Theta)$ &mdash; not over $x_t$</div>
   </div>
 
 </div>
