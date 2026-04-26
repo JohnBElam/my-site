@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Decay Curves — Life Objective Function</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --ink: #0e0e10;
+    --paper: #f5f0e8;
+    --paper-dark: #ede7d5;
+    --gold: #c8960c;
+    --gold-light: #f0c040;
+    --blue: #38B6FF;
+    --blue-dark: #1a73e8;
+    --red: #c0392b;
+    --green: #27ae60;
+    --purple: #8e44ad;
+    --muted: #7a7060;
+    --rule: #c8b89a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* NAV */
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    height: 44px;
+  }
+
+  .nav-brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--gold-light);
+    text-decoration: none;
+    opacity: 0.8;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .nav-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(245,240,232,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--gold-light); }
+  .nav-link.active { color: var(--paper); }
+
+  .nav-sep {
+    width: 1px;
+    height: 16px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* LAYOUT */
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 52px;
+    padding-bottom: 28px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-size: clamp(30px, 5vw, 52px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    font-style: italic;
+    color: var(--muted);
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+
+  /* SECTION */
+  .section {
+    margin: 52px 0;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  h2 {
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .section-intro {
+    font-size: 16px;
+    color: #3a3020;
+    line-height: 1.65;
+    margin-bottom: 28px;
+    max-width: 640px;
+  }
+
+  /* CHART CONTAINERS */
+  .chart-full {
+    background: var(--ink);
+    border-radius: 4px;
+    padding: 28px 24px 20px;
+    position: relative;
+  }
+
+  .chart-full-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    color: rgba(245,240,232,0.45);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  .chart-full canvas { width: 100% !important; }
+  .chart-card canvas { width: 100% !important; display: block; }
+
+  .chart-annotations {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ann-item {
+    text-align: center;
+  }
+
+  .ann-age {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold-light);
+    opacity: 0.7;
+    display: block;
+  }
+
+  .ann-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(245,240,232,0.9);
+    display: block;
+  }
+
+  .ann-label {
+    font-size: 11px;
+    font-style: italic;
+    color: rgba(245,240,232,0.35);
+    display: block;
+    margin-top: 1px;
+  }
+
+  /* GRID OF 4 CHARTS */
+  .chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .chart-card {
+    border: 1.5px solid var(--rule);
+    border-radius: 3px;
+    padding: 20px 18px 16px;
+    background: rgba(255,255,255,0.45);
+    position: relative;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .card-var {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .card-note {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--muted);
+    margin-top: 10px;
+    line-height: 1.4;
+  }
+
+  .legend-inline {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .legend-inline-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .legend-line {
+    width: 20px;
+    height: 2px;
+    border-radius: 1px;
+  }
+  .legend-line.dashed {
+    background: repeating-linear-gradient(to right, var(--c) 0, var(--c) 5px, transparent 5px, transparent 9px);
+  }
+
+  /* DIVIDER WITH INSIGHT */
+  .insight-divider {
+    margin: 40px 0;
+    padding: 28px 32px;
+    border-left: 3px solid var(--gold);
+    background: rgba(200,150,12,0.05);
+  }
+
+  .insight-text {
+    font-size: 17px;
+    line-height: 1.65;
+    color: #2a2010;
+  }
+
+  .insight-text strong { font-weight: 600; }
+
+  /* INTERACTIVE SECTION */
+  .interactive-box {
+    border: 2px solid var(--ink);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .interactive-header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .interactive-header-title {
+    font-size: 14px;
+    font-style: italic;
+    opacity: 0.8;
+  }
+
+  .interactive-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .interactive-body {
+    padding: 28px 24px;
+  }
+
+  /* SLIDERS */
+  .sliders-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 32px;
+    margin-bottom: 28px;
+  }
+
+  .slider-item {}
+
+  .slider-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .slider-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .slider-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .slider-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+
+  .slider-health input { background: linear-gradient(to right, var(--red), var(--red)); }
+  .slider-health input::-webkit-slider-thumb { background: var(--red); }
+  .slider-wealth input { background: linear-gradient(to right, var(--green), var(--green)); }
+  .slider-wealth input::-webkit-slider-thumb { background: var(--green); }
+  .slider-rels input { background: linear-gradient(to right, var(--blue-dark), var(--blue-dark)); }
+  .slider-rels input::-webkit-slider-thumb { background: var(--blue-dark); }
+  .slider-purp input { background: linear-gradient(to right, var(--purple), var(--purple)); }
+  .slider-purp input::-webkit-slider-thumb { background: var(--purple); }
+
+  .lambda-sum {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .lambda-sum span { color: var(--ink); font-weight: 500; }
+
+  /* STAT CARDS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .stat-card {
+    padding: 16px 18px;
+    border-radius: 3px;
+    border: 1.5px solid var(--rule);
+    background: rgba(255,255,255,0.5);
+  }
+
+  .stat-scenario {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .stat-main {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-sub {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .stat-delta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    margin-top: 6px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--rule);
+    margin: 40px 0;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 64px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-left {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-right {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  /* UTILITY */
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin: 0 2px;
+  }
+  .tag.h { background:#fde8e8; color:var(--red); border:1px solid #f5c6c6; }
+  .tag.w { background:#e8f5e9; color:var(--green); border:1px solid #c6e9c8; }
+  .tag.r { background:#e8f0fe; color:#1a5fb4; border:1px solid #b4d0f7; }
+  .tag.p { background:#f3e8fe; color:var(--purple); border:1px solid #d9b4f7; }
+
+  /* Fade-in animation on scroll */
+  .fade-section {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    body { padding: 28px 12px 56px; }
+    .site-nav { padding: 0 14px; height: 42px; }
+    .page { padding: 0; }
+
+    h1 { font-size: clamp(24px, 7vw, 34px); }
+    .subtitle { font-size: 14px; }
+
+    .section h2 { font-size: 20px; }
+    .section-intro { font-size: 14px; }
+
+    .chart-grid { grid-template-columns: 1fr; gap: 14px; }
+    .chart-card { padding: 16px 14px; }
+
+    .insight-divider { padding: 20px 18px; }
+    .insight-text { font-size: 15px; }
+
+    .interactive-header { padding: 14px 16px; }
+    .interactive-body { padding: 20px 14px; }
+    .sliders-grid { grid-template-columns: 1fr; gap: 14px; }
+    .stat-row { grid-template-columns: 1fr; gap: 10px; }
+    .stat-main { font-size: 22px; }
+
+    /* Let KaTeX display math wrap at natural break points (+, =, ,, \cdot); keep centered */
+    .katex-display,
+    .katex-display > .katex,
+    .katex-display > .katex > .katex-html { white-space: normal; }
+    .katex-display > .katex > .katex-html { display: block; }
+    .katex-display > .katex > .katex-html > .base { display: inline-block; white-space: nowrap; margin: 0.15em 0; }
+    .katex-display { overflow-x: auto; overflow-y: hidden; max-width: 100%; padding: 2px 0; -webkit-overflow-scrolling: touch; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="#" class="nav-brand">Life Objective Function</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">The Formula</a>
+    <div class="nav-sep"></div>
+    <a href="life-decays.html" class="nav-link active">Decay Curves</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header fade-section">
+    <div class="kicker">Sequential Decision Analytics &mdash; State Variable Trajectories</div>
+    <h1>The Decay Curves</h1>
+    <p class="subtitle">
+      Every term in $\max_{\pi} \mathbb{E}\!\left[\sum_t \pi(t) \cdot J(S_t,\, X_t^\pi)\right]$ has a shape over time.<br>
+      Here is what those shapes look like &mdash; and what they mean for the policy you choose.
+    </p>
+  </div>
+
+  <!-- SECTION 1: SURVIVAL -->
+  <div class="section fade-section" id="survival">
+    <div class="section-label">Section 01</div>
+    <h2>The Mortality Discount &nbsp; $\pi(t)$</h2>
+    <p class="section-intro">
+      The Gompertz mortality rate $\mu(t) = \alpha e^{\beta t}$ compounds exponentially with age.
+      The survival probability $\pi(t)$ starts near certainty and stays deceptively high through your 40s and 50s.
+      Then it falls fast. This is the discount factor on every unit of future joy.
+    </p>
+
+    <div class="chart-full">
+      <div class="chart-full-label">Survival Probability &pi;(t) &mdash; Probability of reaching age t, given alive at 20</div>
+      <canvas id="survivalChart" height="260"></canvas>
+      <div class="chart-annotations" id="survivalAnnotations"></div>
+    </div>
+  </div>
+
+  <div class="insight-divider fade-section">
+    <p class="insight-text">
+      <strong>The discount is generous for a long time &mdash; then it isn't.</strong>
+      Notice how $\pi(t)$ barely moves from age 20 to 55. The false comfort of that plateau is one of the
+      most dangerous features of the human life objective function. The steep part comes late,
+      and it comes fast. Every year you delay front-loading what matters, $\pi(t)$ quietly shrinks
+      the weight on that future payoff.
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 2: THE FOUR STATES -->
+  <div class="section fade-section" id="states">
+    <div class="section-label">Section 02</div>
+    <h2>The Four State Variables &nbsp; $S_t = (h_t,\, w_t,\, r_t,\, p_t)$</h2>
+    <p class="section-intro">
+      Each component of $J(S_t)$ has a different expected trajectory. Some are largely predetermined.
+      Others are almost entirely shaped by the policy you run. Knowing the difference is half the work.
+    </p>
+
+    <div class="chart-grid">
+
+      <!-- Health -->
+      <div class="chart-card fade-section" id="health">
+        <div class="card-header">
+          <span class="card-title" style="color:var(--red)">Health</span>
+          <span class="card-var">$h_t$</span>
+        </div>
+        <div class="legend-inline">
+          <span class="legend-inline-item">
+            <span class="legend-line" style="background:var(--red)"></span>
+            Invested
+          </span>
+          <span class="legend-inline-item">
+            <span class="legend-line" style="background:var(--red); opacity:0.4"></span>
+            Neglected
+          </span>
+        </div>
+        <canvas id="healthChart" height="180"></canvas>
+        <p class="card-note">
+          Both curves share the same shape &mdash; the gap is the cost of neglect.
+          Poor sleep, sedentary habits, and deferred care compress the peak and steepen the decline.
+          The neglected curve hits the floor a decade earlier.
+        </p>
+      </div>
+
+      <!-- Wealth -->
+      <div class="chart-card fade-section" id="wealth">
+        <div class="card-header">
+          <span class="card-title" style="color:var(--green)">Wealth</span>
+          <span class="card-var">$w_t$</span>
+        </div>
+        <div class="legend-inline">
+          <span class="legend-inline-item">
+            <span class="legend-line" style="background:var(--green)"></span>
+            Invested
+          </span>
+          <span class="legend-inline-item">
+            <span class="legend-line" style="background:var(--green); opacity:0.4"></span>
+            Neglected
+          </span>
+        </div>
+        <canvas id="wealthChart" height="180"></canvas>
+        <p class="card-note">
+          The sigmoid shape holds either way &mdash; but neglect cuts the ceiling roughly in half
+          and accelerates draw-down after retirement. Compounding works both directions:
+          early investment decisions echo for decades.
+        </p>
+      </div>
+
+      <!-- Relationships -->
+      <div class="chart-card fade-section" id="relationships">
+        <div class="card-header">
+          <span class="card-title" style="color:var(--blue-dark)">Relationships</span>
+          <span class="card-var">$r_t$</span>
+        </div>
+        <div class="legend-inline">
+          <span class="legend-inline-item">
+            <span class="legend-line" style="background:var(--blue-dark)"></span>
+            Invested
+          </span>
+          <span class="legend-inline-item">
+            <span class="legend-line" style="background:var(--blue-dark); opacity:0.4; --c:var(--blue-dark)"></span>
+            Neglected
+          </span>
+        </div>
+        <canvas id="relsChart" height="180"></canvas>
+        <p class="card-note">
+          The gap between these two curves is almost entirely a function of the policy you run.
+          Neglect compounds the same way investment does &mdash; just in the wrong direction.
+        </p>
+      </div>
+
+      <!-- Purpose -->
+      <div class="chart-card fade-section" id="purpose">
+        <div class="card-header">
+          <span class="card-title" style="color:var(--purple)">Purpose</span>
+          <span class="card-var">$p_t$</span>
+        </div>
+        <div class="legend-inline">
+          <span class="legend-inline-item">
+            <span class="legend-line" style="background:var(--purple)"></span>
+            Cultivated
+          </span>
+          <span class="legend-inline-item">
+            <span class="legend-line" style="background:var(--purple); opacity:0.4"></span>
+            Drifted
+          </span>
+        </div>
+        <canvas id="purposeChart" height="180"></canvas>
+        <p class="card-note">
+          The dip in the 30s is real and common. The recovery is possible but not automatic.
+          Purpose is the multiplier everything else runs through &mdash; low $p_t$ blunts even a
+          high-health, high-wealth state.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="insight-divider fade-section">
+    <p class="insight-text">
+      <strong>All four state variables have an invested and a neglected trajectory.</strong>
+      The gap in each is not luck &mdash; it is the difference between a policy that actively manages
+      <span class="tag h">$h_t$</span>, <span class="tag w">$w_t$</span>,
+      <span class="tag r">$r_t$</span>, and <span class="tag p">$p_t$</span>
+      and one that lets them drift. The objective function does not care which variable you are neglecting.
+      It cares about $\pi(t) \cdot J(S_t,\, X_t^\pi)$ &mdash; the full weighted product, every year.
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 3: INTERACTIVE COMBINED -->
+  <div class="section fade-section" id="objective">
+    <div class="section-label">Section 03</div>
+    <h2>Your Objective &nbsp; $\pi(t) \cdot J\!\left(S_t,\, X_t^\pi(S_t \mid \theta)\right)$</h2>
+    <p class="section-intro">
+      Set your $\lambda$ weights below. The chart shows how your policy &mdash; invested or neglected
+      across all four state variables &mdash; shifts the total survival-weighted contribution
+      to your life objective function. Your $\lambda$s determine which gaps hurt the most.
+    </p>
+
+    <div class="interactive-box">
+      <div class="interactive-header">
+        <div>
+          <div class="interactive-header-title">Adjust your weights &mdash; $\lambda_h + \lambda_w + \lambda_r + \lambda_p = 1$</div>
+          <h3>What Are You Maximizing?</h3>
+        </div>
+        <div class="lambda-sum" id="lambdaSumDisplay" style="color:rgba(245,240,232,0.6); font-size:12px;">
+          auto-normalizing
+        </div>
+      </div>
+
+      <div class="interactive-body">
+
+        <div class="sliders-grid">
+          <div class="slider-item slider-health">
+            <div class="slider-header">
+              <span class="slider-name">
+                <span class="slider-dot" style="background:var(--red)"></span>
+                $\lambda_h$ &nbsp; health
+              </span>
+              <span class="slider-val" id="valH" style="color:var(--red)">0.25</span>
+            </div>
+            <input type="range" id="slH" min="1" max="97" value="25" oninput="updateChart()">
+          </div>
+
+          <div class="slider-item slider-wealth">
+            <div class="slider-header">
+              <span class="slider-name">
+                <span class="slider-dot" style="background:var(--green)"></span>
+                $\lambda_w$ &nbsp; wealth
+              </span>
+              <span class="slider-val" id="valW" style="color:var(--green)">0.25</span>
+            </div>
+            <input type="range" id="slW" min="1" max="97" value="25" oninput="updateChart()">
+          </div>
+
+          <div class="slider-item slider-rels">
+            <div class="slider-header">
+              <span class="slider-name">
+                <span class="slider-dot" style="background:var(--blue-dark)"></span>
+                $\lambda_r$ &nbsp; relationships
+              </span>
+              <span class="slider-val" id="valR" style="color:var(--blue-dark)">0.25</span>
+            </div>
+            <input type="range" id="slR" min="1" max="97" value="25" oninput="updateChart()">
+          </div>
+
+          <div class="slider-item slider-purp">
+            <div class="slider-header">
+              <span class="slider-name">
+                <span class="slider-dot" style="background:var(--purple)"></span>
+                $\lambda_p$ &nbsp; purpose
+              </span>
+              <span class="slider-val" id="valP" style="color:var(--purple)">0.25</span>
+            </div>
+            <input type="range" id="slP" min="1" max="97" value="25" oninput="updateChart()">
+          </div>
+        </div>
+
+        <canvas id="combinedChart" height="260" style="margin-bottom:8px;"></canvas>
+
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-scenario">Invested Trajectory</div>
+            <div class="stat-main" id="statInvTotal" style="color:var(--gold)">--</div>
+            <div class="stat-sub">total life objective value</div>
+            <div class="stat-delta" id="statInvPeak" style="background:#fef9e7; color:#7d6008; border:1px solid #f0c040; font-size:10px;"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-scenario">Drifted Trajectory</div>
+            <div class="stat-main" id="statDriftTotal" style="color:var(--muted)">--</div>
+            <div class="stat-sub">total life objective value</div>
+            <div class="stat-delta" id="statDriftPeak" style="background:#f5f5f5; color:#666; border:1px solid #ddd; font-size:10px;"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="divider"></div>
+  <div class="footer">
+    <div class="footer-left">SDA Framework &mdash; W. Powell &nbsp;|&nbsp; Visualized by Bit Bros</div>
+    <div class="footer-right">
+      <a href="index.html" style="color:var(--muted); text-decoration:none;">
+        &larr; Back to the Formula
+      </a>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const ages = Array.from({length: 71}, (_, i) => i + 20);
+
+function computeSurvival() {
+  let pi = 1.0;
+  return ages.map(age => {
+    const mu = 0.00038 * Math.exp(0.088 * (age - 20));
+    pi *= (1 - mu);
+    return Math.round(Math.max(0, pi) * 1000) / 1000;
+  });
+}
+
+function computeHealth() {
+  return ages.map(age => {
+    if (age <= 28) return 0.80 + 0.20 * (age - 20) / 8;
+    const t = age - 28;
+    return Math.max(0.10, 1.00 - 0.0042*t - 0.00018*t*t);
+  });
+}
+
+function computeHealthNeg() {
+  return ages.map(age => {
+    if (age <= 28) return 0.45 + 0.20 * (age - 20) / 8;
+    const t = age - 28;
+    return Math.max(0.06, 0.65 - 0.008*t - 0.00032*t*t);
+  });
+}
+
+function computeWealth() {
+  return ages.map(age => {
+    const g = 0.05 + 0.93 / (1 + Math.exp(-0.13 * (age - 44)));
+    const d = age > 65 ? 0.007 * (age - 65) : 0;
+    return Math.max(0.05, Math.min(0.97, g - d));
+  });
+}
+
+function computeWealthNeg() {
+  return ages.map(age => {
+    const g = 0.03 + 0.44 / (1 + Math.exp(-0.10 * (age - 50)));
+    const d = age > 62 ? 0.010 * (age - 62) : 0;
+    return Math.max(0.03, Math.min(0.47, g - d));
+  });
+}
+
+function computeRelsInv() {
+  return ages.map(age => {
+    const b = 0.28 + 0.64 * (1 - Math.exp(-0.065 * (age - 20)));
+    const late = age > 78 ? 0.013 * (age - 78) : 0;
+    return Math.max(0.20, Math.min(0.93, b - late));
+  });
+}
+
+function computeRelsNeg() {
+  return ages.map(age => {
+    return Math.max(0.08, 0.64 * Math.exp(-0.042 * (age - 20)) + 0.07);
+  });
+}
+
+function computePurpCult() {
+  return ages.map(age => {
+    const base = 0.52;
+    const dip  = -0.20 * Math.exp(-0.5 * Math.pow((age - 35) / 7, 2));
+    const rise =  0.42 / (1 + Math.exp(-0.10 * (age - 48)));
+    return Math.max(0.10, Math.min(0.95, base + dip + rise));
+  });
+}
+
+function computePurpDrift() {
+  return ages.map(age => {
+    return Math.max(0.06, 0.70 * Math.exp(-0.029 * (age - 20)) + 0.04);
+  });
+}
+
+const survival   = computeSurvival();
+const health     = computeHealth();
+const healthNeg  = computeHealthNeg();
+const wealth     = computeWealth();
+const wealthNeg  = computeWealthNeg();
+const relsInv    = computeRelsInv();
+const relsNeg    = computeRelsNeg();
+const purpCult   = computePurpCult();
+const purpDrift  = computePurpDrift();
+
+// ============================================================
+// CHART DEFAULTS
+// ============================================================
+Chart.defaults.font.family = "'JetBrains Mono', monospace";
+Chart.defaults.font.size   = 10;
+Chart.defaults.color       = '#7a7060';
+
+const baseOptions = (yLabel) => ({
+  responsive: true,
+  animation: { duration: 600, easing: 'easeInOutQuart' },
+  plugins: { legend: { display: false }, tooltip: {
+    backgroundColor: '#0e0e10',
+    titleColor: '#f0c040',
+    bodyColor: 'rgba(245,240,232,0.85)',
+    titleFont: { family: "'JetBrains Mono', monospace", size: 11 },
+    bodyFont: { family: "'EB Garamond', Georgia, serif", size: 13 },
+    padding: 10,
+    callbacks: {
+      title: (items) => `Age ${items[0].label}`,
+      label: (item) => ` ${item.dataset.label || ''}: ${(item.parsed.y * 100).toFixed(1)}%`
+    }
+  }},
+  scales: {
+    x: {
+      grid: { color: 'rgba(200,184,154,0.15)', drawBorder: false },
+      ticks: { maxTicksLimit: 8, callback: v => `${ages[v]}` }
+    },
+    y: {
+      min: 0, max: 1,
+      grid: { color: 'rgba(200,184,154,0.2)', drawBorder: false },
+      ticks: { callback: v => `${(v*100).toFixed(0)}%`, maxTicksLimit: 5 }
+    }
+  }
+});
+
+// ============================================================
+// SURVIVAL CHART
+// ============================================================
+const survCtx = document.getElementById('survivalChart').getContext('2d');
+
+const survGrad = survCtx.createLinearGradient(0, 0, 0, 260);
+survGrad.addColorStop(0,   'rgba(240,192,64,0.25)');
+survGrad.addColorStop(0.6, 'rgba(200,150,12,0.10)');
+survGrad.addColorStop(1,   'rgba(200,150,12,0.02)');
+
+new Chart(survCtx, {
+  type: 'line',
+  data: {
+    labels: ages,
+    datasets: [{
+      label: 'Survival',
+      data: survival,
+      borderColor: '#f0c040',
+      borderWidth: 2.5,
+      pointRadius: 0,
+      fill: true,
+      backgroundColor: survGrad,
+      tension: 0.35
+    }]
+  },
+  options: {
+    ...baseOptions(),
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#1a1a1c',
+        titleColor: '#f0c040',
+        bodyColor: 'rgba(245,240,232,0.85)',
+        titleFont: { family: "'JetBrains Mono', monospace", size: 11 },
+        bodyFont: { family: "'EB Garamond', Georgia, serif", size: 13 },
+        padding: 10,
+        callbacks: {
+          title: (items) => `Age ${ages[items[0].dataIndex]}`,
+          label: (item) => ` Survival: ${(item.parsed.y * 100).toFixed(1)}%`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: 'rgba(255,255,255,0.06)', drawBorder: false },
+        ticks: { color: 'rgba(245,240,232,0.4)', maxTicksLimit: 8, callback: (_, i) => `${ages[i]}` }
+      },
+      y: {
+        min: 0, max: 1,
+        grid: { color: 'rgba(255,255,255,0.06)', drawBorder: false },
+        ticks: { color: 'rgba(245,240,232,0.4)', callback: v => `${(v*100).toFixed(0)}%`, maxTicksLimit: 5 }
+      }
+    }
+  }
+});
+
+// Survival annotation panel
+const annAges = [40, 55, 65, 75, 85];
+const annDiv  = document.getElementById('survivalAnnotations');
+annAges.forEach(a => {
+  const idx = a - 20;
+  const val = survival[idx];
+  const el  = document.createElement('div');
+  el.className = 'ann-item';
+  el.innerHTML = `
+    <span class="ann-age">Age ${a}</span>
+    <span class="ann-val">${(val*100).toFixed(1)}%</span>
+    <span class="ann-label">survival</span>
+  `;
+  annDiv.appendChild(el);
+});
+
+// ============================================================
+// SMALL MULTIPLES
+// ============================================================
+function smallChart(id, datasets, color) {
+  const ctx = document.getElementById(id).getContext('2d');
+  const grad = ctx.createLinearGradient(0, 0, 0, 200);
+  grad.addColorStop(0, color + '28');
+  grad.addColorStop(1, color + '04');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ages,
+      datasets: datasets.map((d, i) => ({
+        label: d.label,
+        data: d.data,
+        borderColor: i === 0 ? color : color + '55',
+        borderWidth: i === 0 ? 2 : 1.5,
+        borderDash: i === 1 ? [4, 4] : [],
+        pointRadius: 0,
+        fill: i === 0 ? true : false,
+        backgroundColor: i === 0 ? grad : 'transparent',
+        tension: 0.35
+      }))
+    },
+    options: {
+      responsive: true,
+      animation: { duration: 0 },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#0e0e10',
+          titleColor: color,
+          bodyColor: 'rgba(245,240,232,0.85)',
+          titleFont: { family: "'JetBrains Mono', monospace", size: 11 },
+          bodyFont: { family: "'EB Garamond', serif", size: 13 },
+          padding: 10,
+          callbacks: {
+            title: (items) => `Age ${ages[items[0].dataIndex]}`,
+            label: (item) => ` ${item.dataset.label}: ${(item.parsed.y * 100).toFixed(1)}%`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(200,184,154,0.15)' },
+          ticks: { maxTicksLimit: 6, callback: (_, i) => `${ages[i]}` }
+        },
+        y: {
+          min: 0, max: 1,
+          grid: { color: 'rgba(200,184,154,0.2)' },
+          ticks: { callback: v => `${(v*100).toFixed(0)}%`, maxTicksLimit: 4 }
+        }
+      }
+    }
+  });
+}
+
+smallChart('healthChart',  [{label:'Invested', data: health},     {label:'Neglected', data: healthNeg}],  '#c0392b');
+smallChart('wealthChart',  [{label:'Invested', data: wealth},     {label:'Neglected', data: wealthNeg}],  '#27ae60');
+smallChart('relsChart',    [{label:'Invested', data: relsInv},  {label:'Neglected', data: relsNeg}],  '#1a73e8');
+smallChart('purposeChart', [{label:'Cultivated', data: purpCult},{label:'Drifted',   data: purpDrift}], '#8e44ad');
+
+// ============================================================
+// COMBINED INTERACTIVE CHART
+// ============================================================
+const combCtx   = document.getElementById('combinedChart').getContext('2d');
+const gradInv   = combCtx.createLinearGradient(0, 0, 0, 260);
+gradInv.addColorStop(0, 'rgba(200,150,12,0.30)');
+gradInv.addColorStop(1, 'rgba(200,150,12,0.03)');
+
+const gradDrift = combCtx.createLinearGradient(0, 0, 0, 260);
+gradDrift.addColorStop(0, 'rgba(122,112,96,0.20)');
+gradDrift.addColorStop(1, 'rgba(122,112,96,0.02)');
+
+const combinedChart = new Chart(combCtx, {
+  type: 'line',
+  data: {
+    labels: ages,
+    datasets: [
+      {
+        label: 'Invested',
+        data: [],
+        borderColor: '#c8960c',
+        borderWidth: 2.5,
+        pointRadius: 0,
+        fill: true,
+        backgroundColor: gradInv,
+        tension: 0.35
+      },
+      {
+        label: 'Drifted',
+        data: [],
+        borderColor: '#7a7060',
+        borderWidth: 1.8,
+        borderDash: [5, 4],
+        pointRadius: 0,
+        fill: true,
+        backgroundColor: gradDrift,
+        tension: 0.35
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    animation: { duration: 400, easing: 'easeInOutQuart' },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#0e0e10',
+        titleColor: '#f0c040',
+        bodyColor: 'rgba(245,240,232,0.85)',
+        titleFont: { family: "'JetBrains Mono', monospace", size: 11 },
+        bodyFont: { family: "'EB Garamond', serif", size: 13 },
+        padding: 10,
+        callbacks: {
+          title: (items) => `Age ${ages[items[0].dataIndex]}`,
+          label: (item) => ` ${item.dataset.label}: ${(item.parsed.y).toFixed(3)}`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: 'rgba(200,184,154,0.15)' },
+        ticks: { maxTicksLimit: 8, callback: (_, i) => `${ages[i]}` }
+      },
+      y: {
+        min: 0,
+        grid: { color: 'rgba(200,184,154,0.18)' },
+        ticks: { maxTicksLimit: 5, callback: v => v.toFixed(2) }
+      }
+    }
+  }
+});
+
+function getLambdas() {
+  const rh = parseInt(document.getElementById('slH').value);
+  const rw = parseInt(document.getElementById('slW').value);
+  const rr = parseInt(document.getElementById('slR').value);
+  const rp = parseInt(document.getElementById('slP').value);
+  const total = rh + rw + rr + rp;
+  return { lh: rh/total, lw: rw/total, lr: rr/total, lp: rp/total };
+}
+
+function findPeakAge(data) {
+  let maxVal = -1, maxIdx = 0;
+  data.forEach((v, i) => { if (v > maxVal) { maxVal = v; maxIdx = i; } });
+  return ages[maxIdx];
+}
+
+function updateChart() {
+  const { lh, lw, lr, lp } = getLambdas();
+
+  // Update labels
+  document.getElementById('valH').textContent = lh.toFixed(2);
+  document.getElementById('valW').textContent = lw.toFixed(2);
+  document.getElementById('valR').textContent = lr.toFixed(2);
+  document.getElementById('valP').textContent = lp.toFixed(2);
+
+  // Compute J * pi for each trajectory
+  const invData   = ages.map((_, i) =>
+    survival[i] * (lh*health[i] + lw*wealth[i] + lr*relsInv[i] + lp*purpCult[i])
+  );
+  const driftData = ages.map((_, i) =>
+    survival[i] * (lh*healthNeg[i] + lw*wealthNeg[i] + lr*relsNeg[i] + lp*purpDrift[i])
+  );
+
+  combinedChart.data.datasets[0].data = invData;
+  combinedChart.data.datasets[1].data = driftData;
+  combinedChart.update();
+
+  // Stats: sum (trapezoidal) normalized to 100
+  const sumInv   = invData.reduce((a, b) => a + b, 0);
+  const sumDrift = driftData.reduce((a, b) => a + b, 0);
+  const norm     = 100 / (ages.length * 1.0); // scale so equal-weight-all-max ≈ 100
+
+  const invScore   = (sumInv * norm).toFixed(1);
+  const driftScore = (sumDrift * norm).toFixed(1);
+  const gap        = ((sumInv - sumDrift) * norm).toFixed(1);
+
+  document.getElementById('statInvTotal').textContent   = invScore;
+  document.getElementById('statDriftTotal').textContent = driftScore;
+
+  const peakInv   = findPeakAge(invData);
+  const peakDrift = findPeakAge(driftData);
+
+  document.getElementById('statInvPeak').textContent   = `peak contribution: age ${peakInv}`;
+  document.getElementById('statDriftPeak').textContent = `peak contribution: age ${peakDrift}`;
+}
+
+// Initialize
+updateChart();
+
+// ============================================================
+// FADE IN ON SCROLL
+// ============================================================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.fade-section').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
