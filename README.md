@@ -43,7 +43,7 @@ Until you set `formspree_id`, the site shows a short note telling you to add it.
 - **On-site blog:** Add markdown files in `_posts/` with front matter (`layout: post`, `title`, `date`, `excerpt`).
 - **Decision Gospel (mini-site):** HTML under `decision-gospel/`; permalinks are set in `_config.yml` defaults. Old `/scripture/...` URLs are no longer published here; restore host-level redirects if you still need them.
 - **Gaming Is Good (mini-site):** HTML under `gaming-is-good/`; same permalink pattern as Decision Gospel via `_config.yml`.
-- **Life Objective Function (mini-site):** Standalone HTML under `life-objective-function/` (`index.html` is "The Formula", `life-decays.html` is "The Decay Curves"); permalink set in `_config.yml` defaults; linked from the main header as **The Formula**.
+- **Life Objective Function (mini-site):** Standalone HTML under `life-objective-function/` (`index.html` is "The Formula", `life-decays.html` is "The Decay Curves", `the-lives.html` is "The Lives"); permalink set in `_config.yml` defaults; linked from the main header as **The Formula**.
 
 ## Optional pages
 
@@ -53,7 +53,7 @@ Until you set `formspree_id`, the site shows a short note telling you to add it.
 
 ## Project structure
 
-Most of the site is Jekyll-managed and uses shared layouts/includes. The two mini-sites are standalone HTML subtrees that only share Google Analytics.
+Most of the site is Jekyll-managed and uses shared layouts/includes. The standalone HTML subtrees (`gaming-is-good`, `life-objective-function`) use minimal Jekyll front matter to include `google-analytics.html` in each page; `decision-gospel` uses a layout that does the same.
 
 ```
 _config.yml                 # Jekyll config + per-mini-site permalinks + excludes

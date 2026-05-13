@@ -1,0 +1,1951 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include google-analytics.html %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lives — Life Objective Function</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+    throwOnError: false
+  });
+});
+</script>
+<style>
+  :root {
+    --ink: #0e0e10;
+    --paper: #f5f0e8;
+    --gold: #c8960c;
+    --gold-light: #f0c040;
+    --red: #c0392b;
+    --red-light: #e85c4a;
+    --green: #27ae60;
+    --green-light: #58c97f;
+    --blue-dark: #1a73e8;
+    --blue-light: #4a93f0;
+    --purple: #8e44ad;
+    --purple-light: #b070cc;
+    --muted: #7a7060;
+    --rule: #c8b89a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.5;
+  }
+
+  .site-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--ink);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px; height: 44px;
+  }
+  .nav-brand {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.15em; color: var(--gold-light); text-decoration: none; opacity: 0.8;
+  }
+  .nav-links { display: flex; gap: 24px; align-items: center; }
+  .nav-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.1em; color: rgba(245,240,232,0.6); text-decoration: none;
+  }
+  .nav-link:hover { color: var(--gold-light); }
+  .nav-link.active { color: var(--paper); }
+  .nav-sep { width: 1px; height: 16px; background: rgba(255,255,255,0.15); }
+
+  .page {
+    position: relative; z-index: 1;
+    max-width: 1280px; margin: 0 auto;
+    padding: 24px 20px 48px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 22px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 600; line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+  .subtitle {
+    font-size: 14px; font-style: italic;
+    color: var(--muted); margin-top: 6px;
+  }
+
+  /* CONTROL STRIP */
+  .controls {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 4px;
+    padding: 14px 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+  @media (max-width: 900px) {
+    .controls { grid-template-columns: 1fr 1fr; gap: 12px; }
+  }
+
+  .btn {
+    background: var(--gold);
+    color: var(--ink);
+    border: none; cursor: pointer;
+    padding: 8px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.1em;
+    border-radius: 3px;
+    font-weight: 600;
+    transition: background 0.15s;
+    min-width: 90px;
+  }
+  .btn:hover { background: var(--gold-light); }
+
+  .scrub {
+    -webkit-appearance: none;
+    height: 4px;
+    background: rgba(245,240,232,0.2);
+    border-radius: 2px;
+    outline: none; cursor: pointer;
+    width: 100%;
+  }
+  .scrub::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px; height: 14px;
+    background: var(--gold);
+    border-radius: 50%; cursor: pointer;
+    border: 2px solid var(--paper);
+  }
+
+  .age-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; font-weight: 500;
+    color: var(--paper);
+    min-width: 70px; text-align: center;
+    line-height: 1;
+  }
+  .age-display .label {
+    font-size: 9px;
+    color: rgba(245,240,232,0.5);
+    letter-spacing: 0.15em;
+    display: block; margin-bottom: 3px;
+  }
+
+  .speed-group { display: flex; gap: 4px; }
+  .speed-btn {
+    background: rgba(255,255,255,0.08);
+    color: rgba(245,240,232,0.6);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 5px 9px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+  }
+  .speed-btn:hover { color: var(--paper); }
+  .speed-btn.active {
+    background: var(--gold-light);
+    color: var(--ink);
+    border-color: var(--gold-light);
+  }
+
+  .life-selector {
+    background: rgba(255,255,255,0.08);
+    color: var(--paper);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 7px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  /* GLOBAL STATE STRIP */
+  .global-state {
+    background: rgba(255,255,255,0.5);
+    border: 1.5px solid var(--rule);
+    border-radius: 4px;
+    padding: 12px 18px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 2fr;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  @media (max-width: 900px) {
+    .global-state { grid-template-columns: 1fr 1fr; }
+  }
+  .gs-block {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .gs-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .gs-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; font-weight: 500;
+    color: var(--ink);
+  }
+  .gs-phase {
+    font-style: italic;
+    font-size: 14px;
+    color: #2a2a2a;
+    font-family: 'EB Garamond', serif;
+  }
+  #joySparkline {
+    width: 100%; height: 36px; display: block;
+  }
+
+  /* SURVIVAL STRIP */
+  .survival-strip {
+    background: var(--ink);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .survival-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.18em;
+    color: rgba(245,240,232,0.5);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex; justify-content: space-between;
+  }
+  .survival-label .right {
+    color: var(--gold-light);
+    font-weight: 500;
+  }
+  #survivalCanvas { width: 100%; height: 90px; display: block; }
+
+  /* DIMENSION GRID */
+  .dim-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  @media (max-width: 600px) {
+    .dim-grid { grid-template-columns: 1fr; }
+  }
+
+  .dim-card {
+    background: var(--ink);
+    border-radius: 4px;
+    padding: 16px 16px 12px;
+    position: relative;
+  }
+  .dim-card-header {
+    display: flex; align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .dim-card-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 16px; font-weight: 600;
+  }
+  .dim-card-title.h { color: var(--red-light); }
+  .dim-card-title.w { color: var(--green-light); }
+  .dim-card-title.r { color: var(--blue-light); }
+  .dim-card-title.p { color: var(--purple-light); }
+  .dim-card-var {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: rgba(245,240,232,0.5);
+  }
+  .dim-card canvas {
+    width: 100%; height: 200px; display: block;
+  }
+
+  /* GANTT */
+  .gantt-card {
+    background: rgba(255,255,255,0.5);
+    border: 1.5px solid var(--rule);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+  }
+  .gantt-header {
+    display: flex; justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .gantt-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.18em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  #ganttCanvas {
+    width: 100%; height: 180px; display: block;
+  }
+
+  /* LEGEND */
+  .legend-row {
+    display: flex; flex-wrap: wrap;
+    gap: 18px;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.4);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    font-size: 12px;
+    color: #2a2a2a;
+    margin-bottom: 14px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-line {
+    display: inline-block;
+    width: 26px; height: 2px;
+    border-radius: 1px;
+  }
+
+  .insight {
+    margin-top: 18px;
+    padding: 16px 20px;
+    border-left: 3px solid var(--gold);
+    background: rgba(200,150,12,0.05);
+    font-size: 14px;
+    line-height: 1.6;
+    color: #2a2010;
+  }
+  .insight strong { font-weight: 600; }
+  .insight em { font-style: italic; }
+  .insight + .insight { margin-top: 10px; }
+
+  .footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .footer-sda-link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .footer-sda-link:hover { color: var(--ink); }
+
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-brand">Life Objective Function</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">The Formula</a>
+    <div class="nav-sep"></div>
+    <a href="life-decays.html" class="nav-link">Decay Curves</a>
+    <div class="nav-sep"></div>
+    <a href="the-lives.html" class="nav-link active">The Lives</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="header">
+    <div class="kicker">Watching A Life Unfold</div>
+    <h1>The Lives</h1>
+    <div class="subtitle">A policy doesn't decide one moment. It produces a whole life. Press play.</div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <button class="btn" id="playBtn">Play</button>
+    <input type="range" class="scrub" id="scrub" min="20" max="90" value="20" step="0.1">
+    <div class="age-display">
+      <span class="label">AGE</span>
+      <span id="ageVal">20</span>
+    </div>
+    <div class="speed-group">
+      <button class="speed-btn" data-speed="0.5">0.5x</button>
+      <button class="speed-btn active" data-speed="1">1x</button>
+      <button class="speed-btn" data-speed="2">2x</button>
+      <button class="speed-btn" data-speed="4">4x</button>
+    </div>
+    <select class="life-selector" id="lifeSelect">
+      <optgroup label="Reference">
+        <option value="baseline">Baseline (cultural average)</option>
+      </optgroup>
+      <optgroup label="Common paths">
+        <option value="engineer" selected>Engineer / Family</option>
+        <option value="founder">Founder</option>
+        <option value="athlete">Athlete</option>
+        <option value="artist">Artist / Creative</option>
+        <option value="caregiver">Caregiver</option>
+        <option value="lateBloomer">Late Bloomer</option>
+      </optgroup>
+      <optgroup label="Edge cases">
+        <option value="raver">Raver / Clubber</option>
+        <option value="burnout">Burnout</option>
+        <option value="jonny">Jonny Kim (outlier)</option>
+      </optgroup>
+    </select>
+  </div>
+
+  <!-- GLOBAL STATE -->
+  <div class="global-state">
+    <div class="gs-block">
+      <span class="gs-label">Current Phase</span>
+      <span class="gs-phase" id="phaseLabel">—</span>
+    </div>
+    <div class="gs-block">
+      <span class="gs-label">Happiness $H_t$</span>
+      <span class="gs-value" id="joyVal">—</span>
+    </div>
+    <div class="gs-block">
+      <span class="gs-label">Total $\sum C$</span>
+      <span class="gs-value" id="sumCVal">—</span>
+    </div>
+    <div class="gs-block">
+      <span class="gs-label">Joy trace</span>
+      <canvas id="joySparkline"></canvas>
+    </div>
+  </div>
+
+  <!-- SURVIVAL STRIP -->
+  <div class="survival-strip">
+    <div class="survival-label">
+      <span>Survival &nbsp; $\omega_t$</span>
+      <span class="right" id="survivalVal">—</span>
+    </div>
+    <canvas id="survivalCanvas"></canvas>
+  </div>
+
+  <!-- DIMENSION GRID -->
+  <div class="dim-grid">
+    <div class="dim-card">
+      <div class="dim-card-header">
+        <span class="dim-card-title h">Health</span>
+        <span class="dim-card-var">$h_t$ &nbsp; reality + forecasts</span>
+      </div>
+      <canvas id="healthCanvas"></canvas>
+    </div>
+    <div class="dim-card">
+      <div class="dim-card-header">
+        <span class="dim-card-title w">Wealth</span>
+        <span class="dim-card-var">$w_t$ &nbsp; reality + forecasts</span>
+      </div>
+      <canvas id="wealthCanvas"></canvas>
+    </div>
+    <div class="dim-card">
+      <div class="dim-card-header">
+        <span class="dim-card-title r">Relationships</span>
+        <span class="dim-card-var">$r_t$ &nbsp; reality + forecasts</span>
+      </div>
+      <canvas id="relsCanvas"></canvas>
+    </div>
+    <div class="dim-card">
+      <div class="dim-card-header">
+        <span class="dim-card-title p">Purpose</span>
+        <span class="dim-card-var">$p_t$ &nbsp; reality + forecasts</span>
+      </div>
+      <canvas id="purposeCanvas"></canvas>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend-row">
+    <div class="legend-item">
+      <span class="legend-line" style="background:var(--green);"></span>
+      Reality &mdash; locked once drawn
+    </div>
+    <div class="legend-item">
+      <span class="legend-line" style="background:repeating-linear-gradient(to right, var(--gold-light) 0, var(--gold-light) 4px, transparent 4px, transparent 8px);"></span>
+      Current forecast (full opacity)
+    </div>
+    <div class="legend-item">
+      <span class="legend-line" style="background:repeating-linear-gradient(to right, rgba(240,192,64,0.4) 0, rgba(240,192,64,0.4) 4px, transparent 4px, transparent 8px);"></span>
+      4 prior forecasts &mdash; fading
+    </div>
+    <div class="legend-item">
+      <span class="legend-line" style="background:rgba(192,57,43,0.35); height:8px;"></span>
+      Disappointment ($E > $ reality)
+    </div>
+    <div class="legend-item">
+      <span class="legend-line" style="background:rgba(200,150,12,0.35); height:8px;"></span>
+      Exceeding (reality $> E$)
+    </div>
+  </div>
+
+  <!-- GANTT -->
+  <div class="gantt-card">
+    <div class="gantt-header">
+      <span class="gantt-title">Life Events</span>
+      <span class="gantt-title" id="ganttLifeName">Engineer / Family</span>
+    </div>
+    <canvas id="ganttCanvas"></canvas>
+  </div>
+
+  <!-- INSIGHTS -->
+  <div class="insight">
+    <strong>What you are watching.</strong> Reality (green, in each dimension's color) draws left to right
+    and locks in. The current forecast (gold dashed) extends from the playhead to age 90.
+    The four prior forecasts fade behind it. A new forecast is committed every 2.5 years.
+    The fan of forecasts is the graveyard of imagined futures &mdash; what this person believed
+    about their life, then revised, then revised again.
+    The running $H_t$ metric is happiness &mdash; the expectation gap $\sum_i \lambda_i(i_t - E_t^i)$.
+    Full joy is $J = A(S_t) + \beta \cdot H_t$, where $\beta$ is Expectation Sensitivity,
+    a personal parameter not modeled here.
+  </div>
+
+  <div class="insight">
+    <strong>All of these are fiction.</strong> Every archetype shown here was constructed to illustrate
+    how life events shift state variables and rewrite expectations over time. None are calibrated
+    to actuarial data or empirical studies. The Baseline is the cultural script &mdash; what an average
+    life is supposed to look like. The others are stylized paths designed to make the mechanics visible:
+    watch what a Series B does to a founder's wealth expectations, or what forced retirement does to an
+    athlete's sense of purpose. Switch between them and watch what happens to the four dimensions.
+    You can be anything, but you can't be everything.
+  </div>
+
+  <div class="footer">
+    <div>SDA Framework &mdash; <a href="https://castle.princeton.edu/" target="_blank" rel="noopener noreferrer" class="footer-sda-link">W. Powell</a> &nbsp;|&nbsp; The Lives, v1</div>
+    <div style="font-style:italic; font-family:'EB Garamond', serif; font-size:13px;">
+      Anything but not everything.
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ============================================================
+// CONSTANTS
+// ============================================================
+const AGE_MIN = 20;
+const AGE_MAX = 90;
+const FORECAST_INTERVAL = 2.5;
+const FORECASTS_VISIBLE = 5;
+
+// ============================================================
+// LIFE ARCHETYPES
+//   Each life provides:
+//     reality: { h: fn(age), w: fn(age), r: fn(age), p: fn(age) }
+//     forecastParams: per-dim { optimism0, optimismDecay, ceiling0, ceilingDecay }
+//     gantt: [{ start, end, row, label }]
+//     phases: [{ start, end, label }]
+// ============================================================
+
+// Shared utility
+function sigmoid(x) { return 1 / (1 + Math.exp(-x)); }
+
+// ----- BASELINE -----
+const BASELINE = {
+  reality: {
+    h: (a) => {
+      // Average health: peaks 28, declines moderately
+      if (a <= 28) return 0.55 + 0.25 * (a - 20) / 8;
+      const t = a - 28;
+      return Math.max(0.20, 0.80 - 0.006*t - 0.00018*t*t);
+    },
+    w: (a) => {
+      // Average wealth: modest sigmoid, peaks ~62, draws down
+      const g = 0.10 + 0.55 / (1 + Math.exp(-0.13 * (a - 45)));
+      const d = a > 65 ? 0.005 * (a - 65) : 0;
+      return Math.max(0.10, Math.min(0.65, g - d));
+    },
+    r: (a) => {
+      // Average relationships: builds modestly, mild late-life decline
+      const b = 0.40 + 0.30 * (1 - Math.exp(-0.05 * (a - 20)));
+      const late = a > 75 ? 0.012 * (a - 75) : 0;
+      return Math.max(0.30, Math.min(0.70, b - late));
+    },
+    p: (a) => {
+      // Average purpose: low/modest, slight mid-life dip
+      const base = 0.45 + 0.10 * sigmoid(0.15 * (a - 45));
+      const dip = -0.08 * Math.exp(-0.5 * Math.pow((a - 40) / 8, 2));
+      return Math.max(0.30, base + dip);
+    }
+  },
+  forecastParams: {
+    h: { optimism0: 0.30, optimismDecay: 0.040, ceiling0: 0.85, ceilingDecay: 0.0001 },
+    w: { optimism0: 0.50, optimismDecay: 0.045, ceiling0: 0.85, ceilingDecay: 0.0001 },
+    r: { optimism0: 0.30, optimismDecay: 0.035, ceiling0: 0.80, ceilingDecay: 0.00005 },
+    p: { optimism0: 0.35, optimismDecay: 0.040, ceiling0: 0.75, ceilingDecay: 0.0001 }
+  },
+  gantt: [
+    { start: 22, end: 22, row: 0, label: 'First job' },
+    { start: 26, end: 26, row: 1, label: 'Marriage' },
+    { start: 28, end: 30, row: 1, label: 'Kids' },
+    { start: 35, end: 35, row: 0, label: 'Bought house' },
+    { start: 45, end: 45, row: 2, label: 'First chronic dx' },
+    { start: 55, end: 55, row: 1, label: 'Empty nest' },
+    { start: 65, end: 65, row: 0, label: 'Retired' },
+    { start: 70, end: 70, row: 1, label: 'Grandkids' }
+  ],
+  phases: [
+    { start: 20, end: 25, label: 'Settling in' },
+    { start: 25, end: 35, label: 'Family formation' },
+    { start: 35, end: 50, label: 'Steady-state work' },
+    { start: 50, end: 65, label: 'Late career' },
+    { start: 65, end: 78, label: 'Retirement' },
+    { start: 78, end: 90, label: 'Twilight' }
+  ]
+};
+
+// ----- ENGINEER / FAMILY -----
+const ENGINEER = {
+  reality: {
+    h: (a) => {
+      // Active health policy: peaks 30, slow decline
+      if (a <= 30) return 0.78 + 0.18 * (a - 20) / 10;
+      const t = a - 30;
+      return Math.max(0.30, 0.96 - 0.0040*t - 0.00015*t*t);
+    },
+    w: (a) => {
+      // Engineer wealth: steady sigmoid, peaks 70
+      const g = 0.05 + 0.85 / (1 + Math.exp(-0.13 * (a - 44)));
+      const d = a > 65 ? 0.005 * (a - 65) : 0;
+      return Math.max(0.05, Math.min(0.92, g - d));
+    },
+    r: (a) => {
+      // Strong relationships, sustained
+      const b = 0.40 + 0.50 * (1 - Math.exp(-0.07 * (a - 20)));
+      const late = a > 80 ? 0.013 * (a - 80) : 0;
+      return Math.max(0.35, Math.min(0.92, b - late));
+    },
+    p: (a) => {
+      // Purpose grows, mild mid-life dip, recovers
+      const base = 0.50;
+      const dip = -0.15 * Math.exp(-0.5 * Math.pow((a - 38) / 7, 2));
+      const rise = 0.40 / (1 + Math.exp(-0.10 * (a - 48)));
+      return Math.max(0.35, Math.min(0.92, base + dip + rise));
+    }
+  },
+  forecastParams: {
+    h: { optimism0: 0.40, optimismDecay: 0.040, ceiling0: 0.95, ceilingDecay: 0.0001 },
+    w: { optimism0: 0.70, optimismDecay: 0.045, ceiling0: 0.95, ceilingDecay: 0.0001 },
+    r: { optimism0: 0.50, optimismDecay: 0.030, ceiling0: 0.90, ceilingDecay: 0.00005 },
+    p: { optimism0: 0.50, optimismDecay: 0.035, ceiling0: 0.90, ceilingDecay: 0.0001 }
+  },
+  gantt: [
+    { start: 18, end: 22, row: 0, label: 'Engineering school' },
+    { start: 22, end: 22, row: 0, label: 'First job' },
+    { start: 27, end: 27, row: 1, label: 'Married' },
+    { start: 30, end: 30, row: 1, label: 'Kid 1' },
+    { start: 33, end: 33, row: 1, label: 'Kid 2' },
+    { start: 35, end: 35, row: 0, label: 'Senior engineer' },
+    { start: 42, end: 42, row: 0, label: 'Lead role' },
+    { start: 48, end: 48, row: 1, label: 'Kids leave home' },
+    { start: 52, end: 52, row: 0, label: 'Director' },
+    { start: 60, end: 60, row: 2, label: 'First serious health issue' },
+    { start: 65, end: 65, row: 0, label: 'Retirement' },
+    { start: 70, end: 70, row: 1, label: 'Grandkids' },
+    { start: 75, end: 75, row: 2, label: 'Mobility decline' }
+  ],
+  phases: [
+    { start: 20, end: 25, label: 'Building career' },
+    { start: 25, end: 35, label: 'Family formation' },
+    { start: 35, end: 50, label: 'Mid-career & parenting' },
+    { start: 50, end: 65, label: 'Senior career, empty nest' },
+    { start: 65, end: 78, label: 'Active retirement' },
+    { start: 78, end: 90, label: 'Twilight, family-focused' }
+  ]
+};
+
+// ----- FOUNDER -----
+const FOUNDER = {
+  reality: {
+    h: (a) => {
+      // Founders neglect health in 30s-40s, decent recovery if they make it
+      if (a <= 28) return 0.70 + 0.20 * (a - 20) / 8;
+      if (a <= 45) {
+        const t = a - 28;
+        return Math.max(0.40, 0.90 - 0.018*t);
+      }
+      // Recovery if they survived the grind
+      const t = a - 45;
+      return Math.max(0.30, 0.55 + 0.10 * Math.exp(-0.04 * t) - 0.005*t);
+    },
+    w: (a) => {
+      // Founder wealth: flat for years, then sigmoid take-off, big peak
+      if (a <= 35) {
+        return 0.05 + 0.05 * (a - 20) / 15;
+      }
+      const t = a - 35;
+      const g = 0.10 + 0.85 / (1 + Math.exp(-0.20 * (t - 8)));
+      const d = a > 70 ? 0.003 * (a - 70) : 0;
+      return Math.max(0.05, Math.min(0.97, g - d));
+    },
+    r: (a) => {
+      // Relationships suppressed in 30s, partial recovery later
+      if (a <= 28) return 0.35 + 0.25 * (a - 20) / 8;
+      if (a <= 45) {
+        const t = a - 28;
+        return Math.max(0.20, 0.60 - 0.018*t);
+      }
+      // Recovery if they invest later
+      const t = a - 45;
+      const recovery = 0.35 * (1 - Math.exp(-0.06 * t));
+      const late = a > 80 ? 0.013 * (a - 80) : 0;
+      return Math.max(0.20, Math.min(0.78, 0.32 + recovery - late));
+    },
+    p: (a) => {
+      // High purpose during build, crisis post-exit, redefinition late
+      if (a <= 45) {
+        return 0.55 + 0.30 * sigmoid(0.20 * (a - 32));
+      }
+      // Post-exit crisis around 47-52, recovery
+      const t = a - 45;
+      const crisis = -0.30 * Math.exp(-0.5 * Math.pow((t - 4) / 4, 2));
+      const recovery = 0.35 / (1 + Math.exp(-0.18 * (t - 10)));
+      return Math.max(0.30, Math.min(0.92, 0.78 + crisis + recovery));
+    }
+  },
+  forecastParams: {
+    h: { optimism0: 0.30, optimismDecay: 0.045, ceiling0: 0.92, ceilingDecay: 0.00015 },
+    w: { optimism0: 0.95, optimismDecay: 0.030, ceiling0: 0.99, ceilingDecay: 0.00003 },
+    r: { optimism0: 0.30, optimismDecay: 0.040, ceiling0: 0.78, ceilingDecay: 0.0001 },
+    p: { optimism0: 0.65, optimismDecay: 0.035, ceiling0: 0.95, ceilingDecay: 0.00005 }
+  },
+  gantt: [
+    { start: 22, end: 22, row: 0, label: 'College dropout' },
+    { start: 24, end: 24, row: 0, label: 'First startup (failed)' },
+    { start: 28, end: 28, row: 0, label: 'Founded current co' },
+    { start: 30, end: 30, row: 0, label: 'Seed round' },
+    { start: 32, end: 32, row: 1, label: 'Married' },
+    { start: 34, end: 34, row: 0, label: 'Series A' },
+    { start: 38, end: 38, row: 0, label: 'Series B' },
+    { start: 40, end: 40, row: 2, label: 'Burnout / health crash' },
+    { start: 43, end: 43, row: 0, label: 'Acquisition / IPO' },
+    { start: 47, end: 49, row: 0, label: 'Post-exit identity crisis' },
+    { start: 50, end: 50, row: 1, label: 'Reconnects with spouse' },
+    { start: 55, end: 55, row: 0, label: 'New venture / advising' },
+    { start: 60, end: 60, row: 1, label: 'Late kid (or stepkid)' },
+    { start: 70, end: 70, row: 0, label: 'Philanthropy phase' }
+  ],
+  phases: [
+    { start: 20, end: 28, label: 'Building, failing, learning' },
+    { start: 28, end: 38, label: 'The grind' },
+    { start: 38, end: 45, label: 'The win' },
+    { start: 45, end: 55, label: 'Post-exit reckoning' },
+    { start: 55, end: 70, label: 'Second act' },
+    { start: 70, end: 90, label: 'Legacy' }
+  ]
+};
+
+// ----- ATHLETE -----
+// Peaks early in body and identity. Crisis when the sport ends. Second act
+// is the whole question of the rest of their life.
+const ATHLETE = {
+  reality: {
+    h: (a) => {
+      // Peak physical specimen 22-28, sharp decline as accumulated injuries
+      // catch up, partial recovery if they pivot to longevity work
+      if (a <= 28) return 0.85 + 0.13 * (a - 20) / 8;
+      if (a <= 38) {
+        const t = a - 28;
+        return Math.max(0.40, 0.98 - 0.025*t);  // injury-driven drop
+      }
+      const t = a - 38;
+      // Stabilizes if they take care of themselves; gentle decline
+      return Math.max(0.30, 0.73 - 0.006*t - 0.0002*t*t);
+    },
+    w: (a) => {
+      // Brief peak earnings 25-32, then either coaches/commentary or crashes
+      if (a <= 24) return 0.10 + 0.30 * (a - 20) / 4;
+      if (a <= 32) {
+        const t = a - 24;
+        return 0.40 + 0.40 * sigmoid(0.4 * (t - 3));  // peak earnings
+      }
+      // Post-career: most plateau at modest level, some grow
+      const t = a - 32;
+      return Math.max(0.30, 0.78 - 0.015*t + 0.20 * sigmoid(0.10 * (t - 15)));
+    },
+    r: (a) => {
+      // Strong team bonds early, can fragment after retirement, family later
+      if (a <= 30) return 0.55 + 0.25 * (1 - Math.exp(-0.10 * (a - 20)));
+      if (a <= 38) {
+        const t = a - 30;
+        return Math.max(0.40, 0.78 - 0.020*t);  // teammates scatter
+      }
+      const t = a - 38;
+      const family = 0.35 * (1 - Math.exp(-0.07 * t));
+      const late = a > 80 ? 0.013 * (a - 80) : 0;
+      return Math.max(0.35, Math.min(0.85, 0.55 + family - late));
+    },
+    p: (a) => {
+      // Identity = sport = purpose. When sport ends, purpose collapses,
+      // then must be rebuilt
+      if (a <= 30) return 0.70 + 0.20 * sigmoid(0.30 * (a - 25));
+      if (a <= 38) {
+        const t = a - 30;
+        const collapse = -0.55 * sigmoid(0.5 * (t - 3));  // sharp drop at retirement
+        return Math.max(0.20, 0.85 + collapse);
+      }
+      const t = a - 38;
+      const rebuild = 0.55 * (1 - Math.exp(-0.08 * t));
+      return Math.max(0.30, Math.min(0.85, 0.30 + rebuild));
+    }
+  },
+  forecastParams: {
+    // Athletes have spectacular short-term forecasts that absolutely do not extend
+    h: { optimism0: 0.50, optimismDecay: 0.080, ceiling0: 0.99, ceilingDecay: 0.0003 },
+    w: { optimism0: 0.85, optimismDecay: 0.080, ceiling0: 0.95, ceilingDecay: 0.0002 },
+    r: { optimism0: 0.40, optimismDecay: 0.040, ceiling0: 0.85, ceilingDecay: 0.0001 },
+    p: { optimism0: 0.70, optimismDecay: 0.060, ceiling0: 0.95, ceilingDecay: 0.0002 }
+  },
+  gantt: [
+    { start: 20, end: 22, row: 0, label: 'Pro debut' },
+    { start: 23, end: 25, row: 0, label: 'Breakout season' },
+    { start: 25, end: 25, row: 1, label: 'Met partner' },
+    { start: 26, end: 28, row: 0, label: 'Peak career, championships' },
+    { start: 28, end: 28, row: 2, label: 'First major injury' },
+    { start: 29, end: 29, row: 1, label: 'Married' },
+    { start: 31, end: 31, row: 2, label: 'Second injury' },
+    { start: 33, end: 33, row: 0, label: 'Forced retirement' },
+    { start: 33, end: 36, row: 0, label: 'Identity crisis' },
+    { start: 36, end: 36, row: 1, label: 'First kid' },
+    { start: 38, end: 38, row: 0, label: 'Started coaching' },
+    { start: 45, end: 45, row: 0, label: 'TV commentary gig' },
+    { start: 55, end: 55, row: 2, label: 'Chronic injury catch-up' },
+    { start: 70, end: 70, row: 1, label: 'Grandkids' }
+  ],
+  phases: [
+    { start: 20, end: 28, label: 'On top of the world' },
+    { start: 28, end: 33, label: 'Body breaking down' },
+    { start: 33, end: 38, label: 'Who am I now?' },
+    { start: 38, end: 55, label: 'Building the second act' },
+    { start: 55, end: 75, label: 'Steady second life' },
+    { start: 75, end: 90, label: 'Twilight' }
+  ]
+};
+
+// ----- RAVER / CLUBBER -----
+// Real, unrepeatable peak experience density in 20s. Accumulating cost.
+// Reality is what most people miss when they paint this lifestyle as bad —
+// it is genuinely high in some dimensions and the question is the bill.
+const RAVER = {
+  reality: {
+    h: (a) => {
+      // Strong young, accumulating chemical and sleep debt
+      if (a <= 24) return 0.78 + 0.10 * (a - 20) / 4;
+      if (a <= 32) {
+        const t = a - 24;
+        return Math.max(0.40, 0.88 - 0.022*t);
+      }
+      // Some recover with lifestyle change, many don't
+      const t = a - 32;
+      return Math.max(0.20, 0.70 - 0.012*t - 0.0003*t*t + 0.10 * sigmoid(0.15 * (t - 10)));
+    },
+    w: (a) => {
+      // Service jobs, festival circuit, slow growth at best
+      const g = 0.12 + 0.30 * (1 - Math.exp(-0.04 * (a - 20)));
+      const d = a > 65 ? 0.005 * (a - 65) : 0;
+      return Math.max(0.10, Math.min(0.45, g - d));
+    },
+    r: (a) => {
+      // Massive social peak in 20s — nothing else like it. Then scatter.
+      if (a <= 28) {
+        return 0.55 + 0.40 * Math.exp(-0.5 * Math.pow((a - 25) / 4, 2));
+      }
+      const t = a - 28;
+      // Sharp decline as the scene scatters and friendships were shallow
+      const decline = -0.40 * (1 - Math.exp(-0.06 * t));
+      // Slow recovery via deeper but smaller relationships
+      const recovery = 0.20 * sigmoid(0.10 * (t - 12));
+      const late = a > 75 ? 0.013 * (a - 75) : 0;
+      return Math.max(0.20, Math.min(0.85, 0.85 + decline + recovery - late));
+    },
+    p: (a) => {
+      // Genuine purpose-feeling in the scene: belonging, intensity, transcendence.
+      // When the scene ends, the purpose dies with it.
+      if (a <= 28) {
+        return 0.60 + 0.20 * Math.exp(-0.5 * Math.pow((a - 24) / 5, 2));
+      }
+      const t = a - 28;
+      const collapse = -0.50 * sigmoid(0.4 * (t - 2));
+      const rebuild = 0.40 * sigmoid(0.08 * (t - 15));
+      return Math.max(0.15, Math.min(0.75, 0.78 + collapse + rebuild));
+    }
+  },
+  forecastParams: {
+    // Raver expectations are present-focused — they don't really forecast far out
+    h: { optimism0: 0.20, optimismDecay: 0.050, ceiling0: 0.85, ceilingDecay: 0.0002 },
+    w: { optimism0: 0.30, optimismDecay: 0.050, ceiling0: 0.55, ceilingDecay: 0.0001 },
+    r: { optimism0: 0.40, optimismDecay: 0.060, ceiling0: 0.85, ceilingDecay: 0.0002 },
+    p: { optimism0: 0.30, optimismDecay: 0.055, ceiling0: 0.70, ceilingDecay: 0.0002 }
+  },
+  gantt: [
+    { start: 20, end: 22, row: 0, label: 'Bartending / odd jobs' },
+    { start: 21, end: 27, row: 1, label: 'Scene at peak' },
+    { start: 22, end: 22, row: 0, label: 'Festival circuit' },
+    { start: 25, end: 25, row: 2, label: 'First substance issue' },
+    { start: 28, end: 28, row: 1, label: 'Best friend overdosed' },
+    { start: 30, end: 30, row: 1, label: 'Scene scattering' },
+    { start: 31, end: 31, row: 0, label: 'Tried to "go normal"' },
+    { start: 33, end: 33, row: 2, label: 'Health scare' },
+    { start: 35, end: 38, row: 0, label: 'Career restart' },
+    { start: 40, end: 40, row: 1, label: 'New, smaller circle' },
+    { start: 45, end: 45, row: 2, label: 'Sobriety' },
+    { start: 55, end: 55, row: 1, label: 'Late partnership' },
+    { start: 65, end: 65, row: 0, label: 'Modest retirement' },
+    { start: 70, end: 70, row: 2, label: 'The bill comes due' }
+  ],
+  phases: [
+    { start: 20, end: 28, label: 'Living the scene' },
+    { start: 28, end: 33, label: 'Scene fading, can\'t name why it hurts' },
+    { start: 33, end: 40, label: 'Trying to rebuild' },
+    { start: 40, end: 55, label: 'Stable but quieter' },
+    { start: 55, end: 70, label: 'Late settling' },
+    { start: 70, end: 90, label: 'Reckoning with the body' }
+  ]
+};
+
+// ----- JONNY KIM OUTLIER -----
+// SEAL, MD, astronaut. The upper edge of what's physically possible.
+// The point is: yes it's real, here's the price, and you can see it.
+const JONNY_KIM = {
+  reality: {
+    h: (a) => {
+      // Elite physical maintenance throughout. Costs sleep but maintained.
+      if (a <= 28) return 0.85 + 0.13 * (a - 20) / 8;
+      const t = a - 28;
+      return Math.max(0.40, 0.98 - 0.0030*t - 0.00012*t*t);
+    },
+    w: (a) => {
+      // Decent military pay → MD income → astronaut → speaking. Solid not extravagant.
+      const g = 0.15 + 0.65 / (1 + Math.exp(-0.15 * (a - 42)));
+      const d = a > 75 ? 0.003 * (a - 75) : 0;
+      return Math.max(0.15, Math.min(0.82, g - d));
+    },
+    r: (a) => {
+      // The bill. Compressed family time during deployments and med school.
+      // Stable marriage but kids see less of him. Recovers post-astronaut.
+      if (a <= 25) return 0.50 + 0.20 * (a - 20) / 5;
+      if (a <= 45) {
+        // Suppressed during the multi-career period
+        const t = a - 25;
+        return Math.max(0.40, 0.70 - 0.010*t);
+      }
+      // Post-mission family focus
+      const t = a - 45;
+      const recovery = 0.30 * (1 - Math.exp(-0.06 * t));
+      const late = a > 80 ? 0.013 * (a - 80) : 0;
+      return Math.max(0.40, Math.min(0.85, 0.50 + recovery - late));
+    },
+    p: (a) => {
+      // Through the roof. Each new mission rekindles it. Late: legacy + service.
+      if (a <= 25) return 0.65 + 0.20 * (a - 20) / 5;
+      const t = a - 25;
+      // Series of purpose peaks for each career chapter
+      const seal = 0.05 * Math.exp(-0.5 * Math.pow((t - 3) / 3, 2));
+      const med = 0.05 * Math.exp(-0.5 * Math.pow((t - 12) / 4, 2));
+      const astro = 0.05 * Math.exp(-0.5 * Math.pow((t - 22) / 5, 2));
+      const base = 0.85 + 0.05 * sigmoid(0.10 * (t - 30));
+      return Math.max(0.50, Math.min(0.97, base + seal + med + astro));
+    }
+  },
+  forecastParams: {
+    // Jonny's forecasts are aggressive but grounded — he believes in the next mission
+    h: { optimism0: 0.40, optimismDecay: 0.040, ceiling0: 0.97, ceilingDecay: 0.0001 },
+    w: { optimism0: 0.55, optimismDecay: 0.045, ceiling0: 0.85, ceilingDecay: 0.0001 },
+    r: { optimism0: 0.45, optimismDecay: 0.040, ceiling0: 0.85, ceilingDecay: 0.0001 },
+    p: { optimism0: 0.70, optimismDecay: 0.030, ceiling0: 0.97, ceilingDecay: 0.00005 }
+  },
+  gantt: [
+    { start: 18, end: 18, row: 0, label: 'Enlisted Navy' },
+    { start: 19, end: 22, row: 0, label: 'Navy SEAL training & deployments' },
+    { start: 22, end: 25, row: 0, label: '100+ combat missions' },
+    { start: 26, end: 26, row: 1, label: 'Married' },
+    { start: 27, end: 31, row: 0, label: 'Undergrad in Mathematics' },
+    { start: 28, end: 28, row: 1, label: 'Kid 1' },
+    { start: 31, end: 31, row: 1, label: 'Kid 2' },
+    { start: 31, end: 35, row: 0, label: 'Harvard Medical School' },
+    { start: 35, end: 35, row: 1, label: 'Kid 3' },
+    { start: 35, end: 38, row: 0, label: 'Residency' },
+    { start: 38, end: 38, row: 0, label: 'Selected for NASA' },
+    { start: 38, end: 42, row: 0, label: 'Astronaut training' },
+    { start: 40, end: 40, row: 2, label: 'Sleep debt accumulating' },
+    { start: 42, end: 45, row: 0, label: 'First spaceflight prep' },
+    { start: 45, end: 50, row: 0, label: 'ISS missions' },
+    { start: 50, end: 55, row: 1, label: 'Family-focused years' },
+    { start: 55, end: 55, row: 0, label: 'Public service / speaking' },
+    { start: 65, end: 65, row: 2, label: 'Catching up on rest' },
+    { start: 70, end: 70, row: 1, label: 'Grandkids' }
+  ],
+  phases: [
+    { start: 20, end: 25, label: 'SEAL — combat operator' },
+    { start: 25, end: 35, label: 'Education compressed' },
+    { start: 35, end: 42, label: 'MD + astronaut selection' },
+    { start: 42, end: 50, label: 'Spaceflight years' },
+    { start: 50, end: 65, label: 'Service + family' },
+    { start: 65, end: 90, label: 'Legacy phase' }
+  ]
+};
+
+// ----- ARTIST / CREATIVE -----
+// Modest wealth ceiling, high purpose volatility, late recognition or none.
+const ARTIST = {
+  reality: {
+    h: (a) => {
+      // Decent young, somewhat erratic later (irregular life, less structured care)
+      if (a <= 30) return 0.72 + 0.18 * (a - 20) / 10;
+      const t = a - 30;
+      return Math.max(0.30, 0.90 - 0.008*t - 0.00018*t*t);
+    },
+    w: (a) => {
+      // Long flat poverty, occasional spikes, late asymptote at modest middle-class
+      let base = 0.12 + 0.20 * (1 - Math.exp(-0.04 * (a - 20)));
+      // Possible breakthrough around 40-50
+      if (a >= 40) {
+        const t = a - 40;
+        base += 0.30 * sigmoid(0.18 * (t - 8));
+      }
+      const d = a > 70 ? 0.003 * (a - 70) : 0;
+      return Math.max(0.10, Math.min(0.65, base - d));
+    },
+    r: (a) => {
+      // Bohemian network, intense friendships, romantic volatility
+      if (a <= 30) return 0.45 + 0.30 * (1 - Math.exp(-0.08 * (a - 20)));
+      const t = a - 30;
+      // Modest decline through 40s as scene scatters, partial recovery
+      const wobble = -0.10 * Math.exp(-0.5 * Math.pow((t - 10) / 6, 2));
+      const stable = 0.15 * sigmoid(0.10 * (t - 15));
+      const late = a > 80 ? 0.013 * (a - 80) : 0;
+      return Math.max(0.30, Math.min(0.80, 0.65 + wobble + stable - late));
+    },
+    p: (a) => {
+      // Volatile. Highs of creative breakthrough, valleys of doubt.
+      // Trends upward overall as identity crystallizes.
+      const base = 0.55 + 0.25 * (1 - Math.exp(-0.05 * (a - 20)));
+      const wobble1 = -0.20 * Math.exp(-0.5 * Math.pow((a - 32) / 4, 2));  // 30s doubt
+      const breakthrough = 0.15 * sigmoid(0.10 * (a - 48));  // late recognition
+      return Math.max(0.30, Math.min(0.92, base + wobble1 + breakthrough));
+    }
+  },
+  forecastParams: {
+    h: { optimism0: 0.30, optimismDecay: 0.045, ceiling0: 0.85, ceilingDecay: 0.0001 },
+    w: { optimism0: 0.85, optimismDecay: 0.040, ceiling0: 0.95, ceilingDecay: 0.0002 },  // dreams of breakthrough
+    r: { optimism0: 0.35, optimismDecay: 0.035, ceiling0: 0.80, ceilingDecay: 0.0001 },
+    p: { optimism0: 0.75, optimismDecay: 0.030, ceiling0: 0.97, ceilingDecay: 0.00003 }
+  },
+  gantt: [
+    { start: 20, end: 24, row: 0, label: 'Art school / apprenticeship' },
+    { start: 24, end: 30, row: 0, label: 'Working day jobs, making art at night' },
+    { start: 26, end: 26, row: 1, label: 'First serious relationship' },
+    { start: 28, end: 28, row: 0, label: 'First small show' },
+    { start: 30, end: 30, row: 1, label: 'Breakup' },
+    { start: 32, end: 35, row: 0, label: 'Self-doubt years' },
+    { start: 35, end: 35, row: 0, label: 'Modest critical attention' },
+    { start: 38, end: 38, row: 1, label: 'Long partnership begins' },
+    { start: 42, end: 42, row: 0, label: 'Mid-career retrospective' },
+    { start: 50, end: 50, row: 0, label: 'Real recognition' },
+    { start: 55, end: 55, row: 1, label: 'Stepfamily' },
+    { start: 65, end: 65, row: 2, label: 'Hands giving out' },
+    { start: 75, end: 75, row: 0, label: 'Late masterworks' }
+  ],
+  phases: [
+    { start: 20, end: 28, label: 'Apprenticing the craft' },
+    { start: 28, end: 35, label: 'In the wilderness' },
+    { start: 35, end: 50, label: 'Building the body of work' },
+    { start: 50, end: 65, label: 'Recognition and prime' },
+    { start: 65, end: 78, label: 'Late masterworks' },
+    { start: 78, end: 90, label: 'Living legacy' }
+  ]
+};
+
+// ----- CAREGIVER -----
+// Purpose driven by serving family. Strong relationships. Health and wealth pay the cost.
+const CAREGIVER = {
+  reality: {
+    h: (a) => {
+      // Decent young, eroded by sustained caregiver stress
+      if (a <= 28) return 0.78 + 0.12 * (a - 20) / 8;
+      const t = a - 28;
+      return Math.max(0.30, 0.90 - 0.009*t - 0.00020*t*t);
+    },
+    w: (a) => {
+      // Career sacrificed for caregiving. Modest growth, capped low.
+      const g = 0.12 + 0.40 * (1 - Math.exp(-0.06 * (a - 20)));
+      const d = a > 65 ? 0.005 * (a - 65) : 0;
+      return Math.max(0.10, Math.min(0.55, g - d));
+    },
+    r: (a) => {
+      // Deep family bonds, very strong throughout
+      const b = 0.55 + 0.40 * (1 - Math.exp(-0.08 * (a - 20)));
+      // Loss waves: aging parent dies, then partner
+      const lossA = a > 50 ? -0.10 * sigmoid(0.5 * (a - 52)) : 0;
+      const lossB = a > 75 ? -0.15 * sigmoid(0.4 * (a - 78)) : 0;
+      return Math.max(0.40, Math.min(0.95, b + lossA + lossB));
+    },
+    p: (a) => {
+      // Strong, derived from service. Mild crisis when caregiving role ends.
+      if (a <= 50) return 0.65 + 0.20 * (1 - Math.exp(-0.06 * (a - 20)));
+      const t = a - 50;
+      const transition = -0.15 * Math.exp(-0.5 * Math.pow((t - 5) / 5, 2));
+      const renewal = 0.15 * sigmoid(0.10 * (t - 12));
+      return Math.max(0.45, Math.min(0.92, 0.85 + transition + renewal));
+    }
+  },
+  forecastParams: {
+    h: { optimism0: 0.25, optimismDecay: 0.040, ceiling0: 0.85, ceilingDecay: 0.0002 },
+    w: { optimism0: 0.30, optimismDecay: 0.040, ceiling0: 0.65, ceilingDecay: 0.0001 },
+    r: { optimism0: 0.45, optimismDecay: 0.030, ceiling0: 0.92, ceilingDecay: 0.00003 },
+    p: { optimism0: 0.40, optimismDecay: 0.030, ceiling0: 0.92, ceilingDecay: 0.00005 }
+  },
+  gantt: [
+    { start: 22, end: 22, row: 0, label: 'First job' },
+    { start: 25, end: 25, row: 1, label: 'Married' },
+    { start: 27, end: 27, row: 1, label: 'Kid 1' },
+    { start: 30, end: 30, row: 1, label: 'Kid 2' },
+    { start: 32, end: 38, row: 0, label: 'Career sacrificed for kids' },
+    { start: 40, end: 40, row: 1, label: 'Mom diagnosed (caregiving begins)' },
+    { start: 42, end: 50, row: 1, label: 'Caring for aging parent' },
+    { start: 50, end: 50, row: 1, label: 'Mom dies' },
+    { start: 52, end: 55, row: 0, label: 'Returned to work' },
+    { start: 55, end: 55, row: 2, label: 'Caregiver burnout dx' },
+    { start: 60, end: 65, row: 1, label: 'Caring for spouse' },
+    { start: 67, end: 67, row: 1, label: 'Spouse passes' },
+    { start: 70, end: 70, row: 1, label: 'Found new community' },
+    { start: 80, end: 80, row: 2, label: 'Frailty' }
+  ],
+  phases: [
+    { start: 20, end: 27, label: 'Starting out' },
+    { start: 27, end: 40, label: 'Raising children' },
+    { start: 40, end: 50, label: 'Caring for parents' },
+    { start: 50, end: 60, label: 'Brief return to self' },
+    { start: 60, end: 70, label: 'Caring for partner' },
+    { start: 70, end: 90, label: 'Living for grandkids' }
+  ]
+};
+
+// ----- BURNOUT -----
+// Engineer/founder track that breaks at 40 and never quite recovers.
+const BURNOUT = {
+  reality: {
+    h: (a) => {
+      // Pushed too hard, broke
+      if (a <= 28) return 0.78 + 0.15 * (a - 20) / 8;
+      if (a <= 40) {
+        const t = a - 28;
+        return Math.max(0.40, 0.93 - 0.022*t);
+      }
+      // Crashed and never quite recovered
+      const t = a - 40;
+      return Math.max(0.20, 0.50 - 0.008*t + 0.10 * sigmoid(0.10 * (t - 15)));
+    },
+    w: (a) => {
+      // Climbing, peaks ~38-40, then plateau or decline as career stalls
+      if (a <= 38) {
+        return 0.05 + 0.65 / (1 + Math.exp(-0.18 * (a - 32)));
+      }
+      const t = a - 38;
+      // Plateau, slight erosion
+      return Math.max(0.30, Math.min(0.78, 0.72 - 0.005*t));
+    },
+    r: (a) => {
+      // Suppressed by career, then suppressed by depression/illness
+      if (a <= 28) return 0.40 + 0.20 * (a - 20) / 8;
+      if (a <= 38) {
+        const t = a - 28;
+        return Math.max(0.30, 0.60 - 0.015*t);
+      }
+      // Some support but isolation creeps in
+      const t = a - 38;
+      return Math.max(0.25, 0.45 - 0.005*t + 0.10 * sigmoid(0.08 * (t - 18)));
+    },
+    p: (a) => {
+      // Strong purpose into 30s, collapse, partial reorganization, never reaches former heights
+      if (a <= 38) return 0.55 + 0.30 * sigmoid(0.20 * (a - 30));
+      const t = a - 38;
+      const collapse = -0.40 * sigmoid(0.4 * (t - 2));
+      const recovery = 0.25 * sigmoid(0.07 * (t - 15));
+      return Math.max(0.20, Math.min(0.75, 0.85 + collapse + recovery));
+    }
+  },
+  forecastParams: {
+    h: { optimism0: 0.40, optimismDecay: 0.060, ceiling0: 0.90, ceilingDecay: 0.0002 },
+    w: { optimism0: 0.75, optimismDecay: 0.055, ceiling0: 0.95, ceilingDecay: 0.00015 },
+    r: { optimism0: 0.30, optimismDecay: 0.050, ceiling0: 0.75, ceilingDecay: 0.0001 },
+    p: { optimism0: 0.70, optimismDecay: 0.060, ceiling0: 0.95, ceilingDecay: 0.0002 }
+  },
+  gantt: [
+    { start: 22, end: 22, row: 0, label: 'First job' },
+    { start: 27, end: 27, row: 0, label: 'Promoted fast' },
+    { start: 30, end: 30, row: 1, label: 'Married' },
+    { start: 32, end: 32, row: 0, label: 'Director title' },
+    { start: 35, end: 35, row: 0, label: 'VP role' },
+    { start: 38, end: 38, row: 0, label: 'Hit the wall' },
+    { start: 38, end: 40, row: 2, label: 'Mental health crisis' },
+    { start: 39, end: 39, row: 1, label: 'Marriage strain' },
+    { start: 40, end: 41, row: 0, label: 'Took leave' },
+    { start: 42, end: 42, row: 0, label: 'Returned, lower role' },
+    { start: 45, end: 45, row: 1, label: 'Divorce' },
+    { start: 48, end: 48, row: 2, label: 'Started therapy' },
+    { start: 55, end: 55, row: 0, label: 'Quiet steady job' },
+    { start: 65, end: 65, row: 0, label: 'Modest retirement' }
+  ],
+  phases: [
+    { start: 20, end: 30, label: 'Climbing fast' },
+    { start: 30, end: 38, label: 'At the top of the climb' },
+    { start: 38, end: 42, label: 'The crash' },
+    { start: 42, end: 55, label: 'Slow rebuild' },
+    { start: 55, end: 70, label: 'Steady but smaller' },
+    { start: 70, end: 90, label: 'Quiet years' }
+  ]
+};
+
+// ----- LATE BLOOMER -----
+// Flat through 40s, takes off at 50, peak in 60s.
+const LATE_BLOOMER = {
+  reality: {
+    h: (a) => {
+      // Average young, takes care of themselves later
+      if (a <= 30) return 0.65 + 0.18 * (a - 20) / 10;
+      const t = a - 30;
+      return Math.max(0.35, 0.83 - 0.005*t - 0.00012*t*t);
+    },
+    w: (a) => {
+      // Flat for decades, then a real climb starting in late 40s
+      if (a <= 45) {
+        return 0.15 + 0.10 * (a - 20) / 25;
+      }
+      const t = a - 45;
+      const g = 0.25 + 0.55 / (1 + Math.exp(-0.15 * (t - 10)));
+      const d = a > 75 ? 0.004 * (a - 75) : 0;
+      return Math.max(0.15, Math.min(0.82, g - d));
+    },
+    r: (a) => {
+      // Quiet network early, deepens slowly, finds people in midlife
+      const b = 0.40 + 0.45 * (1 - Math.exp(-0.05 * (a - 20)));
+      const late = a > 80 ? 0.012 * (a - 80) : 0;
+      return Math.max(0.35, Math.min(0.88, b - late));
+    },
+    p: (a) => {
+      // Searching for years, finds it late, then strong
+      if (a <= 45) {
+        // Wandering
+        return 0.40 + 0.10 * (1 - Math.exp(-0.04 * (a - 20))) + 0.10 * Math.sin(0.4 * (a - 20));
+      }
+      const t = a - 45;
+      const found = 0.45 * sigmoid(0.18 * (t - 5));
+      return Math.max(0.30, Math.min(0.92, 0.50 + found));
+    }
+  },
+  forecastParams: {
+    h: { optimism0: 0.35, optimismDecay: 0.030, ceiling0: 0.88, ceilingDecay: 0.00008 },
+    w: { optimism0: 0.55, optimismDecay: 0.030, ceiling0: 0.92, ceilingDecay: 0.00008 },
+    r: { optimism0: 0.40, optimismDecay: 0.025, ceiling0: 0.92, ceilingDecay: 0.00005 },
+    p: { optimism0: 0.55, optimismDecay: 0.025, ceiling0: 0.95, ceilingDecay: 0.00005 }
+  },
+  gantt: [
+    { start: 22, end: 22, row: 0, label: 'First job (unrelated)' },
+    { start: 25, end: 30, row: 0, label: 'Series of jobs' },
+    { start: 28, end: 28, row: 1, label: 'First marriage' },
+    { start: 32, end: 32, row: 1, label: 'Divorce' },
+    { start: 35, end: 40, row: 0, label: 'Wandering years' },
+    { start: 42, end: 42, row: 0, label: 'Career pivot to true field' },
+    { start: 45, end: 45, row: 1, label: 'Met life partner' },
+    { start: 48, end: 48, row: 0, label: 'Real recognition begins' },
+    { start: 52, end: 52, row: 0, label: 'Promotion, leadership role' },
+    { start: 55, end: 55, row: 1, label: 'Stable found family' },
+    { start: 60, end: 65, row: 0, label: 'Peak influence' },
+    { start: 65, end: 65, row: 0, label: 'Books / projects published' },
+    { start: 75, end: 75, row: 2, label: 'Begin slowing down' }
+  ],
+  phases: [
+    { start: 20, end: 28, label: 'Drifting' },
+    { start: 28, end: 35, label: 'False starts' },
+    { start: 35, end: 45, label: 'Wandering with intent' },
+    { start: 45, end: 60, label: 'Finally on the path' },
+    { start: 60, end: 75, label: 'Peak years' },
+    { start: 75, end: 90, label: 'Hard-won twilight' }
+  ]
+};
+
+const LIVES = {
+  baseline:    BASELINE,
+  engineer:    ENGINEER,
+  founder:     FOUNDER,
+  athlete:     ATHLETE,
+  raver:       RAVER,
+  artist:      ARTIST,
+  caregiver:   CAREGIVER,
+  burnout:     BURNOUT,
+  lateBloomer: LATE_BLOOMER,
+  jonny:       JONNY_KIM
+};
+const LIFE_NAMES = {
+  baseline:    'Baseline (cultural average)',
+  engineer:    'Engineer / Family',
+  founder:     'Founder',
+  athlete:     'Athlete',
+  raver:       'Raver / Clubber',
+  artist:      'Artist / Creative',
+  caregiver:   'Caregiver',
+  burnout:     'Burnout',
+  lateBloomer: 'Late Bloomer',
+  jonny:       'Jonny Kim (outlier)'
+};
+
+let currentLifeKey = 'engineer';
+let currentLife = LIVES[currentLifeKey];
+
+// ============================================================
+// FORECAST RULE — same shape as prototype, parameterized per dim/life
+// ============================================================
+function forecast(life, dim, now, future) {
+  if (future < now) return null;
+  const params = life.forecastParams[dim];
+  const wNow = life.reality[dim](now);
+  const optimism = Math.max(0.02, params.optimism0 * Math.exp(-params.optimismDecay * (now - 20)));
+  const ceiling = Math.min(0.98, params.ceiling0 - params.ceilingDecay * (now - 20) * (now - 20));
+  const yearsOut = future - now;
+  const climb = optimism * (1 - Math.exp(-0.06 * yearsOut));
+  const projected = wNow + climb;
+  const result = projected > ceiling
+    ? ceiling - (ceiling - wNow) * Math.exp(-0.04 * yearsOut)
+    : projected;
+  return Math.max(0.03, Math.min(0.98, result));
+}
+
+function visibleForecastAges(currentAge) {
+  const mostRecent = Math.floor((currentAge - AGE_MIN) / FORECAST_INTERVAL) * FORECAST_INTERVAL + AGE_MIN;
+  const ages = [];
+  for (let i = FORECASTS_VISIBLE - 1; i >= 0; i--) {
+    const a = mostRecent - i * FORECAST_INTERVAL;
+    if (a >= AGE_MIN) ages.push(a);
+  }
+  return ages;
+}
+
+// At any past age `a`, the expectation in force was forecast(spawn, a)
+// where spawn is the most recent forecast spawn <= a.
+function expectationAtPastAge(life, dim, a) {
+  if (a < AGE_MIN) return 0;
+  const spawnAge = Math.floor((a - AGE_MIN) / FORECAST_INTERVAL) * FORECAST_INTERVAL + AGE_MIN;
+  return forecast(life, dim, spawnAge, a);
+}
+
+// ============================================================
+// SURVIVAL — endogenous to h, r, p
+// ============================================================
+function computeSurvivalArray(life) {
+  const out = [];
+  let pi = 1.0;
+  for (let a = AGE_MIN; a <= AGE_MAX; a += 0.5) {
+    const h = life.reality.h(a);
+    const r = life.reality.r(a);
+    const p = life.reality.p(a);
+    const baseRate = 0.00038 * Math.exp(0.088 * (a - 20));
+    const hF = 2.4 - 1.5 * h;
+    const rF = 1.7 - 0.9 * r;
+    const pF = 1.4 - 0.5 * p;
+    const mu = baseRate * hF * rF * pF * 0.5;  // half-step
+    pi *= Math.max(0, 1 - mu);
+    out.push({ age: a, val: Math.max(0, pi) });
+  }
+  return out;
+}
+
+let survivalArr = computeSurvivalArray(currentLife);
+function survivalAt(a) {
+  // linear interp into survivalArr
+  if (a <= AGE_MIN) return 1.0;
+  if (a >= AGE_MAX) return survivalArr[survivalArr.length-1].val;
+  const idx = (a - AGE_MIN) / 0.5;
+  const i0 = Math.floor(idx), i1 = Math.min(i0+1, survivalArr.length-1);
+  const t = idx - i0;
+  return survivalArr[i0].val * (1-t) + survivalArr[i1].val * t;
+}
+
+// ============================================================
+// HAPPINESS / CONTRIBUTION
+// H_t = sum lambda_i * (i_t - E_t^i)  [expectation gap — happiness]
+// J(S_t, E_t) = A(S_t) + beta * H_t   [full joy — beta not modeled here]
+// C(S_t) = omega_t * H_t              [contribution using happiness as proxy]
+// Use equal weights for now (lambda = 0.25 each).
+// ============================================================
+const LAMBDAS = { h: 0.25, w: 0.25, r: 0.25, p: 0.25 };
+
+function joyAt(life, a) {
+  let j = 0;
+  for (const dim of ['h','w','r','p']) {
+    const real = life.reality[dim](a);
+    const exp  = expectationAtPastAge(life, dim, a);
+    j += LAMBDAS[dim] * (real - exp);
+  }
+  return j;
+}
+
+function contributionAt(life, a) {
+  return survivalAt(a) * joyAt(life, a);
+}
+
+// Precompute joy/sumC arrays for sparkline + accumulator
+let joyArr = [];
+let sumCArr = [];
+function recomputeAggregates() {
+  joyArr = [];
+  sumCArr = [];
+  let cumC = 0;
+  for (let a = AGE_MIN; a <= AGE_MAX; a += 0.5) {
+    const j = joyAt(currentLife, a);
+    const c = survivalAt(a) * j;
+    cumC += c * 0.5;
+    joyArr.push({ age: a, val: j });
+    sumCArr.push({ age: a, val: cumC });
+  }
+}
+
+function joyValueAt(a) {
+  if (a <= AGE_MIN) return joyArr[0].val;
+  if (a >= AGE_MAX) return joyArr[joyArr.length-1].val;
+  const idx = (a - AGE_MIN) / 0.5;
+  const i0 = Math.floor(idx), i1 = Math.min(i0+1, joyArr.length-1);
+  const t = idx - i0;
+  return joyArr[i0].val * (1-t) + joyArr[i1].val * t;
+}
+function sumCValueAt(a) {
+  if (a <= AGE_MIN) return 0;
+  if (a >= AGE_MAX) return sumCArr[sumCArr.length-1].val;
+  const idx = (a - AGE_MIN) / 0.5;
+  const i0 = Math.floor(idx), i1 = Math.min(i0+1, sumCArr.length-1);
+  const t = idx - i0;
+  return sumCArr[i0].val * (1-t) + sumCArr[i1].val * t;
+}
+
+function currentPhase(life, a) {
+  for (const phase of life.phases) {
+    if (a >= phase.start && a < phase.end) return phase.label;
+  }
+  return life.phases[life.phases.length-1].label;
+}
+
+// ============================================================
+// CANVAS HELPERS
+// ============================================================
+function setupCanvas(canvas) {
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { ctx, w: rect.width, h: rect.height };
+}
+
+// ============================================================
+// DIMENSION CHART (the fan-of-forecasts)
+// ============================================================
+function renderDimChart(canvas, life, dim, currentAge, color) {
+  const { ctx, w, h } = setupCanvas(canvas);
+  const PAD_L = 36, PAD_R = 14, PAD_T = 8, PAD_B = 22;
+  const plotW = w - PAD_L - PAD_R;
+  const plotH = h - PAD_T - PAD_B;
+  const xFor = (a) => PAD_L + (a - AGE_MIN) / (AGE_MAX - AGE_MIN) * plotW;
+  const yFor = (v) => PAD_T + (1 - v) * plotH;
+
+  ctx.clearRect(0, 0, w, h);
+
+  // Axes / grid
+  ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+  ctx.lineWidth = 1;
+  for (let v = 0; v <= 1; v += 0.25) {
+    const y = yFor(v);
+    ctx.beginPath(); ctx.moveTo(PAD_L, y); ctx.lineTo(PAD_L+plotW, y); ctx.stroke();
+  }
+  for (let a = AGE_MIN; a <= AGE_MAX; a += 10) {
+    const x = xFor(a);
+    ctx.beginPath(); ctx.moveTo(x, PAD_T); ctx.lineTo(x, PAD_T+plotH); ctx.stroke();
+  }
+
+  // Axis labels
+  ctx.fillStyle = 'rgba(245,240,232,0.4)';
+  ctx.font = '9px "JetBrains Mono", monospace';
+  ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+  for (let v = 0; v <= 1; v += 0.25) {
+    ctx.fillText(`${(v*100).toFixed(0)}%`, PAD_L - 5, yFor(v));
+  }
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  for (let a = AGE_MIN; a <= AGE_MAX; a += 10) {
+    ctx.fillText(a, xFor(a), PAD_T + plotH + 5);
+  }
+
+  // Disappointment / exceeding shading (between past reality and past expectations)
+  const step = 1;
+  for (let a = AGE_MIN; a < currentAge; a += step) {
+    const a2 = Math.min(a + step, currentAge);
+    const w1 = life.reality[dim](a), w2 = life.reality[dim](a2);
+    const e1 = expectationAtPastAge(life, dim, a), e2 = expectationAtPastAge(life, dim, a2);
+    const wAvg = (w1 + w2) / 2, eAvg = (e1 + e2) / 2;
+
+    ctx.beginPath();
+    ctx.moveTo(xFor(a),  yFor(w1));
+    ctx.lineTo(xFor(a2), yFor(w2));
+    ctx.lineTo(xFor(a2), yFor(e2));
+    ctx.lineTo(xFor(a),  yFor(e1));
+    ctx.closePath();
+    ctx.fillStyle = eAvg > wAvg ? 'rgba(192,57,43,0.22)' : 'rgba(240,192,64,0.20)';
+    ctx.fill();
+  }
+
+  // Fan of forecasts (5 lines, fading)
+  const fAges = visibleForecastAges(currentAge);
+  const opacityLevels = [0.15, 0.30, 0.50, 0.75, 1.00];
+  fAges.forEach((spawnAge, idx) => {
+    const reverseIdx = fAges.length - 1 - idx;
+    const opacity = opacityLevels[opacityLevels.length - 1 - reverseIdx];
+    const isCurrent = (idx === fAges.length - 1);
+
+    ctx.strokeStyle = `rgba(240,192,64,${opacity})`;
+    ctx.lineWidth = isCurrent ? 1.8 : 1.3;
+    ctx.setLineDash([4, 3]);
+    ctx.beginPath();
+    let started = false;
+    for (let a = spawnAge; a <= AGE_MAX; a += 1) {
+      const y = yFor(forecast(life, dim, spawnAge, a));
+      const x = xFor(a);
+      if (!started) { ctx.moveTo(x, y); started = true; }
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    if (!isCurrent) {
+      ctx.fillStyle = `rgba(240,192,64,${opacity * 0.7})`;
+      ctx.beginPath();
+      ctx.arc(xFor(spawnAge), yFor(life.reality[dim](spawnAge)), 1.8, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  });
+
+  // Reality (solid colored line, locked)
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2.2;
+  ctx.lineJoin = 'round';
+  ctx.beginPath();
+  let started = false;
+  for (let a = AGE_MIN; a <= currentAge; a += 0.5) {
+    const x = xFor(a), y = yFor(life.reality[dim](a));
+    if (!started) { ctx.moveTo(x, y); started = true; }
+    else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+
+  // Playhead
+  const px = xFor(currentAge);
+  ctx.strokeStyle = 'rgba(240,192,64,0.4)';
+  ctx.lineWidth = 1; ctx.setLineDash([2, 3]);
+  ctx.beginPath(); ctx.moveTo(px, PAD_T); ctx.lineTo(px, PAD_T+plotH); ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.fillStyle = color;
+  ctx.beginPath(); ctx.arc(px, yFor(life.reality[dim](currentAge)), 3.5, 0, Math.PI * 2); ctx.fill();
+}
+
+// ============================================================
+// SURVIVAL CHART
+// ============================================================
+function renderSurvivalChart(canvas, currentAge) {
+  const { ctx, w, h } = setupCanvas(canvas);
+  const PAD_L = 30, PAD_R = 14, PAD_T = 4, PAD_B = 16;
+  const plotW = w - PAD_L - PAD_R;
+  const plotH = h - PAD_T - PAD_B;
+  const xFor = (a) => PAD_L + (a - AGE_MIN) / (AGE_MAX - AGE_MIN) * plotW;
+  const yFor = (v) => PAD_T + (1 - v) * plotH;
+
+  ctx.clearRect(0, 0, w, h);
+
+  // Subtle grid
+  ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+  ctx.lineWidth = 1;
+  for (let v = 0; v <= 1; v += 0.5) {
+    const y = yFor(v);
+    ctx.beginPath(); ctx.moveTo(PAD_L, y); ctx.lineTo(PAD_L+plotW, y); ctx.stroke();
+  }
+
+  // Past survival (filled)
+  const grad = ctx.createLinearGradient(0, PAD_T, 0, PAD_T+plotH);
+  grad.addColorStop(0, 'rgba(240,192,64,0.30)');
+  grad.addColorStop(1, 'rgba(200,150,12,0.02)');
+
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.moveTo(xFor(AGE_MIN), yFor(0));
+  for (let a = AGE_MIN; a <= currentAge; a += 0.5) {
+    ctx.lineTo(xFor(a), yFor(survivalAt(a)));
+  }
+  ctx.lineTo(xFor(currentAge), yFor(0));
+  ctx.closePath();
+  ctx.fill();
+
+  // Past survival line
+  ctx.strokeStyle = '#f0c040';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  let started = false;
+  for (let a = AGE_MIN; a <= currentAge; a += 0.5) {
+    const x = xFor(a), y = yFor(survivalAt(a));
+    if (!started) { ctx.moveTo(x, y); started = true; }
+    else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+
+  // Future survival (dashed, faded)
+  ctx.strokeStyle = 'rgba(240,192,64,0.35)';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([4, 3]);
+  ctx.beginPath();
+  started = false;
+  for (let a = currentAge; a <= AGE_MAX; a += 0.5) {
+    const x = xFor(a), y = yFor(survivalAt(a));
+    if (!started) { ctx.moveTo(x, y); started = true; }
+    else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Axis labels
+  ctx.fillStyle = 'rgba(245,240,232,0.4)';
+  ctx.font = '9px "JetBrains Mono", monospace';
+  ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+  for (let v = 0; v <= 1; v += 0.5) {
+    ctx.fillText(`${(v*100).toFixed(0)}%`, PAD_L - 5, yFor(v));
+  }
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  for (let a = AGE_MIN; a <= AGE_MAX; a += 10) {
+    ctx.fillText(a, xFor(a), PAD_T + plotH + 3);
+  }
+
+  // Playhead
+  const px = xFor(currentAge);
+  ctx.strokeStyle = 'rgba(240,192,64,0.5)';
+  ctx.lineWidth = 1; ctx.setLineDash([2, 3]);
+  ctx.beginPath(); ctx.moveTo(px, PAD_T); ctx.lineTo(px, PAD_T+plotH); ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.fillStyle = '#f0c040';
+  ctx.beginPath(); ctx.arc(px, yFor(survivalAt(currentAge)), 3.5, 0, Math.PI * 2); ctx.fill();
+}
+
+// ============================================================
+// JOY SPARKLINE
+// ============================================================
+function renderJoySparkline(canvas, currentAge) {
+  const { ctx, w, h } = setupCanvas(canvas);
+  ctx.clearRect(0, 0, w, h);
+
+  // Find min/max joy
+  let minJ = Infinity, maxJ = -Infinity;
+  for (const p of joyArr) { if (p.val < minJ) minJ = p.val; if (p.val > maxJ) maxJ = p.val; }
+  const range = Math.max(0.1, maxJ - minJ);
+  const yFor = (v) => 4 + (1 - (v - minJ) / range) * (h - 8);
+  const xFor = (a) => (a - AGE_MIN) / (AGE_MAX - AGE_MIN) * w;
+
+  // Zero line
+  if (minJ < 0 && maxJ > 0) {
+    ctx.strokeStyle = 'rgba(122,112,96,0.3)';
+    ctx.lineWidth = 1;
+    const yZero = yFor(0);
+    ctx.beginPath();
+    ctx.moveTo(0, yZero); ctx.lineTo(w, yZero);
+    ctx.stroke();
+  }
+
+  // Half-way tic mark (age 55 — midpoint of 20 to 90)
+  const halfwayAge = (AGE_MIN + AGE_MAX) / 2;
+  const xHalf = xFor(halfwayAge);
+  ctx.strokeStyle = 'rgba(122,112,96,0.55)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(xHalf, 1);
+  ctx.lineTo(xHalf, 5);
+  ctx.moveTo(xHalf, h - 5);
+  ctx.lineTo(xHalf, h - 1);
+  ctx.stroke();
+
+  // Future trace (faint)
+  ctx.strokeStyle = 'rgba(122,112,96,0.4)';
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  let started = false;
+  for (const p of joyArr) {
+    if (p.age < currentAge) continue;
+    const x = xFor(p.age), y = yFor(p.val);
+    if (!started) { ctx.moveTo(x, y); started = true; }
+    else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+
+  // Past trace
+  ctx.strokeStyle = '#c8960c';
+  ctx.lineWidth = 1.8;
+  ctx.beginPath();
+  started = false;
+  for (const p of joyArr) {
+    if (p.age > currentAge) break;
+    const x = xFor(p.age), y = yFor(p.val);
+    if (!started) { ctx.moveTo(x, y); started = true; }
+    else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+
+  // Playhead dot
+  const j = joyValueAt(currentAge);
+  ctx.fillStyle = '#c8960c';
+  ctx.beginPath(); ctx.arc(xFor(currentAge), yFor(j), 3, 0, Math.PI * 2); ctx.fill();
+}
+
+// ============================================================
+// GANTT
+// ============================================================
+function renderGantt(canvas, life, currentAge) {
+  const { ctx, w, h } = setupCanvas(canvas);
+  ctx.clearRect(0, 0, w, h);
+
+  const PAD_L = 110, PAD_R = 14, PAD_T = 6, PAD_B = 22;
+  const plotW = w - PAD_L - PAD_R;
+  const plotH = h - PAD_T - PAD_B;
+  const xFor = (a) => PAD_L + (a - AGE_MIN) / (AGE_MAX - AGE_MIN) * plotW;
+
+  const ROW_LABELS = ['Career & Wealth', 'Family & Relationships', 'Health & Body'];
+  const ROW_COLORS = ['rgba(39,174,96,0.85)', 'rgba(26,115,232,0.85)', 'rgba(192,57,43,0.85)'];
+  const numRows = 3;
+  const rowH = plotH / numRows;
+
+  // Row backgrounds
+  for (let r = 0; r < numRows; r++) {
+    ctx.fillStyle = r % 2 === 0 ? 'rgba(0,0,0,0.02)' : 'transparent';
+    ctx.fillRect(PAD_L, PAD_T + r*rowH, plotW, rowH);
+  }
+
+  // Row labels
+  ctx.fillStyle = '#2a2a2a';
+  ctx.font = '11px "JetBrains Mono", monospace';
+  ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+  for (let r = 0; r < numRows; r++) {
+    ctx.fillText(ROW_LABELS[r], PAD_L - 10, PAD_T + r*rowH + rowH/2);
+  }
+
+  // Age axis
+  ctx.fillStyle = 'rgba(122,112,96,0.7)';
+  ctx.font = '9px "JetBrains Mono", monospace';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  for (let a = AGE_MIN; a <= AGE_MAX; a += 10) {
+    ctx.fillText(a, xFor(a), PAD_T + plotH + 4);
+    ctx.strokeStyle = 'rgba(200,184,154,0.3)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(xFor(a), PAD_T); ctx.lineTo(xFor(a), PAD_T+plotH);
+    ctx.stroke();
+  }
+
+  // Bars
+  for (const ev of life.gantt) {
+    const x1 = xFor(Math.max(ev.start, AGE_MIN)), x2 = xFor(Math.max(Math.max(ev.end, ev.start + 0.4), AGE_MIN));
+    const yTop = PAD_T + ev.row * rowH + rowH * 0.25;
+    const barH = rowH * 0.5;
+
+    // Determine state: future / current / past
+    const isPast = currentAge > ev.end + 0.5;
+    const isCurrent = currentAge >= ev.start - 0.3 && currentAge <= ev.end + 1.0;
+    const isFuture = currentAge < ev.start;
+
+    // Color & opacity
+    const baseColor = ROW_COLORS[ev.row];
+    let opacity = isFuture ? 0.25 : isCurrent ? 1.0 : 0.55;
+    let strokeColor = baseColor.replace('0.85', String(opacity));
+
+    // Fill
+    ctx.fillStyle = strokeColor;
+    const barWidth = Math.max(x2 - x1, 4);
+    ctx.fillRect(x1, yTop, barWidth, barH);
+
+    // Pulse glow when current
+    if (isCurrent) {
+      ctx.save();
+      ctx.shadowColor = baseColor;
+      const pulseAlpha = 0.3 + 0.3 * Math.sin(performance.now() / 250);
+      ctx.shadowBlur = 8 + 4 * Math.sin(performance.now() / 250);
+      ctx.fillStyle = baseColor.replace('0.85', String(pulseAlpha));
+      ctx.fillRect(x1, yTop, barWidth, barH);
+      ctx.restore();
+    }
+  }
+
+  // Labels — one per row, picking the event closest to the playhead.
+  // This pass runs after the bars so labels render on top.
+  function distanceToEvent(ev) {
+    if (currentAge >= ev.start && currentAge <= ev.end) return 0;
+    return Math.min(Math.abs(currentAge - ev.start), Math.abs(currentAge - ev.end));
+  }
+
+  for (let r = 0; r < numRows; r++) {
+    // Find the closest event in this row (within 6 years)
+    let best = null;
+    let bestDist = 6;
+    for (const ev of life.gantt) {
+      if (ev.row !== r) continue;
+      const d = distanceToEvent(ev);
+      if (d < bestDist) { bestDist = d; best = ev; }
+    }
+    if (!best) continue;
+
+    const labelOpacity = Math.max(0, 1 - bestDist / 6);
+    if (labelOpacity < 0.05) continue;
+
+    const x1 = xFor(Math.max(best.start, AGE_MIN));
+    const yTop = PAD_T + best.row * rowH + rowH * 0.25;
+
+    ctx.fillStyle = `rgba(42,42,42,${labelOpacity})`;
+    ctx.font = '11px "EB Garamond", serif';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+    ctx.fillText(best.label, x1, yTop - 2);
+  }
+
+  // Playhead line
+  ctx.strokeStyle = 'rgba(200,150,12,0.8)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(xFor(currentAge), PAD_T);
+  ctx.lineTo(xFor(currentAge), PAD_T + plotH);
+  ctx.stroke();
+}
+
+// ============================================================
+// MAIN RENDER
+// ============================================================
+function render(currentAge) {
+  // Dimension panels
+  renderDimChart(document.getElementById('healthCanvas'),  currentLife, 'h', currentAge, '#e85c4a');
+  renderDimChart(document.getElementById('wealthCanvas'),  currentLife, 'w', currentAge, '#58c97f');
+  renderDimChart(document.getElementById('relsCanvas'),    currentLife, 'r', currentAge, '#4a93f0');
+  renderDimChart(document.getElementById('purposeCanvas'), currentLife, 'p', currentAge, '#b070cc');
+
+  // Survival
+  renderSurvivalChart(document.getElementById('survivalCanvas'), currentAge);
+
+  // Joy sparkline
+  renderJoySparkline(document.getElementById('joySparkline'), currentAge);
+
+  // Gantt
+  renderGantt(document.getElementById('ganttCanvas'), currentLife, currentAge);
+
+  // Global state values
+  const j = joyValueAt(currentAge);
+  document.getElementById('joyVal').textContent = (j >= 0 ? '+' : '') + j.toFixed(3);
+  document.getElementById('joyVal').style.color = j >= 0 ? '#27ae60' : '#c0392b';
+
+  document.getElementById('sumCVal').textContent = sumCValueAt(currentAge).toFixed(2);
+  document.getElementById('survivalVal').textContent = `${(survivalAt(currentAge)*100).toFixed(1)}% &mdash; ${(currentAge).toFixed(1)} yrs`.replace('&mdash;', '—');
+
+  document.getElementById('phaseLabel').textContent = currentPhase(currentLife, currentAge);
+  document.getElementById('ageVal').textContent = currentAge.toFixed(1);
+  document.getElementById('scrub').value = currentAge;
+}
+
+// ============================================================
+// PLAYBACK
+// ============================================================
+let currentAge = AGE_MIN;
+let playing = false;
+let lastFrame = null;
+let speed = 1;
+const BASE_RATE = 4;
+let pulseRaf = null;
+
+function step(timestamp) {
+  if (!playing) return;
+  if (lastFrame == null) lastFrame = timestamp;
+  const dt = (timestamp - lastFrame) / 1000;
+  lastFrame = timestamp;
+
+  currentAge += dt * BASE_RATE * speed;
+  if (currentAge >= AGE_MAX) {
+    currentAge = AGE_MAX;
+    playing = false;
+    document.getElementById('playBtn').textContent = 'Replay';
+  }
+  render(currentAge);
+  if (playing) requestAnimationFrame(step);
+}
+
+// Pulse loop runs separately so the gantt pulse animates even when playback is paused
+function pulseLoop() {
+  // Re-render gantt only
+  renderGantt(document.getElementById('ganttCanvas'), currentLife, currentAge);
+  pulseRaf = requestAnimationFrame(pulseLoop);
+}
+
+document.getElementById('playBtn').addEventListener('click', () => {
+  if (currentAge >= AGE_MAX) currentAge = AGE_MIN;
+  playing = !playing;
+  document.getElementById('playBtn').textContent = playing ? 'Pause' : 'Play';
+  if (playing) {
+    lastFrame = null;
+    requestAnimationFrame(step);
+  }
+});
+
+document.getElementById('scrub').addEventListener('input', (e) => {
+  playing = false;
+  document.getElementById('playBtn').textContent = 'Play';
+  currentAge = parseFloat(e.target.value);
+  render(currentAge);
+});
+
+document.querySelectorAll('.speed-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    speed = parseFloat(btn.dataset.speed);
+  });
+});
+
+document.getElementById('lifeSelect').addEventListener('change', (e) => {
+  currentLifeKey = e.target.value;
+  currentLife = LIVES[currentLifeKey];
+  document.getElementById('ganttLifeName').textContent = LIFE_NAMES[currentLifeKey];
+  survivalArr = computeSurvivalArray(currentLife);
+  recomputeAggregates();
+  render(currentAge);
+});
+
+window.addEventListener('resize', () => render(currentAge));
+
+// Start
+recomputeAggregates();
+render(currentAge);
+pulseLoop();  // start the gantt pulse animation
+</script>
+</body>
+</html>
