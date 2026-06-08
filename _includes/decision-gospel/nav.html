@@ -4,7 +4,7 @@ so every chapter page gets the same nav without re-declaring it. The active
 page is detected from the filename segment of page.url.
 {%- endcomment -%}
 {%- assign here = page.url | split: "/" | last -%}
-<nav>
+<nav class="gospel-nav" data-gospel-nav>
   <a href="index.html"{% if here == "index.html" or here == "" %} class="active"{% endif %}>Canon</a>
   <a href="genesis.html"{% if here == "genesis.html" %} class="active"{% endif %}>Genesis</a>
   <a href="homilies.html"{% if here == "homilies.html" %} class="active"{% endif %}>Homilies</a>

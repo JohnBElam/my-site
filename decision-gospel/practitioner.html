@@ -288,6 +288,30 @@ title: The Book of the Practitioner
   }
   .diagram-scroll-stage.has-overflow .diagram-scroll-hint { display: block; }
 
+  @media (max-width: 700px) {
+    .stack-diagram {
+      width: 100vw;
+      max-width: 100vw;
+      margin-left: 50%;
+      margin-right: 0;
+      padding-left: 8px;
+      padding-right: 8px;
+      overflow: hidden;
+      transform: translateX(-50%);
+    }
+
+    .diagram-scroll {
+      overflow-x: hidden;
+      scroll-snap-type: none;
+    }
+
+    .diagram-scroll-stage.has-overflow::before,
+    .diagram-scroll-stage.has-overflow::after,
+    .diagram-scroll-stage.has-overflow .diagram-scroll-hint {
+      display: none;
+    }
+  }
+
   /* CHAPTER BREAKS (override shared) */
   .chapter-break { margin: 0; }
   .chapter-break-line { background: linear-gradient(to right, transparent, rgba(184,146,42,0.25)); }
