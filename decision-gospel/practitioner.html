@@ -305,6 +305,45 @@ title: The Book of the Practitioner
       scroll-snap-type: none;
     }
 
+    .visual-container {
+      min-width: 640px;
+    }
+
+    .pyramid {
+      width: 210px;
+      height: 330px;
+    }
+
+    .left-pyramid .layer-1 { bottom: 0;   width: 210px; height: 66px; }
+    .left-pyramid .layer-2 { bottom: 66px;  width: 168px; height: 66px; }
+    .left-pyramid .layer-3 { bottom: 132px; width: 126px; height: 66px; }
+    .left-pyramid .layer-4 { bottom: 198px; width: 84px;  height: 66px; }
+    .left-pyramid .layer-5 { bottom: 264px; width: 42px;  height: 66px; }
+
+    .right-pyramid .layer-1 { top: 0;   width: 210px; height: 66px; }
+    .right-pyramid .layer-2 { top: 66px;  width: 168px; height: 66px; }
+    .right-pyramid .layer-3 { top: 132px; width: 126px; height: 66px; }
+    .right-pyramid .layer-4 { top: 198px; width: 84px;  height: 66px; }
+    .right-pyramid .layer-5 { top: 264px; width: 42px;  height: 66px; }
+
+    .center-stack {
+      height: 330px;
+      min-width: 220px;
+      padding: 0 16px;
+    }
+
+    .stack-item {
+      height: 66px;
+    }
+
+    .stack-label {
+      font-size: 1.08rem;
+    }
+
+    .stack-descriptor {
+      font-size: 0.54rem;
+    }
+
     .diagram-scroll-stage.has-overflow::before,
     .diagram-scroll-stage.has-overflow::after,
     .diagram-scroll-stage.has-overflow .diagram-scroll-hint {
