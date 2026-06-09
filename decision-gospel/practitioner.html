@@ -301,8 +301,9 @@ title: The Book of the Practitioner
     }
 
     .diagram-scroll {
-      overflow-x: hidden;
-      scroll-snap-type: none;
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      overscroll-behavior-x: contain;
     }
 
     .visual-container {
@@ -345,9 +346,8 @@ title: The Book of the Practitioner
     }
 
     .diagram-scroll-stage.has-overflow::before,
-    .diagram-scroll-stage.has-overflow::after,
-    .diagram-scroll-stage.has-overflow .diagram-scroll-hint {
-      display: none;
+    .diagram-scroll-stage.has-overflow::after {
+      width: 24px;
     }
   }
 
