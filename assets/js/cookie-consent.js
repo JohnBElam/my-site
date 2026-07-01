@@ -3,7 +3,8 @@
  *
  * - No GA scripts load until the visitor explicitly opts in.
  * - Consent is stored in localStorage (12-month expiry, then re-prompt).
- * - Visitors can change their choice at any time via "Cookie preferences".
+ * - Visitors can change their choice via footer links or the privacy page.
+ * - A floating "Cookie preferences" button appears only after declining (not after accept).
  */
 (function () {
   'use strict';
@@ -154,6 +155,8 @@
 
     if (analytics === 'granted') {
       loadGoogleAnalytics(getMeasurementId());
+      hideSettingsButton();
+      return;
     }
 
     showSettingsButton();
@@ -171,7 +174,6 @@
 
     if (consent === 'granted') {
       loadGoogleAnalytics(measurementId);
-      showSettingsButton();
       return;
     }
 
