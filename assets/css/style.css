@@ -618,6 +618,17 @@ body {
   background: var(--color-accent);
 }
 
+@media (max-width: 640px) {
+  .testimonial-inner {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .testimonial-content {
+    width: 100%;
+  }
+}
+
 /* ----- Pull quote ----- */
 .pullquote {
   margin: var(--space-2xl) var(--space-xl);
