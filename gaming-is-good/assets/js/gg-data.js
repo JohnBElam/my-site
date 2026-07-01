@@ -46,6 +46,8 @@ const GG = {
           <a href="blog.html">Blog</a>
           <a href="research.html">Research Log</a>
           <a href="newsletter.html">Newsletter</a>
+          <a href="https://johnbelam.com/privacy/" target="_blank" rel="noopener">Privacy</a>
+          <button type="button" class="gg-footer-cookie-btn" onclick="window.SiteCookieConsent && window.SiteCookieConsent.openPreferences()">Cookie preferences</button>
           <a href="https://johnbelam.com" target="_blank">johnbelam.com</a>
         </div>
         <div style="margin-top:20px; font-size:12px; color:#a09cb8;">

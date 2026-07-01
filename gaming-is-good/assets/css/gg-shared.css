@@ -135,6 +135,19 @@ h1:not(.hero-title), h2, h3, h4 { font-family: var(--font-display); line-height:
   font-size: 13px; color: var(--text-muted); text-decoration: none;
 }
 .footer-links a:hover { color: var(--purple); }
+.gg-footer-cookie-btn {
+  appearance: none;
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.gg-footer-cookie-btn:hover { color: var(--purple); }
 
 /* DIVIDER */
 hr.fancy { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--border-mid), transparent); margin: 48px 0; }
