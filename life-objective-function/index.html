@@ -411,6 +411,7 @@ document.addEventListener("DOMContentLoaded", function() {
   .readout b { color: var(--ink); }
   .readout .risk { color: var(--risk-lo); }
   .readout .up { color: var(--risk-hi); }
+  .readout .flat { color: var(--muted); }
 
   /* ---- Two-pane viz: weighting pad + distribution ---- */
   .viz-panes { display: flex; align-items: stretch; }
@@ -453,7 +454,7 @@ document.addEventListener("DOMContentLoaded", function() {
   #density { fill: rgba(56,182,255,0.14); stroke: var(--blue); stroke-width: 1.5; }
   #tailfill { fill: var(--risk-lo); fill-opacity: 0.20; stroke: none; }
   .pad-frame { fill: rgba(255,255,255,0.6); stroke: var(--rule); stroke-width: 1; }
-  .pad-coherent { fill: var(--green); fill-opacity: 0.10; stroke: var(--green); stroke-opacity: 0.35; stroke-width: 1; }
+  .pad-coherent { fill: var(--ink); fill-opacity: 0.05; stroke: var(--muted); stroke-opacity: 0.35; stroke-width: 1; }
   .pad-grid { stroke: var(--rule); stroke-width: 0.5; stroke-dasharray: 2 3; }
   .pad-preset { fill: var(--muted); fill-opacity: 0.45; cursor: pointer; }
   .pad-preset:hover { fill-opacity: 0.9; }
@@ -472,8 +473,9 @@ document.addEventListener("DOMContentLoaded", function() {
     font-family: 'JetBrains Mono', monospace; font-size: 11px;
     line-height: 1.65; padding: 10px 18px 0; color: var(--muted);
   }
-  .coh-note b { color: var(--green); }
+  .coh-note b { color: var(--ink); }
   .coh-note.warn b { color: var(--risk-hi); }
+  .coh-note .k { font-weight: 600; }
 
 </style>
 </head>
@@ -1101,6 +1103,28 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
 
     <div class="annotation" style="margin-top:14px;">
+      <strong>Read it both ways, and keep them straight.</strong> Descriptively, $\varphi$ is a fact about
+      a person: the shapes above are where real people actually sit, and the incoherent ones are the
+      crowded ones. Prescriptively, $\varphi$ is the parameter you can change on purpose. This page is
+      descriptive about $\varphi$ and prescriptive about $\pi$ given $\varphi$. Coherence is not a claim
+      that anyone behaves that way — it came from bank capital regulation, not from watching people —
+      and calling a weighting incoherent says what the objective stops guaranteeing, never what a person
+      is doing wrong.
+    </div>
+
+    <div class="annotation" style="margin-top:14px;">
+      <strong>Two thresholds, not one.</strong> Because $\rho_\varphi$ averages the order statistics, it
+      lands exactly $k$ standard deviations from the mean:
+      $$\rho_\varphi(G) \;=\; \mathbb{E}[G] \;+\; k_\varphi\,\sigma(G), \qquad
+        k_\varphi \;=\; \int_0^1 \varphi(u)\, q_u\!\left(\tfrac{G - \mathbb{E}[G]}{\sigma(G)}\right) du$$
+      That $k$ is the slope on spread, and it is what the readout reports. Coherence is one boundary —
+      the rectangle $a \le 1,\, b \ge 1$. The sign of $k$ is a different one, roughly $b < a$. Cross the
+      first and you lose a guarantee. Only after crossing the second does spread start paying, and only
+      then does an unconstrained search run away. The gap between them is wide, and most of the shapes
+      people actually hold live inside it: no longer coherent, still spread-averse.
+    </div>
+
+    <div class="annotation" style="margin-top:14px;">
       Which leaves the instruction. Not <em>be less risk-averse</em>, and not <em>be more optimistic</em>.
       Pick the shape on purpose, know what it costs, and stop inheriting it from your nerves.
     </div>
@@ -1402,6 +1426,9 @@ document.addEventListener("DOMContentLoaded", function() {
   samples.sort(function (a, b) { return a - b; });
   var lo = samples[0], hi = samples[N - 1];
   var mean = samples.reduce(function (s, x) { return s + x; }, 0) / N;
+  var sdev = Math.sqrt(
+    samples.reduce(function (s, x) { return s + (x - mean) * (x - mean); }, 0) / N
+  );
 
   // histogram for density path
   var BINS = 90;
@@ -1595,6 +1622,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var coherent = isCoherent();
 
+    // Since rho is a weighted average of the order statistics, rho = E[G] + k*sigma
+    // exactly, so k is this objective's slope on spread: negative prices spread as a
+    // cost, positive pays for it. Coherence and the sign of k are separate thresholds.
+    var kphi = sdev > 0 ? (rho - mean) / sdev : 0;
+    // Inside a twentieth of a standard deviation of the mean, treat the lean as
+    // nil: below that, the sign is an artifact of this sample's skew, not a preference.
+    var DEAD = 0.05;
+    var lean = kphi > DEAD ? "pays" : (kphi < -DEAD ? "costs" : "nil");
+    var leanCls = lean === "pays" ? "up" : (lean === "costs" ? "risk" : "flat");
+    var kTxt = (kphi < 0 ? "\u2212" : "+") + Math.abs(kphi).toFixed(2);
+
     if (mode === "cvar") {
       var kIdx = Math.max(1, Math.floor((1 - alpha) * N));
       var varVal = samples[kIdx - 1];
@@ -1612,7 +1650,8 @@ document.addEventListener("DOMContentLoaded", function() {
         "E[G] = <b>" + mean.toFixed(1) + "</b> &nbsp;|&nbsp; " +
         "VaR<sub>" + alpha.toFixed(2) + "</sub> = <b>" + varVal.toFixed(1) + "</b> &nbsp;|&nbsp; " +
         "&phi; = CVaR step (&alpha; = " + alpha.toFixed(2) + ") &nbsp;&rarr;&nbsp; " +
-        "&rho;<sub>&phi;</sub> = <span class='risk'><b>" + rho.toFixed(1) + "</b></span>";
+        "&rho;<sub>&phi;</sub> = <span class='" + leanCls + "'><b>" + rho.toFixed(1) + "</b></span>" +
+        " &nbsp;|&nbsp; k = <b>" + kTxt + "</b>";
     } else {
       tailfill.setAttribute("d", "");
       varline.style.display = "none"; varlabel.style.display = "none";
@@ -1633,11 +1672,13 @@ document.addEventListener("DOMContentLoaded", function() {
       readout.innerHTML =
         "E[G] = <b>" + mean.toFixed(1) + "</b> &nbsp;|&nbsp; " +
         "&phi; = Beta(a = " + A.toFixed(2) + ", b = " + B.toFixed(2) + ") &nbsp;&rarr;&nbsp; " +
-        "&rho;<sub>&phi;</sub> = <span class='" + (coherent ? "risk" : "up") + "'><b>" +
-        rho.toFixed(1) + "</b></span>";
+        "&rho;<sub>&phi;</sub> = <span class='" + leanCls + "'><b>" +
+        rho.toFixed(1) + "</b></span>" +
+        " &nbsp;|&nbsp; k = <b>" + kTxt + "</b>";
     }
 
-    var col = coherent ? "#c0392b" : "#c8960c";
+    // colour the objective by which tail it leans on, not by whether it is coherent
+    var col = kphi > DEAD ? "#c8960c" : (kphi < -DEAD ? "#c0392b" : "#7a7060");
     var ox = valToX(rho);
     objline.setAttribute("x1", ox); objline.setAttribute("x2", ox);
     objline.setAttribute("stroke", col);
@@ -1646,10 +1687,33 @@ document.addEventListener("DOMContentLoaded", function() {
     objlabel.setAttribute("x", ox);
     objlabel.setAttribute("fill", col);
 
-    cohnote.className = coherent ? "coh-note" : "coh-note warn";
-    cohnote.innerHTML = coherent
-      ? "&#10003; <b>Non-increasing.</b> A worse life never counts for less than a better one, so &rho; is coherent and the search over &pi; stays a concave program."
-      : "&#9888; <b>Rising somewhere.</b> Subadditivity is spent: this objective prefers concentration to diversification, and left unconstrained it runs to whichever policy has the most variance.";
+    var priced =
+      lean === "costs" ? "spread is priced as a cost"
+                       : "spread is priced at nothing, which is the casino's attitude to it";
+
+    if (lean === "pays") {
+      // the only regime where the search itself breaks down
+      cohnote.className = "coh-note warn";
+      cohnote.innerHTML =
+        "&#9888; <b>Tilted upward on balance.</b> <span class='k'>k = " + kTxt + "</span>, so every " +
+        "additional unit of spread adds to the objective and nothing in &rho; ever asks it to stop. " +
+        "With &sigma; unconstrained there is no interior optimum: the answer stops coming from your " +
+        "preferences and starts coming from your limits.";
+    } else if (coherent) {
+      cohnote.className = "coh-note";
+      cohnote.innerHTML =
+        "&#10003; <b>Non-increasing.</b> A worse life never counts for less than a better one, so " +
+        "&rho; is coherent: spreading a bet across two independent things is guaranteed never to hurt, " +
+        "and the search over &pi; stays a concave program. " +
+        "<span class='k'>k = " + kTxt + "</span>, so " + priced + ".";
+    } else {
+      cohnote.className = "coh-note";
+      cohnote.innerHTML =
+        "<b>Rising somewhere.</b> Subadditivity is spent, so diversification is no longer " +
+        "<em>guaranteed</em> to beat concentration &mdash; you have lost the promise, not the " +
+        "behavior. On balance this &varphi; has not turned optimistic: " +
+        "<span class='k'>k = " + kTxt + "</span>, so " + priced + ". Most people live here.";
+    }
 
     drawPhi();
   }
