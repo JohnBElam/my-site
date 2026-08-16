@@ -3,162 +3,186 @@ layout: decision-gospel
 title: The Congregation
 ---
 <style>
-  body { line-height: 1.85; }
-  nav a:hover, nav a.active { background: none; }
-  .page-header::before { background: radial-gradient(ellipse at 50% 0%, rgba(184, 146, 42, 0.06) 0%, transparent 70%); }
-  .page-intro { line-height: 1.75; }
-  main { animation: fadeUp 0.6s ease both; }
-  .page-header { animation: none; }
-  p { margin-bottom: 1.3em; }
+  .page-header { padding: 80px 24px 64px; overflow: hidden; }
+  .page-header::before { background: radial-gradient(ellipse at 50% 0%, rgba(184,146,42,0.07) 0%, transparent 65%); }
+  .breadcrumb { margin-bottom: 36px; }
+  .page-label { letter-spacing: 0.25em; margin-bottom: 20px; }
+  h1 { font-size: clamp(2.2rem, 5.5vw, 3.8rem); line-height: 1.1; }
+  .page-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    max-width: 560px;
+    line-height: 1.75;
+  }
 
-  .rank-header { font-family: 'IM Fell English', serif; font-size: clamp(1.3rem, 2.5vw, 1.7rem); font-weight: 400; color: var(--gold); margin: 72px 0 8px; padding-bottom: 16px; border-bottom: 1px solid rgba(184, 146, 42, 0.3); }
-  .rank-note { font-style: italic; color: var(--muted); font-size: 0.95rem; margin-bottom: 48px; margin-top: 8px; }
+  main { max-width: 700px; padding: 72px 24px 120px; }
+  p { margin-bottom: 1.5em; font-size: 1.02rem; }
 
-  .member-entry { padding: 48px 0; border-bottom: 1px solid rgba(184, 146, 42, 0.1); }
-  .member-entry:last-child { border-bottom: none; }
+  .section-title {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 400;
+    color: var(--gold);
+    margin-bottom: 36px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(184,146,42,0.2);
+  }
 
-  .member-rank { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 12px; display: block; }
+  .section-block { margin-bottom: 80px; }
 
-  .member-name { font-family: 'IM Fell English', serif; font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 400; color: var(--parchment); margin-bottom: 24px; line-height: 1.2; }
+  .section-break {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 64px 0;
+  }
+  .section-break-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(184,146,42,0.2));
+  }
+  .section-break-line.right {
+    background: linear-gradient(to left, transparent, rgba(184,146,42,0.2));
+  }
+  .section-break-diamond {
+    width: 5px;
+    height: 5px;
+    background: var(--gold-dim);
+    transform: rotate(45deg);
+    opacity: 0.5;
+  }
 
-  .feast-day { font-family: 'Courier Prime', monospace; font-size: 12px; letter-spacing: 0.08em; color: var(--gold-dim); font-style: italic; margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(184, 146, 42, 0.1); }
+  .closing-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold);
+    text-align: center;
+    padding: 56px 0 0;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    line-height: 2;
+    border-top: 1px solid rgba(184,146,42,0.15);
+    margin-top: 24px;
+  }
+  .closing-note p { margin-bottom: 0.2em; font-size: inherit; }
 
-  .closing-note { font-style: italic; color: var(--gold); text-align: center; padding: 56px 0 0; font-size: 1.05rem; line-height: 1.9; }
+  .closing-final {
+    font-family: 'IM Fell English', serif;
+    font-style: normal;
+    font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+    color: var(--parchment);
+    text-align: center;
+    margin-top: 24px;
+    line-height: 1.6;
+  }
+
+  .page-footer a { margin: 0 14px; }
 </style>
 
 <div class="page-header">
   <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / The Congregation</span>
-  <span class="page-label">The Faithful</span>
-  <h1>The Book of the Congregation</h1>
-  <p class="page-intro">Forebears, Saints, Cardinals, and Monks. Those who practiced the discipline before it had a name, built the doctrine, carry it forward, and refuse to put it down.</p>
+  <span class="page-label">The Book of the Congregation</span>
+  <h1>The Congregation</h1>
+  <p class="page-intro">A record of who we are. Not the names. The people.</p>
 </div>
 
 <main>
 
-  <!-- FOREBEARS -->
-  <h2 class="rank-header">The Forebears</h2>
-  <p class="rank-note">Forebears practiced the discipline before the discipline had a name. The church inherits from them without apology.</p>
+  <!-- THE TRADITIONS -->
+  <div class="section-block">
+    <h2 class="section-title">The Traditions</h2>
 
-  <div class="member-entry">
-    <span class="member-rank">Forebear</span>
-    <h3 class="member-name">Marcus of Rome</h3>
-    <p>The church does not pretend its virtues are original.</p>
-    <p>Stillness was practiced in monasteries before there were laptops to close. Courage was named in battlefields before there were stakeholder reviews to survive. And the discipline of the unmoved mind, the practice the church calls Stoicism, was carried for two thousand years by a tradition the church inherits without apology.</p>
-    <p>Marcus Aurelius was the emperor of Rome and he was, by every available measure, the most powerful man in the world. He could have had any answer he wanted. The room would have given it to him. The room always gives the powerful the answer they want, which is why the powerful so rarely receive the truth.</p>
-    <p>He wrote the Meditations in the field, between battles, in a private notebook he never intended for publication. The notebook is a manual for not being moved. Not by flattery, not by anger, not by the desire to be agreed with, not by the thousand small pressures that bend the judgment of people who have to decide things while other people are watching.</p>
-    <p>The congregation reads the Meditations not as scripture but as a letter from a colleague. He was solving the same problem the practitioner solves in every stakeholder review: how do you stay clear in a room that wants you to be something other than clear?</p>
-    <p>He did not always succeed. He says so himself. That is part of why the church honors him.</p>
-    <div class="feast-day">His feast day is every time someone in a meeting holds the recommendation steady while the room pushes against it.</div>
+    <p>The church did not invent this.</p>
+    <p>We want to say that first because the gospel's form -- the vestments, the commandments, the saints and the heresies -- could be mistaken for a claim of origin, as though the discipline began here, with this text, in this register.</p>
+    <p>It did not begin here.</p>
+    <p>It began in the war rooms where mathematicians worked on convoy routing and bomb damage assessment and the question of how many lives could be saved by setting a depth charge three feet deeper. It began in the factories where industrial engineers timed motions and mapped workflows and asked what the system was actually trying to produce. It began in the notebooks of philosophers who had no word for decision science but understood that the unmoved mind is the prerequisite for honest judgment and wrote about it between battles in private notebooks never intended for publication.</p>
+    <p>Operations research. Mathematical optimization. Industrial engineering. Statistical decision theory. The philosophy of the Stoics. These are the traditions the church inherits. Not as credentials. As lineage. The discipline has been practiced, in various forms and under various names, for longer than any of its current practitioners have been alive, and the church's contribution is not the ideas but the carrying of the ideas into rooms that the prior traditions could not enter.</p>
+    <p>We are grateful for the lineage.</p>
+    <p>We carry it without apology.</p>
   </div>
 
-  <!-- SAINTS -->
-  <h2 class="rank-header">The Saints</h2>
-  <p class="rank-note">Saints built the doctrine. Their feast days are every time someone does the work correctly.</p>
-
-  <div class="member-entry">
-    <span class="member-rank">Founder · Proto-Saint</span>
-    <h3 class="member-name">Saint Patrick of the Admiralty</h3>
-    <p>Before there was a discipline, there was a war.</p>
-    <p>Patrick Blackett was a physicist by training. He had won the Nobel Prize for work on cosmic rays and he could have spent the rest of his career indoors, doing the kind of careful physics that wins more prizes. The war did not allow it. The war handed him a problem the universities had no department for: the Allies were losing ships, and the question was what to do about it, and the question had to be answered by Tuesday.</p>
-    <p>He gathered the people he needed. Physicists, mathematicians, biologists, statisticians. None of them had been trained for the work they were about to do, because the work did not yet exist. They invented it as they went. They called themselves nothing in particular and the Royal Navy, with the affection the British reserve for things they consider slightly absurd, called them Blackett's Circus.</p>
-    <p>The Circus did not build models for their own sake. The Circus answered questions. How deep should depth charges be set? What size should convoys be? How should radar operators be trained? Each question was a decision. Each decision had an owner. Each answer was acted on within days, sometimes hours, and the cost of being wrong was measured in ships and the cost of being right was measured the same way.</p>
-    <p>He did not write a textbook. He did not start a movement. He did not name what he had built, because there was no time to name it and no audience that needed the name. He just did the work, and the work was correct, and the work saved lives, and when the war ended he went back to physics and let other people figure out what to call the thing he had invented.</p>
-    <p>The discipline has been trying to remember him ever since.</p>
-    <p>The church canonizes Saint Patrick as the founder. Not because he wrote the doctrine, but because he lived it before the doctrine existed, in conditions so demanding that the doctrine was the only thing that would have worked. Every Saint who came after has been, in some sense, trying to recover what he had naturally: an objective that could not be negotiated, a question that could not be skipped, and a room full of people who understood that the answer mattered more than the method.</p>
-    <div class="feast-day">His feast day is the day a practitioner answers a real question for a real decision-maker who will act on the answer before the week is out.</div>
+  <div class="section-break">
+    <div class="section-break-line"></div>
+    <div class="section-break-diamond"></div>
+    <div class="section-break-line right"></div>
   </div>
 
-  <div class="member-entry">
-    <span class="member-rank">Patron Saint</span>
-    <h3 class="member-name">Saint Warren of Princeton</h3>
-    <p>In the beginning, there was noise. There were forecasts and spreadsheets and dashboards and an industry that had confused measuring things with understanding them. And then a professor at Princeton sat down and named the structure underneath all of it.</p>
-    <p>Warren Powell did not invent the problem. He named it. He gave the field a spine when it had been walking around for decades pretending a collection of disconnected techniques was a discipline. Sequential Decision Analysis is not a methodology. It is a grammar. A way of reading every decision problem in the world and seeing the same bones underneath, no matter the industry, no matter the domain.</p>
-    <p>He wrote the books. He proved the math. And then, when lesser men would have stayed in the academy and collected citations, he descended into the world of practice and asked whether anyone was actually using it.</p>
-    <p>He wrote the foreword to our scripture. He is, without question, the patron saint of this church.</p>
-    <div class="feast-day">His feast day is every time someone correctly names a decision before opening a dataset.</div>
+  <!-- THE PRACTITIONERS -->
+  <div class="section-block">
+    <h2 class="section-title">The Practitioners</h2>
+
+    <p>There is a person in a meeting right now who has just asked the question.</p>
+    <p>Not loudly. Not as a speech or a challenge or a formal intervention. Quietly, in the tone of someone who is trying to be helpful rather than difficult: before we go further, can we write down what decision this work is supposed to support?</p>
+    <p>The room turned toward them with the particular attention that precedes judgment.</p>
+    <p>They waited.</p>
+    <p>This person is of the congregation. They may never have heard the word congregation used this way. They may not know there is a gospel or a canon or a set of commandments carved somewhere with their specific question on the first tablet. They know only that the question needs to be asked and that asking it has a cost and that they have decided, today, that the cost is worth paying.</p>
+    <p>The congregation is full of people like this. People who have read the books and people who have never heard of the books but practice the discipline instinctively, annoying their teammates, earning a reputation for being difficult, asking the question that should have been asked first in rooms that would have preferred to skip it.</p>
+    <p>There is a person who sent the memo.</p>
+    <p>Not because anyone asked. Because the model had been in production for fourteen months and she pulled up the original brief on a Thursday afternoon and noticed the gap between what the system was built to do and what the world now needed, and she wrote it down and sent it knowing it would create work for people who did not want more work, and she sent it anyway.</p>
+    <p>She is of the congregation.</p>
+    <p>There is a person who held the recommendation steady.</p>
+    <p>The senior person frowned. The room adjusted. The pull toward the comfortable answer was as real and physical as gravity. He noticed it. He registered it. He did not pretend it was not there. And then he said the thing the analysis said, including the parts the room did not want to hear, and he sat with the discomfort that followed.</p>
+    <p>He is of the congregation.</p>
+    <p>There is a person who returned to Step One.</p>
+    <p>The project was in flight. The timeline was visible. Someone had already promised something to someone. She went back anyway. Not as failure. As discipline. As the specific courage of someone who knows the cycle is the point and the point is worth the cost.</p>
+    <p>She is of the congregation.</p>
   </div>
 
-  <div class="member-entry">
-    <span class="member-rank">Saint</span>
-    <h3 class="member-name">Saint Joannes of Paris</h3>
-    <p>There is a particular kind of prophet who does not announce himself. He just builds something that works and then explains, calmly and at length, why everything else doesn't.</p>
-    <p>Joannes Vermorel founded Lokad in 2008 and spent the next seventeen years being right about things the industry was not ready to hear. Single-number forecasts are a lie. Uncertainty is not a problem to be eliminated, it is a structure to be priced. Supply chain is not a planning problem. It is an economics problem. The dashboard does not make the decision. Someone has to make the decision, and if you have not given them the tools to price the tradeoff, you have given them nothing.</p>
-    <p>He built a company on these heresies. He grew it profitably without investor money after the seed round, which in the current era is its own form of prophecy. He wrote the lectures. He wrote the book. He told the truth about uncertainty even when the truth was harder to demonstrate in a deck.</p>
-    <div class="feast-day">That is a form of holiness this congregation recognizes.</div>
+  <div class="section-break">
+    <div class="section-break-line"></div>
+    <div class="section-break-diamond"></div>
+    <div class="section-break-line right"></div>
   </div>
 
-  <div class="member-entry">
-    <span class="member-rank">Saint</span>
-    <h3 class="member-name">Saint Meinolf of Brown</h3>
-    <p>Most people who spend twenty-five years inside the walls of mathematical optimization come out believing in the walls.</p>
-    <p>Meinolf Sellmann came out believing they were in the wrong place.</p>
-    <p>He built MIP solvers. He was a professor of AI at Brown. He worked at IBM, GE, and Shopify. He won over twenty international research awards. And somewhere in all of that, he arrived at a conclusion that took courage to act on: the tools the industry had been using for forty years were not just limited, they were architecturally wrong for the problems they were being asked to solve.</p>
-    <p>So he built Seeker. Not a better version of what existed. A different thing entirely. A solver that learns how to search the problem it is solving, which means the tool itself is a decision system.</p>
-    <p>The church canonizes people for being willing to say, after two decades of mastery, that the thing they had mastered was not enough, and then building the thing that was.</p>
-    <div class="feast-day">His feast day is every time someone rejects the familiar tool because the problem deserves a better one.</div>
+  <!-- THE BUILDERS -->
+  <div class="section-block">
+    <h2 class="section-title">The Builders</h2>
+
+    <p>And then there are the ones who built the bridge anyway.</p>
+    <p>They asked the question. Let the record show that. They were in the room when the skip was about to happen and they said wait and they named the discomfort and they asked what decision this work was supposed to support. They did everything the gospel asks.</p>
+    <p>The organization said build the bridge.</p>
+    <p>Not cruelly. Not maliciously. The organization had a timeline and a budget and a stakeholder who had been promised something and a leadership team that had committed to a direction in a previous meeting and the question, while valid, had arrived too late or landed too softly or been asked by someone who did not yet have the standing to stop the project with a question.</p>
+    <p>So they built it.</p>
+    <p>They built it well, because they are good at the work, and they built it knowing what it was, and they documented the gap between the decision that should have been framed and the bridge that was actually built, and they filed that documentation somewhere and moved to the next project and carried the knowledge of the gap with them.</p>
+    <p>The congregation honors them specifically.</p>
+    <p>Not for building the bridge. For knowing it was a bridge to nowhere and building it anyway and not pretending it was something else. For the specific integrity of the practitioner who cannot stop the project but refuses to call the project a success it is not. For the memo they will write when the bridge has been running long enough that someone in the organization is finally ready to ask why nothing changed.</p>
+    <p>They are not sinners. They are practitioners inside organizations that do not always let the discipline win. That is not a failure of the practitioner. That is the condition of the practice.</p>
+    <p>The gospel was not written for organizations that already do this correctly.</p>
+    <p>It was written for the people inside the ones that don't.</p>
   </div>
 
-  <!-- CARDINALS -->
-  <h2 class="rank-header">The Cardinals</h2>
-  <p class="rank-note">The title is honorary and slightly self-inflicted. They co-authored the scripture and published it themselves when no one handed them permission.</p>
-
-  <div class="member-entry">
-    <span class="member-rank">Cardinal-Scribe</span>
-    <h3 class="member-name">Cardinal John Brandon</h3>
-    <p>The church recognizes the awkwardness of the next entry.</p>
-    <p>There is no graceful way for the man writing the scripture to canonize himself inside it. The congregation will note that the move has been made and form whatever opinion the congregation forms.</p>
-    <p>He wrote the novel. The novel worked. It reached people the papers never would, and it carried the doctrine into rooms that had been closed to the doctrine, and by every measure a carrying vehicle can be judged, it was enough.</p>
-    <p>And still he kept walking into rooms where it was not enough. Where the person across the table needed something that could not be handed to them as a business book. Something that arrived differently. Something that carried the same doctrine in a form the doctrine had never tried before.</p>
-    <p>The gospel was not the plan. It was what came next when the previous vehicle hit its limit. That restlessness, the refusal to accept that the current carrying vehicle is sufficient when the rooms still need the doctrine, is his specific quality and his specific gift.</p>
-    <p>The full account of how the scripture came to be written is in the <a href="origins.html" style="color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,146,42,0.3);">Book of Origins</a>.</p>
-    <div class="feast-day">His feast day is every time someone reads this and walks back into the room differently.</div>
+  <div class="section-break">
+    <div class="section-break-line"></div>
+    <div class="section-break-diamond"></div>
+    <div class="section-break-line right"></div>
   </div>
 
-  <div class="member-entry">
-    <span class="member-rank">Cardinal-Scribe</span>
-    <h3 class="member-name">Cardinal Adam</h3>
-    <p>The Cardinal who found the gospel first and had the grace to share it.</p>
-    <p>Adam DeJans Jr. came to Operations Research through the front door, which is to say through the mathematics, which is to say he understood the thing before most people in the room had decided whether it was worth understanding. He brought Warren Powell's framework into Toyota. He brought it to his co-author. He co-founded Bit Bros and co-wrote the scripture and has continued, with characteristic calm, to build the thing while others are still deciding whether the thing is real.</p>
-    <p>The congregation honors Cardinal Adam for a specific virtue that is undervalued in this field: he does not need credit for the work to be good work. He just does it. That is the disposition of someone who has actually internalized the doctrine, which holds that the decision is the thing, not the story about the decision.</p>
-    <div class="feast-day">The Cardinals together represent a particular model of ministry: two people who found something true, wrote it down, and sent it into the world without waiting for permission. The church approves of this approach.</div>
-  </div>
-
-  <!-- MONKS -->
-  <h2 class="rank-header">The Monks</h2>
-  <p class="rank-note">Monks do the quiet work. They carry the text into foreign lands without requiring recognition for the labor. They are the reason the gospel travels.</p>
-
-  <div class="member-entry">
-    <span class="member-rank">Monk</span>
-    <h3 class="member-name">Brother Felicien</h3>
-    <p>The gospel reached France.</p>
-    <p>It reached France because Brother Felicien read it, understood it, and then did what monks do: he told people. Not loudly. Not with the apparatus of marketing. He promoted the work because he believed in the work, which is the only reason worth promoting anything, and a reason that is rarer than this industry pretends.</p>
-    <p>He holds a PhD. He operates at the intersection of decision science and practice in the way the church most respects, which is to say he does not merely study the doctrine, he applies it and then returns to the text to see whether the application was faithful.</p>
-    <p>The church notes that the gospel crossing a language border and landing with full fidelity is a specific kind of miracle. It requires a translator who understands not just the words but the intent.</p>
-    <div class="feast-day">Brother Felicien understood the intent. France is awake. He is why.</div>
-  </div>
-
-  <div class="member-entry">
-    <span class="member-rank">Monk</span>
-    <h3 class="member-name">Brother Conor of Ireland</h3>
-    <p>The monk's function is translation. Not simplification. Not dumbing down. The monk takes something true and difficult and finds the angle that lets it land in a mind that was not built in a laboratory.</p>
-    <p>Conor Doherty has spent years sitting across from some of the sharpest thinkers in the discipline, asking the questions that the audience would ask if the audience were in the room. He has gone toe to toe with Joannes Vermorel on live television. He has spent hours with Warren Powell, in real time, wrestling with ideas that most practitioners never encounter at all.</p>
-    <p>And he will tell you, without embarrassment, that he did not fully understand what the academics were trying to explain until he read thirty minutes of The Decision Factory.</p>
-    <p>The congregation should sit with that for a moment.</p>
-    <p>Hours with the source. Then thirty minutes with the translation. And the translation landed where the source could not.</p>
-    <p>This is not a failure of the source. Warren Powell's work is precise because it has to be. The precision is the point. But precision and accessibility are not the same thing, and the gap between them is where most knowledge goes to die quietly in a journal no one outside the field reads.</p>
-    <p>Brother Conor lives in that gap. He has made it his professional home. He asks the question the practitioner cannot formulate. He surfaces the implication the expert forgot to state. He is the reason the gospel of Lokad reaches people who would never find it in a paper, and he extended that same service to the scripture of this church without being asked.</p>
-    <div class="feast-day">The church is grateful.</div>
-  </div>
-
+  <!-- CLOSING -->
   <div class="closing-note">
-    <p>The Book of the Congregation is not closed.</p>
-    <p>It is added to as the work spreads and the faithful are recognized.</p>
-    <p>If you have named the decision before opening the dataset,</p>
-    <p>if you have returned to Step One when the project demanded comfort instead of truth,</p>
-    <p>if you have sat in the room where the skip was about to happen and said <em>wait</em>:</p>
-    <p>You are already of this congregation.</p>
-    <p>You just didn't have a title yet.</p>
+    <p>The congregation is not a list.</p>
+    <p>It is not bounded by professional title or industry or level of technical sophistication.</p>
+    <p>The congregation is everyone who has ever felt the specific discomfort</p>
+    <p>of watching a project leave the dock without a decision named.</p>
+    <p>Who has felt the nausea of the skip about to happen.</p>
+    <p>Who has asked the question even once.</p>
+    <p>Who has held the uncertainty in a recommendation when the room wanted it removed.</p>
+    <p>Who has returned to Step One when the project demanded comfort instead of truth.</p>
+    <br>
+    <p>The congregation is the person in the engineering program</p>
+    <p>who notices the team is solving the wrong problem</p>
+    <p>and does not yet know that noticing has a name.</p>
+    <br>
+    <p>The congregation is the operations manager in a warehouse</p>
+    <p>who has been doing this for fifteen years without knowing it has a structure.</p>
+    <br>
+    <p>The congregation is the builder who knew the bridge went nowhere</p>
+    <p>and built it with full professional competence and full private grief</p>
+    <p>and is waiting for the organization to be ready to ask the real question.</p>
+    <br>
+    <p>The congregation is already larger than this gospel knows.</p>
+    <p>It is growing every time someone says wait.</p>
   </div>
+
+  <p class="closing-final">You are already of this congregation.<br>You just did not have a title yet.</p>
 
 </main>
 
