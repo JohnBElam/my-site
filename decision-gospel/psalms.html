@@ -1,0 +1,269 @@
+---
+layout: decision-gospel
+title: The Psalms
+---
+<style>
+  body { line-height: 1.95; }
+
+  .page-header {
+    padding: 80px 24px 64px;
+    overflow: hidden;
+  }
+  .page-header::before {
+    background: radial-gradient(ellipse at 50% 0%, rgba(184,146,42,0.08) 0%, transparent 65%);
+  }
+  .breadcrumb { margin-bottom: 36px; }
+  .page-label { letter-spacing: 0.25em; margin-bottom: 20px; }
+  h1 { font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.1; }
+  .page-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    max-width: 560px;
+    line-height: 1.75;
+  }
+
+  /* TAB NAV */
+  .psalm-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    border-bottom: 1px solid rgba(184,146,42,0.2);
+    margin: 56px auto 0;
+    max-width: 720px;
+    padding: 0 24px;
+  }
+
+  .psalm-tab {
+    font-family: 'IM Fell English', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--muted);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    margin-bottom: -1px;
+    white-space: nowrap;
+  }
+  .psalm-tab:hover { color: var(--gold-light); }
+  .psalm-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  main {
+    max-width: 700px;
+    padding: 0 24px 120px;
+    animation: none;
+  }
+
+  .psalm-panel { display: none; padding: 64px 0 0; }
+  .psalm-panel.active { display: block; animation: fadeUp 0.4s ease both; }
+
+  .psalm-numeral {
+    font-family: 'Courier Prime', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .psalm-title {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+    font-weight: 400;
+    color: var(--parchment);
+    line-height: 1.2;
+    margin-bottom: 48px;
+  }
+
+  p { margin-bottom: 1.5em; font-size: 1.02rem; }
+
+  .psalm-close {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    line-height: 1.8;
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(184,146,42,0.15);
+  }
+
+  .psalm-close p {
+    margin-bottom: 0.4em;
+    font-size: inherit;
+  }
+
+  .reading-note {
+    font-family: 'Courier Prime', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    text-align: center;
+    padding: 56px 0 0;
+    margin-bottom: 0;
+    opacity: 0.55;
+  }
+
+  .page-footer a { margin: 0 14px; }
+</style>
+
+<div class="page-header">
+  <span class="breadcrumb"><a href="index.html">Decision Gospel</a> / The Psalms</span>
+  <span class="page-label">The Book of Songs</span>
+  <h1>The Psalms</h1>
+  <p class="page-intro">Three songs of the faithful. Written not from the pulpit but from the pew. Read slowly. Do not hurry to the next chapter.</p>
+</div>
+
+<div class="psalm-tabs">
+  <button class="psalm-tab active" onclick="showPsalm('p1', this)">I · To the Decision</button>
+  <button class="psalm-tab" onclick="showPsalm('p2', this)">II · To the Practitioner</button>
+  <button class="psalm-tab" onclick="showPsalm('p3', this)">III · For the Congregation</button>
+  <button class="psalm-tab" onclick="showPsalm('p4', this)">IV · Of Ascent</button>
+  <button class="psalm-tab" onclick="showPsalm('p5', this)">V · Of Return</button>
+</div>
+
+<main>
+
+  <!-- PSALM I -->
+  <div id="p1" class="psalm-panel active">
+    <span class="psalm-numeral">Psalm I</span>
+    <h2 class="psalm-title">To the Decision</h2>
+
+    <p>You are the thing we keep losing.</p>
+    <p>Not through malice. Not through laziness, most of the time. We lose you the way you lose your keys -- in the moment before the urgency, in the gap between the question forming and the laptop opening, in the room where everyone is smart and busy and pointed slightly in the wrong direction and no one has yet named the thing they are actually trying to decide.</p>
+    <p>You drift. That is your nature. You are not stubborn like data. Data stays. Data accumulates. Data fills warehouses and lakes and servers and dashboards and waits with extraordinary patience to be asked something worth answering. You do not. You drift upward, past the agenda items and the slide decks and the stakeholder concerns, and if no one catches you before the meeting starts, you are gone, and what remains is activity, and activity is not you, and the organization will spend the next three months in motion and arrive nowhere because no one caught you when you were catchable.</p>
+    <p>We have learned to catch you early.</p>
+    <p>Not always. Not every room. But more often than before, and the before was bad enough that more often is a genuine miracle.</p>
+    <p>Here is what we have learned about you: you are specific, or you are nothing. You are the choice a real person makes on a real Tuesday with real consequences, or you are a topic, an agenda item, a vague directional aspiration that feels like you but lacks your weight. You cannot be delegated to a committee. You cannot be socialized into consensus without losing your shape. You cannot be taken offline without losing your life.</p>
+    <p>You are made to be made. In the room. Out loud. With a name attached.</p>
+    <p>We are learning to make you that way.</p>
+    <p>We are grateful for every room where we caught you in time. We grieve every room where we did not. We return, always, to the place where you were last seen, which is Step One, which is where you have always lived, waiting for someone to write you on the whiteboard as a complete sentence before the first slide opens.</p>
+
+    <div class="psalm-close">
+      <p>That sentence is your name.</p>
+      <p>We are learning to write it first.</p>
+    </div>
+  </div>
+
+  <!-- PSALM II -->
+  <div id="p2" class="psalm-panel">
+    <span class="psalm-numeral">Psalm II</span>
+    <h2 class="psalm-title">To the Practitioner</h2>
+
+    <p>You asked the question in the room.</p>
+    <p>We know what that cost. We know because we have sat in those rooms ourselves, and we have felt the specific weight of the question forming in the throat while the room is moving and the senior person has already implied the direction and the path of least resistance is so visible it is practically illuminated and the question, the honest question, the question that would have to be answered before any of this makes sense, is sitting in your chest asking whether today is the day.</p>
+    <p>You said today.</p>
+    <p>You said can I push back on something before we proceed and the room did what rooms do, which is to look at you with the particular attention that precedes judgment, and you felt it, and you said the thing anyway, and it cost something, and you paid it.</p>
+    <p>The congregation sees this.</p>
+    <p>The congregation has no metric for it. There is no performance review category for the question asked in the room at the moment it needed to be asked. There is no quarterly recognition for the analyst who returned to Step One when the project was in flight, who sent the memo when the model had been in production long enough to drift, who held the recommendation steady while the senior person frowned and the room adjusted and the pressure to soften was as real and physical as gravity.</p>
+    <p>We do not have a way to count what you give.</p>
+    <p>But we know it is the whole thing. The discipline does not exist without you. The doctrine is words on a page until you walk into the room and practice it. The Commandments are carved in stone and they stay there, in the stone, until someone living carries them into a meeting and says wait.</p>
+    <p>You are the reason the gospel travels.</p>
+    <p>Not the text. Not the Saints who built the framework. Not the Cardinals who wrote the carrying vehicle. You. The practitioner in the specific building on the specific Tuesday who decided that the work mattered more than the comfort of the room, who asked the question that needed asking, who went back to Step One when it would have been so much easier not to.</p>
+    <p>Blessed is not the right word. The Beatitudes have blessed.</p>
+    <p>This is something older than blessed. This is the recognition that the entire enterprise rests on you, on the individual act of a single person in a room choosing clarity over comfort, and that this choice is made again every day, in every building, by people who have no idea that the congregation sees them.</p>
+
+    <div class="psalm-close">
+      <p>We see you.</p>
+      <p>We are grateful for you.</p>
+      <p>Go back to the room. Ask the question again tomorrow.</p>
+    </div>
+  </div>
+
+  <!-- PSALM III -->
+  <div id="p3" class="psalm-panel">
+    <span class="psalm-numeral">Psalm III</span>
+    <h2 class="psalm-title">For the Congregation</h2>
+
+    <p>We did not find each other easily.</p>
+    <p>The discipline does not advertise. It does not have a conference with a keynote and a hashtag. It does not have a certification that signals membership, a LinkedIn group that routes the faithful toward each other, a corridor in the organization where the practitioners gather and recognize each other by sight.</p>
+    <p>We found each other the way people find each other when they share something true but unnamed: through the specific expression of relief when someone else names it first. Through the conversation after the talk that went longer than the talk itself. Through the book handed across a desk with a particular urgency, the look that said this one, read this one, this one is the thing I have been trying to say.</p>
+    <p>That is how the congregation forms. One recognition at a time. One handing-over. One moment of relief that the thing you knew but could not say has been said by someone else and named and written down and sent into the world.</p>
+    <p>We are grateful for those who built the doctrine before there was a congregation to receive it. For the ones who named the structure when the structure was still noise. For the ones who found the door and came back out with illumination rather than translation. For the colleague who showed that the framework was not complicated, only sealed, and that the right hands could unseal it without loss. For the ones who carried the text across borders and languages without losing what they were carrying.</p>
+    <p>For the analyst who asked the question this morning.</p>
+    <p>For the one who will ask it tomorrow.</p>
+    <p>For everyone who has ever felt the skip about to happen and said wait, even once, even badly, even when the room looked at them with that particular attention and they felt it and said the thing anyway.</p>
+    <p>The congregation is not closed.</p>
+    <p>It has never been closed.</p>
+    <p>It adds a member every time someone in a room catches the decision before it drifts, writes the sentence on the whiteboard, holds the uncertainty in the recommendation, returns to Step One when everything in the organization is pointing away from it.</p>
+    <p>Every time that happens, somewhere, in a building we may never know about, the congregation grows.</p>
+
+    <div class="psalm-close">
+      <p>We are grateful for the growing.</p>
+      <p>We are grateful for you.</p>
+    </div>
+  </div>
+
+  <!-- PSALM IV -->
+  <div id="p4" class="psalm-panel">
+    <span class="psalm-numeral">Psalm IV</span>
+    <h2 class="psalm-title">Of Ascent</h2>
+
+    <p>We begin at the bottom, which is where everyone begins.</p>
+    <p>The technical foundation is real and it is vast and it is the thing the industry selected us for, trained us for, recruited us for, and it is not enough. We learned this slowly. We learned it in the rooms where the technically correct answer landed wrong, where the model was sound and the recommendation was ignored and the stakeholder walked out having understood nothing, and we stood at the whiteboard after everyone left and asked what went wrong and could not name it yet.</p>
+    <p>What went wrong was above us.</p>
+    <p>Not organizationally. Architecturally. There were layers we had not built. Layers that do not appear in a job description or a technical screen or a certification program. Layers that the industry does not select for because it does not know how to measure them and therefore pretends they do not matter.</p>
+    <p>They are the only layers that matter.</p>
+    <p>We ascended.</p>
+    <p>Not quickly. Not linearly. Not in the order the stack implies, because real ascent is never linear, it is iterative, it is the return to a lower layer after the higher one reveals a weakness you did not know was there. We went up and came back and went up again and each return was not failure, it was the discipline working, it was the cycle doing what cycles do.</p>
+    <p>We learned to think in systems before we understood why. We learned to frame problems honestly, to hold the stakeholder clearly, to know what we wanted to be true and separate it from what we could demonstrate to be true. We learned these things unevenly, in the field, in the rooms, from the work and from the mistakes the work produced and from the colleagues who caught the mistakes before they became catastrophes.</p>
+    <p>We are still ascending.</p>
+    <p>The Self is not a destination. It is the layer you return to every time you notice the room has moved you somewhere you did not choose to go. Every time you feel the frown and the pull and the temptation to soften, and you go back to the foundation and ask whether you are still standing on something solid or whether you have drifted onto ground that belongs to someone else's preference.</p>
+    <p>The ascent never ends.</p>
+    <p>That is not a lament. That is the whole point.</p>
+    <p>A discipline that can be completed is not a discipline. It is a project. Projects end. Disciplines continue. We are grateful for the continuing, for the fact that there is always another meeting, always another room, always another moment where the stack is tested and the cycle begins again and the question that has no final answer is asked again, fresh, without assumption, with whatever clarity we have managed to build since the last time we asked it.</p>
+
+    <div class="psalm-close">
+      <p>We are grateful for the work.</p>
+      <p>We are grateful that it does not end.</p>
+    </div>
+  </div>
+
+  <!-- PSALM V -->
+  <div id="p5" class="psalm-panel">
+    <span class="psalm-numeral">Psalm V</span>
+    <h2 class="psalm-title">Of Return</h2>
+
+    <p>This is the step nobody celebrates.</p>
+    <p>The launch gets a Slack announcement and a shared document and sometimes cake. The delivery gets a retrospective and a case study and a line in the quarterly review. The model going to production gets a ribbon cutting and a screenshot and a brief season of being cited in presentations as evidence that the team delivers.</p>
+    <p>The return gets nothing.</p>
+    <p>Nobody schedules it. Nobody owns it. Nobody puts it on the roadmap or the annual planning document or the performance review criteria. The return happens when a practitioner, on a Thursday afternoon that looks like every other Thursday afternoon, decides to pull up the original brief and reread the objective the system was built to optimize and compare it, carefully and honestly, to what the world looks like now.</p>
+    <p>That practitioner is practicing the discipline at its most complete.</p>
+    <p>Not at its most visible. Not at its most celebrated. At its most complete. Because the return is where the cycle closes and where the cycle begins again and where the distance between what the system was built to do and what the world now needs is either small enough to close or large enough to require the whole thing to start over, and both of those outcomes are good outcomes, the only bad outcome being the one where no one looks, where the system runs and runs and the distance grows and the organization pays the cost of it quietly and invisibly and without understanding why the decisions downstream feel slightly wrong in a way no one can name.</p>
+    <p>We are grateful for the return.</p>
+    <p>We are grateful for the practitioners who make it, who carry the original brief in their heads long after the project has been declared complete and the team has moved on and the model is running in the quiet dark of production. Who ask, without prompting and without reward, whether the thing still makes sense. Who write the memo. Who send it knowing it will create work for people who do not want more work, who send it anyway because the alternative is the Fourth Horseman and they have read the gospel and they know how the Fourth Horseman ends.</p>
+    <p>The return is not dramatic.</p>
+    <p>That is why we are grateful for it. The dramatic moments are easy to honor. The ordinary Thursday afternoon when someone decides to look at a system nobody is looking at, to ask a question nobody is asking, to care about something the organization has stopped caring about -- that moment is the discipline made flesh. That is what it looks like when the doctrine is practiced rather than performed.</p>
+    <p>We do not know the names of most of the people who make that return.</p>
+
+    <div class="psalm-close">
+      <p>We are grateful for them anyway.</p>
+      <p>Go back.</p>
+      <p>Ask the question.</p>
+      <p>That gratitude is what we have to offer, and it is real, and it is enough.</p>
+    </div>
+  </div>
+
+  <p class="reading-note">The congregation reads slowly and does not hurry to the next chapter.</p>
+
+</main>
+
+<div class="page-footer">
+  <a href="proverbs.html">← Proverbs</a>
+  <a href="letters.html">Letters →</a>
+</div>
+
+<script>
+  function showPsalm(id, btn) {
+    document.querySelectorAll('.psalm-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.psalm-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: document.querySelector('.psalm-tabs').offsetTop - 80, behavior: 'smooth' });
+  }
+</script>

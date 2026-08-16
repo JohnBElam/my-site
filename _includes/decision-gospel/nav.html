@@ -1,5 +1,5 @@
 {%- comment -%}
-Sticky 15-link Decision Gospel nav. Included from _layouts/decision-gospel.html,
+Sticky Decision Gospel nav. Included from _layouts/decision-gospel.html,
 so every chapter page gets the same nav without re-declaring it. The active
 page is detected from the filename segment of page.url.
 {%- endcomment -%}
@@ -20,4 +20,9 @@ page is detected from the filename segment of page.url.
   <a href="lamentations.html"{% if here == "lamentations.html" %} class="active"{% endif %}>Lamentations</a>
   <a href="four-horsemen.html"{% if here == "four-horsemen.html" %} class="active"{% endif %}>Four Horsemen</a>
   <a href="practitioner.html"{% if here == "practitioner.html" %} class="active"{% endif %}>Practitioner</a>
+  <a href="proverbs.html"{% if here == "proverbs.html" %} class="active"{% endif %}>Proverbs</a>
+  <a href="psalms.html"{% if here == "psalms.html" %} class="active"{% endif %}>Psalms</a>
+  <a href="letters.html"{% if here == "letters.html" %} class="active"{% endif %}>Letters</a>
+  <a href="warnings.html"{% if here == "warnings.html" %} class="active"{% endif %}>Warnings</a>
+  <a href="closing.html"{% if here == "closing.html" %} class="active"{% endif %}>Closing</a>
 </nav>
