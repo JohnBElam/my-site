@@ -9,3 +9,12 @@ Gemfile.lock
 .bundle/
 vendor/
 Cursor Dump/
+
+# LaTeX build output from the Decision Gospel print sources.
+# Scoped to decision-gospel/ so the site's own image assets are unaffected.
+decision-gospel/stack-diagram-preview.pdf
+decision-gospel/stack-diagram-preview.png
+decision-gospel/*.aux
+decision-gospel/*.log
+decision-gospel/*.out
+decision-gospel/*.synctex.gz
