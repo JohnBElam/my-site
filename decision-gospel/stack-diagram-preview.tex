@@ -1,0 +1,30 @@
+% Throwaway 6x9 preview of the Decision Stack diagram.
+% Compile from this directory: pdflatex stack-diagram-preview.tex
+\documentclass[12pt]{article}
+\usepackage[paperwidth=6in, paperheight=9in, margin=0.75in]{geometry}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{fix-cm}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\vspace*{1.2in}
+\begin{center}
+  {\fontsize{8}{10}\selectfont\ttfamily\color[RGB]{184,146,42} PART ONE}\\[0.4em]
+  {\fontsize{22}{26}\selectfont The Stack}
+\end{center}
+\vspace{0.6em}
+\begin{center}
+  \small\itshape Five layers. Each one earns the next. Most practitioners start at the bottom\\
+  and assume the rest will follow. It does not follow.\\
+  It has to be built, in order, from the inside out.
+\end{center}
+\vspace{1.2em}
+
+\input{stack-diagram}
+
+\end{document}
