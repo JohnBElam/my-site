@@ -35,6 +35,12 @@ document.addEventListener("DOMContentLoaded", function() {
     --purple: #8e44ad;
     --muted: #7a7060;
     --rule: #c8b89a;
+    --risk-lo: #c0392b;
+    --risk-lo-soft: rgba(192,57,43,0.06);
+    --risk-lo-line: rgba(192,57,43,0.45);
+    --risk-hi: #c8960c;
+    --risk-hi-soft: rgba(200,150,12,0.10);
+    --risk-hi-line: rgba(200,150,12,0.50);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -325,6 +331,150 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   .footer-sda-link:hover { color: var(--ink); }
 
+  /* ---- Aside callout ---- */
+  .aside {
+    margin: 16px 0;
+    padding: 12px 16px;
+    background: rgba(0,0,0,0.025);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--rule);
+    border-radius: 3px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .aside .aside-h {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink); display: block; margin-bottom: 6px; opacity: 0.7;
+  }
+
+  /* ---- Risk section accent ---- */
+  .risk-section .section-label { color: var(--risk-lo); }
+  .risk-section .section-label::after { background: var(--risk-lo-line); }
+  .risk-section h2 { color: var(--risk-lo); }
+  .risk-section .formula-box {
+    border-left: 3px solid var(--risk-lo);
+    background: var(--risk-lo-soft);
+  }
+  .new-flag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--paper); background: var(--risk-lo);
+    padding: 2px 7px; border-radius: 2px; margin-left: 8px; vertical-align: 1px;
+  }
+
+  /* ---- Interactive distribution chart ---- */
+  .viz {
+    margin: 24px 0 8px;
+    border: 1.5px solid var(--risk-lo-line);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.5);
+    overflow: hidden;
+  }
+  .viz-head { padding: 16px 18px 4px; }
+  .viz-head .viz-t {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--risk-lo);
+  }
+  .viz-head .viz-s {
+    font-size: 14px; font-style: italic; color: var(--muted); margin-top: 5px; line-height: 1.45;
+  }
+  .viz-stage { padding: 6px 10px 0; }
+  .viz svg { display: block; width: 100%; height: auto; }
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 18px 28px;
+    padding: 10px 18px 18px; align-items: flex-end;
+  }
+  .ctrl { flex: 1 1 220px; }
+  .ctrl label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    display: flex; justify-content: space-between; margin-bottom: 8px;
+  }
+  .ctrl label b { color: var(--risk-lo); font-weight: 600; }
+  .seg {
+    display: inline-flex; border: 1px solid var(--rule);
+    border-radius: 3px; overflow: hidden;
+  }
+  .seg button {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    padding: 5px 12px; background: rgba(255,255,255,0.5); color: var(--muted);
+    border: 0; cursor: pointer; border-right: 1px solid var(--rule);
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button.on { background: var(--risk-lo); color: var(--paper); font-weight: 600; }
+  .readout {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    color: var(--muted); padding: 0 18px 18px; line-height: 1.7;
+  }
+  .readout b { color: var(--ink); }
+  .readout .risk { color: var(--risk-lo); }
+  .readout .up { color: var(--risk-hi); }
+
+  /* ---- Two-pane viz: weighting pad + distribution ---- */
+  .viz-panes { display: flex; align-items: stretch; }
+  .viz-pane-pad {
+    flex: 0 0 286px;
+    border-right: 1px solid var(--rule);
+    padding: 10px 12px 12px;
+  }
+  .viz-pane-dist { flex: 1 1 auto; min-width: 0; padding: 6px 10px 0; }
+  .pane-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 6px;
+  }
+  @media (max-width: 760px) {
+    .viz-panes { flex-direction: column; }
+    .viz-pane-pad {
+      flex: 1 1 auto; border-right: 0; border-bottom: 1px solid var(--rule);
+    }
+  }
+
+  /* ---- Shape presets ---- */
+  .presets {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 12px 18px 4px;
+  }
+  .presets button {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    padding: 4px 10px; border-radius: 3px; cursor: pointer;
+    border: 1px solid var(--rule); background: rgba(255,255,255,0.5); color: var(--muted);
+  }
+  .presets button:hover { border-color: var(--risk-lo-line); color: var(--ink); }
+  .presets button.on {
+    background: var(--risk-lo); border-color: var(--risk-lo);
+    color: var(--paper); font-weight: 600;
+  }
+  .presets button.on.hi { background: var(--risk-hi); border-color: var(--risk-hi); }
+
+  /* ---- Distribution + pad SVG paint ---- */
+  #density { fill: rgba(56,182,255,0.14); stroke: var(--blue); stroke-width: 1.5; }
+  #tailfill { fill: var(--risk-lo); fill-opacity: 0.20; stroke: none; }
+  .pad-frame { fill: rgba(255,255,255,0.6); stroke: var(--rule); stroke-width: 1; }
+  .pad-coherent { fill: var(--green); fill-opacity: 0.10; stroke: var(--green); stroke-opacity: 0.35; stroke-width: 1; }
+  .pad-grid { stroke: var(--rule); stroke-width: 0.5; stroke-dasharray: 2 3; }
+  .pad-preset { fill: var(--muted); fill-opacity: 0.45; cursor: pointer; }
+  .pad-preset:hover { fill-opacity: 0.9; }
+  .pad-axis {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    fill: var(--muted); letter-spacing: 0.08em;
+  }
+  .viz-pane-pad svg { touch-action: none; }
+  .pad-dot { fill: var(--risk-lo); stroke: var(--paper); stroke-width: 2; cursor: grab; }
+  .pad-dot.out { fill: var(--risk-hi); }
+  #phicurve { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+  #phifill { stroke: none; fill: var(--ink); fill-opacity: 0.07; }
+
+  /* ---- Coherence status line ---- */
+  .coh-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    line-height: 1.65; padding: 10px 18px 0; color: var(--muted);
+  }
+  .coh-note b { color: var(--green); }
+  .coh-note.warn b { color: var(--risk-hi); }
+
 </style>
 </head>
 <body>
@@ -345,7 +495,10 @@ document.addEventListener("DOMContentLoaded", function() {
   <div class="header">
     <div class="kicker">Sequential Decision Analytics &mdash; Applied to Life</div>
     <h1>The Life Objective Function</h1>
-    <div class="subtitle">What are you actually maximizing?</div>
+    <div class="subtitle">What are you actually maximizing &mdash; and what happens when the dice only roll once?</div>
+    <div class="subtitle" style="font-size:14px;max-width:52ch;margin:10px auto 0;">
+      Expected value is a promise the universe only keeps if you play forever. You play once. This page now optimizes for that fact.
+    </div>
   </div>
 
   <div class="section">
@@ -409,16 +562,24 @@ document.addEventListener("DOMContentLoaded", function() {
   </div>
 
   <div class="master">
-    $$V_t^C(S_t) \;=\; \max_{\pi = (f \in \mathcal{F},\, \theta \in \Theta)}\; \mathbb{E}\!\left[\,\sum_{t'=t}^{T} C\!\left(S_{t'},\, X_{t'}^\pi(S_{t'} \mid \theta)\right)\right]$$
+    $$V_t^C(S_t) \;=\; \max_{\pi = (f \in \mathcal{F},\, \theta \in \Theta)}\; \rho_{\varphi}\!\left[\,\sum_{t'=t}^{T} C\!\left(S_{t'},\, X_{t'}^\pi(S_{t'} \mid \theta)\right)\right]$$
   </div>
 
   <div class="annotation">
     $V_t^C(S_t)$ is the value of being in state $S_t$ at time $t$, <em>conditional on having chosen objective $C$</em>.
     The agent searches over policy $\pi = (f \in \mathcal{F},\, \theta \in \Theta)$.
-    $\theta$ includes the expectation profile $E^*$ as a distinguished sub-parameter:
-    $\theta = (\theta_{-E},\, E^*)$ — called out because expectations enter the contribution
-    in two places (happiness gap $H_t$ and action elasticity), but still just parameters.
-    The contribution function $C = \omega_t \cdot J(S_t, E_t)$ where $J = A(S_t) + \beta H_t$.
+    The contribution function is $C = \omega_t \cdot J(S_t, E_t)$ where $J = A(S_t) + \beta H_t$.
+  </div>
+
+  <div class="annotation" style="margin-top:14px;">
+    The change from earlier versions of this page is the operator out front. The objective is no longer aggregated
+    by a bare expectation. It is aggregated by $\rho_{\varphi}$ — a weighting over which of your possible lives
+    count, and how much. The parameter vector now carries its two shape parameters:
+    $\theta = (\theta_{-E},\, E^*,\, a,\, b)$.
+    Expectations $E^*$ still enter the contribution in two places — the happiness gap $H_t$ and the action elasticity —
+    and are called out for that reason. The weighting is the second distinguished sub-parameter, and
+    <a href="#risk" class="footer-sda-link">Component 10</a> is where it earns its place.
+    Set $\varphi \equiv 1$ and you recover the risk-neutral objective this page used to carry.
   </div>
 
   <div class="divider"></div>
@@ -668,7 +829,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="section-label">Component 9</div>
     <h2>The Policy Search</h2>
     <div class="formula-box">
-      $$\pi^* \;=\; \underset{f \in \mathcal{F},\; \theta \in \Theta}{\arg\max}\; \mathbb{E}\!\left[\sum_{t=0}^{T} C\!\left(S_t,\, X_t^{f,\theta}(S_t)\right)\right], \qquad \theta = (\theta_{-E},\, E^*)$$
+      $$\pi^* \;=\; \underset{f \in \mathcal{F},\; \theta \in \Theta}{\arg\max}\; \rho_{\varphi}\!\left[\sum_{t=0}^{T} C\!\left(S_t,\, X_t^{f,\theta}(S_t)\right)\right], \qquad \theta = (\theta_{-E},\, E^*,\, a,\, b)$$
     </div>
     <div class="annotation">
       Two-level search. (1) Choose a policy class $f \in \mathcal{F}$ — the structure of the
@@ -676,6 +837,9 @@ document.addEventListener("DOMContentLoaded", function() {
       The expectation profile $E^*$ is part of $\theta$ — not a separate search variable, but a
       distinguished sub-parameter worth naming explicitly because it enters the objective in two places:
       through the happiness gap $H_t = \sum_i \lambda_i(i_t - E_t^i)$, and through the elasticity of action $\eta_i = \partial X_t^\pi / \partial E_t^i$.
+      The weighting $\varphi$, carried by its two shape parameters $(a, b)$, is the other named sub-parameter.
+      It does not change any single decision — it changes which of your possible lives the whole trajectory
+      is scored against.
     </div>
     <div class="annotation" style="margin-top:14px;">
       <strong>What policies actually look like.</strong> A policy for maintaining health might be:
@@ -701,8 +865,280 @@ document.addEventListener("DOMContentLoaded", function() {
 
   <div class="divider"></div>
 
-  <div class="section">
-    <div class="section-label">Component 10</div>
+  <div class="section risk-section" id="risk">
+    <div class="section-label">Component 10 <span class="new-flag">New</span></div>
+    <h2>Which Lives You Count</h2>
+
+    <div class="annotation">
+      Expected value is an honest objective for a casino. The casino plays a billion hands.
+      The law of large numbers does its work, the average shows up, the house collects.
+    </div>
+
+    <div class="annotation" style="margin-top:14px;">
+      The casino is not risk-neutral because it is brave. It is risk-neutral because it plays
+      every hand in the distribution. Weighting every outcome equally is the correct objective
+      for whoever gets to live all the lives. You get one draw.
+    </div>
+
+    <div class="annotation" style="margin-top:14px;">
+      Let $G^\pi$ be the lifetime total you accumulate under policy $\pi$ — a random variable
+      across the worlds you might land in:
+    </div>
+
+    <div class="formula-box">
+      $$G^\pi \;=\; \sum_{t'=t}^{T} C\!\left(S_{t'},\, X_{t'}^\pi(S_{t'} \mid \theta)\right)$$
+    </div>
+
+    <div class="annotation">
+      You will never receive $\mathbb{E}[G^\pi]$. Nobody receives an average. Sort every life you
+      might live from worst to best and index them by $u \in [0,1]$. The life sitting at rank $u$
+      is the quantile $q_u(G) = F_G^{-1}(u)$. One $u$ gets drawn, once, and you spend the rest of your
+      life inside it.
+    </div>
+
+    <div class="annotation" style="margin-top:14px;">
+      So the question was never what your possible lives average to. The question is which of them
+      you built for. That is a weighting. Put a function $\varphi$ over the ranks — how much each
+      possible life counts when you choose a policy — and every objective anyone has ever proposed
+      turns out to be one shape of it:
+    </div>
+
+    <div class="formula-box">
+      $$\rho_\varphi[G] \;=\; \int_0^1 q_u(G)\,\varphi(u)\,du, \qquad \varphi \ge 0, \quad \int_0^1 \varphi(u)\,du = 1$$
+    </div>
+
+    <div class="annotation">
+      The distribution of $G$ is the fact about the world. $\varphi$ is what you decide to do about it.
+      Every argument anyone has ever had about risk is an argument about the shape of this curve.
+    </div>
+
+    <div class="annotation" style="margin-top:14px;">
+      <strong>Flat.</strong> $\varphi \equiv 1$. Every possible life counts the same, which gives you
+      $\mathbb{E}[G]$ back. The casino's answer, and the right one for the casino, because it actually
+      plays every $u$.
+    </div>
+
+    <div class="annotation" style="margin-top:10px;">
+      <strong>All the mass at $u = 0$.</strong> Maximin. Wald. Build the entire life around the worst
+      thing that could happen to it.
+    </div>
+
+    <div class="annotation" style="margin-top:10px;">
+      <strong>A flat shelf over the worst $(1-\alpha)$.</strong> $\mathrm{CVaR}_\alpha$ — the page you
+      were reading a moment ago.
+    </div>
+
+    <div class="annotation" style="margin-top:10px;">
+      <strong>All the mass at $u = 1$.</strong> Maximax. Buy the ticket and assume you win it.
+    </div>
+
+    <div class="annotation" style="margin-top:10px;">
+      <strong>Mass at both ends, thin in the middle.</strong> Hurwicz's optimism-pessimism blend, 1951.
+      Also, empirically, most human beings: vivid about catastrophe, vivid about the jackpot, bored by
+      the eighty percent of the distribution they will almost certainly land in.
+    </div>
+
+    <div class="annotation" style="margin-top:10px;">
+      <strong>A hump in the middle.</strong> Plans carefully for the typical case and refuses to look at
+      either tail. This one has no famous name and no defenders, and it is very common.
+    </div>
+
+    <div class="annotation" style="margin-top:14px;">
+      <strong>Why CVaR is the good pessimistic shelf.</strong> $\mathrm{VaR}_\alpha$ gives you the
+      threshold of the bad five percent and says nothing about what lies past it — a life mildly below
+      the line and a life catastrophically below it look identical to VaR. $\mathrm{CVaR}_\alpha$ averages
+      the whole tail instead of pointing at its edge, which is what makes it the mean of your worst
+      $(1-\alpha)$ lives rather than a fact about one of them.
+    </div>
+
+    <div class="annotation" style="margin-top:14px;">
+      Now the question that broke the previous version of this page. Every repair on offer was pessimistic.
+      Why can you not weight the <em>good</em> tail? Hope is not obviously less rational than fear.
+    </div>
+
+    <div class="annotation" style="margin-top:14px;">
+      <strong>Because of a theorem.</strong> $\rho_\varphi$ is a coherent risk measure if and only if
+      $\varphi$ is non-increasing — if and only if a worse life never counts for less than a better one.
+      Tilt any stretch of the curve upward and you lose subadditivity, the property guaranteeing that
+      spreading a bet across two independent things is never worse than concentrating it. An optimistic
+      $\varphi$ prefers concentration. It wants everything on one number.
+    </div>
+
+    <div class="annotation" style="margin-top:14px;">
+      There is a second bill. Maximizing $\rho_\varphi$ is a concave program under the same condition,
+      and only under that condition. Outside it the optimizer runs to the corners and hands back the
+      highest-variance policy available, every time, regardless of what the distribution looks like.
+      Taken literally and left unconstrained, optimism does not give advice. It says buy the lottery ticket.
+    </div>
+
+    <div class="annotation" style="margin-top:14px;">
+      None of which makes optimism forbidden. It makes it <em>expensive</em>, and precise about the price.
+      You can weight the top. You are spending an axiom to do it, you should know which one, and you should
+      put a floor under the bad tail before you start.
+    </div>
+
+    <div class="aside">
+      <span class="aside-h">The honest optimistic program</span>
+      Do not blend the good tail into the objective and hope. Constrain instead:
+      maximize $\mathbb{E}\!\left[G \mid G \ge q_\beta(G)\right]$ subject to $\mathrm{CVaR}_\alpha(G) \ge \underline{g}$.
+      Swing for the upper tail, but only among policies whose bad tail stays livable. The objective is still
+      not concave; the constraint set is, and the floor is what stops the corner solution from being ruin.
+      This is Roy's safety-first criterion, and it is what people mean when they say they can afford
+      to take a shot.
+    </div>
+
+    <div class="annotation" style="margin-top:14px;">
+      <strong>Making it a dial.</strong> A function is not a control you can hand a reader, so take a
+      two-parameter family that moves continuously between the shapes above:
+    </div>
+
+    <div class="formula-box">
+      $$\varphi_{a,b}(u) \;\propto\; u^{\,a-1}(1-u)^{\,b-1}$$
+    </div>
+
+    <div class="annotation">
+      Two numbers. Push $a$ below one and weight piles onto the bad lives; push $b$ below one and it piles
+      onto the good ones. At $a = b = 1$ the curve is flat and you are the casino. Both below one gives the
+      bathtub. Both above one gives the hump. And the theorem stops being an axiom and becomes territory:
+      $\varphi_{a,b}$ is non-increasing exactly when $a \le 1$ <em>and</em> $b \ge 1$. That is a rectangle.
+      You can stand inside it or step out of it, and the chart below will tell you which you are doing.
+    </div>
+
+    <div class="annotation" style="margin-top:14px;">
+      One honesty note before you touch it: $\mathrm{CVaR}_\alpha$ is <em>not</em> in this family. A Beta
+      curve is smooth and CVaR has a hard edge at its cutoff. The family is CVaR's smooth relative, not its
+      container — so the chart keeps CVaR as its own preset and draws the step exactly as it is.
+    </div>
+
+    <div class="viz" aria-label="Interactive weighting of life outcomes">
+      <div class="viz-head">
+        <div class="viz-t">Which lives you are counting</div>
+        <div class="viz-s">Left: the weighting $\varphi$ over ranks, and the $(a,b)$ pad it comes from — the shaded rectangle is coherence. Right: the same distribution of lifetime totals, shaded where you are counting a life for more than the casino would. Drag the dot, or pick a shape.</div>
+      </div>
+
+      <div class="viz-panes">
+        <div class="viz-pane-pad">
+          <div class="pane-label">The weighting</div>
+          <svg viewBox="0 0 260 306" role="img" aria-label="The weighting curve phi over outcome ranks, and the a-b parameter pad showing which settings remain coherent">
+            <path id="phifill" d=""></path>
+            <path id="phicurve" d=""></path>
+            <line x1="26" y1="96" x2="244" y2="96" stroke="#c8b89a" stroke-width="1"></line>
+            <text class="pad-axis" x="26" y="110">worst</text>
+            <text class="pad-axis" x="135" y="110" text-anchor="middle">rank u</text>
+            <text class="pad-axis" x="244" y="110" text-anchor="end">best</text>
+
+            <rect class="pad-frame" x="52" y="146" width="188" height="140"></rect>
+            <rect class="pad-coherent" id="cohrect" x="52" y="146" width="0" height="0"></rect>
+            <text class="pad-axis" id="cohlabel" x="0" y="0">coherent</text>
+            <line class="pad-grid" id="gridv" x1="0" y1="146" x2="0" y2="286"></line>
+            <line class="pad-grid" id="gridh" x1="52" y1="0" x2="240" y2="0"></line>
+            <g id="padpresets"></g>
+            <circle id="paddot" class="pad-dot" cx="0" cy="0" r="6"></circle>
+            <text class="pad-axis" id="ticka" x="0" y="298" text-anchor="middle">1</text>
+            <text class="pad-axis" id="tickb" x="46" y="0" text-anchor="end">1</text>
+            <text class="pad-axis" x="240" y="298" text-anchor="end">a &rarr;</text>
+            <text class="pad-axis" x="46" y="152" text-anchor="end">b</text>
+          </svg>
+        </div>
+
+        <div class="viz-pane-dist">
+          <div class="pane-label">Your possible lives</div>
+          <svg viewBox="0 0 720 320" role="img" aria-label="Density of lifetime outcomes, shaded by the weighting, with markers for the mean and the weighted objective">
+            <defs>
+              <linearGradient id="wgrad" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="700" y2="0">
+                <stop id="gs0" offset="0" stop-opacity="0"></stop>
+                <stop id="gs1" offset="1" stop-opacity="0"></stop>
+              </linearGradient>
+            </defs>
+            <line x1="40" y1="270" x2="700" y2="270" stroke="#c8b89a" stroke-width="1"></line>
+            <path id="density" d=""></path>
+            <path id="tailfill" d=""></path>
+            <path id="weightfill" d="" fill="url(#wgrad)" stroke="none"></path>
+            <line id="varline" x1="0" y1="60" x2="0" y2="270" stroke="rgba(192,57,43,0.45)" stroke-width="1" stroke-dasharray="4 4"></line>
+            <text id="varlabel" x="0" y="50" fill="#c0392b" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">VaR</text>
+            <line id="meanline" x1="0" y1="80" x2="0" y2="270" stroke="#7a7060" stroke-width="1"></line>
+            <text id="meanlabel" x="0" y="70" fill="#7a7060" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">E[G]</text>
+            <line id="objline" class="obj-marker" x1="0" y1="92" x2="0" y2="270" stroke="#c0392b" stroke-width="2.5" style="transition: all .25s ease;"></line>
+            <circle id="objdot" class="obj-marker" cx="0" cy="270" r="5" fill="#c0392b" style="transition: all .25s ease;"></circle>
+            <text id="objlabel" class="obj-marker" x="0" y="305" fill="#c0392b" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" text-anchor="middle" style="transition: all .25s ease;">objective</text>
+            <text x="370" y="295" fill="#7a7060" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">lifetime total  G  &rarr;</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="presets" id="presets">
+        <button data-mode="beta" data-a="1" data-b="1" class="on">Casino</button>
+        <button data-mode="cvar">CVaR (step)</button>
+        <button data-mode="beta" data-a="0.3" data-b="1">Pessimist</button>
+        <button data-mode="beta" data-a="1" data-b="0.3" class="hi">Optimist</button>
+        <button data-mode="beta" data-a="0.4" data-b="0.4" class="hi">Hurwicz</button>
+        <button data-mode="beta" data-a="0.6" data-b="0.6" class="hi">Human</button>
+        <button data-mode="beta" data-a="3" data-b="3" class="hi">Middle-planner</button>
+      </div>
+
+      <div class="controls">
+        <div class="ctrl" style="flex:0 0 auto;">
+          <label>CVaR confidence <span>&alpha;</span></label>
+          <div class="seg" id="alphaseg">
+            <button data-a="0.90">0.90</button>
+            <button data-a="0.95" class="on">0.95</button>
+            <button data-a="0.99">0.99</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="coh-note" id="cohnote"></div>
+      <div class="readout" id="readout"></div>
+    </div>
+
+    <div class="annotation" style="margin-top:18px;">
+      <strong>$\varphi$ is part of the policy, not a fact about the world.</strong> It joins $\theta$ as the
+      pair $(a, b)$. Two people facing identical odds with different $\varphi$ run different lives, and both
+      can be right, because the cost of the bad tail is not the same for a 25-year-old with no dependents as
+      it is for a sole earner with three. The <a href="#regret" class="footer-sda-link">Regret</a> section
+      already said the risk metric is part of the policy. This is that claim promoted from a footnote on
+      regret to the operator on the objective.
+    </div>
+
+    <div class="annotation" style="margin-top:14px;">
+      Which leaves the instruction. Not <em>be less risk-averse</em>, and not <em>be more optimistic</em>.
+      Pick the shape on purpose, know what it costs, and stop inheriting it from your nerves.
+    </div>
+
+    <div class="aside">
+      <span class="aside-h">A note for the careful</span>
+      A spectral measure on the whole life total $G$ is static and terminal, and static risk measures are
+      not time-consistent: the tail you optimize at 20 is not the conditional tail you re-optimize at 50.
+      Nesting the measure restores consistency and gives up the clean one-life interpretation. For a life you
+      run exactly once, the terminal object is the honest one. Re-solve as the filtration updates, and do not
+      pretend the re-solve was the original plan.
+    </div>
+
+    <div class="aside">
+      <span class="aside-h">Ergodicity, again</span>
+      This is the same disease the log-utility move treats. The expectation is an ensemble average over a
+      multiverse of yous. Log utility fixes it by reshaping the contribution into a growth rate. A pessimistic
+      $\varphi$ fixes it by reweighting the distribution toward the tail you would have to live in. They compose.
+      Apply $\rho_\varphi$ to log contributions and you get both: protection against the bad draw and
+      respect for the fact that you compound through time, not across copies.
+    </div>
+
+    <div class="aside">
+      <span class="aside-h">Where this comes from</span>
+      The $\varphi$ representation is the theory of spectral risk measures (Acerbi), sitting on Kusuoka's
+      representation of law-invariant coherent measures; the non-increasing condition is the coherence
+      requirement. The two-tailed blend is Hurwicz's optimism-pessimism criterion, 1951. The observation that
+      real people weight both tails and ignore the middle is rank-dependent utility and cumulative prospect
+      theory. The convex form of $\mathrm{CVaR}$ that keeps any of this optimizable is Rockafellar and Uryasev:
+      $$\mathrm{CVaR}_{\alpha}(G) \;=\; \sup_{\zeta \in \mathbb{R}}\;\left\{\, \zeta \;-\; \frac{1}{1-\alpha}\,\mathbb{E}\!\left[(\zeta - G)^+\right] \right\}$$
+      with optimizer $\zeta^\star = \mathrm{VaR}_{\alpha}(G)$.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section" id="regret">
+    <div class="section-label">Component 11</div>
     <h2>Regret</h2>
     <div class="formula-box">
       $$R_{\text{post}} \;=\; \int_0^T \Bigl(J\!\bigl(S_t^* \mid W\bigr) \;-\; J(S_t)\Bigr)\, dt$$
@@ -731,18 +1167,19 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
     <div class="annotation" style="margin-top:14px;">
       <strong>The risk metric is part of the policy.</strong> Minimizing $\mathbb{E}[R_{\text{ante}}]$ produces
-      one policy. Minimizing $\text{CVaR}_{95}(R_{\text{ante}})$ produces a different one.
-      CVaR$_{95}$ — Conditional Value at Risk at the 95th percentile — is the average regret
-      in the worst 5% of possible life outcomes. It asks: if things go badly, how badly do they go?
-      Optimizing for CVaR$_{95}$ means building a life robust to bad luck,
-      even at the cost of some expected value. Most people implicitly do this and call it being responsible.
+      one policy. Minimizing a tail-weighted regret produces a different one.
+      This is the same weighting and the same operator from <a href="#risk" class="footer-sda-link">Component 10</a>,
+      pointed at regret instead of joy. Regret is a loss, so the ranking reverses: apply $\varphi(1-u)$ instead of
+      $\varphi(u)$ and the shelf lands on the worst 5% of <em>regret</em>, which is the high end. Same curve,
+      read backwards. The idea is unchanged — build a life robust to bad luck, even at the cost of some
+      expected value. Most people implicitly do this and call it being responsible. Now it has a shape.
     </div>
   </div>
 
   <div class="divider"></div>
 
   <div class="section">
-    <div class="section-label">Component 11</div>
+    <div class="section-label">Component 12</div>
     <h2>Expectation Elasticity</h2>
     <p class="annotation" style="font-style:normal;color:#2a2a2a;font-size:15px;line-height:1.6;margin-top:0;padding-left:0;">
       Expectations do two jobs at once. They are a reference point for happiness &mdash;
@@ -782,7 +1219,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <div class="divider"></div>
 
   <div class="section">
-    <div class="section-label">Component 12</div>
+    <div class="section-label">Component 13</div>
     <h2>Expectations Are Partially Controllable</h2>
     <p class="annotation" style="font-style:normal;color:#2a2a2a;font-size:15px;line-height:1.6;margin-top:0;padding-left:0;">
       The model treats $E^*$ as a choice variable. In practice, expectations are not free parameters &mdash;
@@ -915,13 +1352,384 @@ document.addEventListener("DOMContentLoaded", function() {
       </div>
     </div>
 
+    <div class="insight-row">
+      <div class="insight-num">09</div>
+      <div class="insight-text">
+        <strong>You get one draw, so decide which of your possible lives you are building for.</strong>
+        Expected value is the right objective only when you play enough times to average out, and it is what
+        you get by counting every possible life equally. You do not live every possible life. Sort them worst
+        to best and the weighting $\varphi$ says which ones count — flat is the casino, weight on the bottom is
+        prudence, weight on the top is hope, and hope costs you an axiom you should know you are spending.
+        Pick the shape deliberately, scale it to what a bad draw would actually cost you, and never let an
+        unrepeatable life be planned as if it were repeatable.
+      </div>
+    </div>
+
   </div>
 
   <div class="footer">
-    <div class="footer-left">SDA Framework &mdash; <a href="https://castle.princeton.edu/" target="_blank" rel="noopener noreferrer" class="footer-sda-link">W. Powell</a></div>
-    <div class="footer-right">Joy: maximize. Happiness: feel. Regret: minimize.</div>
+    <div class="footer-left">
+      <div><a href="{{ '/' | relative_url }}" class="footer-sda-link">&larr; Back to johnbelam.com</a></div>
+      <div>SDA Framework &mdash; <a href="https://castle.princeton.edu/" target="_blank" rel="noopener noreferrer" class="footer-sda-link">W. Powell</a>. CVaR after Rockafellar &amp; Uryasev; spectral weightings after Acerbi and Kusuoka; the optimism index after Hurwicz.</div>
+    </div>
+    <div class="footer-right">Joy: maximize. Happiness: feel. Regret: minimize. Risk: shape on purpose.</div>
   </div>
 
 </div>
+
+<script>
+(function () {
+  // Deterministic skewed distribution of lifetime outcomes.
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  var rng = mulberry32(20260623);
+  var N = 6000;
+  var samples = [];
+  for (var i = 0; i < N; i++) {
+    // rough normal via sum of uniforms, then a left-skewing penalty -> heavier downside tail
+    var z = (rng() + rng() + rng() + rng() + rng() + rng()) - 3; // ~N(0, .5)
+    var base = 62 + z * 16;
+    var shock = rng();
+    if (shock < 0.10) base -= (0.10 - shock) * 320; // occasional deep downside (ruin-ish)
+    samples.push(base);
+  }
+  samples.sort(function (a, b) { return a - b; });
+  var lo = samples[0], hi = samples[N - 1];
+  var mean = samples.reduce(function (s, x) { return s + x; }, 0) / N;
+
+  // histogram for density path
+  var BINS = 90;
+  var hist = new Array(BINS).fill(0);
+  for (var j = 0; j < N; j++) {
+    var b = Math.min(BINS - 1, Math.floor((samples[j] - lo) / (hi - lo) * BINS));
+    hist[b]++;
+  }
+  var maxH = Math.max.apply(null, hist);
+
+  // SVG geometry
+  var X0 = 40, X1 = 700, Y0 = 270, YTOP = 70;
+  function valToX(v) { return X0 + (v - lo) / (hi - lo) * (X1 - X0); }
+  function binCenterVal(b) { return lo + (b + 0.5) / BINS * (hi - lo); }
+  function histY(h) { return Y0 - (h / maxH) * (Y0 - YTOP); }
+
+  // build full density path (area)
+  function densityPath(fromVal, toVal) {
+    var d = "";
+    var started = false;
+    for (var b = 0; b < BINS; b++) {
+      var cv = binCenterVal(b);
+      if (cv < fromVal || cv > toVal) continue;
+      var x = valToX(cv), y = histY(hist[b]);
+      if (!started) { d += "M " + valToX(Math.max(fromVal, lo)) + " " + Y0 + " L " + x + " " + y; started = true; }
+      else { d += " L " + x + " " + y; }
+    }
+    if (started) {
+      var lastX = valToX(Math.min(toVal, hi));
+      d += " L " + lastX + " " + Y0 + " Z";
+    }
+    return d;
+  }
+
+  var density = document.getElementById("density");
+  density.setAttribute("d", densityPath(lo, hi));
+
+  var tailfill = document.getElementById("tailfill");
+  var weightfill = document.getElementById("weightfill");
+  var varline = document.getElementById("varline");
+  var varlabel = document.getElementById("varlabel");
+  var meanline = document.getElementById("meanline");
+  var meanlabel = document.getElementById("meanlabel");
+  var objline = document.getElementById("objline");
+  var objdot = document.getElementById("objdot");
+  var objlabel = document.getElementById("objlabel");
+  var readout = document.getElementById("readout");
+  var cohnote = document.getElementById("cohnote");
+
+  var padSvg = document.querySelector(".viz-pane-pad svg");
+  var phicurve = document.getElementById("phicurve");
+  var phifill = document.getElementById("phifill");
+  var paddot = document.getElementById("paddot");
+  var cohrect = document.getElementById("cohrect");
+  var cohlabel = document.getElementById("cohlabel");
+  var gridv = document.getElementById("gridv");
+  var gridh = document.getElementById("gridh");
+  var ticka = document.getElementById("ticka");
+  var tickb = document.getElementById("tickb");
+  var padpresets = document.getElementById("padpresets");
+  var grad = document.getElementById("wgrad");
+
+  var mx = valToX(mean);
+  meanline.setAttribute("x1", mx); meanline.setAttribute("x2", mx);
+  meanlabel.setAttribute("x", mx);
+  weightfill.setAttribute("d", densityPath(lo, hi));
+
+  // empirical rank (CDF) at each histogram bin center, for the tint gradient
+  var binRank = [];
+  (function () {
+    var cum = 0;
+    for (var b = 0; b < BINS; b++) { binRank.push((cum + hist[b] / 2) / N); cum += hist[b]; }
+  })();
+
+  // ---------------- state ----------------
+  var mode = "beta";              // "beta" (Beta family) | "cvar" (literal step)
+  var A = 1, B = 1, alpha = 0.95;
+
+  // The Beta shape parameters live on a log axis so the sub-1 region gets real estate.
+  var PMIN = 0.12, PMAX = 3.6;
+  var LMIN = Math.log(PMIN), LSPAN = Math.log(PMAX) - LMIN;
+  var PX0 = 52, PX1 = 240, PY0 = 286, PY1 = 146;
+
+  function padX(a) { return PX0 + (Math.log(a) - LMIN) / LSPAN * (PX1 - PX0); }
+  function padY(b) { return PY0 - (Math.log(b) - LMIN) / LSPAN * (PY0 - PY1); }
+  function padA(x) { return Math.exp(LMIN + (x - PX0) / (PX1 - PX0) * LSPAN); }
+  function padB(y) { return Math.exp(LMIN + (PY0 - y) / (PY0 - PY1) * LSPAN); }
+  function clampP(v) { return Math.min(PMAX, Math.max(PMIN, v)); }
+
+  // Unnormalized weight on the life at rank u. Normalization happens on the sample grid.
+  function phiRaw(u) {
+    if (mode === "cvar") return u <= (1 - alpha) ? 1 / (1 - alpha) : 0;
+    return Math.pow(u, A - 1) * Math.pow(1 - u, B - 1);
+  }
+
+  function isCoherent() { return mode === "cvar" || (A <= 1.0001 && B >= 0.9999); }
+
+  // red at the worst ranks, gold at the best
+  function rankColor(u) {
+    return "rgb(" + Math.round(192 + 8 * u) + "," +
+                    Math.round(57 + 93 * u) + "," +
+                    Math.round(43 - 31 * u) + ")";
+  }
+
+  // ---------------- static pad furniture ----------------
+  cohrect.setAttribute("x", PX0);
+  cohrect.setAttribute("y", PY1);
+  cohrect.setAttribute("width", padX(1) - PX0);
+  cohrect.setAttribute("height", padY(1) - PY1);
+  cohlabel.setAttribute("x", PX0 + 6);
+  cohlabel.setAttribute("y", PY1 + 13);
+  gridv.setAttribute("x1", padX(1)); gridv.setAttribute("x2", padX(1));
+  gridh.setAttribute("y1", padY(1)); gridh.setAttribute("y2", padY(1));
+  ticka.setAttribute("x", padX(1));
+  tickb.setAttribute("y", padY(1) + 3);
+
+  var NS = "http://www.w3.org/2000/svg";
+
+  var stops = [];
+  while (grad.firstChild) grad.removeChild(grad.firstChild);
+  for (var s = 0; s < BINS; s++) {
+    var st = document.createElementNS(NS, "stop");
+    st.setAttribute("offset", ((binCenterVal(s) - lo) / (hi - lo)).toFixed(4));
+    st.setAttribute("stop-opacity", "0");
+    grad.appendChild(st);
+    stops.push(st);
+  }
+
+  var presetBtns = Array.prototype.slice.call(
+    document.getElementById("presets").querySelectorAll("button")
+  );
+
+  presetBtns.forEach(function (btn) {
+    if (btn.getAttribute("data-mode") !== "beta") return;
+    var c = document.createElementNS(NS, "circle");
+    c.setAttribute("class", "pad-preset");
+    c.setAttribute("r", "3.5");
+    c.setAttribute("cx", padX(parseFloat(btn.getAttribute("data-a"))));
+    c.setAttribute("cy", padY(parseFloat(btn.getAttribute("data-b"))));
+    var title = document.createElementNS(NS, "title");
+    title.textContent = btn.textContent;
+    c.appendChild(title);
+    c.addEventListener("click", function () { selectPreset(btn); });
+    padpresets.appendChild(c);
+  });
+
+  // ---------------- the weighting curve ----------------
+  function drawPhi() {
+    var M = 200, us = [], i;
+    for (i = 0; i < M; i++) us.push((i + 0.5) / M);
+    if (mode === "cvar") {
+      var cut = 1 - alpha;
+      us.push(cut - 1e-6, cut + 1e-6);
+      us.sort(function (x, y) { return x - y; });
+    }
+
+    var vals = us.map(phiRaw);
+    var area = 0;
+    for (i = 1; i < us.length; i++) area += (vals[i] + vals[i - 1]) / 2 * (us[i] - us[i - 1]);
+    if (!isFinite(area) || area <= 0) area = 1;
+
+    var norm = vals.map(function (v) { return isFinite(v) ? v / area : 0; });
+    var peak = Math.max(1.6, Math.min(24, Math.max.apply(null, norm)));
+
+    var GX0 = 26, GX1 = 244, GY0 = 96, GY1 = 24;
+    var pts = [];
+    for (i = 0; i < us.length; i++) {
+      var x = GX0 + us[i] * (GX1 - GX0);
+      var y = GY0 - Math.min(norm[i], peak) / peak * (GY0 - GY1);
+      pts.push(x.toFixed(2) + " " + y.toFixed(2));
+    }
+    phicurve.setAttribute("d", "M " + pts.join(" L "));
+    phifill.setAttribute("d", "M " + GX0 + " " + GY0 + " L " + pts.join(" L ") + " L " + GX1 + " " + GY0 + " Z");
+  }
+
+  // ---------------- objective ----------------
+  function recompute() {
+    var i, u;
+
+    // rho_phi as a weighted average of order statistics
+    var w = new Array(N), sum = 0;
+    for (i = 0; i < N; i++) {
+      u = (i + 0.5) / N;
+      var p = phiRaw(u);
+      if (!isFinite(p) || p < 0) p = 0;
+      w[i] = p; sum += p;
+    }
+    var rho = 0;
+    if (sum > 0) { for (i = 0; i < N; i++) rho += (w[i] / sum) * samples[i]; }
+    else rho = mean;
+
+    var coherent = isCoherent();
+
+    if (mode === "cvar") {
+      var kIdx = Math.max(1, Math.floor((1 - alpha) * N));
+      var varVal = samples[kIdx - 1];
+      var vx = valToX(varVal);
+
+      tailfill.setAttribute("d", densityPath(lo, varVal));
+      varline.setAttribute("x1", vx); varline.setAttribute("x2", vx);
+      varlabel.setAttribute("x", vx);
+      varlabel.textContent = "VaR " + alpha.toFixed(2);
+      varline.style.display = ""; varlabel.style.display = "";
+      paddot.style.display = "none";
+      for (i = 0; i < stops.length; i++) stops[i].setAttribute("stop-opacity", "0");
+
+      readout.innerHTML =
+        "E[G] = <b>" + mean.toFixed(1) + "</b> &nbsp;|&nbsp; " +
+        "VaR<sub>" + alpha.toFixed(2) + "</sub> = <b>" + varVal.toFixed(1) + "</b> &nbsp;|&nbsp; " +
+        "&phi; = CVaR step (&alpha; = " + alpha.toFixed(2) + ") &nbsp;&rarr;&nbsp; " +
+        "&rho;<sub>&phi;</sub> = <span class='risk'><b>" + rho.toFixed(1) + "</b></span>";
+    } else {
+      tailfill.setAttribute("d", "");
+      varline.style.display = "none"; varlabel.style.display = "none";
+      paddot.style.display = "";
+      paddot.setAttribute("cx", padX(A));
+      paddot.setAttribute("cy", padY(B));
+      paddot.setAttribute("class", coherent ? "pad-dot" : "pad-dot out");
+
+      // shade where this weighting counts a life for more than the casino would
+      for (i = 0; i < stops.length; i++) {
+        u = binRank[i];
+        var pn = sum > 0 ? phiRaw(u) * N / sum : 1;
+        var over = Math.max(0, Math.min(1, (pn - 1) / 2));
+        stops[i].setAttribute("stop-color", rankColor(u));
+        stops[i].setAttribute("stop-opacity", (0.55 * over).toFixed(3));
+      }
+
+      readout.innerHTML =
+        "E[G] = <b>" + mean.toFixed(1) + "</b> &nbsp;|&nbsp; " +
+        "&phi; = Beta(a = " + A.toFixed(2) + ", b = " + B.toFixed(2) + ") &nbsp;&rarr;&nbsp; " +
+        "&rho;<sub>&phi;</sub> = <span class='" + (coherent ? "risk" : "up") + "'><b>" +
+        rho.toFixed(1) + "</b></span>";
+    }
+
+    var col = coherent ? "#c0392b" : "#c8960c";
+    var ox = valToX(rho);
+    objline.setAttribute("x1", ox); objline.setAttribute("x2", ox);
+    objline.setAttribute("stroke", col);
+    objdot.setAttribute("cx", ox);
+    objdot.setAttribute("fill", col);
+    objlabel.setAttribute("x", ox);
+    objlabel.setAttribute("fill", col);
+
+    cohnote.className = coherent ? "coh-note" : "coh-note warn";
+    cohnote.innerHTML = coherent
+      ? "&#10003; <b>Non-increasing.</b> A worse life never counts for less than a better one, so &rho; is coherent and the search over &pi; stays a concave program."
+      : "&#9888; <b>Rising somewhere.</b> Subadditivity is spent: this objective prefers concentration to diversification, and left unconstrained it runs to whichever policy has the most variance.";
+
+    drawPhi();
+  }
+
+  // ---------------- controls ----------------
+  function setActive(btn) {
+    presetBtns.forEach(function (b) { b.classList.remove("on"); });
+    if (btn) btn.classList.add("on");
+  }
+
+  function selectPreset(btn) {
+    if (btn.getAttribute("data-mode") === "cvar") {
+      mode = "cvar";
+    } else {
+      mode = "beta";
+      A = parseFloat(btn.getAttribute("data-a"));
+      B = parseFloat(btn.getAttribute("data-b"));
+    }
+    setActive(btn);
+    recompute();
+  }
+
+  presetBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () { selectPreset(btn); });
+  });
+
+  var seg = document.getElementById("alphaseg");
+  seg.addEventListener("click", function (e) {
+    var btn = e.target.closest("button");
+    if (!btn) return;
+    alpha = parseFloat(btn.getAttribute("data-a"));
+    seg.querySelectorAll("button").forEach(function (b) { b.classList.remove("on"); });
+    btn.classList.add("on");
+    mode = "cvar";
+    setActive(presetBtns.filter(function (b) { return b.getAttribute("data-mode") === "cvar"; })[0]);
+    recompute();
+  });
+
+  var dragging = false;
+
+  function padPoint(evt) {
+    var ctm = padSvg.getScreenCTM();
+    if (!ctm) return null;
+    var pt = padSvg.createSVGPoint();
+    pt.x = evt.clientX; pt.y = evt.clientY;
+    return pt.matrixTransform(ctm.inverse());
+  }
+
+  function applyPad(evt) {
+    var p = padPoint(evt);
+    if (!p) return;
+    A = clampP(padA(Math.min(PX1, Math.max(PX0, p.x))));
+    B = clampP(padB(Math.min(PY0, Math.max(PY1, p.y))));
+    mode = "beta";
+    setActive(null);
+    recompute();
+  }
+
+  padSvg.addEventListener("pointerdown", function (e) {
+    var p = padPoint(e);
+    if (!p || p.y < PY1 - 12 || p.y > PY0 + 12) return; // ignore the curve preview above the pad
+    dragging = true;
+    try { padSvg.setPointerCapture(e.pointerId); } catch (err) {}
+    applyPad(e);
+    e.preventDefault();
+  });
+  padSvg.addEventListener("pointermove", function (e) {
+    if (!dragging) return;
+    applyPad(e);
+    e.preventDefault();
+  });
+  padSvg.addEventListener("pointerup", function (e) {
+    dragging = false;
+    try { padSvg.releasePointerCapture(e.pointerId); } catch (err) {}
+  });
+  padSvg.addEventListener("pointercancel", function () { dragging = false; });
+
+  recompute();
+})();
+</script>
+
 </body>
 </html>
