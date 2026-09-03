@@ -1,4 +1,12 @@
 # Home page “Featured Appearances” marquee — podcasts, panels, video
+- badge: Video
+  href: "https://youtu.be/rh6LO9z5eUs"
+  image: decisioncamp-orphaned-decision-systems.jpg
+  image_alt: "DecisionCAMP 2026 — Orphaned Decision Systems"
+  show: DecisionCAMP 2026
+  title: "Orphaned Decision Systems"
+  meta: "Aug 2026 · Jacob Feldman"
+
 - badge: Podcast
   href: "https://decisionintelligencelab.substack.com/p/22-john-brandon-elam-building-a-decision"
   image: decision-intelligence-lab.png
