@@ -41,8 +41,8 @@ Until you set `formspree_id`, the site shows a short note telling you to add it.
 - **Books:** `_data/books.yml`. *The Decision Factory* is the main spotlight; add other Bit Bros books there or on `books.html`.
 - **Writing elsewhere (Medium):** `_data/external_links.yml` — add your Decision Systems and Gaming Is Good article titles and URLs.
 - **On-site blog:** Add markdown files in `_posts/` with front matter (`layout: post`, `title`, `date`, `excerpt`).
-- **Decision Gospel (mini-site):** HTML under `decision-gospel/`; permalinks are set in `_config.yml` defaults. Old `/scripture/...` URLs are no longer published here; restore host-level redirects if you still need them.
-- **Gaming Is Good (mini-site):** HTML under `gaming-is-good/`; same permalink pattern as Decision Gospel via `_config.yml`.
+- **Decision Gospel:** Lives at [thedecisiongospel.com](https://thedecisiongospel.com/). Thin redirect stubs under `decision-gospel/` keep old `/decision-gospel/*` bookmarks working (best-effort map to matching paths on the new site). The header tab links out to the external site.
+- **Gaming Is Good (mini-site):** HTML under `gaming-is-good/`; permalink pattern via `_config.yml`.
 - **Life Objective Function (mini-site):** Standalone HTML under `life-objective-function/` (`index.html` is "The Formula", `life-decays.html` is "The Decay Curves", `the-lives.html` is "The Lives"); permalink set in `_config.yml` defaults; linked from the main header as **The Formula**.
 
 ## Optional pages
@@ -53,28 +53,25 @@ Until you set `formspree_id`, the site shows a short note telling you to add it.
 
 ## Project structure
 
-Most of the site is Jekyll-managed and uses shared layouts/includes. The standalone HTML subtrees (`gaming-is-good`, `life-objective-function`) use minimal Jekyll front matter to include `google-analytics.html` in each page; `decision-gospel` uses a layout that does the same.
+Most of the site is Jekyll-managed and uses shared layouts/includes. The standalone HTML subtrees (`gaming-is-good`, `life-objective-function`) use minimal Jekyll front matter to include `google-analytics.html` in each page. Old Decision Gospel URLs use `_includes/external_redirect.html` stubs.
 
 ```
 _config.yml                 # Jekyll config + per-mini-site permalinks + excludes
 _layouts/
   default.html              # Header + footer shell used by main-site pages
   post.html                 # Wraps posts, extends default.html
-  decision-gospel.html      # Shell for decision-gospel/*.html (shared head + nav)
 _includes/
   header.html               # Main-site top nav (hamburger → X on mobile)
   footer.html               # Main-site footer
   google-analytics.html     # gtag snippet (included from every page's <head>)
-  decision-gospel/
-    nav.html                # Sticky 15-link Decision Gospel nav
+  external_redirect.html    # Thin meta/JS redirect stub for moved URLs
   ...                       # book_card, contact_form, appearances_marquee, etc.
 _data/                      # YAML content (books, testimonials, appearances, external_links)
 _posts/                     # Blog posts (layout: post → default)
 assets/
   css/style.css             # Main-site stylesheet (used via default.html)
-  css/decision-gospel.css   # Shared styles for all decision-gospel/*.html pages
   js/main.js                # Site-wide JS (mobile nav, marquee, carousel, typing, reveal)
-decision-gospel/            # Mini-site: uses layout: decision-gospel
+decision-gospel/            # Redirect stubs → thedecisiongospel.com
 gaming-is-good/             # Mini-site: standalone HTML + gg-shared.css + gg-data.js
 life-objective-function/    # Mini-site: standalone HTML, self-contained styles + sub-nav
 index.html, bitbros.html,   # Main-site pages (layout: default)
@@ -82,9 +79,9 @@ index.html, bitbros.html,   # Main-site pages (layout: default)
   philosophy.html
 ```
 
-**Layout chain:** `_posts/*.md` → `_layouts/post.html` → `_layouts/default.html`; main-site HTML pages use `layout: default` directly; `decision-gospel/*.html` uses `layout: decision-gospel`.
+**Layout chain:** `_posts/*.md` → `_layouts/post.html` → `_layouts/default.html`; main-site HTML pages use `layout: default` directly.
 
-**Mini-site conventions:** `decision-gospel/` shares a Jekyll layout and stylesheet; per-page `<style>` blocks only hold rules unique to that page (e.g. the pyramid diagram in `practitioner.html`, the horsemen palette in `four-horsemen.html`). `gaming-is-good/` has not been migrated to a shared layout and still uses per-page inline styles plus `gg-shared.css` and `gg-data.js`.
+**Mini-site conventions:** `gaming-is-good/` uses per-page inline styles plus `gg-shared.css` and `gg-data.js`. `life-objective-function/` is self-contained HTML with its own sub-nav.
 
 ## Serving locally
 
