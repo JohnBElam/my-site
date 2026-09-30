@@ -4,7 +4,7 @@
 
 ### Product overview
 
-Static Jekyll personal site (GitHub Pages). One dev server serves the main site plus mini-sites under `decision-gospel/`, `gaming-is-good/`, and `life-objective-function/`. No Node, database, or backend API.
+Static Jekyll personal site (GitHub Pages). One dev server serves the main site plus mini-sites under `gaming-is-good/` and `life-objective-function/`. Decision Gospel lives at https://thedecisiongospel.com/; `/decision-gospel/*` on this host are redirect stubs. No Node, database, or backend API.
 
 ### System prerequisites
 

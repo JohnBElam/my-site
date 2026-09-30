@@ -1,0 +1,20 @@
+{%- comment -%}
+Thin client-side redirect stub for URLs that moved off this host.
+Pass redirect_to as an absolute URL, e.g.:
+  {% include external_redirect.html redirect_to="https://example.com/path/" %}
+{%- endcomment -%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include google-analytics.html %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="0; url={{ include.redirect_to }}">
+  <link rel="canonical" href="{{ include.redirect_to }}">
+  <title>Moved</title>
+  <script>location.replace({{ include.redirect_to | jsonify }});</script>
+</head>
+<body style="font-family: system-ui, sans-serif; padding: 2rem; max-width: 40rem; line-height: 1.6;">
+  <p>This page has moved to <a href="{{ include.redirect_to }}">{{ include.redirect_to }}</a>.</p>
+</body>
+</html>
