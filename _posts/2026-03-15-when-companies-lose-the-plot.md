@@ -6,6 +6,10 @@ date: 2026-03-15
 excerpt: "FedEx just told us exactly where they're headed. I've seen this movie before."
 author: John Brandon Elam
 tags: [decision-systems, strategy, AI, logistics, transformation]
+cta:
+  eyebrow: "About to get faster in the wrong direction?"
+  headline: "I help leadership name the decision before the agents scale whatever strategy is already in the building."
+  topic: "Naming the decision before scaling AI"
 ---
 
 # When Companies Lose the Plot

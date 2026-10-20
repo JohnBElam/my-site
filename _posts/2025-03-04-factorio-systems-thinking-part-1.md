@@ -4,6 +4,10 @@ title: "Factorio Taught Me Systems Thinking (Part I)"
 date: 2025-03-04 10:00:00 -0500
 excerpt: "What this game teaches: Systems thinking through automation and scale."
 author: John Brandon Elam
+cta:
+  eyebrow: "The bottleneck only one person can see?"
+  headline: "I help teams make the system visible: the constraint, the policy, and what happens when you scale it."
+  topic: "Making the system visible"
 ---
 
 *What this game teaches: Systems thinking through automation and scale.*
