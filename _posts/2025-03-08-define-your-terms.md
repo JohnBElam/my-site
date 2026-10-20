@@ -4,6 +4,10 @@ title: "Define Your Terms or Stop Using Them"
 date: 2025-03-08
 excerpt: "Why the smartest-sounding people in the room are often contributing the least."
 author: John Brandon Elam
+cta:
+  eyebrow: "Fluent in the words, fuzzy on the decision?"
+  headline: "I help teams turn AI vocabulary into a decision they can actually run."
+  topic: "From AI vocabulary to a decision"
 ---
 
 *Why the smartest-sounding people in the room are often contributing the least.*

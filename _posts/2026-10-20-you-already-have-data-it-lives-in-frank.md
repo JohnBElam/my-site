@@ -5,6 +5,10 @@ date: 2026-10-20
 excerpt: "Clients ask how you start without data. You do what you were going to do anyway. Then you tell the computer."
 author: John Brandon Elam
 tags: [decision-systems, priors, supply-chain, judgment]
+cta:
+  eyebrow: "The range is still in someone's head?"
+  headline: "I help teams write down the prior and the lean, then start the loop so the next Frank does not walk out with the policy."
+  topic: "Starting from expert judgment"
 ---
 
 ## The Question

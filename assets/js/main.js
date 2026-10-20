@@ -2,8 +2,8 @@
  * Site-wide JS for pages built on _layouts/default.html.
  *
  * Modules (run top-to-bottom, guarded by their own selectors):
- *   1. Scroll reset        — force the page to load at the top, regardless of
- *                            browser scroll restoration or form-field autofocus.
+ *   1. Scroll reset        — force the page to load at the top, unless a hash
+ *                            names a section (blog CTAs land on #contact).
  *   2. Mobile nav toggle   — morph the three-bar button into an "X" and open
  *                            the full-screen menu (see .nav-toggle in style.css).
  *   3. Marquee             — continuous horizontal loop for featured appearances.
@@ -27,13 +27,48 @@
   'use strict';
 
   // Scroll reset — preserves "top of page" UX when the browser or a focused
-  // form field would otherwise restore the previous scroll position.
+  // form field would otherwise restore the previous scroll position. A hash
+  // (for example /?topic=...#contact from a post CTA) wins, so the named
+  // section stays in view under the fixed header. Late-loading images above
+  // that section can shove it back down, so we re-align briefly after load.
+  function hashTarget() {
+    var hash = window.location.hash;
+    if (!hash || hash.length < 2) return null;
+    return document.getElementById(hash.slice(1));
+  }
+
+  function scrollToStart() {
+    var target = hashTarget();
+    if (target) {
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+      return;
+    }
+    window.scrollTo(0, 0);
+  }
+
   if (typeof history !== 'undefined' && history.scrollRestoration) {
     history.scrollRestoration = 'manual';
   }
-  window.scrollTo(0, 0);
-  window.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 0); });
-  window.addEventListener('load', function () { window.scrollTo(0, 0); });
+  scrollToStart();
+  window.addEventListener('DOMContentLoaded', scrollToStart);
+  window.addEventListener('load', function () {
+    scrollToStart();
+    var until = Date.now() + 1500;
+    document.querySelectorAll('img').forEach(function (img) {
+      if (img.complete) return;
+      img.addEventListener('load', function () {
+        if (Date.now() > until || !hashTarget()) return;
+        scrollToStart();
+      });
+    });
+  });
+
+  // Contact subject — blog CTAs pass ?topic= so the Formspree email names the post.
+  var contactSubject = document.getElementById('contact-subject');
+  if (contactSubject) {
+    var topic = new URLSearchParams(window.location.search).get('topic');
+    if (topic) contactSubject.value = topic;
+  }
 
   // Mobile nav toggle — keeps aria-expanded and aria-label in sync with the
   // visual hamburger-to-X morph (see .nav-toggle[aria-expanded="true"] in CSS).

@@ -5,6 +5,10 @@ date: 2026-07-01
 excerpt: "People ask me to define a policy in one sentence. I never give them one. I give them a car lot instead."
 author: John Brandon Elam
 tags: [decision-systems, policy, strategy]
+cta:
+  eyebrow: "Still making the tradeoff in the moment?"
+  headline: "I help teams write the policy while they are calm, so it still runs when the pressure shows up."
+  topic: "Writing a decision policy"
 ---
 
 People ask me to define a policy in one sentence. I never give them one. I give them a car lot instead.

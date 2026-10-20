@@ -11,4 +11,5 @@ layout: default
   <div class="post-content prose">
     {{ content }}
   </div>
+  {% if page.cta %}{% include post_cta.html %}{% endif %}
 </article>

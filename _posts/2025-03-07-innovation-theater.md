@@ -4,6 +4,10 @@ title: "Innovation Theater: When Companies Mistake Performance for Progress"
 date: 2025-03-07 10:00:00 -0500
 excerpt: "Why Real Builders Leave and Mediocrity Gets Promoted"
 author: John Brandon Elam
+cta:
+  eyebrow: "The deck is winning and the builders are leaving?"
+  headline: "I help organizations stop performing innovation and point the work at a decision that pays."
+  topic: "Pointing innovation at a real decision"
 ---
 
 *Why Real Builders Leave and Mediocrity Gets Promoted*
